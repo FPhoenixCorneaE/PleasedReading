@@ -1,0 +1,28 @@
+/*
+* dependencies.gradle文件配置主要包括几方面
+* 1. android编译相关;
+* 2. module使用到的library;
+* 3. testing配置;
+* 4. dependencies配置相关;
+*/
+
+ext {
+    //项目中公共配置项可在这里设定
+
+    //Android configuration
+    compileSdkVersion = 28
+    buildToolsVersion = "28.0.2"
+    minSdkVersion = 17
+    targetSdkVersion = 28
+
+    //version
+    versionCode = 100
+    versionName = "1.0.0"
+
+    version_fresco = '0.14.1'
+    version_glide = '4.7.1'
+    version_gson = '2.8.0'
+    version_okhttp3 = '3.10.0'
+    version_picasso = '2.71828'
+    version_support = '28.0.0'
+}

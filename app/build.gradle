@@ -1,0 +1,189 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.wkz.pleasedreading"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    //签名配置
+    signingConfigs {
+
+        release {
+            def filePrivateProperties = file("../config/signing.properties")
+            if (filePrivateProperties.exists()) {
+                Properties propsPrivate = new Properties()
+                propsPrivate.load(new FileInputStream(filePrivateProperties))
+
+                storeFile file(propsPrivate['STORE_FILE'])
+                keyAlias propsPrivate['KEY_ALIAS']
+                storePassword propsPrivate['STORE_PASSWORD']
+                keyPassword propsPrivate['KEY_PASSWORD']
+            }
+        }
+
+        debug {
+            def filePrivateProperties = file("../config/signing.properties")
+            if (filePrivateProperties.exists()) {
+                Properties propsPrivate = new Properties()
+                propsPrivate.load(new FileInputStream(filePrivateProperties))
+
+                storeFile file(propsPrivate['STORE_FILE'])
+                keyAlias propsPrivate['KEY_ALIAS']
+                storePassword propsPrivate['STORE_PASSWORD']
+                keyPassword propsPrivate['KEY_PASSWORD']
+            }
+        }
+    }
+
+    //表示构建类型。包括release和debug两种。可以在这里面配置启用混淆、zipAlign、签名信息等。
+    buildTypes {
+        //release版本的配置
+        release {
+            //签名配置
+            signingConfig signingConfigs.release
+
+            //不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            //是否进行混淆
+            minifyEnabled true
+            //是否支持zip
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources true
+            //是否支持调试
+            debuggable false
+            //关闭jni调试
+            jniDebuggable false
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-universal.pro', 'proguard-rules-library.pro'
+        }
+
+        //debug版本的配置
+        debug {
+            //签名配置
+            signingConfig signingConfigs.debug
+
+            //显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            //是否进行混淆
+            minifyEnabled false
+            //是否支持zip
+            zipAlignEnabled false
+            //移除无用的resource文件
+            shrinkResources false
+            //是否支持调试
+            debuggable true
+            //关闭jni调试
+            jniDebuggable true
+
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+    }
+
+    //默认的一些文件路径的配置
+    sourceSets {
+        main {
+            //清单配置文件
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            //源码目录
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+            //资源文件
+            assets.srcDirs = ['src/main/assets']
+
+            aidl.srcDirs = ['src/main/aidl']
+            //jni文件
+            jni.srcDirs = ['src/main/jni']
+            //jni库
+            jniLibs.srcDirs = ['src/main/jniLibs']
+            //资源目录
+            res.srcDirs = ['src/main/res']
+            //资源目录
+            resources.srcDirs = ['src/main/java', 'src/main/aidl']
+
+            renderscript.srcDirs = ['src']
+        }
+    }
+
+    //multiDex的一些相关配置，这样配置可以让你的编译速度更快
+    dexOptions {
+        //最大堆内存
+        javaMaxHeapSize "8g"
+        //是否支持大工程模式
+        jumboMode true
+        //预编译
+        preDexLibraries true
+        //
+        dexInProcess true
+        //最大进程数
+        maxProcessCount 8
+        //线程数
+        threadCount 8
+    }
+
+    //在这里你可以进行 Java 的版本配置，以便使用对应版本的一些新特性
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //为了解决部分第三方库重复打包了META-INF的问题,重复什么就排除什么
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
+    lintOptions {
+        warning 'InvalidPackage'
+        //打包release版本的时候进行检测
+        checkReleaseBuilds false
+        //即使报错也不会停止打包
+        abortOnError false
+    }
+
+    //导入数据绑定框架dataBinding支持
+    dataBinding {
+        enabled true
+    }
+
+    //压缩PNG文件
+    //aapt工具可能会影响已经被压缩过的PNG文件
+    //建议把cruncherEnabled设为false，然后通过工具（比如pngcrush, pngquant, zopflipng,tinypng,guetzli）手工压缩PNG图片。
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'aar', include: ['*.aar'])
+
+    implementation project(':framework')
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+}
