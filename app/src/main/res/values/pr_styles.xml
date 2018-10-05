@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="pr_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/pr_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/pr_colorPrimaryDark</item>
+        <item name="colorAccent">@color/pr_colorAccent</item>
+    </style>
+
+</resources>

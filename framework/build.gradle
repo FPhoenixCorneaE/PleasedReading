@@ -4,11 +4,15 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    resourcePrefix "fr_"
+
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -32,4 +36,40 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation fileTree(dir: 'aar', include: ['*.aar'])
+
+    /**
+     * support
+     */
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+    implementation "com.android.support:support-annotations:$rootProject.ext.versionSupport"
+    implementation "com.android.support:multidex:1.0.3"
+
+    /**
+     * logger
+     */
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    /**
+     * rxlifecycle2
+     */
+    implementation("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
+        exclude module: 'rxandroid'
+    }
+
+    /**
+     * rxandroid
+     */
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.versionRxandroid"
+
+    /**
+     * rxjava2
+     */
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.versionRxjava2"
+
+    /**
+     * retrofit2
+     */
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.versionRetrofit2"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.versionRetrofit2"
 }

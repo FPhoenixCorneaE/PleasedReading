@@ -1,0 +1,10 @@
+<resources>
+    <string name="fr_status_loading">加载中…</string>
+    <string name="fr_status_empty">还没有内容</string>
+    <string name="fr_status_error">似乎出了点问题</string>
+    <string name="fr_status_retry">重新加载</string>
+
+    <string name="fr_status_net_wifi_active">您正在使用Wifi上网</string>
+    <string name="fr_status_net_mobile_active">您正在使用移动网络</string>
+    <string name="fr_status_net_unavailable">当前无网络连接</string>
+</resources>
