@@ -1,4 +1,4 @@
-package com.wkz.framework.listener;
+package com.wkz.framework.network;
 
 public interface OnNetworkChangedListener {
     void onWifiActive(String message);

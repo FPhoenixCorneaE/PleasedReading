@@ -1,4 +1,4 @@
-package com.wkz.framework.manager;
+package com.wkz.framework.network;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,9 +9,6 @@ import android.net.NetworkRequest;
 import android.os.Build;
 
 import com.wkz.framework.FRApplication;
-import com.wkz.framework.listener.OnNetworkChangedListener;
-import com.wkz.framework.receiver.OnNetworkCallback;
-import com.wkz.framework.receiver.OnNetworkChangedReceiver;
 import com.wkz.framework.utils.NetworkUtils;
 import com.wkz.framework.utils.ResourceUtils;
 

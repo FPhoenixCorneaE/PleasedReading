@@ -1,4 +1,4 @@
-package com.wkz.framework.receiver;
+package com.wkz.framework.network;
 
 import android.annotation.TargetApi;
 import android.net.ConnectivityManager;
@@ -10,7 +10,6 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.listener.OnNetworkChangedListener;
 import com.wkz.framework.utils.ResourceUtils;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -31,7 +30,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onAvailable(Network network) {
         super.onAvailable(network);
-        Logger.e("Network", "onAvailable");
+        Logger.i("Network", "onAvailable");
         if (mConnectivityManager != null) {
             NetworkInfo networkInfo = mConnectivityManager.getNetworkInfo(network);
             if (networkInfo != null && networkInfo.isAvailable()) {
@@ -67,7 +66,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(Network network) {
         super.onLost(network);
-        Logger.e("Network", "onLost");
+        Logger.i("Network", "onLost");
 
         if (mOnNetworkChangedListener != null) {
             mOnNetworkChangedListener.onUnavailable(
@@ -84,7 +83,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
         super.onLinkPropertiesChanged(network, linkProperties);
-        Logger.e("Network", "onLinkPropertiesChanged");
+        Logger.i("Network", "onLinkPropertiesChanged");
     }
 
     /**
@@ -93,7 +92,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
         super.onCapabilitiesChanged(network, networkCapabilities);
-        Logger.e("Network", "onCapabilitiesChanged");
+        Logger.i("Network", "onCapabilitiesChanged");
     }
 
     /**
@@ -102,7 +101,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLosing(Network network, int maxMsToLive) {
         super.onLosing(network, maxMsToLive);
-        Logger.e("Network", "onLosing");
+        Logger.i("Network", "onLosing");
     }
 
     /**
@@ -111,6 +110,6 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onUnavailable() {
         super.onUnavailable();
-        Logger.e("Network", "onUnavailable");
+        Logger.i("Network", "onUnavailable");
     }
 }

@@ -7,8 +7,8 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.wkz.framework.listener.OnNetworkChangedListener;
-import com.wkz.framework.manager.NetworkManager;
+import com.wkz.framework.network.OnNetworkChangedListener;
+import com.wkz.framework.network.NetworkManager;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widget.statuslayout.OnStatusLayoutClickListener;
 import com.wkz.framework.widget.statuslayout.StatusLayoutManager;
@@ -26,7 +26,7 @@ public abstract class BaseActivity<P extends BasePresenter, M>
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.e(NAME_ACTIVITY);
+        Logger.v(NAME_ACTIVITY);
         mContext = this;
 
         //设置内容视图
@@ -123,18 +123,18 @@ public abstract class BaseActivity<P extends BasePresenter, M>
 
     @Override
     public void onWifiActive(String message) {
-        Logger.e(message);
+        Logger.i(message);
     }
 
     @Override
     public void onMobileActive(String message) {
-        Logger.e(message);
+        Logger.i(message);
         ToastUtils.showShortSafe(message);
     }
 
     @Override
     public void onUnavailable(String message) {
-        Logger.e(message);
+        Logger.i(message);
         ToastUtils.showShortSafe(message);
     }
 }

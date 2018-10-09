@@ -1,4 +1,4 @@
-package com.wkz.framework.receiver;
+package com.wkz.framework.network;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import com.wkz.framework.listener.OnNetworkChangedListener;
+import com.orhanobut.logger.Logger;
 import com.wkz.framework.utils.ResourceUtils;
 
 public class OnNetworkChangedReceiver extends BroadcastReceiver {
@@ -29,8 +29,10 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
         }
 
         if (networkInfo != null && networkInfo.isAvailable()) {
+            Logger.i("Network", "onAvailable");
             switch (networkInfo.getType()) {
                 case ConnectivityManager.TYPE_WIFI:
+                    Logger.i("Network", "onWifiActive");
                     if (mOnNetworkChangedListener != null) {
                         mOnNetworkChangedListener.onWifiActive(
                                 ResourceUtils.getString(
@@ -40,6 +42,7 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
                     }
                     break;
                 case ConnectivityManager.TYPE_MOBILE:
+                    Logger.i("Network", "onMobileActive");
                     if (mOnNetworkChangedListener != null) {
                         mOnNetworkChangedListener.onMobileActive(
                                 ResourceUtils.getString(
@@ -52,6 +55,7 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
                     break;
             }
         } else {
+            Logger.i("Network", "onUnavailable");
             if (mOnNetworkChangedListener != null) {
                 mOnNetworkChangedListener.onUnavailable(
                         ResourceUtils.getString(

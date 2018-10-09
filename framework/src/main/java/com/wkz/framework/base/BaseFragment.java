@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.wkz.framework.listener.OnNetworkChangedListener;
-import com.wkz.framework.manager.NetworkManager;
+import com.wkz.framework.network.OnNetworkChangedListener;
+import com.wkz.framework.network.NetworkManager;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widget.statuslayout.OnStatusLayoutClickListener;
 import com.wkz.framework.widget.statuslayout.StatusLayoutManager;
@@ -38,7 +38,7 @@ public abstract class BaseFragment<P extends BasePresenter, M>
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.e(NAME_FRAGMENT);
+        Logger.v(NAME_FRAGMENT);
     }
 
     @Override
