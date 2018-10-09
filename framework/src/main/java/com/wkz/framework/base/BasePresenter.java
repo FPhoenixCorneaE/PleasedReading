@@ -12,7 +12,6 @@ public class BasePresenter<V extends BaseView> {
     public BasePresenter(V view, LifecycleProvider<ActivityEvent> provider) {
         this.mView = view;
         this.mProvider = provider;
-        this.mView.setPresenter(this);
     }
 
     public LifecycleProvider<ActivityEvent> getProvider() {

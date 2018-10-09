@@ -11,11 +11,11 @@ import com.orhanobut.logger.LogcatLogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
-public class PRApplication extends Application {
+public class FRApplication extends Application {
 
-    private static volatile PRApplication instance;
+    private static volatile FRApplication instance;
 
-    public static PRApplication getContext() {
+    public static FRApplication getContext() {
         return instance;
     }
 

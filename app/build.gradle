@@ -25,7 +25,7 @@ android {
         release {
             def filePrivateProperties = file("../config/signing.properties")
             if (filePrivateProperties.exists()) {
-                Properties propsPrivate = new Properties()
+                def propsPrivate = new Properties()
                 propsPrivate.load(new FileInputStream(filePrivateProperties))
 
                 storeFile file(propsPrivate['STORE_FILE'])
@@ -38,7 +38,7 @@ android {
         debug {
             def filePrivateProperties = file("../config/signing.properties")
             if (filePrivateProperties.exists()) {
-                Properties propsPrivate = new Properties()
+                def propsPrivate = new Properties()
                 propsPrivate.load(new FileInputStream(filePrivateProperties))
 
                 storeFile file(propsPrivate['STORE_FILE'])
@@ -70,7 +70,9 @@ android {
             //关闭jni调试
             jniDebuggable false
             //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-universal.pro', 'proguard-rules-library.pro'
+            //对于新项目，Android Studio 将使用 Android SDK tools/proguard/folder 下的默认设置文件 (proguard-android.txt)。
+            //要想进一步压缩代码，请尝试使用位于同一位置的 proguard-android-optimize.txt 文件。
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules-universal.pro', 'proguard-rules-library.pro'
         }
 
         //debug版本的配置
@@ -121,7 +123,35 @@ android {
         }
     }
 
-    //multiDex的一些相关配置，这样配置可以让你的编译速度更快
+    splits {
+        //按屏幕密度配置单独的APK
+        density {
+            // Enables building multiple APKs.
+            enable true
+            reset()
+            include "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
+            // Specifies a list of compatible screen size settings. This property
+            // configures the <compatible-screens> element in the manifest. You
+            // typically don't need to configure this manifest property, but it's
+            // important when building multiple APKs based on screen density.
+            compatibleScreens 'normal', 'large', 'xlarge'
+        }
+
+        //按ABI配置单独的APK
+        abi {
+            // Enables building multiple APKs.
+            enable true
+            // By default all ABIs are included, so use reset() and include to specify that we only
+            // want APKs for x86, armeabi-v7a, and mips.
+            reset()
+            // Specifies a list of ABIs that Gradle should create APKs for.
+            include "x86", "armeabi-v7a", "armeabi"
+            // Specify that we want to also generate a universal APK that includes all ABIs.
+            universalApk true
+        }
+    }
+
+    //multiDex的一些相关配置，这样配置可以让你的编译速度更快,缩短构建时间
     dexOptions {
         //最大堆内存
         javaMaxHeapSize "8g"
@@ -155,7 +185,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/LGPL2.1'
-        exclude 'META-INF/rxjava.properties'
     }
 
     //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
@@ -165,6 +194,8 @@ android {
         checkReleaseBuilds false
         //即使报错也不会停止打包
         abortOnError false
+        //if true, only report errors.
+        ignoreWarnings false
     }
 
     //导入数据绑定框架dataBinding支持

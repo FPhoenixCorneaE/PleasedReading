@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import com.wkz.framework.PRApplication;
+import com.wkz.framework.FRApplication;
 
 import java.io.IOException;
 import java.net.Inet4Address;
@@ -32,12 +32,16 @@ public class NetworkUtils {
     private static final String ETHERNET_MASK = "[dhcp.eth0.mask]";
     private static final String WLAN_MASK = "[dhcp.wlan0.mask]";
 
+    private NetworkUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 判断网络是否可用
      * Judge whether current network is available
      */
     public static boolean isNetworkAvailable() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) PRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = null;
         if (mConnectivityManager != null) {
             info = mConnectivityManager.getActiveNetworkInfo();
@@ -49,7 +53,7 @@ public class NetworkUtils {
      * 判断WIFI网络是否可用
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) PRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
         if (mConnectivityManager != null) {
             networkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -61,7 +65,7 @@ public class NetworkUtils {
      * 判断MOBILE网络是否可用
      */
     public static boolean isMobileConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) PRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
         if (mConnectivityManager != null) {
             networkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -73,7 +77,7 @@ public class NetworkUtils {
      * 获取当前网络连接的类型信息
      */
     public static int getConnectedType() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) PRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = null;
         if (mConnectivityManager != null) {
             mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();

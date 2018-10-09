@@ -8,7 +8,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Build;
 
-import com.wkz.framework.PRApplication;
+import com.wkz.framework.FRApplication;
 import com.wkz.framework.listener.OnNetworkChangedListener;
 import com.wkz.framework.receiver.OnNetworkCallback;
 import com.wkz.framework.receiver.OnNetworkChangedReceiver;
@@ -43,7 +43,7 @@ public class NetworkManager {
      */
     public void registerNetwork(Activity activity, OnNetworkChangedListener onNetworkChangedListener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ConnectivityManager connectivityManager = (ConnectivityManager) PRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             // 请注意这里会有一个版本适配bug，所以请在这里添加非空判断
             if (connectivityManager != null) {
                 mOnNetworkCallback = new OnNetworkCallback(connectivityManager, onNetworkChangedListener);
@@ -99,7 +99,7 @@ public class NetworkManager {
     public void unregisterNetwork(Activity activity) {
         if (activity != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ConnectivityManager connectivityManager = (ConnectivityManager) PRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager connectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectivityManager != null) {
                     connectivityManager.unregisterNetworkCallback(mOnNetworkCallback);
                 }

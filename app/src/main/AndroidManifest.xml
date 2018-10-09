@@ -3,7 +3,7 @@
     package="com.wkz.pleasedreading">
 
     <application
-        android:name="com.wkz.framework.PRApplication"
+        android:name="com.wkz.framework.FRApplication"
         android:allowBackup="true"
         android:icon="@mipmap/pr_ic_launcher"
         android:label="@string/pr_app_name"

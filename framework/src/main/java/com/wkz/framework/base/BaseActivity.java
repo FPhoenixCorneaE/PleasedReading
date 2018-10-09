@@ -5,15 +5,20 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wkz.framework.listener.OnNetworkChangedListener;
 import com.wkz.framework.manager.NetworkManager;
+import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widget.statuslayout.OnStatusLayoutClickListener;
 import com.wkz.framework.widget.statuslayout.StatusLayoutManager;
 
-public abstract class BaseActivity<P extends BasePresenter, M> extends RxAppCompatActivity implements BaseView<P, M>, OnStatusLayoutClickListener, OnNetworkChangedListener {
+public abstract class BaseActivity<P extends BasePresenter, M>
+        extends RxAppCompatActivity
+        implements BaseView<P, M>, OnStatusLayoutClickListener, OnNetworkChangedListener {
 
-    private BaseActivity mContext;
+    private static final String NAME_ACTIVITY = BaseActivity.class.getName();
+    protected BaseActivity mContext;
     private StatusLayoutManager mStatusLayoutManager;
     private P mPresenter;
     private M mData;
@@ -21,11 +26,11 @@ public abstract class BaseActivity<P extends BasePresenter, M> extends RxAppComp
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Logger.e(NAME_ACTIVITY);
         mContext = this;
 
-        View contentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
-
         //设置内容视图
+        View contentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
         setContentView(contentView);
 
         //设置状态布局
@@ -36,8 +41,8 @@ public abstract class BaseActivity<P extends BasePresenter, M> extends RxAppComp
         //构建Presenter
         mPresenter = createPresenter();
 
+        //注册网络变化监听
         NetworkManager.getInstance().registerNetwork(mContext, this);
-
 
         //初始化视图
         initView();
@@ -45,60 +50,70 @@ public abstract class BaseActivity<P extends BasePresenter, M> extends RxAppComp
         initListener();
         //初始化数据
         initData(savedInstanceState);
-
-        showLoading();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //反注册网络变化监听
         NetworkManager.getInstance().unregisterNetwork(mContext);
     }
 
     @Override
     public void showLoading() {
-        mStatusLayoutManager.showLoadingLayout();
+        if (mStatusLayoutManager != null) {
+            mStatusLayoutManager.showLoadingLayout();
+        }
     }
 
     @Override
     public void hideLoading() {
-        mStatusLayoutManager.showSuccessLayout();
+        if (mStatusLayoutManager != null) {
+            mStatusLayoutManager.showSuccessLayout();
+        }
     }
 
     @Override
     public void showContent() {
-        mStatusLayoutManager.showSuccessLayout();
+        if (mStatusLayoutManager != null) {
+            mStatusLayoutManager.showSuccessLayout();
+        }
     }
 
     @Override
     public void showEmpty() {
-        mStatusLayoutManager.showEmptyLayout();
+        if (mStatusLayoutManager != null) {
+            mStatusLayoutManager.showEmptyLayout();
+        }
     }
 
     @Override
     public void showError() {
-        mStatusLayoutManager.showErrorLayout();
+        if (mStatusLayoutManager != null) {
+            mStatusLayoutManager.showErrorLayout();
+        }
     }
 
     @Override
     public void onSuccess(@Nullable M data) {
         mData = data;
-        hideLoading();
+        showContent();
     }
 
     @Override
     public void onFailure(int code, String msg) {
         showError();
+        ToastUtils.showShortSafe(msg);
     }
 
     @Override
     public void onEmptyChildClick(View view) {
-
+        initData(null);
     }
 
     @Override
     public void onErrorChildClick(View view) {
-
+        initData(null);
     }
 
     @Override
@@ -108,16 +123,18 @@ public abstract class BaseActivity<P extends BasePresenter, M> extends RxAppComp
 
     @Override
     public void onWifiActive(String message) {
-
+        Logger.e(message);
     }
 
     @Override
     public void onMobileActive(String message) {
-
+        Logger.e(message);
+        ToastUtils.showShortSafe(message);
     }
 
     @Override
     public void onUnavailable(String message) {
-
+        Logger.e(message);
+        ToastUtils.showShortSafe(message);
     }
 }

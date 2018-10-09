@@ -1,12 +1,14 @@
 package com.wkz.pleasedreading;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.wkz.framework.base.BaseActivity;
 import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.utils.FragmentUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,12 +25,18 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        showError();
+
+        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new MainFragment(), null, false);
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showError();
+            }
+        },1000);
     }
 
     @Override
@@ -38,21 +46,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onSuccess(@Nullable Object data) {
-
+        super.onSuccess(data);
     }
 
     @Override
     public void onFailure(int code, String msg) {
-
-    }
-
-    @Override
-    public void onEmptyChildClick(View view) {
-        showContent();
-    }
-
-    @Override
-    public void onErrorChildClick(View view) {
-
+        super.onFailure(code, msg);
     }
 }

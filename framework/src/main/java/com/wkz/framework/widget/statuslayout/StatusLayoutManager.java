@@ -207,18 +207,21 @@ public class StatusLayoutManager {
         }
 
         // 设置默认空数据布局的提示文本
-        if (!TextUtils.isEmpty(emptyText)) {
-            TextView emptyTextView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_CONTENT_ID));
-            if (emptyTextView != null) {
+        TextView emptyTextView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_CONTENT_ID));
+        if (emptyTextView != null) {
+            if (!TextUtils.isEmpty(emptyText)) {
                 emptyTextView.setText(emptyText);
             }
         }
 
         // 设置默认空数据布局的图片
-        if (emptyImgID > 0) {
-            ImageView emptyImageView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_IMG_ID));
-            if (emptyImageView != null) {
+        ImageView emptyImageView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_IMG_ID));
+        if (emptyImageView != null) {
+            if (emptyImgID > 0) {
+                emptyImageView.setVisibility(View.VISIBLE);
                 emptyImageView.setImageResource(emptyImgID);
+            } else {
+                emptyImageView.setVisibility(View.GONE);
             }
         }
 
@@ -283,18 +286,21 @@ public class StatusLayoutManager {
         }
 
         // 设置默认出错布局的提示文本
-        if (!TextUtils.isEmpty(errorText)) {
-            TextView errorTextView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_CONTENT_ID));
-            if (errorTextView != null) {
+        TextView errorTextView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_CONTENT_ID));
+        if (errorTextView != null) {
+            if (!TextUtils.isEmpty(errorText)) {
                 errorTextView.setText(errorText);
             }
         }
 
         // 设置默认出错布局的图片
-        if (errorImgID > 0) {
-            ImageView errorImageView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_IMG_ID));
-            if (errorImageView != null) {
+        ImageView errorImageView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_IMG_ID));
+        if (errorImageView != null) {
+            if (errorImgID > 0) {
+                errorImageView.setVisibility(View.VISIBLE);
                 errorImageView.setImageResource(errorImgID);
+            } else {
+                errorImageView.setVisibility(View.GONE);
             }
         }
 
