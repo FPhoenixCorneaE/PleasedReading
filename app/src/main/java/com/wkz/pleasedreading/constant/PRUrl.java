@@ -1,6 +1,8 @@
 package com.wkz.pleasedreading.constant;
 
 public class PRUrl {
+    //一些数据API接口
+    //https://blog.csdn.net/qq_21700489/article/details/78805245
     //聚合数据新闻
     public static final String BaseUrl_News = "https://www.juhe.cn/docs/api/id/235";
     //阿凡达图片

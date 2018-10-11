@@ -1,4 +1,4 @@
-package com.wkz.framework.network;
+package com.wkz.framework.functions.network;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

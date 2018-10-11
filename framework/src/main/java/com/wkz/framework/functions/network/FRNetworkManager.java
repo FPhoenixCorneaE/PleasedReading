@@ -1,4 +1,4 @@
-package com.wkz.framework.network;
+package com.wkz.framework.functions.network;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,20 +12,20 @@ import com.wkz.framework.FRApplication;
 import com.wkz.framework.utils.NetworkUtils;
 import com.wkz.framework.utils.ResourceUtils;
 
-public class NetworkManager {
+public class FRNetworkManager {
 
-    private static volatile NetworkManager instance;
+    private static volatile FRNetworkManager instance;
     private OnNetworkCallback mOnNetworkCallback;
     private OnNetworkChangedReceiver mOnNetworkChangedReceiver;
 
-    private NetworkManager() {
+    private FRNetworkManager() {
     }
 
-    public static NetworkManager getInstance() {
+    public static FRNetworkManager getInstance() {
         if (instance == null) {
-            synchronized (NetworkManager.class) {
+            synchronized (FRNetworkManager.class) {
                 if (instance == null) {
-                    instance = new NetworkManager();
+                    instance = new FRNetworkManager();
                 }
             }
         }

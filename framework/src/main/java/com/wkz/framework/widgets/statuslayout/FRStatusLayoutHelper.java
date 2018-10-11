@@ -1,4 +1,4 @@
-package com.wkz.framework.widget.statuslayout;
+package com.wkz.framework.widgets.statuslayout;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 /**
  * 替换布局帮助类
  */
-class ReplaceLayoutHelper {
+class FRStatusLayoutHelper {
 
     /**
      * 需要替换的 View
@@ -22,7 +22,7 @@ class ReplaceLayoutHelper {
      */
     private View currentLayout;
 
-    ReplaceLayoutHelper(@NonNull View contentLayout) {
+    FRStatusLayoutHelper(@NonNull View contentLayout) {
         this.contentLayout = contentLayout;
         getContentLayoutParams();
     }
@@ -48,7 +48,7 @@ class ReplaceLayoutHelper {
             } else {
                 // 否则，contentLayout 是一个非 ViewGroup 的根布局
                 // 该情况，没有办法替换布局，因此不支持
-                throw new IllegalStateException("参数错误：StatusLayoutManager#Build#with() 方法，不能传如一个非 ViewGroup 的根布局");
+                throw new IllegalStateException("参数错误：FRStatusLayoutManager#Build#with() 方法，不能传如一个非 ViewGroup 的根布局");
             }
         } else {
             int count = parentLayout.getChildCount();

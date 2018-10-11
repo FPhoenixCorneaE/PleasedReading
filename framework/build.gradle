@@ -58,7 +58,7 @@ dependencies {
      * rxlifecycle2
      */
     implementation("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
-        exclude module: 'rxandroid'
+        exclude group: 'io.reactivex.rxjava2', module: 'rxandroid'
     }
 
     /**
@@ -74,7 +74,16 @@ dependencies {
     /**
      * retrofit2
      */
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.versionRetrofit2"
+    implementation("com.squareup.retrofit2:retrofit:$rootProject.ext.versionRetrofit2") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2"
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.ext.versionRetrofit2"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.versionRetrofit2"
+
+    /**
+     * okhttp3
+     */
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.versionOkhttp3"
 }

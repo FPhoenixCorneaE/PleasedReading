@@ -1,4 +1,4 @@
-package com.wkz.framework.widget.statuslayout;
+package com.wkz.framework.widgets.statuslayout;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -16,7 +16,7 @@ import com.wkz.framework.utils.ResourceUtils;
 /**
  * 状态布局管理器
  */
-public class StatusLayoutManager {
+public class FRStatusLayoutManager {
 
     /**
      * 三种默认布局 ID
@@ -85,11 +85,11 @@ public class StatusLayoutManager {
 
     private OnStatusLayoutClickListener onStatusLayoutClickListener;
 
-    private ReplaceLayoutHelper replaceLayoutHelper;
+    private FRStatusLayoutHelper frStatusLayoutHelper;
 
     private LayoutInflater inflater;
 
-    private StatusLayoutManager(Builder builder) {
+    private FRStatusLayoutManager(Builder builder) {
         this.contentLayout = builder.contentLayout;
 
         this.loadingLayoutID = builder.loadingLayoutID;
@@ -118,7 +118,7 @@ public class StatusLayoutManager {
 
         this.onStatusLayoutClickListener = builder.onStatusLayoutClickListener;
 
-        this.replaceLayoutHelper = new ReplaceLayoutHelper(contentLayout);
+        this.frStatusLayoutHelper = new FRStatusLayoutHelper(contentLayout);
     }
 
     private View inflate(@LayoutRes int resource) {
@@ -136,7 +136,7 @@ public class StatusLayoutManager {
      * 显示原有布局
      */
     public void showSuccessLayout() {
-        replaceLayoutHelper.restoreLayout();
+        frStatusLayoutHelper.restoreLayout();
     }
 
     ///////////////////////////////////////////
@@ -176,7 +176,7 @@ public class StatusLayoutManager {
      */
     public void showLoadingLayout() {
         createLoadingLayout();
-        replaceLayoutHelper.showStatusLayout(loadingLayout);
+        frStatusLayoutHelper.showStatusLayout(loadingLayout);
     }
 
     ///////////////////////////////////////////
@@ -256,7 +256,7 @@ public class StatusLayoutManager {
      */
     public void showEmptyLayout() {
         createEmptyLayout();
-        replaceLayoutHelper.showStatusLayout(emptyLayout);
+        frStatusLayoutHelper.showStatusLayout(emptyLayout);
     }
 
     ///////////////////////////////////////////
@@ -334,7 +334,7 @@ public class StatusLayoutManager {
      */
     public void showErrorLayout() {
         createErrorLayout();
-        replaceLayoutHelper.showStatusLayout(errorLayout);
+        frStatusLayoutHelper.showStatusLayout(errorLayout);
     }
 
     ///////////////////////////////////////////
@@ -347,7 +347,7 @@ public class StatusLayoutManager {
      * @param customLayout 自定义布局
      */
     public void showCustomLayout(@NonNull View customLayout) {
-        replaceLayoutHelper.showStatusLayout(customLayout);
+        frStatusLayoutHelper.showStatusLayout(customLayout);
     }
 
     /**
@@ -369,7 +369,7 @@ public class StatusLayoutManager {
      * @param clickViewID  可点击 View ID
      */
     public void showCustomLayout(@NonNull View customLayout, @IdRes int... clickViewID) {
-        replaceLayoutHelper.showStatusLayout(customLayout);
+        frStatusLayoutHelper.showStatusLayout(customLayout);
         if (onStatusLayoutClickListener == null) {
             return;
         }
@@ -768,8 +768,8 @@ public class StatusLayoutManager {
          * @return 状态布局管理器
          */
         @NonNull
-        public StatusLayoutManager build() {
-            return new StatusLayoutManager(this);
+        public FRStatusLayoutManager build() {
+            return new FRStatusLayoutManager(this);
         }
 
     }

@@ -1,4 +1,4 @@
-package com.wkz.framework.network;
+package com.wkz.framework.functions.network;
 
 import android.annotation.TargetApi;
 import android.net.ConnectivityManager;

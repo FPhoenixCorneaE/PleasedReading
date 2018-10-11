@@ -230,6 +230,6 @@ dependencies {
      * rxlifecycle2
      */
     implementation("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
-        exclude module: 'rxandroid'
+        exclude group: 'io.reactivex.rxjava2', module: 'rxandroid'
     }
 }

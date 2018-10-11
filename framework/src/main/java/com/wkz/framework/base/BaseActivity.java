@@ -7,11 +7,11 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.wkz.framework.network.OnNetworkChangedListener;
-import com.wkz.framework.network.NetworkManager;
+import com.wkz.framework.functions.network.OnNetworkChangedListener;
+import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.utils.ToastUtils;
-import com.wkz.framework.widget.statuslayout.OnStatusLayoutClickListener;
-import com.wkz.framework.widget.statuslayout.StatusLayoutManager;
+import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
+import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
 public abstract class BaseActivity<P extends BasePresenter, M>
         extends RxAppCompatActivity
@@ -19,7 +19,7 @@ public abstract class BaseActivity<P extends BasePresenter, M>
 
     private static final String NAME_ACTIVITY = BaseActivity.class.getName();
     protected BaseActivity mContext;
-    private StatusLayoutManager mStatusLayoutManager;
+    private FRStatusLayoutManager mFRStatusLayoutManager;
     private P mPresenter;
     private M mData;
 
@@ -34,7 +34,7 @@ public abstract class BaseActivity<P extends BasePresenter, M>
         setContentView(contentView);
 
         //设置状态布局
-        mStatusLayoutManager = new StatusLayoutManager.Builder(contentView)
+        mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(contentView)
                 .setOnStatusLayoutClickListener(this)
                 .build();
 
@@ -42,7 +42,7 @@ public abstract class BaseActivity<P extends BasePresenter, M>
         mPresenter = createPresenter();
 
         //注册网络变化监听
-        NetworkManager.getInstance().registerNetwork(mContext, this);
+        FRNetworkManager.getInstance().registerNetwork(mContext, this);
 
         //初始化视图
         initView();
@@ -56,41 +56,41 @@ public abstract class BaseActivity<P extends BasePresenter, M>
     protected void onDestroy() {
         super.onDestroy();
         //反注册网络变化监听
-        NetworkManager.getInstance().unregisterNetwork(mContext);
+        FRNetworkManager.getInstance().unregisterNetwork(mContext);
     }
 
     @Override
     public void showLoading() {
-        if (mStatusLayoutManager != null) {
-            mStatusLayoutManager.showLoadingLayout();
+        if (mFRStatusLayoutManager != null) {
+            mFRStatusLayoutManager.showLoadingLayout();
         }
     }
 
     @Override
     public void hideLoading() {
-        if (mStatusLayoutManager != null) {
-            mStatusLayoutManager.showSuccessLayout();
+        if (mFRStatusLayoutManager != null) {
+            mFRStatusLayoutManager.showSuccessLayout();
         }
     }
 
     @Override
     public void showContent() {
-        if (mStatusLayoutManager != null) {
-            mStatusLayoutManager.showSuccessLayout();
+        if (mFRStatusLayoutManager != null) {
+            mFRStatusLayoutManager.showSuccessLayout();
         }
     }
 
     @Override
     public void showEmpty() {
-        if (mStatusLayoutManager != null) {
-            mStatusLayoutManager.showEmptyLayout();
+        if (mFRStatusLayoutManager != null) {
+            mFRStatusLayoutManager.showEmptyLayout();
         }
     }
 
     @Override
     public void showError() {
-        if (mStatusLayoutManager != null) {
-            mStatusLayoutManager.showErrorLayout();
+        if (mFRStatusLayoutManager != null) {
+            mFRStatusLayoutManager.showErrorLayout();
         }
     }
 

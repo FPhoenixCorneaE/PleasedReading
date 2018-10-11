@@ -1,4 +1,4 @@
-package com.wkz.framework.widget.statuslayout;
+package com.wkz.framework.widgets.statuslayout;
 
 import android.view.View;
 
