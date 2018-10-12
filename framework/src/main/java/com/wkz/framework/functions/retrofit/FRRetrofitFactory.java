@@ -3,6 +3,7 @@ package com.wkz.framework.functions.retrofit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.annotations.FRMemoryUnit;
 import com.wkz.framework.functions.retrofit.typeadapter.DefaultDoubleAdapter;
 import com.wkz.framework.functions.retrofit.typeadapter.DefaultFloatAdapter;
@@ -40,7 +41,7 @@ public abstract class FRRetrofitFactory {
                                 Logger.i(message);
                             }
                         })
-                        .setLevel(HttpLoggingInterceptor.Level.BASIC)
+                        .setLevel(HttpLoggingInterceptor.Level.BODY)
                 )
                 //添加网络连接器
                 .addNetworkInterceptor(new FRNetworkInterceptor())
@@ -100,15 +101,13 @@ public abstract class FRRetrofitFactory {
     /**
      * 实例化retrofit对象
      */
-    public <T> T createRetrofit(final Class<T> tClass) {
+    protected <T> T createRetrofit(final Class<T> tClass) {
         return getRetrofit().create(tClass);
     }
 
-    public void setObserver(Observer observer) {
-        FRRxJavaUtils.toObservable(createObservable(), observer);
+    public void setObserver(Observable observable, LifecycleTransformer lifecycleTransformer, Observer observer) {
+        FRRxJavaUtils.toObservable(observable, lifecycleTransformer, observer);
     }
 
     public abstract String getBaseUrl();
-
-    public abstract Observable createObservable();
 }

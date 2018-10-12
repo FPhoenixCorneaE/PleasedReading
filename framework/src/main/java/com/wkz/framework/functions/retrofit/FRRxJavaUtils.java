@@ -3,8 +3,9 @@ package com.wkz.framework.functions.retrofit;
 import android.net.ParseException;
 
 import com.google.gson.JsonParseException;
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.wkz.framework.utils.ToastUtils;
 
 import org.json.JSONException;
 
@@ -28,7 +29,7 @@ public class FRRxJavaUtils {
      * 统一线程处理
      */
     @SuppressWarnings("unchecked")
-    public static <T> void toObservable(Observable<T> observable, @NonNull Observer<? super T> observer, LifecycleProvider<ActivityEvent> provider) {
+    public static <T> void toObservable(Observable<T> observable, LifecycleTransformer lifecycleTransformer, @NonNull Observer<? super T> observer) {
         observable
                 //延迟订阅
                 .delay(200, TimeUnit.MILLISECONDS)
@@ -41,7 +42,7 @@ public class FRRxJavaUtils {
                 //注意compose方法需要在subscribeOn方法之后使用，因为在测试的过程中发现，
                 //将compose方法放在subscribeOn方法之前，如果在被观察者中执行了阻塞方法，
                 //比如Thread.sleep()，取消订阅后该阻塞方法不会被中断。
-                .compose(provider.<T>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(lifecycleTransformer)
                 //回调到主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -54,17 +55,17 @@ public class FRRxJavaUtils {
     public static FRHttpException handleException(Throwable throwable) {
         FRHttpException frHttpException;
         if (throwable instanceof ConnectException) {
-            //网络连接错误
+            //连接错误
             frHttpException = new FRHttpException(
                     FRHttpError.ERROR_CONNECT,
                     FRHttpError.MESSAGE_CONNECT,
-                    throwable.getMessage());
+                    throwable.getLocalizedMessage());
         } else if (throwable instanceof HttpException) {
-            //网络连接错误
+            //网络错误
             frHttpException = new FRHttpException(
-                    FRHttpError.ERROR_CONNECT,
-                    FRHttpError.MESSAGE_CONNECT,
-                    throwable.getMessage());
+                    FRHttpError.ERROR_HTTP,
+                    FRHttpError.MESSAGE_HTTP,
+                    throwable.getLocalizedMessage());
         } else if (throwable instanceof JsonParseException
                 || throwable instanceof JSONException
                 || throwable instanceof ParseException) {
@@ -72,20 +73,22 @@ public class FRRxJavaUtils {
             frHttpException = new FRHttpException(
                     FRHttpError.ERROR_PARSE,
                     FRHttpError.MESSAGE_PARSE,
-                    throwable.getMessage());
+                    throwable.getLocalizedMessage());
         } else if (throwable instanceof UnknownHostException || throwable instanceof SocketTimeoutException) {
             //服务器错误
             frHttpException = new FRHttpException(
                     FRHttpError.ERROR_SERVER,
                     FRHttpError.MESSAGE_SERVER,
-                    throwable.getMessage());
+                    throwable.getLocalizedMessage());
         } else {
             //未知错误
             frHttpException = new FRHttpException(
                     FRHttpError.ERROR_UNKNOWN,
                     FRHttpError.MESSAGE_UNKNOWN,
-                    throwable.getMessage());
+                    throwable.getLocalizedMessage());
         }
+        ToastUtils.showShortSafe(frHttpException.getErrorMessage());
+        Logger.e(frHttpException.getErrorMessage());
         return frHttpException;
     }
 }

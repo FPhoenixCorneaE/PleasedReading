@@ -15,13 +15,13 @@ public class FRNetworkInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (NetworkUtils.isNetworkAvailable()) {
-            Logger.e("有网络");
+            Logger.i("有网络");
             request = request.newBuilder()
                     //走网络
                     .cacheControl(CacheControl.FORCE_NETWORK)
                     .build();
         } else {
-            Logger.e("无网络");
+            Logger.i("无网络");
             request = request.newBuilder()
                     //只走缓存
                     .cacheControl(CacheControl.FORCE_CACHE)

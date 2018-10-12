@@ -13,15 +13,13 @@ import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class BaseActivity<P extends BasePresenter, M>
+public abstract class BaseActivity
         extends RxAppCompatActivity
-        implements BaseView<P, M>, OnStatusLayoutClickListener, OnNetworkChangedListener {
+        implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
 
     private static final String NAME_ACTIVITY = BaseActivity.class.getName();
     protected BaseActivity mContext;
     private FRStatusLayoutManager mFRStatusLayoutManager;
-    private P mPresenter;
-    private M mData;
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public abstract class BaseActivity<P extends BasePresenter, M>
                 .build();
 
         //构建Presenter
-        mPresenter = createPresenter();
+        createPresenter();
 
         //注册网络变化监听
         FRNetworkManager.getInstance().registerNetwork(mContext, this);
@@ -95,8 +93,7 @@ public abstract class BaseActivity<P extends BasePresenter, M>
     }
 
     @Override
-    public void onSuccess(@Nullable M data) {
-        mData = data;
+    public void onSuccess(@Nullable Object data) {
         showContent();
     }
 

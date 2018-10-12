@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public interface BaseView<P extends BasePresenter, M> {
+public interface BaseView {
     int getLayoutId();
 
     @NonNull
-    P createPresenter();
+    BasePresenter createPresenter();
+
+    BaseModel createModel();
 
     void initView();
 
@@ -26,7 +28,7 @@ public interface BaseView<P extends BasePresenter, M> {
 
     void showError();
 
-    void onSuccess(@Nullable M data);
+    void onSuccess(@Nullable Object data);
 
     void onFailure(int code, String msg);
 }

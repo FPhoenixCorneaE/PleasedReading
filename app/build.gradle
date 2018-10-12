@@ -224,7 +224,15 @@ dependencies {
 
     implementation project(':framework')
 
+    /**
+     * support
+     */
     implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+
+    /**
+     * logger
+     */
+    implementation 'com.orhanobut:logger:2.2.0'
 
     /**
      * rxlifecycle2
@@ -232,4 +240,22 @@ dependencies {
     implementation("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
         exclude group: 'io.reactivex.rxjava2', module: 'rxandroid'
     }
+
+    /**
+     * rxandroid
+     */
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.versionRxandroid"
+
+    /**
+     * rxjava2
+     */
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.versionRxjava2"
+
+    /**
+     * retrofit2
+     */
+    implementation("com.squareup.retrofit2:retrofit:$rootProject.ext.versionRetrofit2") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2"
 }

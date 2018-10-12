@@ -7,10 +7,17 @@ import io.reactivex.functions.Function;
 
 public class FRResponseTransformer {
 
-    public static <T> ObservableTransformer<FRHttpResponse<T>, T> handleResult() {
-        return new ObservableTransformer<FRHttpResponse<T>, T>() {
+    /**
+     * ObservableTransformer<Upstream, Downstream>
+     * 处理返回结果{Upstream}
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> ObservableTransformer<T, T> handleResult() {
+        return new ObservableTransformer<T, T>() {
             @Override
-            public ObservableSource<T> apply(Observable<FRHttpResponse<T>> upstream) {
+            public ObservableSource<T> apply(Observable<T> upstream) {
                 return upstream
                         .onErrorResumeNext(new ErrorResumeFunction<T>())
                         .flatMap(new ResponseFunction<T>());
@@ -24,10 +31,10 @@ public class FRResponseTransformer {
      *
      * @param <T>
      */
-    private static class ErrorResumeFunction<T> implements Function<Throwable, ObservableSource<? extends FRHttpResponse<T>>> {
+    private static class ErrorResumeFunction<T> implements Function<Throwable, ObservableSource<? extends T>> {
 
         @Override
-        public ObservableSource<? extends FRHttpResponse<T>> apply(Throwable throwable) {
+        public ObservableSource<? extends T> apply(Throwable throwable) {
             return Observable.error(FRRxJavaUtils.handleException(throwable));
         }
     }
@@ -38,17 +45,19 @@ public class FRResponseTransformer {
      *
      * @param <T>
      */
-    private static class ResponseFunction<T> implements Function<FRHttpResponse<T>, ObservableSource<T>> {
+    private static class ResponseFunction<T> implements Function<T, ObservableSource<T>> {
 
         @Override
-        public ObservableSource<T> apply(FRHttpResponse<T> tResponse) {
-            int code = tResponse.getCode();
-            String message = tResponse.getMsg();
-            if (code == 200) {
-                return Observable.just(tResponse.getData());
-            } else {
-                return Observable.error(new FRHttpException(code, message, message));
-            }
+        public ObservableSource<T> apply(T tResponse) {
+            //TODO 在这里可以和服务端约定好所有接口返回的数据结构一样，做统一的处理
+//            int code = tResponse.getCode();
+//            String message = tResponse.getMsg();
+//            if (code == 200) {
+//                return Observable.just(tResponse.getData());
+//            } else {
+//                return Observable.error(new FRHttpException(code, message, message));
+//            }
+            return Observable.just(tResponse);
         }
     }
 }

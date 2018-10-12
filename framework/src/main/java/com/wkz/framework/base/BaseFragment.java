@@ -10,22 +10,20 @@ import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.functions.network.FRNetworkManager;
+import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
-import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
+import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class BaseFragment<P extends BasePresenter, M>
+public abstract class BaseFragment
         extends RxFragment
-        implements BaseView<P, M>, OnStatusLayoutClickListener, OnNetworkChangedListener {
+        implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
 
     private static final String NAME_FRAGMENT = BaseFragment.class.getName();
     private BaseActivity mContext;
     private View mContentView;
     private FRStatusLayoutManager mFRStatusLayoutManager;
-    private P mPresenter;
-    private M mData;
     /**
      * 标识fragment视图已经初始化完毕
      */
@@ -63,7 +61,7 @@ public abstract class BaseFragment<P extends BasePresenter, M>
                 .build();
 
         //构建Presenter
-        mPresenter = createPresenter();
+        createPresenter();
 
         //注册网络变化监听
         FRNetworkManager.getInstance().registerNetwork(mContext, this);
@@ -159,8 +157,7 @@ public abstract class BaseFragment<P extends BasePresenter, M>
     }
 
     @Override
-    public void onSuccess(@Nullable M data) {
-        mData = data;
+    public void onSuccess(@Nullable Object data) {
         showContent();
     }
 
