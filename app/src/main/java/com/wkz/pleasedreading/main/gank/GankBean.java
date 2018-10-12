@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.gank;
+package com.wkz.pleasedreading.main.gank;
 
 import com.google.gson.annotations.SerializedName;
 

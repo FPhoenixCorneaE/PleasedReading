@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.gank;
+package com.wkz.pleasedreading.main.gank;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.functions.retrofit.FRRetrofitFactory;

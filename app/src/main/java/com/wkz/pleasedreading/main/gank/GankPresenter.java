@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.gank;
+package com.wkz.pleasedreading.main.gank;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleProvider;

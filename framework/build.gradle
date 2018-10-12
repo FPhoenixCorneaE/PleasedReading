@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+//ButterKnife
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -13,6 +15,16 @@ android {
         versionName rootProject.ext.versionName
 
         multiDexEnabled true
+
+        ndk {
+            abiFilters "armeabi", "x86", "armeabi-v7a"
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     buildTypes {
@@ -48,6 +60,13 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
     implementation "com.android.support:support-annotations:$rootProject.ext.versionSupport"
     implementation "com.android.support:multidex:1.0.3"
+
+    /**
+     * 解放控件对象实例化,监听添加
+     */
+    implementation "com.jakewharton:butterknife:$rootProject.ext.versionButterKnife"
+    implementation "com.jakewharton:butterknife-compiler:$rootProject.ext.versionButterKnife"
+    implementation "com.jakewharton:butterknife-annotations:$rootProject.ext.versionButterKnife"
 
     /**
      * logger

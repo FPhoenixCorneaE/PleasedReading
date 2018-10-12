@@ -16,8 +16,14 @@
         android:label="@string/pr_app_name"
         android:roundIcon="@mipmap/pr_ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/pr_AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/pr_BaseTheme">
+        <activity
+            android:name=".main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/pr_FullscreenTheme"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

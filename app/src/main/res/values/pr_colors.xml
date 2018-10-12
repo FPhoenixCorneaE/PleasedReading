@@ -3,4 +3,7 @@
     <color name="pr_colorPrimary">#3F51B5</color>
     <color name="pr_colorPrimaryDark">#303F9F</color>
     <color name="pr_colorAccent">#FF4081</color>
+    <color name="pr_textColorPrimary">#000000</color>
+
+    <color name="pr_background">#EDEDED</color>
 </resources>

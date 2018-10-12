@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.gank;
+package com.wkz.pleasedreading.main.gank;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

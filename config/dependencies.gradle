@@ -19,6 +19,7 @@ ext {
     versionCode = 100
     versionName = "1.0.0"
 
+    versionButterKnife = "8.8.1"
     versionFresco = '0.14.1'
     versionGlide = '4.7.1'
     versionGson = '2.8.0'

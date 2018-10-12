@@ -7,11 +7,14 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.functions.network.FRNetworkManager;
+import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseActivity
         extends RxAppCompatActivity
@@ -19,6 +22,7 @@ public abstract class BaseActivity
 
     private static final String NAME_ACTIVITY = BaseActivity.class.getName();
     protected BaseActivity mContext;
+    private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
 
     @Override
@@ -30,6 +34,8 @@ public abstract class BaseActivity
         //设置内容视图
         View contentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
         setContentView(contentView);
+
+        mUnbinder = ButterKnife.bind(this);
 
         //设置状态布局
         mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(contentView)
@@ -53,8 +59,13 @@ public abstract class BaseActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
         //反注册网络变化监听
-        FRNetworkManager.getInstance().unregisterNetwork(mContext);
+        if (mContext != null) {
+            FRNetworkManager.getInstance().unregisterNetwork(mContext);
+        }
     }
 
     @Override

@@ -16,6 +16,9 @@ import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public abstract class BaseFragment
         extends RxFragment
         implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
@@ -23,6 +26,7 @@ public abstract class BaseFragment
     private static final String NAME_FRAGMENT = BaseFragment.class.getName();
     private BaseActivity mContext;
     private View mContentView;
+    private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
     /**
      * 标识fragment视图已经初始化完毕
@@ -55,6 +59,8 @@ public abstract class BaseFragment
         if (mContentView == null) {
             mContentView = inflater.inflate(getLayoutId(), container, false);
         }
+        mUnbinder = ButterKnife.bind(this, mContentView);
+
         //设置状态布局
         mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(mContentView)
                 .setOnStatusLayoutClickListener(this)
@@ -118,6 +124,14 @@ public abstract class BaseFragment
             if (parent != null) {
                 parent.removeView(mContentView);
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
         }
     }
 
