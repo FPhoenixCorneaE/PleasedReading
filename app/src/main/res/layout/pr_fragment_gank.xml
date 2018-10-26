@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-</FrameLayout>
+    <data>
+
+        <import type="com.wkz.pleasedreading.main.gank.PRGankBean" />
+
+        <import type="com.wkz.pleasedreading.main.gank.PRGankPresenter" />
+        <!--添加要绑定的数据-->
+        <variable
+            name="prGankBean"
+            type="com.wkz.pleasedreading.main.gank.PRGankBean" />
+
+        <variable
+            name="prGankPresenter"
+            type="com.wkz.pleasedreading.main.gank.PRGankPresenter" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </FrameLayout>
+</layout>

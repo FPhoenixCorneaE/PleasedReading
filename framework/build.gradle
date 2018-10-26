@@ -30,12 +30,18 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules-universal.pro',
+                    'proguard-rules-library.pro',
+                    'proguard-rules.pro'
         }
         debug {
             minifyEnabled true
             useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules-universal.pro',
+                    'proguard-rules-library.pro',
+                    'proguard-rules.pro'
         }
     }
 
@@ -43,9 +49,13 @@ android {
         abortOnError false
     }
 
+    dataBinding {
+        enabled true
+    }
+
     repositories {
         flatDir {
-            dirs 'libs'
+            dirs 'aar'
         }
     }
 }
@@ -105,4 +115,18 @@ dependencies {
      */
     implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.versionOkhttp3"
+
+    /**
+     * glide
+     */
+    implementation("com.github.bumptech.glide:glide:$rootProject.ext.versionGlide") {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide"
+
+    /**
+     * 兼容3.0以前sdk动画
+     */
+    implementation 'com.nineoldandroids:library:2.4.0'
 }

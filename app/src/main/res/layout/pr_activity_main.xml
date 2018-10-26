@@ -13,6 +13,6 @@
         <include layout="@layout/pr_content_main" />
 
         <!--左侧菜单-->
-        <include layout="@layout/pr_menu_main" />
+        <include layout="@layout/pr_sidebar_main" />
     </android.support.v4.widget.DrawerLayout>
 </FrameLayout>

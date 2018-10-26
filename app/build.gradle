@@ -223,7 +223,7 @@ android {
 
     repositories {
         flatDir {
-            dirs 'libs'
+            dirs 'aar'
         }
     }
 }
@@ -277,4 +277,14 @@ dependencies {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2"
+
+    /**
+     * okhttp3
+     */
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
+
+    /**
+     * okio
+     */
+    implementation "com.squareup.okio:okio:$rootProject.ext.versionOkio"
 }

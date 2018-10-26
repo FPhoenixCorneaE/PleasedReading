@@ -4,7 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface Gank {
+public interface PRGank {
 
     /**
      * 根据数据类型获取干货数据
@@ -15,5 +15,5 @@ public interface Gank {
      * @return
      */
     @GET("/api/data/{type}/{number}/{page}")
-    Observable<GankBean> getDataByType(@Path("type") String type, @Path("number") int pageNum, @Path("page") int pageCount);
+    Observable<PRGankBean> getDataByType(@Path("type") String type, @Path("number") int pageNum, @Path("page") int pageCount);
 }

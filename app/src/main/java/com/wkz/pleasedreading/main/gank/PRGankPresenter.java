@@ -6,22 +6,22 @@ import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.base.BaseView;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 
-public class GankPresenter extends BasePresenter implements GankContract.IGankPresenter {
+public class PRGankPresenter extends BasePresenter implements PRGankContract.IGankPresenter {
 
-    private GankContract.IGankView mView;
-    private GankContract.IGankModel mModel;
+    private PRGankContract.IGankView mView;
+    private PRGankContract.IGankModel mModel;
 
-    public GankPresenter(BaseView view, LifecycleProvider provider) {
+    public PRGankPresenter(BaseView view, LifecycleProvider provider) {
         super(view, provider);
-        mView = (GankContract.IGankView) getView();
-        mModel = (GankContract.IGankModel) getModel();
+        mView = (PRGankContract.IGankView) getView();
+        mModel = (PRGankContract.IGankModel) getModel();
     }
 
     @Override
     public void getDataByType(String type, int pageNum, int pageCount) {
-        mModel.getDataByType(type, pageNum, pageCount, bindUntilFragmentEvent(), new OnFRHttpCallback<GankBean>() {
+        mModel.getDataByType(type, pageNum, pageCount, bindUntilFragmentEvent(), new OnFRHttpCallback<PRGankBean>() {
             @Override
-            public void onSuccess(GankBean data) {
+            public void onSuccess(PRGankBean data) {
                 Logger.i(data.toString());
             }
 

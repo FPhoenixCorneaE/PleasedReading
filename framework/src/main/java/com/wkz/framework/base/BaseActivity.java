@@ -1,5 +1,7 @@
 package com.wkz.framework.base;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ public abstract class BaseActivity
 
     private static final String NAME_ACTIVITY = BaseActivity.class.getName();
     protected BaseActivity mContext;
+    protected ViewDataBinding mViewDataBinding;
     private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
 
@@ -33,7 +36,7 @@ public abstract class BaseActivity
 
         //设置内容视图
         View contentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
-        setContentView(contentView);
+        mViewDataBinding = DataBindingUtil.setContentView(mContext, getLayoutId());
 
         mUnbinder = ButterKnife.bind(this);
 

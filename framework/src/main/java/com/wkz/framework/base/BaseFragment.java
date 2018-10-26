@@ -1,6 +1,8 @@
 package com.wkz.framework.base;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +27,7 @@ public abstract class BaseFragment
 
     private static final String NAME_FRAGMENT = BaseFragment.class.getName();
     private BaseActivity mContext;
+    protected ViewDataBinding mViewDataBinding;
     private View mContentView;
     private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
@@ -59,6 +62,7 @@ public abstract class BaseFragment
         if (mContentView == null) {
             mContentView = inflater.inflate(getLayoutId(), container, false);
         }
+        mViewDataBinding = DataBindingUtil.setContentView(mContext, getLayoutId());
         mUnbinder = ButterKnife.bind(this, mContentView);
 
         //设置状态布局

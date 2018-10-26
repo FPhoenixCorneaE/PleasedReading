@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fr_status_bg">#EBEBEB</color>
-    <color name="fr_status_tips">#BFBFBF</color>
-    <color name="fr_status_btn">#0084FF</color>
+    <color name="fr_background_Oxffededed">#ffededed</color>
+    <color name="fr_background_Oxffffffff">#ffffffff</color>
+    <color name="fr_divider_Oxffcccccc">#ffcccccc</color>
+    <color name="fr_divider_Oxffededed">#ffededed</color>
+
+    <color name="fr_status_bg">#ffebebeb</color>
+    <color name="fr_status_tips">#ffbfbfbf</color>
+    <color name="fr_status_btn">#ff0084ff</color>
 </resources>

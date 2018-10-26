@@ -9,11 +9,11 @@ import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.main.gank.GankContract.IGankView;
+import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 
-public class GankFragment extends BaseFragment implements IGankView {
+public class PRGankFragment extends BaseFragment implements IGankView {
 
-    private GankPresenter mPresenter;
+    private PRGankPresenter mPresenter;
 
     @Override
     public int getLayoutId() {
@@ -23,17 +23,17 @@ public class GankFragment extends BaseFragment implements IGankView {
     @NonNull
     @Override
     public BasePresenter createPresenter() {
-        return mPresenter = new GankPresenter(this, this);
+        return mPresenter = new PRGankPresenter(this, this);
     }
 
     @Override
     public BaseModel createModel() {
-        return ModelFactory.createModel(GankModel.class);
+        return ModelFactory.createModel(PRGankModel.class);
     }
 
     @Override
     public void initView() {
-
+//        ((PrFragmentGankBinding)mViewDataBinding).setPrGankBean();
     }
 
     @Override

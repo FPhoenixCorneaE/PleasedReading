@@ -11,7 +11,7 @@ ext {
 
     //Android configuration
     compileSdkVersion = 28
-    buildToolsVersion = "28.0.2"
+    buildToolsVersion = "28.0.3"
     minSdkVersion = 17
     targetSdkVersion = 28
 
@@ -21,9 +21,10 @@ ext {
 
     versionButterKnife = "8.8.1"
     versionFresco = '0.14.1'
-    versionGlide = '4.7.1'
+    versionGlide = '4.8.0'
     versionGson = '2.8.0'
     versionOkhttp3 = '3.10.0'
+    versionOkio = '1.14.0'
     versionPicasso = '2.71828'
     versionRxlifecycle2 = '2.2.2'
     versionRxandroid = '2.1.0'

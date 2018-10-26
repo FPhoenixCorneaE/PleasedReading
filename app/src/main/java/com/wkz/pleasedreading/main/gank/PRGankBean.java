@@ -1,11 +1,15 @@
 package com.wkz.pleasedreading.main.gank;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 import com.google.gson.annotations.SerializedName;
+import com.wkz.pleasedreading.BR;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class GankBean implements Serializable {
+public class PRGankBean extends BaseObservable implements Serializable {
 
     private static final long serialVersionUID = -507191316820836764L;
     /**
@@ -16,23 +20,28 @@ public class GankBean implements Serializable {
     private boolean error;
     private List<ResultsBean> results;
 
+    @Bindable
     public boolean isError() {
         return error;
     }
 
     public void setError(boolean error) {
         this.error = error;
+        //提示该属性刷新了
+        notifyPropertyChanged(BR.error);
     }
 
+    @Bindable
     public List<ResultsBean> getResults() {
         return results;
     }
 
     public void setResults(List<ResultsBean> results) {
         this.results = results;
+        notifyPropertyChanged(BR.results);
     }
 
-    public static class ResultsBean {
+    public static class ResultsBean extends BaseObservable {
         /**
          * _id : 5bba1b899d212261127b79d1
          * createdAt : 2018-10-07T14:43:21.406Z
@@ -58,84 +67,104 @@ public class GankBean implements Serializable {
         private String who;
         private List<String> images;
 
+        @Bindable
         public String getId() {
             return id;
         }
 
         public void setId(String id) {
             this.id = id;
+            notifyPropertyChanged(BR.id);
         }
 
+        @Bindable
         public String getCreatedAt() {
             return createdAt;
         }
 
         public void setCreatedAt(String createdAt) {
             this.createdAt = createdAt;
+            notifyPropertyChanged(BR.createdAt);
         }
 
+        @Bindable
         public String getDesc() {
             return desc;
         }
 
         public void setDesc(String desc) {
             this.desc = desc;
+            notifyPropertyChanged(BR.desc);
         }
 
+        @Bindable
         public String getPublishedAt() {
             return publishedAt;
         }
 
         public void setPublishedAt(String publishedAt) {
             this.publishedAt = publishedAt;
+            notifyPropertyChanged(BR.publishedAt);
         }
 
+        @Bindable
         public String getSource() {
             return source;
         }
 
         public void setSource(String source) {
             this.source = source;
+            notifyPropertyChanged(BR.source);
         }
 
+        @Bindable
         public String getType() {
             return type;
         }
 
         public void setType(String type) {
             this.type = type;
+            notifyPropertyChanged(BR.type);
         }
 
+        @Bindable
         public String getUrl() {
             return url;
         }
 
         public void setUrl(String url) {
             this.url = url;
+            notifyPropertyChanged(BR.url);
         }
 
+        @Bindable
         public boolean isUsed() {
             return used;
         }
 
         public void setUsed(boolean used) {
             this.used = used;
+            notifyPropertyChanged(BR.used);
         }
 
+        @Bindable
         public String getWho() {
             return who;
         }
 
         public void setWho(String who) {
             this.who = who;
+            notifyPropertyChanged(BR.who);
         }
 
+        @Bindable
         public List<String> getImages() {
             return images;
         }
 
         public void setImages(List<String> images) {
             this.images = images;
+            notifyPropertyChanged(BR.images);
         }
 
         @Override
@@ -157,7 +186,7 @@ public class GankBean implements Serializable {
 
     @Override
     public String toString() {
-        return "GankBean{" +
+        return "PRGankBean{" +
                 "error=" + error +
                 ", results=" + results +
                 '}';

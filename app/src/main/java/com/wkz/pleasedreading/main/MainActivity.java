@@ -13,7 +13,7 @@ import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.utils.FragmentUtils;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.main.gank.GankFragment;
+import com.wkz.pleasedreading.main.gank.PRGankFragment;
 
 import butterknife.BindView;
 
@@ -23,8 +23,8 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     FrameLayout prFlContainer;
     @BindView(R.id.pr_dl_drawer)
     DrawerLayout prDlDrawer;
-    @BindView(R.id.pr_fl_menu)
-    FrameLayout prFlMenu;
+    @BindView(R.id.pr_fl_sidebar_content)
+    FrameLayout prFlSidebarContent;
 
     private MainPresenter mMainPresenter;
 
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @Override
     public void initView() {
 
-        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new GankFragment(), null, false);
+        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
     }
 
     @Override
@@ -76,9 +76,9 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
         int drawerViewWidth = drawerView.getWidth();
         prFlContainer.setTranslationX(drawerViewWidth * slideOffset);
 
-        //设置控件最先出现的位置
-        double paddingLeft = drawerViewWidth * (1 - 0.618) * (1 - slideOffset);
-        prFlMenu.setPadding((int) paddingLeft, 0, 0, 0);
+        //设置侧边栏内容控件最先出现的位置
+        double translationX = drawerViewWidth * 0.618 * (1 - slideOffset);
+        prFlSidebarContent.setTranslationX((float) translationX);
     }
 
     @Override

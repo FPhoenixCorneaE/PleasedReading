@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--basic颜色：透明、白黑赤橙黄绿青蓝紫-->
+    <color name="fr_color_transparent">#00000000</color>
+    <color name="fr_color_white">#ffffffff</color>
+    <color name="fr_color_black">#ff000000</color>
+    <color name="fr_color_red">#ffff0000</color>
+    <color name="fr_color_orange">#ffffa500</color>
+    <color name="fr_color_yellow">#ffffff00</color>
+    <color name="fr_color_green">#ff00ff00</color>
+    <color name="fr_color_cyan">#ff00ffff</color>
+    <color name="fr_color_blue">#ff0000ff</color>
+    <color name="fr_color_purple">#ff800080</color>
+
+    <!--白色透明-->
+    <color name="fr_color_white_translucent10">#10ffffff</color>
+    <color name="fr_color_white_translucent20">#20ffffff</color>
+    <color name="fr_color_white_translucent30">#30ffffff</color>
+    <color name="fr_color_white_translucent40">#40ffffff</color>
+    <color name="fr_color_white_translucent50">#50ffffff</color>
+    <color name="fr_color_white_translucent60">#60ffffff</color>
+    <color name="fr_color_white_translucent70">#70ffffff</color>
+    <color name="fr_color_white_translucent80">#80ffffff</color>
+    <color name="fr_color_white_translucent90">#90ffffff</color>
+
+    <!--黑色透明-->
+    <color name="fr_color_black_translucent10">#10000000</color>
+    <color name="fr_color_black_translucent20">#20000000</color>
+    <color name="fr_color_black_translucent30">#30000000</color>
+    <color name="fr_color_black_translucent40">#40000000</color>
+    <color name="fr_color_black_translucent50">#50000000</color>
+    <color name="fr_color_black_translucent60">#60000000</color>
+    <color name="fr_color_black_translucent70">#70000000</color>
+    <color name="fr_color_black_translucent80">#80000000</color>
+    <color name="fr_color_black_translucent90">#90000000</color>
+
+    <!--浅灰色-->
+    <color name="fr_color_light_grey">#ffd3d3d3</color>
+    <!--灰色-->
+    <color name="fr_color_gray">#ff808080</color>
+    <!--暗淡的灰色-->
+    <color name="fr_color_dim_gray">#ff696969</color>
+    <!--深灰色-->
+    <color name="fr_color_dark_gray">#ffa9a9a9</color>
+    <!--苍白色-->
+    <color name="fr_color_pale">#fff7f7f7</color>
+    <!--苍白色半透明-->
+    <color name="fr_color_pale_translucent50">#50f7f7f7</color>
+    <!--深苍白色-->
+    <color name="fr_color_dark_pale">#ffe5e5e5</color>
+    <!--浅绿色-->
+    <color name="fr_color_light_green">#ff4cd964</color>
+    <!--深绿色-->
+    <color name="fr_color_dark_green">#ff3aa64c</color>
+    <!--粉红色-->
+    <color name="fr_color_pink">#fffa7d95</color>
+    <!--深粉红色-->
+    <color name="fr_color_dark_pink">#ffc76377</color>
+    <!--浅红色-->
+    <color name="fr_color_light_red">#ffff3b30</color>
+    <!--深红色-->
+    <color name="fr_color_dark_red">#ffcc2f27</color>
+    <!--浅橘黄色-->
+    <color name="fr_color_light_orange">#ffff9500</color>
+    <!--深橘黄色-->
+    <color name="fr_color_dark_orange">#ffcc7700</color>
+    <!--浅黄色-->
+    <color name="fr_color_light_yellow">#ffffcc00</color>
+    <!--深黄色-->
+    <color name="fr_color_dark_yellow">#ffcca300</color>
+    <!--浅褐色-->
+    <color name="fr_color_light_brown">#ff8e8e93</color>
+    <!--深褐色-->
+    <color name="fr_color_dark_brown">#ff5e5e61</color>
+    <!--浅天蓝色-->
+    <color name="fr_color_light_skyblue">#ff5ac8fa</color>
+    <!--深天蓝色-->
+    <color name="fr_color_dark_skyblue">#ff489fc7</color>
+    <!--浅蓝色-->
+    <color name="fr_color_light_blue">#ff007aff</color>
+    <!--深蓝色-->
+    <color name="fr_color_dark_blue">#ff0063cc</color>
+    <!--浅海蓝色-->
+    <color name="fr_color_light_oceanblue">#ff5856d6</color>
+    <!--深海蓝色-->
+    <color name="fr_color_dark_oceanblue">#ff4341a3</color>
+    <!--浅紫色-->
+    <color name="fr_color_light_purple">#ff9932cc</color>
+    <!--深紫色-->
+    <color name="fr_color_dark_purple">#ff800080</color>
+</resources>
