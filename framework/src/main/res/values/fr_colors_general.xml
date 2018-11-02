@@ -37,17 +37,17 @@
     <!--浅灰色-->
     <color name="fr_color_light_grey">#ffd3d3d3</color>
     <!--灰色-->
-    <color name="fr_color_gray">#ff808080</color>
+    <color name="fr_color_gray">#ffa9a9a9</color>
+    <!--深灰色-->
+    <color name="fr_color_dark_gray">#ff808080</color>
     <!--暗淡的灰色-->
     <color name="fr_color_dim_gray">#ff696969</color>
-    <!--深灰色-->
-    <color name="fr_color_dark_gray">#ffa9a9a9</color>
     <!--苍白色-->
     <color name="fr_color_pale">#fff7f7f7</color>
-    <!--苍白色半透明-->
-    <color name="fr_color_pale_translucent50">#50f7f7f7</color>
     <!--深苍白色-->
     <color name="fr_color_dark_pale">#ffe5e5e5</color>
+    <!--苍白色半透明-->
+    <color name="fr_color_pale_translucent50">#50f7f7f7</color>
     <!--浅绿色-->
     <color name="fr_color_light_green">#ff4cd964</color>
     <!--深绿色-->

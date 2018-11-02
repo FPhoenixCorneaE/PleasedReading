@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--使用ids资源文件,可以优化编译效率-->
+    <item name="fr_rl_recycler_reload" type="id" />
+
+    <item name="fr_iv_status_empty_img" type="id" />
+    <item name="fr_tv_status_empty_content" type="id" />
+    <item name="fr_iv_status_error_img" type="id" />
+    <item name="fr_tv_status_error_content" type="id" />
+    <item name="fr_btn_status_retry" type="id" />
+    <item name="fr_pb_status_loading" type="id" />
+    <item name="fr_tv_status_loading_content" type="id" />
+</resources>

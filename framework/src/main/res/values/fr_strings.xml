@@ -7,4 +7,10 @@
     <string name="fr_status_net_wifi_active">您正在使用Wifi上网</string>
     <string name="fr_status_net_mobile_active">您正在使用移动网络</string>
     <string name="fr_status_net_unavailable">当前无网络连接</string>
+
+    <string name="fr_recycler_empty">空空如也o(*￣︶￣*)o</string>
+    <string name="fr_recycler_reload">加载失败!\n点击空白重新加载哦</string>
+    <string name="fr_recycler_loading">努力加载中…</string>
+    <string name="fr_recycler_loadfailed">加载失败，点击重新加载</string>
+    <string name="fr_recycler_loadend">没有更多数据了 ლ(´•д• ̀ლ</string>
 </resources>

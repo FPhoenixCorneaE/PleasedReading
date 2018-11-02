@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--使用ids资源文件,可以优化编译效率-->
+    <item name="pr_dl_drawer" type="id" />
+    <item name="pr_fl_container" type="id" />
+    <item name="pr_tv_title" type="id" />
     <item name="pr_fl_sidebar_content" type="id" />
     <item name="pr_rl_user_info" type="id" />
     <item name="pr_iv_avatar" type="id" />
     <item name="pr_tv_nickname" type="id" />
-
-
-    <item name="pr_tv_title" type="id" />
 </resources>
