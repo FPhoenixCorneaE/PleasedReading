@@ -461,6 +461,7 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
             if (position != mDatas.size()) {
                 notifyItemRangeChanged(position + getHeaderCount(), mDatas.size() - position);
             } else {
+                mStatus = Status.EMPTY;
                 notifyDataSetChanged();
             }
         }
