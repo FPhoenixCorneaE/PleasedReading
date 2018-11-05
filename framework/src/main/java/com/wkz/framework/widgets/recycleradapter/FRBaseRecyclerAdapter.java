@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.wkz.framework.R;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -93,6 +95,25 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     @NonNull
     @Override
     public FRRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        if (mLoadMoreView == null) {
+            mLoadMoreView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadmore, null);
+        }
+        if (mLoadFailedView == null) {
+            mLoadFailedView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadfailed, null);
+        }
+        if (mLoadEndView == null) {
+            mLoadEndView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadend, null);
+        }
+        if (mLoadingView == null) {
+            mLoadingView = inflateLayout(mContext, R.layout.fr_layout_recycler_loading, parent);
+        }
+        if (mEmptyView == null) {
+            mEmptyView = inflateLayout(mContext, R.layout.fr_layout_recycler_empty, parent);
+        }
+        if (mReloadView == null) {
+            mReloadView = inflateLayout(mContext, R.layout.fr_layout_recycler_reload, parent);
+        }
 
         if (showHeaderView && mHeaderViews.get(viewType) != null) {
             return FRRecyclerViewHolder.create(mHeaderViews.get(viewType));
@@ -461,8 +482,7 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
             if (position != mDatas.size()) {
                 notifyItemRangeChanged(position + getHeaderCount(), mDatas.size() - position);
             } else {
-                mStatus = Status.EMPTY;
-                notifyDataSetChanged();
+                showEmpty();
             }
         }
         return this;
@@ -481,7 +501,7 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
                 notifyItemRangeInserted(position + getHeaderCount(), datas.size());
                 notifyItemRangeChanged(position + getHeaderCount(), mDatas.size() - position);
             } else {
-                notifyDataSetChanged();
+                showEmpty();
             }
         } else {
             notifyDataSetChanged();

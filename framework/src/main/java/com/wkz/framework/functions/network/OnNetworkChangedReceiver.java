@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
+import com.wkz.framework.R;
 import com.wkz.framework.utils.ResourceUtils;
 
 public class OnNetworkChangedReceiver extends BroadcastReceiver {
@@ -35,9 +36,7 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
                     Logger.i("Network", "onWifiActive");
                     if (mOnNetworkChangedListener != null) {
                         mOnNetworkChangedListener.onWifiActive(
-                                ResourceUtils.getString(
-                                        ResourceUtils.getStringId("fr_status_net_wifi_active")
-                                )
+                                ResourceUtils.getString(R.string.fr_status_net_wifi_active)
                         );
                     }
                     break;
@@ -45,9 +44,7 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
                     Logger.i("Network", "onMobileActive");
                     if (mOnNetworkChangedListener != null) {
                         mOnNetworkChangedListener.onMobileActive(
-                                ResourceUtils.getString(
-                                        ResourceUtils.getStringId("fr_status_net_mobile_active")
-                                )
+                                ResourceUtils.getString(R.string.fr_status_net_mobile_active)
                         );
                     }
                     break;
@@ -58,9 +55,7 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
             Logger.i("Network", "onUnavailable");
             if (mOnNetworkChangedListener != null) {
                 mOnNetworkChangedListener.onUnavailable(
-                        ResourceUtils.getString(
-                                ResourceUtils.getStringId("fr_status_net_unavailable")
-                        )
+                        ResourceUtils.getString(R.string.fr_status_net_unavailable)
                 );
             }
         }

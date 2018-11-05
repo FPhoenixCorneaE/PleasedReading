@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wkz.framework.R;
 import com.wkz.framework.utils.ResourceUtils;
 
 /**
@@ -21,34 +22,34 @@ public class FRStatusLayoutManager {
     /**
      * 三种默认布局 ID
      */
-    private static final String DEFAULT_LOADING_LAYOUT_ID = "fr_layout_status_loading";
-    private static final String DEFAULT_EMPTY_LAYOUT_ID = "fr_layout_status_empty";
-    private static final String DEFAULT_ERROR_LAYOUT_ID = "fr_layout_status_error";
+    private static final int DEFAULT_LOADING_LAYOUT_ID = R.layout.fr_layout_status_loading;
+    private static final int DEFAULT_EMPTY_LAYOUT_ID = R.layout.fr_layout_status_empty;
+    private static final int DEFAULT_ERROR_LAYOUT_ID = R.layout.fr_layout_status_error;
 
     /**
      * 默认布局中可点击的 view ID
      */
-    private static final String DEFAULT_EMPTY_BUTTON_ID = "fr_btn_status_retry";
-    private static final String DEFAULT_ERROR_BUTTON_ID = "fr_btn_status_retry";
+    private static final int DEFAULT_EMPTY_BUTTON_ID = R.id.fr_btn_status_retry;
+    private static final int DEFAULT_ERROR_BUTTON_ID = R.id.fr_btn_status_retry;
 
     /**
      * 提示内容
      */
-    private static final String DEFAULT_LOADING_CONTENT_ID = "fr_tv_status_loading_content";
-    private static final String DEFAULT_EMPTY_CONTENT_ID = "fr_tv_status_empty_content";
-    private static final String DEFAULT_ERROR_CONTENT_ID = "fr_tv_status_error_content";
+    private static final int DEFAULT_LOADING_CONTENT_ID = R.id.fr_tv_status_loading_content;
+    private static final int DEFAULT_EMPTY_CONTENT_ID = R.id.fr_tv_status_empty_content;
+    private static final int DEFAULT_ERROR_CONTENT_ID = R.id.fr_tv_status_error_content;
 
     /**
      * 图片资源
      */
-    private static final String DEFAULT_EMPTY_IMG_ID = "fr_iv_status_empty_img";
-    private static final String DEFAULT_ERROR_IMG_ID = "fr_iv_status_error_img";
+    private static final int DEFAULT_EMPTY_IMG_ID = R.id.fr_iv_status_empty_img;
+    private static final int DEFAULT_ERROR_IMG_ID = R.id.fr_iv_status_error_img;
 
     /**
      * 默认颜色
      */
-    private static final String DEFAULT_BUTTON_TEXT_COLOR = "fr_status_btn";
-    private static final String DEFAULT_BACKGROUND_COLOR = "fr_status_bg";
+    private static final int DEFAULT_BUTTON_TEXT_COLOR = R.color.fr_status_btn;
+    private static final int DEFAULT_BACKGROUND_COLOR = R.color.fr_status_bg;
 
     private View contentLayout;
 
@@ -150,11 +151,11 @@ public class FRStatusLayoutManager {
         if (loadingLayout == null) {
             loadingLayout = inflate(loadingLayoutID);
         }
-        if (loadingLayoutID == ResourceUtils.getLayoutId(DEFAULT_LOADING_LAYOUT_ID)) {
+        if (loadingLayoutID == DEFAULT_LOADING_LAYOUT_ID) {
             loadingLayout.setBackgroundColor(defaultBackgroundColor);
         }
         if (!TextUtils.isEmpty(loadingText)) {
-            TextView loadingTextView = loadingLayout.findViewById(ResourceUtils.getId(DEFAULT_LOADING_CONTENT_ID));
+            TextView loadingTextView = loadingLayout.findViewById(DEFAULT_LOADING_CONTENT_ID);
             if (loadingTextView != null) {
                 loadingTextView.setText(loadingText);
             }
@@ -190,7 +191,7 @@ public class FRStatusLayoutManager {
         if (emptyLayout == null) {
             emptyLayout = inflate(emptyLayoutID);
         }
-        if (emptyLayoutID == ResourceUtils.getLayoutId(DEFAULT_EMPTY_LAYOUT_ID)) {
+        if (emptyLayoutID == DEFAULT_EMPTY_LAYOUT_ID) {
             emptyLayout.setBackgroundColor(defaultBackgroundColor);
         }
 
@@ -207,7 +208,7 @@ public class FRStatusLayoutManager {
         }
 
         // 设置默认空数据布局的提示文本
-        TextView emptyTextView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_CONTENT_ID));
+        TextView emptyTextView = emptyLayout.findViewById(DEFAULT_EMPTY_CONTENT_ID);
         if (emptyTextView != null) {
             if (!TextUtils.isEmpty(emptyText)) {
                 emptyTextView.setText(emptyText);
@@ -215,7 +216,7 @@ public class FRStatusLayoutManager {
         }
 
         // 设置默认空数据布局的图片
-        ImageView emptyImageView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_IMG_ID));
+        ImageView emptyImageView = emptyLayout.findViewById(DEFAULT_EMPTY_IMG_ID);
         if (emptyImageView != null) {
             if (emptyImgID > 0) {
                 emptyImageView.setVisibility(View.VISIBLE);
@@ -225,7 +226,7 @@ public class FRStatusLayoutManager {
             }
         }
 
-        TextView emptyClickViewTextView = emptyLayout.findViewById(ResourceUtils.getId(DEFAULT_EMPTY_BUTTON_ID));
+        TextView emptyClickViewTextView = emptyLayout.findViewById(DEFAULT_EMPTY_BUTTON_ID);
 
         if (emptyClickViewTextView != null) {
             // 设置点击按钮的文本和可见性
@@ -270,7 +271,7 @@ public class FRStatusLayoutManager {
         if (errorLayout == null) {
             errorLayout = inflate(errorLayoutID);
         }
-        if (errorLayoutID == ResourceUtils.getLayoutId(DEFAULT_ERROR_LAYOUT_ID)) {
+        if (errorLayoutID == DEFAULT_ERROR_LAYOUT_ID) {
             errorLayout.setBackgroundColor(defaultBackgroundColor);
         }
 
@@ -286,7 +287,7 @@ public class FRStatusLayoutManager {
         }
 
         // 设置默认出错布局的提示文本
-        TextView errorTextView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_CONTENT_ID));
+        TextView errorTextView = errorLayout.findViewById(DEFAULT_ERROR_CONTENT_ID);
         if (errorTextView != null) {
             if (!TextUtils.isEmpty(errorText)) {
                 errorTextView.setText(errorText);
@@ -294,7 +295,7 @@ public class FRStatusLayoutManager {
         }
 
         // 设置默认出错布局的图片
-        ImageView errorImageView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_IMG_ID));
+        ImageView errorImageView = errorLayout.findViewById(DEFAULT_ERROR_IMG_ID);
         if (errorImageView != null) {
             if (errorImgID > 0) {
                 errorImageView.setVisibility(View.VISIBLE);
@@ -304,7 +305,7 @@ public class FRStatusLayoutManager {
             }
         }
 
-        TextView errorClickViewTextView = errorLayout.findViewById(ResourceUtils.getId(DEFAULT_ERROR_BUTTON_ID));
+        TextView errorClickViewTextView = errorLayout.findViewById(DEFAULT_ERROR_BUTTON_ID);
         if (errorClickViewTextView != null) {
             // 设置点击按钮的文本和可见性
             if (isErrorClickViewVisible) {
@@ -447,19 +448,19 @@ public class FRStatusLayoutManager {
         public Builder(@NonNull View contentLayout) {
             this.contentLayout = contentLayout;
             // 设置默认布局
-            this.loadingLayoutID = ResourceUtils.getLayoutId(DEFAULT_LOADING_LAYOUT_ID);
-            this.emptyLayoutID = ResourceUtils.getLayoutId(DEFAULT_EMPTY_LAYOUT_ID);
-            this.errorLayoutID = ResourceUtils.getLayoutId(DEFAULT_ERROR_LAYOUT_ID);
+            this.loadingLayoutID = DEFAULT_LOADING_LAYOUT_ID;
+            this.emptyLayoutID = DEFAULT_EMPTY_LAYOUT_ID;
+            this.errorLayoutID = DEFAULT_ERROR_LAYOUT_ID;
             // 设置默认点击点击view id
-            this.emptyClickViewId = ResourceUtils.getId(DEFAULT_EMPTY_BUTTON_ID);
-            this.errorClickViewId = ResourceUtils.getId(DEFAULT_ERROR_BUTTON_ID);
+            this.emptyClickViewId = DEFAULT_EMPTY_BUTTON_ID;
+            this.errorClickViewId = DEFAULT_ERROR_BUTTON_ID;
             // 设置默认点击按钮属性
             this.isEmptyClickViewVisible = true;
-            this.emptyClickViewTextColor = contentLayout.getContext().getResources().getColor(ResourceUtils.getColorId(DEFAULT_BUTTON_TEXT_COLOR));
+            this.emptyClickViewTextColor = ResourceUtils.getColor(DEFAULT_BUTTON_TEXT_COLOR);
             this.isErrorClickViewVisible = true;
-            this.errorClickViewTextColor = contentLayout.getContext().getResources().getColor(ResourceUtils.getColorId(DEFAULT_BUTTON_TEXT_COLOR));
+            this.errorClickViewTextColor = ResourceUtils.getColor(DEFAULT_BUTTON_TEXT_COLOR);
             // 设置默认背景色
-            this.defaultBackgroundColor = contentLayout.getContext().getResources().getColor(ResourceUtils.getColorId(DEFAULT_BACKGROUND_COLOR));
+            this.defaultBackgroundColor = ResourceUtils.getColor(DEFAULT_BACKGROUND_COLOR);
         }
 
         ///////////////////////////////////////////
@@ -506,7 +507,7 @@ public class FRStatusLayoutManager {
          * @return 状态布局 Build 对象
          */
         public Builder setDefaultLoadingText(@StringRes int loadingTextStrID) {
-            this.loadingText = contentLayout.getContext().getResources().getString(loadingTextStrID);
+            this.loadingText = ResourceUtils.getString(loadingTextStrID);
             return this;
         }
 
@@ -566,7 +567,7 @@ public class FRStatusLayoutManager {
          * @return 状态布局 Build 对象
          */
         public Builder setDefaultEmptyClickViewText(@StringRes int emptyClickViewTextID) {
-            this.emptyClickViewText = contentLayout.getContext().getResources().getString(emptyClickViewTextID);
+            this.emptyClickViewText = ResourceUtils.getString(emptyClickViewTextID);
             return this;
         }
 
@@ -625,7 +626,7 @@ public class FRStatusLayoutManager {
          * @return 状态布局 Build 对象
          */
         public Builder setDefaultEmptyText(@StringRes int emptyTextStrID) {
-            this.emptyText = contentLayout.getContext().getResources().getString(emptyTextStrID);
+            this.emptyText = ResourceUtils.getString(emptyTextStrID);
             return this;
         }
 
@@ -681,7 +682,7 @@ public class FRStatusLayoutManager {
          * @return 状态布局 Build 对象
          */
         public Builder setDefaultErrorText(@StringRes int errorTextStrID) {
-            this.errorText = contentLayout.getContext().getResources().getString(errorTextStrID);
+            this.errorText = ResourceUtils.getString(errorTextStrID);
             return this;
         }
 
@@ -703,7 +704,7 @@ public class FRStatusLayoutManager {
          * @return 状态布局 Build 对象
          */
         public Builder setDefaultErrorClickViewText(@StringRes int errorClickViewTextID) {
-            this.errorClickViewText = contentLayout.getContext().getResources().getString(errorClickViewTextID);
+            this.errorClickViewText = ResourceUtils.getString(errorClickViewTextID);
             return this;
         }
 

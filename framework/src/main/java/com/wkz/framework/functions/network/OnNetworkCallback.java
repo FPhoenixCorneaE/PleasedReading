@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.orhanobut.logger.Logger;
+import com.wkz.framework.R;
 import com.wkz.framework.utils.ResourceUtils;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -38,18 +39,14 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
                     case ConnectivityManager.TYPE_WIFI:
                         if (mOnNetworkChangedListener != null) {
                             mOnNetworkChangedListener.onWifiActive(
-                                    ResourceUtils.getString(
-                                            ResourceUtils.getStringId("fr_status_net_wifi_active")
-                                    )
+                                    ResourceUtils.getString(R.string.fr_status_net_wifi_active)
                             );
                         }
                         break;
                     case ConnectivityManager.TYPE_MOBILE:
                         if (mOnNetworkChangedListener != null) {
                             mOnNetworkChangedListener.onMobileActive(
-                                    ResourceUtils.getString(
-                                            ResourceUtils.getStringId("fr_status_net_mobile_active")
-                                    )
+                                    ResourceUtils.getString(R.string.fr_status_net_mobile_active)
                             );
                         }
                         break;
@@ -70,9 +67,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
 
         if (mOnNetworkChangedListener != null) {
             mOnNetworkChangedListener.onUnavailable(
-                    ResourceUtils.getString(
-                            ResourceUtils.getStringId("fr_status_net_unavailable")
-                    )
+                    ResourceUtils.getString(R.string.fr_status_net_unavailable)
             );
         }
     }

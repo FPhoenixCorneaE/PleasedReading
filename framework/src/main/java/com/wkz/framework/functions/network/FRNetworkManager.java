@@ -9,6 +9,7 @@ import android.net.NetworkRequest;
 import android.os.Build;
 
 import com.wkz.framework.FRApplication;
+import com.wkz.framework.R;
 import com.wkz.framework.utils.NetworkUtils;
 import com.wkz.framework.utils.ResourceUtils;
 
@@ -57,26 +58,20 @@ public class FRNetworkManager {
                     if (NetworkUtils.isWifiConnected()) {
                         if (onNetworkChangedListener != null) {
                             onNetworkChangedListener.onWifiActive(
-                                    ResourceUtils.getString(
-                                            ResourceUtils.getStringId("fr_status_net_wifi_active")
-                                    )
+                                    ResourceUtils.getString(R.string.fr_status_net_wifi_active)
                             );
                         }
                     } else if (NetworkUtils.isMobileConnected()) {
                         if (onNetworkChangedListener != null) {
                             onNetworkChangedListener.onMobileActive(
-                                    ResourceUtils.getString(
-                                            ResourceUtils.getStringId("fr_status_net_mobile_active")
-                                    )
+                                    ResourceUtils.getString(R.string.fr_status_net_mobile_active)
                             );
                         }
                     }
                 } else {
                     if (onNetworkChangedListener != null) {
                         onNetworkChangedListener.onUnavailable(
-                                ResourceUtils.getString(
-                                        ResourceUtils.getStringId("fr_status_net_unavailable")
-                                )
+                                ResourceUtils.getString(R.string.fr_status_net_unavailable)
                         );
                     }
                 }

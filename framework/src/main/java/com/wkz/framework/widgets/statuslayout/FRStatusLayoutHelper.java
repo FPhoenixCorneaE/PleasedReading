@@ -64,7 +64,9 @@ class FRStatusLayoutHelper {
             return;
         }
         if (currentLayout != view) {
-            parentLayout.removeViewsInLayout(1, parentLayout.getChildCount() - 1);
+            if (parentLayout.getChildCount() > 1) {
+                parentLayout.removeViewsInLayout(1, parentLayout.getChildCount() - 1);
+            }
             if (view != contentLayout) {
                 parentLayout.addView(view);
             }
