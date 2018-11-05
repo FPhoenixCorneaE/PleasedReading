@@ -59,16 +59,14 @@ public abstract class BaseFragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mContentView == null) {
-            mContentView = inflater.inflate(getLayoutId(), container, false);
-        }
-        mViewDataBinding = DataBindingUtil.setContentView(mContext, getLayoutId());
-        mUnbinder = ButterKnife.bind(this, mContentView);
-
+        //设置内容视图
+        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        mContentView = mViewDataBinding.getRoot();
         //设置状态布局
         mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(mContentView)
                 .setOnStatusLayoutClickListener(this)
                 .build();
+        mUnbinder = ButterKnife.bind(this, mContentView);
 
         //构建Presenter
         createPresenter();

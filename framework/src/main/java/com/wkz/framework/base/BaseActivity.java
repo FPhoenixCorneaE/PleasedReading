@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.wkz.framework.R;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
@@ -27,6 +30,7 @@ public abstract class BaseActivity
     protected ViewDataBinding mViewDataBinding;
     private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
+    private View mContentView;
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,15 +39,13 @@ public abstract class BaseActivity
         mContext = this;
 
         //设置内容视图
-        View contentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
+        mContentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
         mViewDataBinding = DataBindingUtil.setContentView(mContext, getLayoutId());
-
-        mUnbinder = ButterKnife.bind(this);
-
         //设置状态布局
-        mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(contentView)
+        mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(mContentView)
                 .setOnStatusLayoutClickListener(this)
                 .build();
+        mUnbinder = ButterKnife.bind(this);
 
         //构建Presenter
         createPresenter();
@@ -57,6 +59,21 @@ public abstract class BaseActivity
         initListener();
         //初始化数据
         initData(savedInstanceState);
+    }
+
+    /**
+     * DataBinding结合BaseActivity和多状态布局使用的解决方案
+     * @param layoutResID
+     */
+    @Override
+    public void setContentView(int layoutResID) {
+        ViewGroup frParent = new FrameLayout(mContext);
+        frParent.addView(mContentView);
+        setContentView(frParent);
+
+        ViewGroup androidContentView = findViewById(android.R.id.content);
+        frParent.setId(android.R.id.content);
+        androidContentView.setId(View.NO_ID);
     }
 
     @Override
