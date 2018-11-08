@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pr_background">
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/pr_dl_drawer"
+    <data>
+
+        <variable
+            name="avatarUrl"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="nickname"
+            type="String" />
+
+        <!--&lt;为小于号<的转义符，小于号<在此处不可用-->
+        <variable
+            name="menuList"
+            type="java.util.ArrayList&lt;String>" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/pr_background">
 
-        <!--内容部分-->
-        <include layout="@layout/pr_content_main" />
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/pr_dl_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <!--左侧菜单-->
-        <include layout="@layout/pr_sidebar_main" />
-    </android.support.v4.widget.DrawerLayout>
-</FrameLayout>
+            <!--内容部分-->
+            <include
+                layout="@layout/pr_content_main"
+                bind:avatarUrl="@{avatarUrl}"
+                bind:title="@{title}" />
+
+            <!--左侧菜单-->
+            <!--data传递：bind:menuList="@{menuList}"-->
+            <include
+                layout="@layout/pr_sidebar_main"
+                bind:avatarUrl="@{avatarUrl}"
+                bind:menuList="@{menuList}"
+                bind:nickname="@{nickname}" />
+        </android.support.v4.widget.DrawerLayout>
+    </FrameLayout>
+</layout>

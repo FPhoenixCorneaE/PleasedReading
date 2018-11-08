@@ -56,4 +56,19 @@
         </attr>
         <attr name="fr_sliding_top_max" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="FRMaterialRippleLayout">
+        <attr name="fr_mrl_rippleColor" format="color" localization="suggested" />
+        <attr name="fr_mrl_rippleDimension" format="dimension" localization="suggested" />
+        <attr name="fr_mrl_rippleOverlay" format="boolean" localization="suggested" />
+        <attr name="fr_mrl_rippleAlpha" format="float" localization="suggested" />
+        <attr name="fr_mrl_rippleDuration" format="integer" localization="suggested" />
+        <attr name="fr_mrl_rippleFadeDuration" format="integer" localization="suggested" />
+        <attr name="fr_mrl_rippleHover" format="boolean" localization="suggested" />
+        <attr name="fr_mrl_rippleBackground" format="color" localization="suggested" />
+        <attr name="fr_mrl_rippleDelayClick" format="boolean" localization="suggested" />
+        <attr name="fr_mrl_ripplePersistent" format="boolean" localization="suggested" />
+        <attr name="fr_mrl_rippleInAdapter" format="boolean" localization="suggested" />
+        <attr name="fr_mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
+    </declare-styleable>
 </resources>

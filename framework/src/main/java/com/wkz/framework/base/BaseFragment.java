@@ -15,6 +15,7 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
+import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
@@ -208,5 +209,33 @@ public abstract class BaseFragment
 
     @Override
     public void onUnavailable(String message) {
+    }
+
+    /**
+     * 将View构建成Ripple风格
+     *
+     * @param targetView 需要添加Ripple的View
+     * @param listener   点击事件
+     */
+    protected FRMaterialRippleLayout materialRipple(View targetView, View.OnClickListener listener) {
+        return materialRipple(targetView, false, listener);
+    }
+
+    /**
+     * 将View构建成Ripple风格
+     *
+     * @param targetView 需要添加Ripple的View
+     * @param listener   点击事件
+     */
+    protected FRMaterialRippleLayout materialRipple(View targetView, boolean rippleInAdapter, View.OnClickListener listener) {
+        FRMaterialRippleLayout layout = FRMaterialRippleLayout.with(targetView)
+                .rippleOverlay(true)
+                .rippleHover(true)
+                .rippleAlpha(0.2f)
+                .rippleInAdapter(rippleInAdapter)
+                .create();
+        layout.setClickable(true);
+        layout.setOnClickListener(listener);
+        return layout;
     }
 }

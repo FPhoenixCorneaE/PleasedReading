@@ -1,45 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/pr_fl_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true">
+<layout>
 
-    <View
+    <data>
+
+        <variable
+            name="avatarUrl"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pr_fl_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/pr_statusBarSize"
-        android:background="@color/pr_statusBar" />
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pr_actionBarSize"
-        android:layout_marginTop="@dimen/pr_statusBarSize"
-        android:background="@color/pr_actionBar"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pr_statusBarSize"
+            android:background="@color/pr_statusBar" />
 
-        <com.wkz.framework.widgets.glideimageview.FRGlideImageView
-            android:id="@id/pr_iv_avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/pr_shape_placeholder_avatar_circle"
-            app:fr_siv_pressed_alpha="0"
-            app:fr_siv_pressed_color="@color/fr_color_transparent"
-            app:fr_siv_shape_type="circle" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pr_actionBarSize"
+            android:layout_marginTop="@dimen/pr_statusBarSize"
+            android:background="@color/pr_actionBar"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@id/pr_tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:text="Gank"
-            android:textColor="@color/fr_color_black"
-            android:textSize="24sp" />
-    </RelativeLayout>
-</FrameLayout>
+            <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+                android:id="@id/pr_iv_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/pr_shape_placeholder_avatar_circle"
+                app:avatarUrl="@{avatarUrl}"
+                app:fr_siv_pressed_alpha="0"
+                app:fr_siv_pressed_color="@color/fr_color_transparent"
+                app:fr_siv_shape_type="circle" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@id/pr_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:text="@{title}"
+                android:textColor="@color/fr_color_black"
+                android:textSize="24sp" />
+        </RelativeLayout>
+    </FrameLayout>
+</layout>

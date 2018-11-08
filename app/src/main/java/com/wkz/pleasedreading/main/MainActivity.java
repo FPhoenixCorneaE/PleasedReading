@@ -1,5 +1,6 @@
 package com.wkz.pleasedreading.main;
 
+import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,8 +13,12 @@ import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.utils.FragmentUtils;
+import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
+import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -27,6 +32,7 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     FrameLayout prFlSidebarContent;
 
     private MainPresenter mMainPresenter;
+    private PrActivityMainBinding mDataBinding;
 
     @Override
     public int getLayoutId() {
@@ -48,11 +54,22 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     public void initView() {
 
         FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
+
+        mDataBinding = (PrActivityMainBinding) mViewDataBinding;
+        mDataBinding.setAvatarUrl("http://img0.imgtn.bdimg.com/it/u=1365742167,1660121271&fm=26&gp=0.jpg");
+        mDataBinding.setTitle("Gank");
+        mDataBinding.setNickname("烽火戏诸侯");
+        mDataBinding.setMenuList(new ArrayList<String>() {
+            private static final long serialVersionUID = 4548353330276131214L;
+
+            {
+                add("Gank");
+            }
+        });
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -94,5 +111,16 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @Override
     public void onDrawerStateChanged(int i) {
 
+    }
+
+    /**
+     * 加载头像
+     *
+     * @param frGlideImageView
+     * @param avatarUrl
+     */
+    @BindingAdapter({"bind:avatarUrl"})
+    public static void loadAvatar(FRGlideImageView frGlideImageView, String avatarUrl) {
+        frGlideImageView.loadCircleImage(avatarUrl, R.drawable.pr_shape_placeholder_avatar_circle);
     }
 }

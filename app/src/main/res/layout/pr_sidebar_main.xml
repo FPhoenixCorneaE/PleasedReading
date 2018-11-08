@@ -1,50 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:background="@color/pr_background">
+<layout>
 
-    <FrameLayout
-        android:id="@id/pr_fl_sidebar_content"
+    <data>
+
+        <variable
+            name="avatarUrl"
+            type="String" />
+
+        <variable
+            name="nickname"
+            type="String" />
+
+        <variable
+            name="menuList"
+            type="java.util.ArrayList&lt;String>" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/pr_background">
 
-        <RelativeLayout
-            android:id="@id/pr_rl_user_info"
+        <FrameLayout
+            android:id="@id/pr_fl_sidebar_content"
             android:layout_width="match_parent"
-            android:layout_height="185dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:layout_height="match_parent">
 
-            <com.wkz.framework.widgets.glideimageview.FRGlideImageView
-                android:id="@id/pr_iv_avatar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="80dp"
-                android:background="@drawable/pr_shape_placeholder_avatar_circle"
-                app:fr_siv_border_color="@color/fr_color_white"
-                app:fr_siv_border_width="1.5dp"
-                app:fr_siv_pressed_alpha="0"
-                app:fr_siv_pressed_color="@color/fr_color_transparent"
-                app:fr_siv_shape_type="circle" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@id/pr_tv_nickname"
+            <RelativeLayout
+                android:id="@id/pr_rl_user_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/pr_iv_avatar"
-                android:layout_alignBottom="@id/pr_iv_avatar"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_toEndOf="@id/pr_iv_avatar"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:text="烽火戏诸侯"
-                android:textColor="@color/fr_color_black"
-                android:textSize="28sp" />
-        </RelativeLayout>
+                android:layout_height="185dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+                <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+                    android:id="@id/pr_iv_avatar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/pr_shape_placeholder_avatar_circle"
+                    app:avatarUrl="@{avatarUrl}"
+                    app:fr_siv_border_color="@color/fr_color_white"
+                    app:fr_siv_border_width="1.5dp"
+                    app:fr_siv_pressed_alpha="0"
+                    app:fr_siv_pressed_color="@color/fr_color_transparent"
+                    app:fr_siv_shape_type="circle" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@id/pr_tv_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/pr_iv_avatar"
+                    android:layout_alignBottom="@id/pr_iv_avatar"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toEndOf="@id/pr_iv_avatar"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="@{nickname}"
+                    android:textColor="@color/fr_color_black"
+                    android:textSize="28sp" />
+            </RelativeLayout>
+
+            <com.wkz.framework.widgets.overscroll.FROverScrollFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="185dp">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="@{menuList[0]}"
+                            android:textColor="@color/fr_color_black"
+                            android:textSize="18sp" />
+                    </android.support.v7.widget.LinearLayoutCompat>
+                </android.support.v4.widget.NestedScrollView>
+            </com.wkz.framework.widgets.overscroll.FROverScrollFrameLayout>
+        </FrameLayout>
     </FrameLayout>
-</FrameLayout>
+</layout>
