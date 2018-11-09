@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--加载圆形、圆角矩形图片控件-->
     <declare-styleable name="FRShapeImageView">
-        <attr name="fr_siv_border_width" format="dimension"/>
-        <attr name="fr_siv_border_color" format="color"/>
-        <attr name="fr_siv_radius" format="dimension"/>
-        <attr name="fr_siv_radius_top_left" format="dimension"/>
-        <attr name="fr_siv_radius_top_right" format="dimension"/>
-        <attr name="fr_siv_radius_bottom_left" format="dimension"/>
-        <attr name="fr_siv_radius_bottom_right" format="dimension"/>
-        <attr name="fr_siv_pressed_alpha" format="float"/>
-        <attr name="fr_siv_pressed_color" format="color"/>
+        <attr name="fr_siv_border_width" format="dimension" />
+        <attr name="fr_siv_border_color" format="color" />
+        <attr name="fr_siv_radius" format="dimension" />
+        <attr name="fr_siv_radius_top_left" format="dimension" />
+        <attr name="fr_siv_radius_top_right" format="dimension" />
+        <attr name="fr_siv_radius_bottom_left" format="dimension" />
+        <attr name="fr_siv_radius_bottom_right" format="dimension" />
+        <attr name="fr_siv_pressed_alpha" format="float" />
+        <attr name="fr_siv_pressed_color" format="color" />
         <attr name="fr_siv_shape_type" format="enum">
-            <enum name="rectangle" value="0"/>
-            <enum name="circle" value="1"/>
+            <enum name="rectangle" value="0" />
+            <enum name="circle" value="1" />
         </attr>
     </declare-styleable>
 
+    <!--圆环进度控件-->
     <declare-styleable name="FRCircleProgressView">
-        <attr name="fr_cpv_progressNormalColor" format="color"/>
-        <attr name="fr_cpv_progressReachColor" format="color"/>
-        <attr name="fr_cpv_progressTextColor" format="color"/>
-        <attr name="fr_cpv_progressTextSize" format="dimension"/>
-        <attr name="fr_cpv_progressTextOffset" format="dimension"/>
-        <attr name="fr_cpv_progressNormalSize" format="dimension"/>
-        <attr name="fr_cpv_progressReachSize" format="dimension"/>
-        <attr name="fr_cpv_radius" format="dimension"/>
-        <attr name="fr_cpv_progressTextVisible" format="boolean"/>
-        <attr name="fr_cpv_progressStartArc" format="integer"/>
-        <attr name="fr_cpv_progressTextSkewX" format="dimension"/>
-        <attr name="fr_cpv_progressTextPrefix" format="string"/>
-        <attr name="fr_cpv_progressTextSuffix" format="string"/>
-        <attr name="fr_cpv_innerBackgroundColor" format="color"/>
+        <attr name="fr_cpv_progressNormalColor" format="color" />
+        <attr name="fr_cpv_progressReachColor" format="color" />
+        <attr name="fr_cpv_progressTextColor" format="color" />
+        <attr name="fr_cpv_progressTextSize" format="dimension" />
+        <attr name="fr_cpv_progressTextOffset" format="dimension" />
+        <attr name="fr_cpv_progressNormalSize" format="dimension" />
+        <attr name="fr_cpv_progressReachSize" format="dimension" />
+        <attr name="fr_cpv_radius" format="dimension" />
+        <attr name="fr_cpv_progressTextVisible" format="boolean" />
+        <attr name="fr_cpv_progressStartArc" format="integer" />
+        <attr name="fr_cpv_progressTextSkewX" format="dimension" />
+        <attr name="fr_cpv_progressTextPrefix" format="string" />
+        <attr name="fr_cpv_progressTextSuffix" format="string" />
+        <attr name="fr_cpv_innerBackgroundColor" format="color" />
         <attr name="fr_cpv_progressStyle" format="enum">
-            <enum name="Normal" value="0"/>
-            <enum name="FillInner" value="1"/>
-            <enum name="FillInnerArc" value="2"/>
+            <enum name="Normal" value="0" />
+            <enum name="FillInner" value="1" />
+            <enum name="FillInnerArc" value="2" />
         </attr>
-        <attr name="fr_cpv_innerProgressColor" format="color"/>
-        <attr name="fr_cpv_innerPadding" format="dimension"/>
-        <attr name="fr_cpv_outerColor" format="color"/>
-        <attr name="fr_cpv_outerSize" format="dimension"/>
-        <attr name="fr_cpv_reachCapRound" format="boolean"/>
+        <attr name="fr_cpv_innerProgressColor" format="color" />
+        <attr name="fr_cpv_innerPadding" format="dimension" />
+        <attr name="fr_cpv_outerColor" format="color" />
+        <attr name="fr_cpv_outerSize" format="dimension" />
+        <attr name="fr_cpv_reachCapRound" format="boolean" />
     </declare-styleable>
 
+    <!--实现类似微信网页浏览的下拉功能，也可以实现类似iOS中UITableView的下拉上拉弹跳的果冻效果-->
     <declare-styleable name="FRSlidingLayout">
         <attr name="fr_sliding_background_view" format="reference" />
         <attr name="fr_sliding_mode" format="enum">
@@ -57,6 +61,7 @@
         <attr name="fr_sliding_top_max" format="dimension" />
     </declare-styleable>
 
+    <!--让指定View显示MaterialRipple效果的控件-->
     <declare-styleable name="FRMaterialRippleLayout">
         <attr name="fr_mrl_rippleColor" format="color" localization="suggested" />
         <attr name="fr_mrl_rippleDimension" format="dimension" localization="suggested" />
@@ -70,5 +75,20 @@
         <attr name="fr_mrl_ripplePersistent" format="boolean" localization="suggested" />
         <attr name="fr_mrl_rippleInAdapter" format="boolean" localization="suggested" />
         <attr name="fr_mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
+    </declare-styleable>
+
+    <!--仿今日头条之字体颜色随ViewPager的滑动步伐而改变-->
+    <declare-styleable name="FRColorTrackView">
+        <attr name="fr_ctv_text" format="string" />
+        <attr name="fr_ctv_text_size" format="dimension" />
+        <attr name="fr_ctv_text_origin_color" format="color|reference" />
+        <attr name="fr_ctv_text_change_color" format="color|reference" />
+        <attr name="fr_ctv_progress" format="float" />
+        <attr name="fr_ctv_direction" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="top" value="2" />
+            <enum name="bottom" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

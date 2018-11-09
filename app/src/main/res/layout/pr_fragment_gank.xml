@@ -4,8 +4,8 @@
     <data>
 
         <import type="com.wkz.pleasedreading.main.gank.PRGankBean" />
-
         <import type="com.wkz.pleasedreading.main.gank.PRGankPresenter" />
+
         <!--添加要绑定的数据-->
         <variable
             name="prGankBean"

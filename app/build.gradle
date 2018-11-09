@@ -179,6 +179,7 @@ android {
 
     //在这里你可以进行 Java 的版本配置，以便使用对应版本的一些新特性
     compileOptions {
+        encoding "UTF-8"
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }

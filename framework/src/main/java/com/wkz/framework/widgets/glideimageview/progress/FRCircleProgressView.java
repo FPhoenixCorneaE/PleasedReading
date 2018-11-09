@@ -20,6 +20,9 @@ import com.wkz.framework.utils.SizeUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * 圆环进度控件
+ */
 public class FRCircleProgressView extends ProgressBar {
 
     private int mReachBarSize = SizeUtils.dp2px(2); // 未完成进度条大小
