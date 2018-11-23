@@ -41,7 +41,8 @@ public class PRGankBean extends BaseObservable implements Serializable {
         notifyPropertyChanged(BR.results);
     }
 
-    public static class ResultsBean extends BaseObservable {
+    public static class ResultsBean extends BaseObservable implements Serializable {
+        private static final long serialVersionUID = -7027641487501151048L;
         /**
          * _id : 5bba1b899d212261127b79d1
          * createdAt : 2018-10-07T14:43:21.406Z

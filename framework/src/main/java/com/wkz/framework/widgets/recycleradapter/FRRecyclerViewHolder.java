@@ -17,11 +17,11 @@ public class FRRecyclerViewHolder extends RecyclerView.ViewHolder {
     private View mConvertView;
 
     /**
-     * 私有构造方法
+     * 构造方法
      *
      * @param itemView
      */
-    private FRRecyclerViewHolder(View itemView) {
+    public FRRecyclerViewHolder(View itemView) {
         super(itemView);
         mConvertView = itemView;
         mViews = new SparseArray<>();

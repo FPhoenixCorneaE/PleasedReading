@@ -221,11 +221,18 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
         return position < getHeaderCount();
     }
 
-    protected int getHeaderCount() {
+    public int getHeaderCount() {
         if (!showHeaderView) {
             return 0;
         }
         return mHeaderViews.size();
+    }
+
+    public int getFooterCount() {
+        if (mFooterLayout != null) {
+            return mFooterLayout.getChildCount();
+        }
+        return 0;
     }
 
     public FRBaseRecyclerAdapter<T> isShowHeaderView(boolean showHeaderView) {

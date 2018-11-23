@@ -16,6 +16,7 @@ import com.wkz.framework.utils.FragmentUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
+import com.wkz.pleasedreading.main.gank.PRGankChildFragment;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
 
 import java.util.ArrayList;
@@ -53,7 +54,8 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @Override
     public void initView() {
 
-        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
+//        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
+        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankChildFragment(), null, false);
 
         mDataBinding = (PrActivityMainBinding) mViewDataBinding;
         mDataBinding.setAvatarUrl("http://img0.imgtn.bdimg.com/it/u=1365742167,1660121271&fm=26&gp=0.jpg");
@@ -75,6 +77,7 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @Override
     public void initListener() {
         prDlDrawer.addDrawerListener(this);
+        mDataBinding.setOnMainClickListener(new OnMainClickListener().setDrawerLayout(prDlDrawer));
     }
 
     @Override
@@ -114,13 +117,24 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     }
 
     /**
-     * 加载头像
+     * 加载头像背景
      *
-     * @param frGlideImageView
+     * @param prIvAvatarBg
      * @param avatarUrl
      */
-    @BindingAdapter({"bind:avatarUrl"})
-    public static void loadAvatar(FRGlideImageView frGlideImageView, String avatarUrl) {
-        frGlideImageView.loadCircleImage(avatarUrl, R.drawable.pr_shape_placeholder_avatar_circle);
+    @BindingAdapter({"avatarBgUrl"})
+    public static void loadAvatarBg(FRGlideImageView prIvAvatarBg, String avatarUrl) {
+        prIvAvatarBg.loadImage(avatarUrl, R.drawable.pr_shape_placeholder_grey);
+    }
+
+    /**
+     * 加载头像
+     *
+     * @param prIvAvatar
+     * @param avatarUrl
+     */
+    @BindingAdapter({"avatarUrl"})
+    public static void loadAvatar(FRGlideImageView prIvAvatar, String avatarUrl) {
+        prIvAvatar.loadCircleImage(avatarUrl, R.drawable.pr_shape_placeholder_avatar_circle);
     }
 }

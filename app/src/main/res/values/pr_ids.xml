@@ -6,6 +6,7 @@
     <item name="pr_tv_title" type="id" />
     <item name="pr_fl_sidebar_content" type="id" />
     <item name="pr_rl_user_info" type="id" />
+    <item name="pr_iv_avatar_bg" type="id" />
     <item name="pr_iv_avatar" type="id" />
     <item name="pr_tv_nickname" type="id" />
     <item name="pr_tv_gank" type="id" />

@@ -48,6 +48,7 @@ public class FRColorTrackTabLayout extends RelativeLayout {
         if (mBuilder == null) {
             mBuilder = new Builder(mContext);
         }
+        LayoutParams layoutParams=new LayoutParams(mBuilder.mTabWidth,mBuilder.mTabHeight);
     }
 
     public static class Builder {

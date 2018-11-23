@@ -19,6 +19,10 @@
         <variable
             name="menuList"
             type="java.util.ArrayList&lt;String>" />
+
+        <variable
+            name="onMainClickListener"
+            type="com.wkz.pleasedreading.main.OnMainClickListener" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,7 +47,8 @@
                 layout="@layout/pr_sidebar_main"
                 bind:avatarUrl="@{avatarUrl}"
                 bind:menuList="@{menuList}"
-                bind:nickname="@{nickname}" />
+                bind:nickname="@{nickname}"
+                bind:onMainClickListener="@{onMainClickListener}" />
         </android.support.v4.widget.DrawerLayout>
     </FrameLayout>
 </layout>

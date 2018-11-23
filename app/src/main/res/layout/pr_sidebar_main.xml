@@ -11,9 +11,14 @@
             name="nickname"
             type="String" />
 
+        <!--&lt;为小于号<的转义符，小于号<在此处不可用-->
         <variable
             name="menuList"
             type="java.util.ArrayList&lt;String>" />
+
+        <variable
+            name="onMainClickListener"
+            type="com.wkz.pleasedreading.main.OnMainClickListener" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,21 +29,29 @@
         android:background="@color/pr_background">
 
         <FrameLayout
-            android:id="@id/pr_fl_sidebar_content"
+            android:id="@+id/pr_fl_sidebar_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@id/pr_rl_user_info"
+                android:id="@+id/pr_rl_user_info"
                 android:layout_width="match_parent"
-                android:layout_height="185dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:layout_height="185dp">
 
                 <com.wkz.framework.widgets.glideimageview.FRGlideImageView
-                    android:id="@id/pr_iv_avatar"
+                    android:id="@+id/pr_iv_avatar_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:avatarBgUrl="@{avatarUrl}"
+                    app:fr_siv_pressed_alpha="0"
+                    app:fr_siv_pressed_color="@color/fr_color_transparent"
+                    app:fr_siv_shape_type="rectangle" />
+
+                <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+                    android:id="@+id/pr_iv_avatar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="80dp"
                     android:background="@drawable/pr_shape_placeholder_avatar_circle"
                     app:avatarUrl="@{avatarUrl}"
@@ -49,19 +62,19 @@
                     app:fr_siv_shape_type="circle" />
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@id/pr_tv_nickname"
+                    android:id="@+id/pr_tv_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/pr_iv_avatar"
-                    android:layout_alignBottom="@id/pr_iv_avatar"
+                    android:layout_alignTop="@+id/pr_iv_avatar"
+                    android:layout_alignBottom="@+id/pr_iv_avatar"
                     android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_toEndOf="@id/pr_iv_avatar"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toEndOf="@+id/pr_iv_avatar"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@{nickname}"
-                    android:textColor="@color/fr_color_black"
+                    android:textColor="@color/fr_color_white"
                     android:textSize="28sp" />
             </RelativeLayout>
 
@@ -83,9 +96,10 @@
                         android:paddingEnd="20dp">
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
                             android:layout_marginTop="15dp"
+                            android:onClick="@{onMainClickListener::clickGank}"
                             android:text="@{menuList[0]}"
                             android:textColor="@color/fr_color_black"
                             android:textSize="18sp" />

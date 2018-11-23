@@ -41,25 +41,25 @@ public abstract class FRMultiTypeRecyclerAdapter<T> extends FRBaseRecyclerAdapte
     }
 
     private void bindCommonItem(RecyclerView.ViewHolder holder, final int position, final int viewType) {
-        final FRRecyclerViewHolder FRRecyclerViewHolder = (FRRecyclerViewHolder) holder;
-        convert(FRRecyclerViewHolder, getAllData().get(position), position, viewType);
+        final FRRecyclerViewHolder fRRecyclerViewHolder = (FRRecyclerViewHolder) holder;
+        convert(fRRecyclerViewHolder, getAllData().get(position), position, viewType);
 
-        FRRecyclerViewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+        fRRecyclerViewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mItemClickListener != null) {
-                    mItemClickListener.onMultiItemClick(FRRecyclerViewHolder, getAllData().get(position), position, viewType);
+                    mItemClickListener.onMultiItemClick(fRRecyclerViewHolder, getAllData().get(position), position, viewType);
                 }
             }
         });
 
         for (int i = 0; i < mItemChildIds.size(); i++) {
             final int tempI = i;
-            if (FRRecyclerViewHolder.getConvertView().findViewById(mItemChildIds.get(i)) != null) {
-                FRRecyclerViewHolder.getConvertView().findViewById(mItemChildIds.get(i)).setOnClickListener(new View.OnClickListener() {
+            if (fRRecyclerViewHolder.getConvertView().findViewById(mItemChildIds.get(i)) != null) {
+                fRRecyclerViewHolder.getConvertView().findViewById(mItemChildIds.get(i)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mItemChildListeners.get(tempI).onItemChildClick(FRRecyclerViewHolder, getAllData().get(position), position);
+                        mItemChildListeners.get(tempI).onItemChildClick(fRRecyclerViewHolder, getAllData().get(position), position);
                     }
                 });
             }

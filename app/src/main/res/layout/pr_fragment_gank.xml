@@ -4,6 +4,7 @@
     <data>
 
         <import type="com.wkz.pleasedreading.main.gank.PRGankBean" />
+
         <import type="com.wkz.pleasedreading.main.gank.PRGankPresenter" />
 
         <!--添加要绑定的数据-->
@@ -16,15 +17,20 @@
             type="com.wkz.pleasedreading.main.gank.PRGankPresenter" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.wkz.framework.widgets.tab.FRColorTrackTabLayout
+            android:id="@+id/pr_cttl_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="73dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pr_vp_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="63dp"
-            android:scrollbars="none" />
-    </FrameLayout>
+            android:layout_below="@+id/pr_cttl_tab" />
+    </RelativeLayout>
 </layout>

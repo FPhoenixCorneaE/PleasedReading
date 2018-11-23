@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public abstract class BaseFragment
         implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
 
     private static final String NAME_FRAGMENT = BaseFragment.class.getName();
-    private BaseActivity mContext;
+    protected BaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
     private View mContentView;
     private Unbinder mUnbinder;
@@ -180,8 +181,11 @@ public abstract class BaseFragment
 
     @Override
     public void onFailure(int code, String msg) {
+        Logger.e("code-->" + code + "; errorMsg-->" + msg);
         showError();
-        ToastUtils.showShortSafe(msg);
+        if (!TextUtils.isEmpty(msg)) {
+            ToastUtils.showShortSafe(msg);
+        }
     }
 
     @Override

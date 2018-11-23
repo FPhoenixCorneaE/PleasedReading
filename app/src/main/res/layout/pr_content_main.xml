@@ -34,7 +34,7 @@
             android:paddingEnd="15dp">
 
             <com.wkz.framework.widgets.glideimageview.FRGlideImageView
-                android:id="@id/pr_iv_avatar"
+                android:id="@+id/pr_iv_avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -45,7 +45,7 @@
                 app:fr_siv_shape_type="circle" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@id/pr_tv_title"
+                android:id="@+id/pr_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

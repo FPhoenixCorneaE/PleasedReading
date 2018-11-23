@@ -9,9 +9,8 @@ import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 
-public class PRGankFragment extends BaseFragment implements IGankView {
+public class PRGankFragment extends BaseFragment {
 
     private PRGankPresenter mPresenter;
 

@@ -91,4 +91,11 @@
             <enum name="bottom" value="3" />
         </attr>
     </declare-styleable>
+
+    <!--九宫格显示多图或item，仿照QQ空间图片列表-->
+    <declare-styleable name="FRMultiImageLayout">
+        <attr name="fr_mil_divideSpace" format="dimension" />
+        <attr name="fr_mil_placeholder" format="reference" />
+        <attr name="fr_mil_showCount" format="integer" />
+    </declare-styleable>
 </resources>
