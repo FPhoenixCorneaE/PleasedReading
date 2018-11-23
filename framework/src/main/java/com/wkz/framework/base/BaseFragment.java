@@ -221,7 +221,7 @@ public abstract class BaseFragment
      * @param targetView 需要添加Ripple的View
      * @param listener   点击事件
      */
-    protected FRMaterialRippleLayout materialRipple(View targetView, View.OnClickListener listener) {
+    public FRMaterialRippleLayout materialRipple(View targetView, View.OnClickListener listener) {
         return materialRipple(targetView, false, listener);
     }
 
@@ -231,7 +231,7 @@ public abstract class BaseFragment
      * @param targetView 需要添加Ripple的View
      * @param listener   点击事件
      */
-    protected FRMaterialRippleLayout materialRipple(View targetView, boolean rippleInAdapter, View.OnClickListener listener) {
+    public FRMaterialRippleLayout materialRipple(View targetView, boolean rippleInAdapter, View.OnClickListener listener) {
         FRMaterialRippleLayout layout = FRMaterialRippleLayout.with(targetView)
                 .rippleOverlay(true)
                 .rippleHover(true)

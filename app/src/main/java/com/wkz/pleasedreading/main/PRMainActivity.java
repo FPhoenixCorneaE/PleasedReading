@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements MainContract.IMainView, DrawerLayout.DrawerListener {
+public class PRMainActivity extends BaseActivity implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
 
     @BindView(R.id.pr_fl_container)
     FrameLayout prFlContainer;
@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @BindView(R.id.pr_fl_sidebar_content)
     FrameLayout prFlSidebarContent;
 
-    private MainPresenter mMainPresenter;
+    private PRMainPresenter mPRMainPresenter;
     private PrActivityMainBinding mDataBinding;
 
     @Override
@@ -42,21 +42,27 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @NonNull
     @Override
     public BasePresenter createPresenter() {
-        return mMainPresenter = new MainPresenter(this, this);
+        return mPRMainPresenter = new PRMainPresenter(this, this);
     }
 
     @Override
     public BaseModel createModel() {
-        return ModelFactory.createModel(MainModel.class);
+        return ModelFactory.createModel(PRMainModel.class);
     }
 
     @Override
     public void initView() {
+        mDataBinding = (PrActivityMainBinding) mViewDataBinding;
 
 //        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
         FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankChildFragment(), null, false);
 
-        mDataBinding = (PrActivityMainBinding) mViewDataBinding;
+
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        mDataBinding.setContext(mContext);
         mDataBinding.setAvatarUrl("http://img0.imgtn.bdimg.com/it/u=1365742167,1660121271&fm=26&gp=0.jpg");
         mDataBinding.setTitle("Gank");
         mDataBinding.setNickname("烽火戏诸侯");
@@ -67,10 +73,6 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
                 add("Gank");
             }
         });
-    }
-
-    @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
     }
 
     @Override

@@ -4,6 +4,14 @@
     <data>
 
         <variable
+            name="context"
+            type="com.wkz.framework.base.BaseActivity" />
+
+        <variable
+            name="drawerLayout"
+            type="android.support.v4.widget.DrawerLayout"/>
+
+        <variable
             name="avatarUrl"
             type="String" />
 
@@ -91,15 +99,28 @@
                     <android.support.v7.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp">
+                        android:orientation="vertical">
 
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                            android:layout_height="40dp"
                             android:layout_marginTop="15dp"
+                            android:gravity="center_vertical"
                             android:onClick="@{onMainClickListener::clickGank}"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:text="@{menuList[0]}"
+                            android:textColor="@color/fr_color_black"
+                            android:textSize="18sp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center_vertical"
+                            android:onClickListener="@{(view)->onMainClickListener.clickGank(view,context,drawerLayout)}"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
                             android:text="@{menuList[0]}"
                             android:textColor="@color/fr_color_black"
                             android:textSize="18sp" />

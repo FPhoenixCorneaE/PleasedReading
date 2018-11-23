@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="context"
+            type="com.wkz.framework.base.BaseActivity" />
+
+        <variable
             name="avatarUrl"
             type="String" />
 
@@ -43,9 +47,12 @@
 
             <!--左侧菜单-->
             <!--data传递：bind:menuList="@{menuList}"-->
+            <!--上面代码中定义了一个id为pr_dl_drawer的DrawerLayout，那么它对应的变量就是prDlDrawer-->
             <include
                 layout="@layout/pr_sidebar_main"
                 bind:avatarUrl="@{avatarUrl}"
+                bind:context="@{context}"
+                bind:drawerLayout="@{prDlDrawer}"
                 bind:menuList="@{menuList}"
                 bind:nickname="@{nickname}"
                 bind:onMainClickListener="@{onMainClickListener}" />
