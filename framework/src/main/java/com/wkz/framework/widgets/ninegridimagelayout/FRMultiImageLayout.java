@@ -18,8 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 九宫格显示多图或item，仿照QQ空间图片列表
- * Created by linlongxin on 2015/12/28.
+ * 九宫格显示多图或item，仿照QQ空间图片列表和百度贴吧图片列表
  */
 @SuppressWarnings("ALL")
 public class FRMultiImageLayout extends ViewGroup {
@@ -27,13 +26,16 @@ public class FRMultiImageLayout extends ViewGroup {
     private String TAG = FRMultiImageLayout.class.getSimpleName();
     private static final int DEFAULT_DIVIDE_SPACE = SizeUtils.dp2px(4f);
     private static final int DEFAULT_PLACE_HOLDER = -1;
-    private static final int DEFAULT_SHOW_COUNT = 9;
+    private static final int TYPE_QQSpace = 0;
+    private static final int TYPE_BaiDuPostBar = 1;
+
     private boolean isDataFromAdapter = false;
 
     private int childWidth, childHeight;
     private int divideSpace = DEFAULT_DIVIDE_SPACE;
     private int placeholder = DEFAULT_PLACE_HOLDER;
-    private int showCount = DEFAULT_SHOW_COUNT;
+    private int mType = TYPE_QQSpace;
+    private int mCount;
     private FRMultiImageAdapter mFRMultiImageAdapter;
     private List<String> mData;
     private int childCount;
@@ -52,8 +54,14 @@ public class FRMultiImageLayout extends ViewGroup {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FRMultiImageLayout);
             divideSpace = (int) typedArray.getDimension(R.styleable.FRMultiImageLayout_fr_mil_divideSpace, DEFAULT_DIVIDE_SPACE);
             placeholder = typedArray.getResourceId(R.styleable.FRMultiImageLayout_fr_mil_placeholder, DEFAULT_PLACE_HOLDER);
-            showCount = typedArray.getInt(R.styleable.FRMultiImageLayout_fr_mil_showCount, DEFAULT_SHOW_COUNT);
+            mType = typedArray.getInt(R.styleable.FRMultiImageLayout_fr_mil_type, TYPE_QQSpace);
             typedArray.recycle();
+        }
+
+        if (TYPE_QQSpace == mType) {
+            mCount = 9;
+        } else {
+            mCount = 3;
         }
     }
 
@@ -70,29 +78,39 @@ public class FRMultiImageLayout extends ViewGroup {
 
         int height;
 
-        if (childCount == 1) {
-            childWidth = width;
-            childHeight = height = width / 2;
-        } else if (childCount == 2) {
-            childWidth = (width - divideSpace) / 2;
-            childHeight = height = childWidth;
-        } else if (childCount == 4) {
-            childWidth = (width - divideSpace) / 2;
-            height = childWidth * 2 + divideSpace;
-            childHeight = childWidth;
-        } else {
-            //九宫格模式
-            childWidth = (width - divideSpace * 2) / 3;
-            if (childCount < 9) {
-                if (childCount % 3 == 0) {
-                    height = childWidth * childCount / 3 + divideSpace * (childCount / 3 - 1);
-                } else {
-                    height = childWidth * (childCount / 3 + 1) + divideSpace * (childCount / 3);
-                }
+        if (TYPE_QQSpace == mType) {//QQ空间图片列表
+            if (childCount == 1) {
+                childWidth = width;
+                childHeight = height = width / 2;
+            } else if (childCount == 2) {
+                childWidth = (width - divideSpace) / 2;
+                childHeight = height = childWidth;
+            } else if (childCount == 4) {
+                childWidth = (width - divideSpace) / 2;
+                height = childWidth * 2 + divideSpace;
+                childHeight = childWidth;
             } else {
-                height = width;
+                //九宫格模式
+                childWidth = (width - divideSpace * 2) / 3;
+                if (childCount < mCount) {
+                    if (childCount % 3 == 0) {
+                        height = childWidth * childCount / 3 + divideSpace * (childCount / 3 - 1);
+                    } else {
+                        height = childWidth * (childCount / 3 + 1) + divideSpace * (childCount / 3);
+                    }
+                } else {
+                    height = width;
+                }
+                childHeight = childWidth;
             }
-            childHeight = childWidth;
+        } else {//百度贴吧图片列表
+            if (childCount == 1) {
+                childWidth = width;
+                childHeight = height = width / 2;
+            } else {
+                childWidth = (width - divideSpace * 2) / 3;
+                childHeight = height = childWidth;
+            }
         }
 
         /**
@@ -107,47 +125,39 @@ public class FRMultiImageLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        if (childCount == 1) {
-            getChildAt(0).layout(
-                    0,
-                    0,
-                    childWidth,
-                    childHeight
-            );
-        } else if (childCount == 2) {
-            getChildAt(0).layout(
-                    0,
-                    0,
-                    childWidth,
-                    childHeight
-            );
-            getChildAt(1).layout(
-                    childWidth + divideSpace,
-                    0,
-                    childWidth * 2 + divideSpace,
-                    childHeight
-            );
-        } else if (childCount == 4) {
-            for (int i = 0; i < 4; i++) {
-                getChildAt(i).layout(
-                        childWidth * (i % 2) + divideSpace * (i % 2),
-                        childHeight * (i / 2) + divideSpace * (i / 2),
-                        childWidth * (i % 2 + 1) + divideSpace * (i % 2),
-                        childHeight * (i / 2 + 1) + divideSpace * (i / 2)
+        if (TYPE_QQSpace == mType) {//QQ空间图片列表
+            if (childCount == 1) {
+                getChildAt(0).layout(
+                        0,
+                        0,
+                        childWidth,
+                        childHeight
                 );
-            }
-        } else {
-            if (childCount <= 9) {
-                for (int i = 0; i < childCount; i++) {
+            } else if (childCount == 2) {
+                getChildAt(0).layout(
+                        0,
+                        0,
+                        childWidth,
+                        childHeight
+                );
+                getChildAt(1).layout(
+                        childWidth + divideSpace,
+                        0,
+                        childWidth * 2 + divideSpace,
+                        childHeight
+                );
+            } else if (childCount == 4) {
+                for (int i = 0; i < 4; i++) {
                     getChildAt(i).layout(
-                            childWidth * (i % 3) + divideSpace * (i % 3),
-                            childHeight * (i / 3) + divideSpace * (i / 3),
-                            childWidth * (i % 3 + 1) + divideSpace * (i % 3),
-                            childHeight * (i / 3 + 1) + divideSpace * (i / 3)
+                            childWidth * (i % 2) + divideSpace * (i % 2),
+                            childHeight * (i / 2) + divideSpace * (i / 2),
+                            childWidth * (i % 2 + 1) + divideSpace * (i % 2),
+                            childHeight * (i / 2 + 1) + divideSpace * (i / 2)
                     );
                 }
             } else {
-                for (int i = 0; i < 9; i++) {
+                //九宫格模式
+                for (int i = 0; i < (childCount <= mCount ? childCount : mCount); i++) {
                     getChildAt(i).layout(
                             childWidth * (i % 3) + divideSpace * (i % 3),
                             childHeight * (i / 3) + divideSpace * (i / 3),
@@ -155,12 +165,40 @@ public class FRMultiImageLayout extends ViewGroup {
                             childHeight * (i / 3 + 1) + divideSpace * (i / 3)
                     );
                 }
-                getChildAt(9).layout(
-                        childWidth * 2 + divideSpace * 2,
-                        childHeight * 2 + divideSpace * 2,
-                        childWidth * 3 + divideSpace * 2,
-                        childHeight * 3 + divideSpace * 2
+                if (childCount > mCount) {
+                    getChildAt(mCount).layout(
+                            childWidth * 2 + divideSpace * 2,
+                            childHeight * 2 + divideSpace * 2,
+                            childWidth * 3 + divideSpace * 2,
+                            childHeight * 3 + divideSpace * 2
+                    );
+                }
+            }
+        } else {//百度贴吧图片列表
+            if (childCount == 1) {
+                getChildAt(0).layout(
+                        0,
+                        0,
+                        childWidth,
+                        childHeight
                 );
+            } else {
+                for (int i = 0; i < (childCount <= mCount ? childCount : mCount); i++) {
+                    getChildAt(i).layout(
+                            childWidth * (i % 3) + divideSpace * (i % 3),
+                            childHeight * (i / 3) + divideSpace * (i / 3),
+                            childWidth * (i % 3 + 1) + divideSpace * (i % 3),
+                            childHeight * (i / 3 + 1) + divideSpace * (i / 3)
+                    );
+                }
+                if (childCount > mCount) {
+                    getChildAt(mCount).layout(
+                            childWidth * 2 + divideSpace * 2,
+                            0,
+                            childWidth * 3 + divideSpace * 2,
+                            childHeight
+                    );
+                }
             }
         }
     }
@@ -180,11 +218,11 @@ public class FRMultiImageLayout extends ViewGroup {
      */
     public void addViews() {
         if (isDataFromAdapter) {
-            if (mFRMultiImageAdapter.getCount() > 9) {
-                for (int i = 0; i < 9; i++) {
+            if (mFRMultiImageAdapter.getCount() > mCount) {
+                for (int i = 0; i < mCount; i++) {
                     configView(i);
                 }
-                addOverNumView(9);
+                addOverNumView(mCount);
             } else {
                 for (int i = 0; i < mFRMultiImageAdapter.getCount(); i++) {
                     configView(i);
@@ -209,8 +247,8 @@ public class FRMultiImageLayout extends ViewGroup {
 
     public void addView(int position) {
         if (isDataFromAdapter) {
-            if (position > 9 - 1) {
-                addOverNumView(9);
+            if (position > mCount - 1) {
+                addOverNumView(mCount);
                 return;
             }
             addView(mFRMultiImageAdapter.getView(this, position));
@@ -225,11 +263,11 @@ public class FRMultiImageLayout extends ViewGroup {
         isDataFromAdapter = false;
         this.mData = data;
         removeAllViews();
-        if (data.size() > 9) {
-            for (int i = 0; i < 9; i++) {
+        if (data.size() > mCount) {
+            for (int i = 0; i < mCount; i++) {
                 addView(getImageView(data.get(i), i));
             }
-            addOverNumView(9);
+            addOverNumView(mCount);
         } else {
             for (int i = 0; i < data.size(); i++) {
                 addView(getImageView(data.get(i), i));
@@ -256,9 +294,9 @@ public class FRMultiImageLayout extends ViewGroup {
         textView.setBackgroundColor(Color.parseColor("#33000000"));
         textView.setGravity(Gravity.CENTER);
         if (isDataFromAdapter) {
-            textView.setText("+" + (mFRMultiImageAdapter.getCount() - 9));
+            textView.setText("+" + (mFRMultiImageAdapter.getCount() - mCount));
         } else
-            textView.setText("+" + (mData.size() - 9));
+            textView.setText("+" + (mData.size() - mCount));
 
         addView(textView, position);
     }

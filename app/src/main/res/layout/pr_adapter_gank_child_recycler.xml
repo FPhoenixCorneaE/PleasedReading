@@ -96,6 +96,7 @@
             android:layout_marginTop="5dp"
             app:fr_mil_divideSpace="6dp"
             app:fr_mil_placeholder="@drawable/pr_shape_placeholder_grey"
-            app:fr_mil_showCount="3" />
+            app:fr_mil_type="BaiDuPostBar"
+             />
     </RelativeLayout>
 </layout>

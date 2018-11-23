@@ -96,6 +96,9 @@
     <declare-styleable name="FRMultiImageLayout">
         <attr name="fr_mil_divideSpace" format="dimension" />
         <attr name="fr_mil_placeholder" format="reference" />
-        <attr name="fr_mil_showCount" format="integer" />
+        <attr name="fr_mil_type" format="enum">
+            <enum name="QQSpace" value="0" />
+            <enum name="BaiDuPostBar" value="1" />
+        </attr>
     </declare-styleable>
 </resources>
