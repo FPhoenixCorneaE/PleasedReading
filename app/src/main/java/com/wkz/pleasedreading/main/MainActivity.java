@@ -17,7 +17,6 @@ import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankChildFragment;
-import com.wkz.pleasedreading.main.gank.PRGankFragment;
 
 import java.util.ArrayList;
 

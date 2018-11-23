@@ -23,7 +23,10 @@ public class PRGankChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRGankBe
     @NonNull
     @Override
     public FRRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(getItemLayoutId(), parent, false));
+        if (isCommonItemView(viewType)) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(getItemLayoutId(), parent, false));
+        }
+        return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override
@@ -31,7 +34,17 @@ public class PRGankChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRGankBe
         ViewHolder viewHolder = (ViewHolder) holder;
         if (viewHolder.mDataBinding != null) {
             viewHolder.mDataBinding.setPrGankBean(data);
-            viewHolder.mDataBinding.prMilImages.setImages(data.getImages());
+            //迫使数据立即绑定而不是在下一帧的时候才绑定
+            //假设没使用executePendingBindings()方法，由于在下一帧的时候才会绑定，
+            //view就会绑定错误的data，测量也会出错。
+            //因此，executePendingBindings()是很重要的。
+            viewHolder.mDataBinding.executePendingBindings();
+            if (data.getImages() != null) {
+                viewHolder.mDataBinding.prMilImages.setVisibility(View.VISIBLE);
+                viewHolder.mDataBinding.prMilImages.setImages(data.getImages());
+            } else {
+                viewHolder.mDataBinding.prMilImages.setVisibility(View.GONE);
+            }
         }
     }
 

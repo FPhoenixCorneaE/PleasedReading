@@ -90,21 +90,19 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
             this.mDatas = datas;
             this.mStatus = Status.LOADING_END;
         }
+
+        mLoadMoreView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadmore, null);
+        mLoadFailedView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadfailed, null);
+        mLoadEndView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadend, null);
+        if (isOpenLoadMore) {
+            addFooterView(mLoadMoreView);
+        }
     }
 
     @NonNull
     @Override
     public FRRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if (mLoadMoreView == null) {
-            mLoadMoreView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadmore, null);
-        }
-        if (mLoadFailedView == null) {
-            mLoadFailedView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadfailed, null);
-        }
-        if (mLoadEndView == null) {
-            mLoadEndView = inflateLayout(mContext, R.layout.fr_layout_recycler_footer_loadend, null);
-        }
         if (mLoadingView == null) {
             mLoadingView = inflateLayout(mContext, R.layout.fr_layout_recycler_loading, parent);
         }
@@ -122,9 +120,6 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
         FRRecyclerViewHolder viewHolder;
         switch (viewType) {
             case TYPE_FOOTER_VIEW:
-                if (mFooterLayout == null) {
-                    mFooterLayout = new RelativeLayout(mContext);
-                }
                 viewHolder = FRRecyclerViewHolder.create(mFooterLayout);
                 break;
             case TYPE_LOADING_VIEW:
@@ -569,7 +564,6 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
      */
     public FRBaseRecyclerAdapter<T> setLoadMoreView(View loadMoreView) {
         mLoadMoreView = loadMoreView;
-        addFooterView(mLoadMoreView);
         return this;
     }
 

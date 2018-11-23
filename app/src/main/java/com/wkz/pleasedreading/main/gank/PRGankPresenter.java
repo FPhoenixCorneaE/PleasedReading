@@ -11,16 +11,38 @@ public class PRGankPresenter extends BasePresenter implements PRGankContract.IGa
     private PRGankContract.IGankView mView;
     private PRGankContract.IGankModel mModel;
 
+    private int mPageNum = 10;
+    private int mPageCount = 1;
+
     public PRGankPresenter(BaseView view, LifecycleProvider provider) {
         super(view, provider);
         mView = (PRGankContract.IGankView) getView();
         mModel = (PRGankContract.IGankModel) getModel();
     }
 
+    /**
+     * 刷新数据
+     *
+     * @param type
+     */
+    public void onRefreshDataByType(String type) {
+        mPageCount = 1;
+        getDataByType(type);
+    }
+
+    /**
+     * 加载更多数据
+     *
+     * @param type
+     */
+    public void onLoadMoreDataByType(String type) {
+        mPageCount++;
+        getDataByType(type);
+    }
+
     @Override
-    public void getDataByType(String type, int pageNum, int pageCount) {
-        mView.showLoading();
-        mModel.getDataByType(type, pageNum, pageCount, bindUntilFragmentEvent(), new OnFRHttpCallback<PRGankBean>() {
+    public void getDataByType(String type) {
+        mModel.getDataByType(type, mPageNum, mPageCount, bindUntilFragmentEvent(), new OnFRHttpCallback<PRGankBean>() {
             @Override
             public void onSuccess(PRGankBean data) {
                 if (mView != null) {

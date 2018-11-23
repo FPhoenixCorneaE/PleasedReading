@@ -72,7 +72,7 @@ public class FRMultiImageLayout extends ViewGroup {
 
         if (childCount == 1) {
             childWidth = width;
-            childHeight = height = width * 2 / 3;
+            childHeight = height = width / 2;
         } else if (childCount == 2) {
             childWidth = (width - divideSpace) / 2;
             childHeight = height = childWidth;
@@ -224,6 +224,7 @@ public class FRMultiImageLayout extends ViewGroup {
     public void setImages(List<String> data) {
         isDataFromAdapter = false;
         this.mData = data;
+        removeAllViews();
         if (data.size() > 9) {
             for (int i = 0; i < 9; i++) {
                 addView(getImageView(data.get(i), i));

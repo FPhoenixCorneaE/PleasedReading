@@ -42,6 +42,6 @@ public class PRGankFragment extends BaseFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mPresenter.getDataByType("Android", 10, 1);
+        mPresenter.getDataByType("Android");
     }
 }

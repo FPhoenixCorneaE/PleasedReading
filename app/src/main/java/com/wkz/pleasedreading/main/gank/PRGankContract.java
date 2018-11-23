@@ -12,7 +12,11 @@ public interface PRGankContract {
     }
 
     interface IGankPresenter {
-        void getDataByType(String type, int pageNum, int pageCount);
+        void onRefreshDataByType(String type);
+
+        void onLoadMoreDataByType(String type);
+
+        void getDataByType(String type);
     }
 
     interface IGankModel extends BaseModel {
