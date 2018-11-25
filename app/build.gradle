@@ -128,8 +128,6 @@ android {
             res.srcDirs = ['src/main/res']
             //资源目录
             resources.srcDirs = ['src/main/java', 'src/main/aidl']
-
-            renderscript.srcDirs = ['src']
         }
     }
 
