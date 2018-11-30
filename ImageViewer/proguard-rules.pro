@@ -21,3 +21,12 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn com.wkz.viewer.**
+-keep class com.wkz.viewer.dragger.OnImageDraggerStateListener
+-keep class com.wkz.viewer.widget.IImageViewer
+-keep class com.wkz.viewer.IImageLoader
+-keep class com.wkz.viewer.listener.**
+# 保持自定义控件类不被混淆
+-keep  class com.wkz.viewer.widget.FRImageViewerAttacher {
+    public <methods>;
+}
+

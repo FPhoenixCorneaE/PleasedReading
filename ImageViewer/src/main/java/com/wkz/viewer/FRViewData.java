@@ -1,7 +1,12 @@
 package com.wkz.viewer;
 
 
-public class FRViewData {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class FRViewData implements Serializable,Parcelable {
     // 目标 view 的 x 轴坐标
     private float targetX;
     // 目标 view 的 y 轴坐标
@@ -25,6 +30,27 @@ public class FRViewData {
         this.targetWidth = targetWidth;
         this.targetHeight = targetHeight;
     }
+
+    protected FRViewData(Parcel in) {
+        targetX = in.readFloat();
+        targetY = in.readFloat();
+        targetWidth = in.readFloat();
+        targetHeight = in.readFloat();
+        imageWidth = in.readFloat();
+        imageHeight = in.readFloat();
+    }
+
+    public static final Creator<FRViewData> CREATOR = new Creator<FRViewData>() {
+        @Override
+        public FRViewData createFromParcel(Parcel in) {
+            return new FRViewData(in);
+        }
+
+        @Override
+        public FRViewData[] newArray(int size) {
+            return new FRViewData[size];
+        }
+    };
 
     public float getTargetX() {
         return targetX;
@@ -72,5 +98,32 @@ public class FRViewData {
 
     public void setImageHeight(float imageHeight) {
         this.imageHeight = imageHeight;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeFloat(targetX);
+        dest.writeFloat(targetY);
+        dest.writeFloat(targetWidth);
+        dest.writeFloat(targetHeight);
+        dest.writeFloat(imageWidth);
+        dest.writeFloat(imageHeight);
+    }
+
+    @Override
+    public String toString() {
+        return "FRViewData{" +
+                "targetX=" + targetX +
+                ", targetY=" + targetY +
+                ", targetWidth=" + targetWidth +
+                ", targetHeight=" + targetHeight +
+                ", imageWidth=" + imageWidth +
+                ", imageHeight=" + imageHeight +
+                '}';
     }
 }

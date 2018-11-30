@@ -45,7 +45,7 @@
 
 #################### 记录生成的日志数据，gradle build时 在本项目根目录输出-start ####################
 # apk 包内所有 class 的内部结构
--dump proguard/class_files.txt
+#-dump proguard/class_files.txt
 # 未混淆的类和成员
 -printseeds proguard/seeds.txt
 # 列出从 apk 中删除的代码
@@ -174,7 +174,7 @@
 # 本地代码通过反射调用其他的类，但是经过了混淆之后，就会出现异常：ClassNotFoundException，NoSuchMethodError
 # 调用了JNI之后，C或者C++和java代码进行交互的时候找不到java的类或者方法，导致发生了异常......等等，还有好多
 # 只需要将被调用的java类标注为不混淆即可
--keep class package.classname{*;}
+#-keep class package.classname{*;}
 
 # 移除Log类打印各个等级日志的代码，打正式包的时候可以做为禁log使用，
 # 这里可以作为禁止log打印的功能使用，另外的一种实现方案是通过BuildConfig.DEBUG的变量来控制
