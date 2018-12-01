@@ -45,7 +45,7 @@
 
 #################### 记录生成的日志数据，gradle build时 在本项目根目录输出-start ####################
 # apk 包内所有 class 的内部结构
--dump proguard/class_files.txt
+#-dump proguard/class_files.txt
 # 未混淆的类和成员
 -printseeds proguard/seeds.txt
 # 列出从 apk 中删除的代码
@@ -89,7 +89,7 @@
     public <init>(android.content.Context);
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
-    void set*(...);
+    *** set*(...);
     *** get*();
 }
 
@@ -113,6 +113,8 @@
 # 保留Parcelable序列化的类不能被混淆
 -keep class * implements android.os.Parcelable{
     public static final android.os.Parcelable$Creator *;
+    *** set*(...);
+    *** get*();
 }
 
 # 保留Serializable序列化的类不被混淆
@@ -124,6 +126,8 @@
    private void readObject(java.io.ObjectInputStream);
    java.lang.Object writeReplace();
    java.lang.Object readResolve();
+   *** set*(...);
+   *** get*();
 }
 
 # 保留enum类不被混淆

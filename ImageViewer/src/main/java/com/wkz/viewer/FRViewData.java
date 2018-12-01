@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class FRViewData implements Serializable,Parcelable {
+public class FRViewData implements Serializable, Parcelable {
     // 目标 view 的 x 轴坐标
     private float targetX;
     // 目标 view 的 y 轴坐标
@@ -56,48 +56,54 @@ public class FRViewData implements Serializable,Parcelable {
         return targetX;
     }
 
-    public void setTargetX(float targetX) {
+    public FRViewData setTargetX(float targetX) {
         this.targetX = targetX;
+        return this;
     }
 
     public float getTargetY() {
         return targetY;
     }
 
-    public void setTargetY(float targetY) {
+    public FRViewData setTargetY(float targetY) {
         this.targetY = targetY;
+        return this;
     }
 
     public float getTargetWidth() {
         return targetWidth;
     }
 
-    public void setTargetWidth(float targetWidth) {
+    public FRViewData setTargetWidth(float targetWidth) {
         this.targetWidth = targetWidth;
+        return this;
     }
 
     public float getTargetHeight() {
         return targetHeight;
     }
 
-    public void setTargetHeight(float targetHeight) {
+    public FRViewData setTargetHeight(float targetHeight) {
         this.targetHeight = targetHeight;
+        return this;
     }
 
     public float getImageWidth() {
         return imageWidth;
     }
 
-    public void setImageWidth(float imageWidth) {
+    public FRViewData setImageWidth(float imageWidth) {
         this.imageWidth = imageWidth;
+        return this;
     }
 
     public float getImageHeight() {
         return imageHeight;
     }
 
-    public void setImageHeight(float imageHeight) {
+    public FRViewData setImageHeight(float imageHeight) {
         this.imageHeight = imageHeight;
+        return this;
     }
 
     @Override

@@ -314,7 +314,7 @@ public class FRMultiImageLayout extends ViewGroup {
             public void onClick(View v) {
                 //item点击
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onClick(mData, position);
+                    mOnItemClickListener.onClick(mData, itemView, position);
                 }
             }
         });
@@ -322,12 +322,16 @@ public class FRMultiImageLayout extends ViewGroup {
     }
 
     public interface OnItemClickListener {
-        void onClick(List<String> mDatas, int position);
+        void onClick(List<String> mDatas, ImageView itemView, int position);
     }
 
     private OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    public int getCount() {
+        return mCount;
     }
 }

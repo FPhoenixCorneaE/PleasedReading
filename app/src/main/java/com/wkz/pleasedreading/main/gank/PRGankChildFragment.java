@@ -52,8 +52,10 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, Swip
         mDataBinding.prRvGankChild.addItemDecoration(dividerDecoration);
         mDataBinding.prRvGankChild.setLayoutManager(new LinearLayoutManager(mContext));
         mDataBinding.prRvGankChild.setAdapter(mPRGankChildRecyclerAdapter =
-                (PRGankChildRecyclerAdapter) new PRGankChildRecyclerAdapter(mContext, null, true)
-                        .setOnLoadMoreListener(this)
+                ((PRGankChildRecyclerAdapter)
+                        new PRGankChildRecyclerAdapter(mContext, null, true)
+                        .setOnLoadMoreListener(this))
+                        .setFRImageViewer(mDataBinding.prIvViewer)
         );
     }
 

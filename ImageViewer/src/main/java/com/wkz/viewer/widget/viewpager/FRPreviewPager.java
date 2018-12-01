@@ -6,6 +6,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+/**
+ * 图片缩放时java.lang.IllegalArgumentException: pointerIndex out of range解决方案
+ * 捕获IllegalArgumentException（非法参数异常）异常
+ */
 public class FRPreviewPager extends ViewPager {
     // 是否可滑动
     private boolean isScrollable;
@@ -20,12 +24,22 @@ public class FRPreviewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return super.onInterceptTouchEvent(ev);
+        try {
+            return super.onInterceptTouchEvent(ev);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return super.onTouchEvent(ev);
+        try {
+            return super.onTouchEvent(ev);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     @Override

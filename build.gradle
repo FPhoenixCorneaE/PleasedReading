@@ -44,6 +44,7 @@ allprojects {
     repositories {
         flatDir {
             dirs "$rootDir/libs"
+            dirs "$rootDir/aar"
         }
     }
 

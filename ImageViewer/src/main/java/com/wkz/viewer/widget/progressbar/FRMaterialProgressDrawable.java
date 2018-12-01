@@ -152,8 +152,7 @@ public class FRMaterialProgressDrawable extends Drawable implements Animatable {
      * Set the overall size for the progress spinner. This updates the radius
      * and stroke width of the ring.
      *
-     * @param size One of {@link FRMaterialProgressDrawable.LARGE} or
-     *             {@link FRMaterialProgressDrawable.DEFAULT}
+     * @param size One of {@link ProgressDrawableSize}
      */
     public void updateSizes(@ProgressDrawableSize int size) {
         final DisplayMetrics metrics = mResources.getDisplayMetrics();
@@ -403,7 +402,7 @@ public class FRMaterialProgressDrawable extends Drawable implements Animatable {
         this.mShowArrowOnFirstStart = showArrowOnFirstStart;
     }
 
-    @Retention(RetentionPolicy.CLASS)
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({LARGE, DEFAULT})
     public @interface ProgressDrawableSize {
     }

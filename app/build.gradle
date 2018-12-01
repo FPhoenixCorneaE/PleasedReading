@@ -166,20 +166,13 @@ android {
         //是否支持大工程模式
         jumboMode true
         //预编译
-        preDexLibraries true
+        preDexLibraries false
         //
         dexInProcess true
         //最大进程数
         maxProcessCount 8
         //线程数
         threadCount 8
-    }
-
-    //在这里你可以进行 Java 的版本配置，以便使用对应版本的一些新特性
-    compileOptions {
-        encoding "UTF-8"
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     //为了解决部分第三方库重复打包了META-INF的问题,重复什么就排除什么
@@ -199,12 +192,41 @@ android {
     //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
     lintOptions {
         warning 'InvalidPackage'
-        //打包release版本的时候进行检测
-        checkReleaseBuilds false
-        //即使报错也不会停止打包
-        abortOnError false
-        //if true, only report errors.
-        ignoreWarnings false
+        quiet true //是否关闭lint报告的分析进度
+        abortOnError false //错误发生后是否停止gradle构建
+        ignoreWarnings true //是否只报告error
+        checkReleaseBuilds false//方法过时警告的开关
+        disable 'InvalidPackage' //Some libraries have issues with this.
+        disable 'OldTargetApi' //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities' //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder' //For testing purpose. This is safe to remove.
+        disable 'MissingTranslation' // 防止在发布的时候出现因 MissingTranslation 导致 Build Failed!
+    }
+
+    //在这里你可以进行 Java 的版本配置，以便使用对应版本的一些新特性
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //修改apk名称
+    android.applicationVariants.all { variant ->
+        def buildTypeName = variant.buildType.name
+        if ("release".equalsIgnoreCase(buildTypeName)) {
+            variant.outputs.all { output ->
+                def abiName = output.getFilter(com.android.build.OutputFile.ABI)
+                def densityName = output.getFilter(com.android.build.OutputFile.DENSITY)
+                outputFileName = "${project.archivesBaseName}"
+                if (null != abiName) {
+                    outputFileName += "-${abiName}"
+                }
+                if (null != densityName) {
+                    outputFileName += "-${densityName}"
+                }
+                outputFileName += "-${defaultConfig.versionName}.apk"
+            }
+        }
     }
 
     //导入数据绑定框架dataBinding支持
@@ -216,8 +238,7 @@ android {
     //aapt工具可能会影响已经被压缩过的PNG文件
     //建议把cruncherEnabled设为false，然后通过工具（比如pngcrush, pngquant, zopflipng,tinypng,guetzli）手工压缩PNG图片。
     aaptOptions {
-        cruncherEnabled = false
-        useNewCruncher = false
+        cruncherEnabled = true
     }
 
     repositories {
@@ -287,4 +308,18 @@ dependencies {
      * okio
      */
     implementation "com.squareup.okio:okio:$rootProject.ext.versionOkio"
+
+    /**
+     * glide
+     */
+    implementation("com.github.bumptech.glide:glide:$rootProject.ext.versionGlide") {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide"
+
+    /**
+     * photoview
+     */
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 }
