@@ -1,10 +1,13 @@
 package com.wkz.framework.widgets.glideimageview;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
+import com.bumptech.glide.TransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.wkz.framework.widgets.glideimageview.progress.OnGlideImageViewListener;
 import com.wkz.framework.widgets.glideimageview.progress.OnProgressListener;
@@ -69,6 +72,11 @@ public class FRGlideImageView extends FRShapeImageView {
 
     public FRGlideImageView loadImage(String url, int placeholderResId) {
         getImageLoader().loadImage(url, placeholderResId);
+        return this;
+    }
+
+    public FRGlideImageView loadImage(String url, int placeholderResId, @NonNull TransitionOptions<?, ? super Drawable> transitionOptions) {
+        getImageLoader().loadImage(url, placeholderResId, transitionOptions);
         return this;
     }
 

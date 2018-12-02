@@ -16,7 +16,6 @@ import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.wkz.framework.R;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
-import com.wkz.framework.widgets.glideimageview.progress.GlideApp;
 
 import java.util.Arrays;
 import java.util.List;
@@ -324,11 +323,7 @@ public class FRMultiImageLayout extends ViewGroup {
                         .start();
             }
         };
-        GlideApp.with(getContext())
-                .load(url)
-                .placeholder(placeholder)
-                .transition(GenericTransitionOptions.with(animationObject))
-                .into(itemView);
+        itemView.loadImage(url, placeholder, GenericTransitionOptions.with(animationObject));
         itemView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

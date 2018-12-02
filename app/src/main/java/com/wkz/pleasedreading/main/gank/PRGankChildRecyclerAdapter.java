@@ -60,6 +60,11 @@ public class PRGankChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRGankBe
                 viewHolder.mDataBinding.prMilImages.setOnItemClickListener(new FRMultiImageLayout.OnItemClickListener() {
                     @Override
                     public void onClick(List<String> mDatas, ImageView itemView, int position) {
+                        //图片大图浏览
+                        goToImageViewer(mDatas, position);
+                    }
+
+                    private void goToImageViewer(List<String> mDatas, int position) {
                         List<FRViewData> mViewList = new ArrayList<>();
                         for (int i = 0; i < mDatas.size(); i++) {
                             FRViewData viewData = new FRViewData();

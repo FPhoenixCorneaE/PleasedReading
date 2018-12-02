@@ -67,8 +67,8 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
 
     private void initRecyclerView() {
         DividerDecoration dividerDecoration = new DividerDecoration(
-                ResourceUtils.getColor(R.color.fr_divider_Oxffededed),
-                SizeUtils.dp2px(5f)
+                ResourceUtils.getColor(R.color.fr_color_transparent),
+                SizeUtils.dp2px(10f)
         );
         mDataBinding.prRvGankChild.addItemDecoration(dividerDecoration);
         mDataBinding.prRvGankChild.setLayoutManager(new LinearLayoutManager(mContext));

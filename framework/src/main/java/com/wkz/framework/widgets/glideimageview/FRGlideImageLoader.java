@@ -6,19 +6,21 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.TransitionOptions;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.wkz.framework.widgets.glideimageview.progress.FRProgressManager;
 import com.wkz.framework.widgets.glideimageview.progress.OnGlideImageViewListener;
 import com.wkz.framework.widgets.glideimageview.progress.OnProgressListener;
-import com.wkz.framework.widgets.glideimageview.progress.FRProgressManager;
 import com.wkz.framework.widgets.glideimageview.transformation.FRGlideCircleTransformation;
 
 import java.lang.ref.WeakReference;
@@ -92,6 +94,11 @@ public class FRGlideImageLoader {
         requestBuilder(url, options).into(getImageView());
     }
 
+    public void load(String url, RequestOptions options, @NonNull TransitionOptions<?, ? super Drawable> transitionOptions) {
+        if (url == null || getContext() == null) return;
+        requestBuilder(url, options).transition(transitionOptions).into(getImageView());
+    }
+
     public RequestBuilder<Drawable> requestBuilder(Object obj, RequestOptions options) {
         this.mImageUrlObj = obj;
         return Glide.with(getContext())
@@ -135,6 +142,10 @@ public class FRGlideImageLoader {
 
     public void loadImage(String url, int placeholderResId) {
         load(url, requestOptions(placeholderResId));
+    }
+
+    public void loadImage(String url, int placeholderResId, @NonNull TransitionOptions<?, ? super Drawable> transitionOptions) {
+        load(url, requestOptions(placeholderResId), transitionOptions);
     }
 
     public void loadLocalImage(@DrawableRes int resId, int placeholderResId) {
