@@ -92,13 +92,26 @@
         </attr>
     </declare-styleable>
 
-    <!--九宫格显示多图或item，仿照QQ空间图片列表-->
+    <!--九宫格显示多图或item，仿照QQ空间图片列表和百度贴吧图片列表-->
     <declare-styleable name="FRMultiImageLayout">
         <attr name="fr_mil_divideSpace" format="dimension" />
         <attr name="fr_mil_placeholder" format="reference" />
         <attr name="fr_mil_type" format="enum">
             <enum name="QQSpace" value="0" />
             <enum name="BaiDuPostBar" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!--仿 instagram 和微博的头像点击动画-->
+    <declare-styleable name="FRInsLoadingView">
+        <attr name="fr_ilv_rotate_duration" format="integer" />
+        <attr name="fr_ilv_circle_duration" format="integer" />
+        <attr name="fr_ilv_start_color" format="color" />
+        <attr name="fr_ilv_end_color" format="color" />
+        <attr name="fr_ilv_status">
+            <enum name="loading" value="0" />
+            <enum name="clicked" value="1" />
+            <enum name="unclicked" value="2" />
         </attr>
     </declare-styleable>
 </resources>

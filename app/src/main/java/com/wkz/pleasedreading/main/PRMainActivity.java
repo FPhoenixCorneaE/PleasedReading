@@ -13,6 +13,8 @@ import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.utils.FragmentUtils;
+import com.wkz.framework.utils.GlideUtils;
+import com.wkz.framework.widgets.FRInsLoadingView;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
@@ -137,5 +139,16 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
     @BindingAdapter({"avatarUrl"})
     public static void loadAvatar(FRGlideImageView prIvAvatar, String avatarUrl) {
         prIvAvatar.loadCircleImage(avatarUrl, R.drawable.pr_shape_placeholder_avatar_circle);
+    }
+
+    /**
+     * 加载头像Loading
+     *
+     * @param prIlvAvatar
+     * @param avatarUrl
+     */
+    @BindingAdapter({"avatarLoadingUrl"})
+    public static void loadAvatarLoading(FRInsLoadingView prIlvAvatar, String avatarUrl) {
+        GlideUtils.setupCircleImagePlaceDrawableRes(prIlvAvatar, avatarUrl, R.drawable.pr_shape_placeholder_avatar_circle);
     }
 }
