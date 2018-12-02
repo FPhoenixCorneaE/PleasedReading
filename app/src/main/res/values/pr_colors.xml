@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pr_colorPrimary">#ff3f51b5</color>
-    <color name="pr_colorPrimaryDark">#ff303f9f</color>
+    <color name="pr_colorPrimary">#ff007aff</color>
+    <color name="pr_colorPrimaryDark">#ff0063cc</color>
     <color name="pr_colorAccent">#ffff4081</color>
     <color name="pr_textColorPrimary">#ff000000</color>
 
-    <color name="pr_statusBar">#ffededed</color>
-    <color name="pr_actionBar">#ffededed</color>
+    <color name="pr_statusBar">#ff0063cc</color>
+    <color name="pr_actionBar">#ff007aff</color>
     <color name="pr_background">#ffededed</color>
 </resources>
