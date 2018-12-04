@@ -49,6 +49,7 @@
             <!--data传递：bind:menuList="@{menuList}"-->
             <!--上面代码中定义了一个id为pr_dl_drawer的DrawerLayout，那么它对应的变量就是prDlDrawer-->
             <include
+                android:id="@+id/pr_sidebar_layout"
                 layout="@layout/pr_sidebar_main"
                 bind:avatarUrl="@{avatarUrl}"
                 bind:context="@{context}"

@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-//ButterKnife
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -161,16 +159,9 @@ dependencies {
     implementation "com.android.support:multidex:1.0.3"
 
     /**
-     * 解放控件对象实例化,监听添加
-     */
-    implementation "com.jakewharton:butterknife:$rootProject.ext.versionButterKnife"
-    implementation "com.jakewharton:butterknife-compiler:$rootProject.ext.versionButterKnife"
-    implementation "com.jakewharton:butterknife-annotations:$rootProject.ext.versionButterKnife"
-
-    /**
      * logger
      */
-    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.orhanobut:logger:' + rootProject.ext.versionLogger
 
     /**
      * rxlifecycle2
@@ -217,5 +208,11 @@ dependencies {
     /**
      * 兼容3.0以前sdk动画
      */
-    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.nineoldandroids:library:' + rootProject.ext.versionNineOld
+
+    /**
+     * 智能下拉刷新框架，支持越界回弹、越界拖动，具有极强的扩展性
+     */
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:' + rootProject.ext.versionSmartRefresh
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:' + rootProject.ext.versionSmartRefresh
 }

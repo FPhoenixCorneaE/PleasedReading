@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.wkz.framework.base.BaseActivity;
 import com.wkz.framework.base.BaseModel;
@@ -22,16 +21,7 @@ import com.wkz.pleasedreading.main.gank.PRGankChildFragment;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
 public class PRMainActivity extends BaseActivity implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
-
-    @BindView(R.id.pr_fl_container)
-    FrameLayout prFlContainer;
-    @BindView(R.id.pr_dl_drawer)
-    DrawerLayout prDlDrawer;
-    @BindView(R.id.pr_fl_sidebar_content)
-    FrameLayout prFlSidebarContent;
 
     private PRMainPresenter mPRMainPresenter;
     private PrActivityMainBinding mDataBinding;
@@ -57,6 +47,7 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
         mDataBinding = (PrActivityMainBinding) mViewDataBinding;
 
 //        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
+        //layout:pr_content_main添加id后会导致id:pr_fl_container找不到
         FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankChildFragment(), null, false);
 
 
@@ -79,8 +70,8 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
 
     @Override
     public void initListener() {
-        prDlDrawer.addDrawerListener(this);
-        mDataBinding.setOnMainClickListener(new OnMainClickListener().setDrawerLayout(prDlDrawer));
+        mDataBinding.prDlDrawer.addDrawerListener(this);
+        mDataBinding.setOnMainClickListener(new OnMainClickListener().setDrawerLayout(mDataBinding.prDlDrawer));
     }
 
     @Override
@@ -97,11 +88,11 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
     public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
         //设置主布局随菜单滑动而滑动
         int drawerViewWidth = drawerView.getWidth();
-        prFlContainer.setTranslationX(drawerViewWidth * slideOffset);
+        mDataBinding.prDlDrawer.findViewById(R.id.pr_fl_container).setTranslationX(drawerViewWidth * slideOffset);
 
         //设置侧边栏内容控件最先出现的位置
         double translationX = drawerViewWidth * 0.618 * (1 - slideOffset);
-        prFlSidebarContent.setTranslationX((float) translationX);
+        mDataBinding.prSidebarLayout.prFlSidebarContent.setTranslationX((float) translationX);
     }
 
     @Override

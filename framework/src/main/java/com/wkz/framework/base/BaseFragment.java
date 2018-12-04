@@ -20,9 +20,6 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 public abstract class BaseFragment
         extends RxFragment
         implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
@@ -31,7 +28,6 @@ public abstract class BaseFragment
     protected BaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
     private View mContentView;
-    private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
     /**
      * 标识fragment视图已经初始化完毕
@@ -68,7 +64,6 @@ public abstract class BaseFragment
         mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(mContentView)
                 .setOnStatusLayoutClickListener(this)
                 .build();
-        mUnbinder = ButterKnife.bind(this, mContentView);
 
         //构建Presenter
         createPresenter();
@@ -134,9 +129,6 @@ public abstract class BaseFragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
     }
 
     @Override

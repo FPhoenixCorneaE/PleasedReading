@@ -12,18 +12,23 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wkz.framework.base.BaseFragment;
 import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.constant.FRConstant;
 import com.wkz.framework.factorys.ModelFactory;
+import com.wkz.framework.functions.web.FRWebPageActivity;
+import com.wkz.framework.model.FRBundle;
+import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.DividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
+import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 
 import java.util.List;
 
-public class PRGankChildFragment extends BaseFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener {
+public class PRGankChildFragment extends BaseFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener, FRBaseRecyclerAdapter.OnItemClickListener<PRGankBean.ResultsBean> {
 
     private PRGankPresenter mPresenter;
     private PrFragmentGankChildBinding mDataBinding;
@@ -82,7 +87,7 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
 
     @Override
     public void initListener() {
-
+        mPRGankChildRecyclerAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -117,5 +122,10 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.onRefreshDataByType("Android");
+    }
+
+    @Override
+    public void onItemClick(FRRecyclerViewHolder fRRecyclerViewHolder, PRGankBean.ResultsBean data, int position) {
+        IntentUtils.startActivity(mContext, FRWebPageActivity.class, new FRBundle().putString(FRConstant.WEB_URL, data.getUrl()).create());
     }
 }

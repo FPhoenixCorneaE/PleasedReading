@@ -1,6 +1,6 @@
+import com.android.build.OutputFile
+
 apply plugin: 'com.android.application'
-//ButterKnife
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -215,8 +215,8 @@ android {
         def buildTypeName = variant.buildType.name
         if ("release".equalsIgnoreCase(buildTypeName)) {
             variant.outputs.all { output ->
-                def abiName = output.getFilter(com.android.build.OutputFile.ABI)
-                def densityName = output.getFilter(com.android.build.OutputFile.DENSITY)
+                def abiName = output.getFilter(OutputFile.ABI)
+                def densityName = output.getFilter(OutputFile.DENSITY)
                 outputFileName = "${project.archivesBaseName}"
                 if (null != abiName) {
                     outputFileName += "-${abiName}"
@@ -257,7 +257,7 @@ dependencies {
     /**
      * support
      */
-    implementation "com.android.support:multidex:1.0.3"
+    implementation "com.android.support:multidex:$rootProject.ext.versionMultiDex"
     implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
     implementation "com.android.support:support-annotations:$rootProject.ext.versionSupport"
     implementation "com.android.support:design:$rootProject.ext.versionSupport"
@@ -265,16 +265,9 @@ dependencies {
     implementation "com.android.support:cardview-v7:$rootProject.ext.versionSupport"
 
     /**
-     * 解放控件对象实例化,监听添加
-     */
-    implementation "com.jakewharton:butterknife:$rootProject.ext.versionButterKnife"
-    implementation "com.jakewharton:butterknife-compiler:$rootProject.ext.versionButterKnife"
-    implementation "com.jakewharton:butterknife-annotations:$rootProject.ext.versionButterKnife"
-
-    /**
      * logger
      */
-    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.orhanobut:logger:' + rootProject.ext.versionLogger
 
     /**
      * rxlifecycle2
@@ -323,11 +316,11 @@ dependencies {
     /**
      * photoview
      */
-    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    implementation 'com.github.chrisbanes:PhotoView:' + rootProject.ext.versionPhotoView
 
     /**
      * 智能下拉刷新框架，支持越界回弹、越界拖动，具有极强的扩展性
      */
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-16'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-16'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:' + rootProject.ext.versionSmartRefresh
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:' + rootProject.ext.versionSmartRefresh
 }

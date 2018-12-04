@@ -14,11 +14,12 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IntDef;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -26,6 +27,9 @@ import android.view.animation.LinearInterpolator;
 
 import com.wkz.framework.BuildConfig;
 import com.wkz.framework.R;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * 仿 instagram 和微博的头像点击进行加载的 Android 动画
@@ -40,18 +44,16 @@ public class FRInsLoadingView extends AppCompatImageView {
     private static final float arcChangeAngle = 0.2f;
     private static final int sClickedColor = Color.LTGRAY;
 
-    public enum Status {LOADING, CLICKED, UNCLICKED}
-
-    private static SparseArray<Status> sStatusArray;
-
-    static {
-        sStatusArray = new SparseArray<>(3);
-        sStatusArray.put(0, Status.LOADING);
-        sStatusArray.put(1, Status.CLICKED);
-        sStatusArray.put(2, Status.UNCLICKED);
+    @IntDef({Status.LOADING, Status.CLICKED, Status.UNCLICKED})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Status {
+        int LOADING = 0;
+        int CLICKED = 1;
+        int UNCLICKED = 2;
     }
 
-    private Status mStatus = Status.LOADING;
+    @Status
+    private int mStatus = Status.LOADING;
     private int mRotateDuration = 10000;
     private int mCircleDuration = 2000;
     private float bitmapDia = circleDia - strokeWidth;
@@ -96,22 +98,26 @@ public class FRInsLoadingView extends AppCompatImageView {
         return this;
     }
 
-    public void setStatus(Status status) {
+    public FRInsLoadingView setStatus(@Status int status) {
         this.mStatus = status;
+        return this;
     }
 
-    public Status getStatus() {
+    @Status
+    public int getStatus() {
         return mStatus;
     }
 
-    public void setStartColor(int startColor) {
+    public FRInsLoadingView setStartColor(int startColor) {
         mStartColor = startColor;
         mTrackPaint = null;
+        return this;
     }
 
-    public void setEndColor(int endColor) {
+    public FRInsLoadingView setEndColor(int endColor) {
         mEndColor = endColor;
         mTrackPaint = null;
+        return this;
     }
 
     @Override
@@ -141,14 +147,14 @@ public class FRInsLoadingView extends AppCompatImageView {
         canvas.scale(mScale, mScale, centerX(), centerY());
         drawBitmap(canvas);
         switch (mStatus) {
-            case LOADING:
+            case Status.LOADING:
                 drawTrack(canvas, mTrackPaint);
                 break;
-            case UNCLICKED:
+            case Status.UNCLICKED:
                 drawCircle(canvas, mTrackPaint);
                 break;
-            case CLICKED:
-                drawClickedircle(canvas);
+            case Status.CLICKED:
+                drawClickedCircle(canvas);
                 break;
         }
     }
@@ -240,13 +246,13 @@ public class FRInsLoadingView extends AppCompatImageView {
         }
         setStartColor(startColor);
         setEndColor(endColor);
-        setStatus(sStatusArray.get(status));
+        setStatus(status);
         typedArray.recycle();
     }
 
     private void initPaints() {
         if (mBitmapPaint == null) {
-            mBitmapPaint = getmBitmapPaint();
+            mBitmapPaint = getBitmapPaint();
         }
         if (mTrackPaint == null) {
             mTrackPaint = getTrackPaint();
@@ -342,18 +348,18 @@ public class FRInsLoadingView extends AppCompatImageView {
         canvas.rotate(ARC_WIDTH, centerX(), centerY());
 
         if (DEBUG) {
-            Log.d(TAG, "cricleWidth:" + cricleWidth);
+            Log.d(TAG, "circleWidth:" + cricleWidth);
         }
         if (cricleWidth < 0) {
             //a
             float startArg = cricleWidth + 360;
             canvas.drawArc(mTrackRectF, startArg, 360 - startArg, false, paint);
-            float adjustCricleWidth = cricleWidth + 360;
+            float adjustCircleWidth = cricleWidth + 360;
             float width = 8;
-            while (adjustCricleWidth > ARC_WIDTH) {
+            while (adjustCircleWidth > ARC_WIDTH) {
                 width = width - arcChangeAngle;
-                adjustCricleWidth = adjustCricleWidth - ARC_WIDTH;
-                canvas.drawArc(mTrackRectF, adjustCricleWidth, width, false, paint);
+                adjustCircleWidth = adjustCircleWidth - ARC_WIDTH;
+                canvas.drawArc(mTrackRectF, adjustCircleWidth, width, false, paint);
             }
         } else {
             //b
@@ -366,15 +372,15 @@ public class FRInsLoadingView extends AppCompatImageView {
             if (cricleWidth > ARC_WIDTH * 4) {
                 canvas.drawArc(mTrackRectF, 0, cricleWidth - ARC_WIDTH * 4, false, paint);
             }
-            float adjustCricleWidth = 360;
+            float adjustCircleWidth = 360;
             float width = 8 * (360 - cricleWidth) / 360;
             if (DEBUG) {
                 Log.d(TAG, "width:" + width);
             }
-            while (width > 0 && adjustCricleWidth > ARC_WIDTH) {
+            while (width > 0 && adjustCircleWidth > ARC_WIDTH) {
                 width = width - arcChangeAngle;
-                adjustCricleWidth = adjustCricleWidth - ARC_WIDTH;
-                canvas.drawArc(mTrackRectF, adjustCricleWidth, width, false, paint);
+                adjustCircleWidth = adjustCircleWidth - ARC_WIDTH;
+                canvas.drawArc(mTrackRectF, adjustCircleWidth, width, false, paint);
             }
         }
     }
@@ -385,7 +391,7 @@ public class FRInsLoadingView extends AppCompatImageView {
         canvas.drawOval(rectF, paint);
     }
 
-    private void drawClickedircle(Canvas canvas) {
+    private void drawClickedCircle(Canvas canvas) {
         Paint paintClicked = new Paint();
         paintClicked.setColor(sClickedColor);
         setPaintStroke(paintClicked);
@@ -395,7 +401,6 @@ public class FRInsLoadingView extends AppCompatImageView {
     private void startDownAnim() {
         mTouchAnim.setFloatValues(mScale, 0.9f);
         mTouchAnim.start();
-
     }
 
     private void startUpAnim() {
@@ -427,32 +432,38 @@ public class FRInsLoadingView extends AppCompatImageView {
         paint.setStrokeWidth(getHeight() * strokeWidth);
     }
 
-    private Paint getmBitmapPaint() {
+    private Paint getBitmapPaint() {
         Paint paint = new Paint();
         Drawable drawable = getDrawable();
-        Matrix matrix = new Matrix();
         if (null == drawable) {
             return paint;
         }
         Bitmap bitmap = drawableToBitmap(drawable);
-        BitmapShader tshader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         int bSize = Math.min(bitmap.getWidth(), bitmap.getHeight());
         float scale = getWidth() * 1.0f / bSize;
+        Matrix matrix = new Matrix();
         matrix.setScale(scale, scale);
         if (bitmap.getWidth() > bitmap.getHeight()) {
             matrix.postTranslate(-(bitmap.getWidth() * scale - getWidth()) / 2, 0);
         } else {
             matrix.postTranslate(0, -(bitmap.getHeight() * scale - getHeight()) / 2);
         }
-        tshader.setLocalMatrix(matrix);
-        paint.setShader(tshader);
+        bitmapShader.setLocalMatrix(matrix);
+        paint.setShader(bitmapShader);
         return paint;
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             return bitmapDrawable.getBitmap();
+        }
+        if (drawable instanceof ColorDrawable) {
+            return Bitmap.createBitmap(1, 0, Bitmap.Config.ARGB_8888);
         }
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();

@@ -787,14 +787,14 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     }
 
     public interface OnItemClickListener<T> {
-        void onItemClick(FRRecyclerViewHolder FRRecyclerViewHolder, T data, int position);
+        void onItemClick(FRRecyclerViewHolder fRRecyclerViewHolder, T data, int position);
     }
 
     public interface OnItemChildClickListener<T> {
-        void onItemChildClick(FRRecyclerViewHolder FRRecyclerViewHolder, T data, int position);
+        void onItemChildClick(FRRecyclerViewHolder fRRecyclerViewHolder, T data, int position);
     }
 
     public interface OnMultiItemClickListener<T> {
-        void onMultiItemClick(FRRecyclerViewHolder FRRecyclerViewHolder, T data, int position, int viewType);
+        void onMultiItemClick(FRRecyclerViewHolder fRRecyclerViewHolder, T data, int position, int viewType);
     }
 }

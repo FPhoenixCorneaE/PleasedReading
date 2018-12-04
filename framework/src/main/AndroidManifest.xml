@@ -11,5 +11,14 @@
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true" />
+        android:supportsRtl="true"
+        android:theme="@style/FRTheme.Base">
+        <activity
+            android:name=".functions.web.FRWebPageActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/FRTheme.Activity"
+            android:windowSoftInputMode="adjustNothing" />
+    </application>
 </manifest>

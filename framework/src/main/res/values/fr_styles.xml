@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--BaseTheme,用于Application-->
+    <style name="FRTheme.Base" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--全屏主题-->
+    <style name="FRTheme.Fullscreen" parent="FRTheme.Base">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!--启动页主题-->
+    <style name="FRTheme.Splash" parent="FRTheme.Base">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/fr_bg_splash</item>
+    </style>
+
+    <!-- Activity主题,用于Activity -->
+    <style name="FRTheme.Activity" parent="FRTheme.Base">
+        <!--标题栏颜色-->
+        <item name="colorPrimary">@color/fr_colorPrimary</item>
+        <!--状态栏底色-->
+        <item name="colorPrimaryDark">@color/fr_colorPrimaryDark</item>
+        <item name="colorAccent">@color/fr_colorAccent</item>
+        <item name="actionBarSize">@dimen/fr_actionBarSize</item>
+        <item name="android:textColorPrimary">@color/fr_textColorPrimary</item>
+        <item name="android:actionBarSize">@dimen/fr_actionBarSize</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>

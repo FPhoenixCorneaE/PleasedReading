@@ -10,4 +10,7 @@
     <item name="fr_btn_status_retry" type="id" />
     <item name="fr_pb_status_loading" type="id" />
     <item name="fr_tv_status_loading_content" type="id" />
+
+    <item name="fr_pb_progress" type="id" />
+    <item name="fr_wv_web_page" type="id" />
 </resources>

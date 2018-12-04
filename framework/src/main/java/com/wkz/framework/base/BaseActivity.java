@@ -18,9 +18,6 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 public abstract class BaseActivity
         extends RxAppCompatActivity
         implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
@@ -28,7 +25,6 @@ public abstract class BaseActivity
     private static final String NAME_ACTIVITY = BaseActivity.class.getName();
     protected BaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
-    private Unbinder mUnbinder;
     private FRStatusLayoutManager mFRStatusLayoutManager;
     private View mContentView;
 
@@ -45,7 +41,6 @@ public abstract class BaseActivity
         mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(mContentView)
                 .setOnStatusLayoutClickListener(this)
                 .build();
-        mUnbinder = ButterKnife.bind(this);
 
         //构建Presenter
         createPresenter();
@@ -80,9 +75,6 @@ public abstract class BaseActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
         //反注册网络变化监听
         if (mContext != null) {
             FRNetworkManager.getInstance().unregisterNetwork(mContext);

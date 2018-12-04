@@ -22,11 +22,16 @@ ext {
     versionButterKnife = "8.8.1"
     versionGlide = '4.8.0'
     versionGson = '2.8.0'
+    versionLogger = '2.2.0'
+    versionMultiDex = '1.0.3'
+    versionNineOld = '2.4.0'
     versionOkhttp3 = '3.10.0'
     versionOkio = '1.14.0'
+    versionPhotoView = '2.1.4'
     versionRxlifecycle2 = '2.2.2'
     versionRxandroid = '2.1.0'
     versionRxjava2 = '2.2.0'
     versionRetrofit2 = '2.3.0'
+    versionSmartRefresh = '1.1.0-alpha-16'
     versionSupport = '28.0.0'
 }

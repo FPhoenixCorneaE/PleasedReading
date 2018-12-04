@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="fr_colorPrimary">#ff007aff</color>
+    <color name="fr_colorPrimaryDark">#ff0063cc</color>
+    <color name="fr_colorAccent">#ffff4081</color>
+    <color name="fr_textColorPrimary">#ff000000</color>
+
+    <color name="fr_statusBar">#ff0063cc</color>
+    <color name="fr_actionBar">#ff007aff</color>
+    <color name="fr_background">#ffededed</color>
+    
     <color name="fr_background_Oxffededed">#ffededed</color>
     <color name="fr_background_Oxffffffff">#ffffffff</color>
     <color name="fr_divider_Oxffcccccc">#ffcccccc</color>

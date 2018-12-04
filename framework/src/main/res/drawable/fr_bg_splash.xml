@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="translucent">
+    <item>
+        <color android:color="@color/fr_background_Oxffededed" />
+    </item>
+</layer-list>
