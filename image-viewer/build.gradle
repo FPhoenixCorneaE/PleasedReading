@@ -134,11 +134,25 @@ android {
             }
         }
     }
+
+    //让所有的第三方包强制使用指定版本的support包
+    //注意：在写第三方库给别人用的时候，对于support包的依赖方式改成provided（或者compileOnly，gradle3.0），
+    //这样不会把support打包，方便使用的人。
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion rootProject.ext.versionSupport
+                }
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+    compileOnly "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
     api 'com.github.chrisbanes:PhotoView:2.1.4'
     // 超巨图查看控件
 //    api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'

@@ -105,7 +105,7 @@ public class IntentUtils {
             }
             //进入动画
             try {
-                if (null != animation) {
+                if (!TextUtils.isEmpty(animation)) {
                     FRActivityAnimator anim = new FRActivityAnimator();
                     anim.getClass().getMethod(animation, Activity.class).invoke(anim, context);
                 }

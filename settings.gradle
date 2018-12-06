@@ -1,3 +1,4 @@
 include ':app'
 include ':framework'
 include ':image-viewer'
+include ':banner-layout'

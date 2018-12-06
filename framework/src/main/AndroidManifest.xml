@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/FRTheme.Base">
+        <!--网页显示-->
         <activity
             android:name=".functions.web.FRWebPageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -20,5 +21,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/FRTheme.Activity"
             android:windowSoftInputMode="adjustNothing" />
+        <!--初始化服务-->
+        <service android:name=".services.InitializeService" />
     </application>
 </manifest>

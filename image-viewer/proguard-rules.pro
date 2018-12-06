@@ -29,4 +29,8 @@
 -keepclassmembers class com.wkz.viewer.widget.FRScaleImageView {
     public *;
 }
+-keep class com.wkz.viewer.dragger.FRImageDraggerType {*;}
+-keep class com.wkz.viewer.FRImageViewerState {*;}
+
+
 

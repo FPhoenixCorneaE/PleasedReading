@@ -1,7 +1,9 @@
 package com.wkz.framework;
 
 import android.app.Application;
+import android.app.IntentService;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.multidex.MultiDex;
 
@@ -10,6 +12,10 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.LogcatLogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.wkz.framework.services.InitializeService;
+import com.wkz.framework.widgets.glideimageview.progress.GlideApp;
+
+import java.util.concurrent.Executors;
 
 public class FRApplication extends Application {
 
@@ -30,7 +36,20 @@ public class FRApplication extends Application {
         super.onCreate();
         instance = this;
 
+        //初始化图片框架
+        initPictureFrame();
+
         initLogger();
+    }
+
+    /**
+     * Glide初始化耗时分析：Glide的初始化会加载所有配置的Module，
+     * 然后初始化RequestManager（包括网络层、工作线程等，比较耗时），
+     * 最后还要应用一些解码的选项（Options）
+     * 在Application的onCreate方法中，在工作线程调用一次GlideApp.get(this)可优化启动速度
+     */
+    private void initPictureFrame() {
+        startService(new Intent(getContext(), InitializeService.class));
     }
 
     private void initLogger() {

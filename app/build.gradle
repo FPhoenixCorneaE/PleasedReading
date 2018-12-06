@@ -241,6 +241,7 @@ android {
         cruncherEnabled = true
     }
 
+    //依赖aar包
     repositories {
         flatDir {
             dirs 'aar'

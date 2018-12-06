@@ -17,13 +17,14 @@
         android:roundIcon="@mipmap/pr_ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FRTheme.Base">
+        <!--闪屏页-->
         <activity
-            android:name=".main.PRMainActivity"
+            android:name=".PRSplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/FRTheme.Activity"
+            android:theme="@style/FRTheme.Splash"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +32,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--主页-->
+        <activity
+            android:name=".main.PRMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FRTheme.Activity"
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 
 </manifest>

@@ -13,7 +13,6 @@ import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.constant.FRConstant;
 import com.wkz.framework.databinding.FrActivityWebPageBinding;
 import com.wkz.framework.utils.ResourceUtils;
-import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.FRProgressBar;
 
 public class FRWebPageActivity extends BaseActivity implements FRWebView.Listener {
