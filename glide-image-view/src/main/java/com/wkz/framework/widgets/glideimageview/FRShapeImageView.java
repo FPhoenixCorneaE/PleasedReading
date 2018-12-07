@@ -15,12 +15,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 
 import com.wkz.framework.R;
-import com.wkz.framework.utils.SizeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,7 +28,7 @@ import java.lang.annotation.RetentionPolicy;
  * Created by sunfusheng on 2017/6/12.
  */
 @SuppressWarnings("deprecation")
-public class FRShapeImageView extends AppCompatImageView {
+public class FRShapeImageView extends ImageView {
 
     // 定义Bitmap的默认配置
     private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;
@@ -262,7 +261,7 @@ public class FRShapeImageView extends AppCompatImageView {
 
     // 设置边框宽度
     public void setBorderWidth(int borderWidth) {
-        this.borderWidth = SizeUtils.dp2px(borderWidth);
+        this.borderWidth = dp2px(borderWidth);
         invalidate();
     }
 
@@ -281,7 +280,7 @@ public class FRShapeImageView extends AppCompatImageView {
 
     // 设置圆角半径
     public void setRadius(int radius) {
-        this.radius = SizeUtils.dp2px(radius);
+        this.radius = dp2px(radius);
         invalidate();
     }
 
@@ -289,5 +288,16 @@ public class FRShapeImageView extends AppCompatImageView {
     public void setShapeType(@ShapeType int shapeType) {
         this.shapeType = shapeType;
         invalidate();
+    }
+
+    /**
+     * dp转px
+     *
+     * @param dpValue dp值
+     * @return px值
+     */
+    private int dp2px(float dpValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

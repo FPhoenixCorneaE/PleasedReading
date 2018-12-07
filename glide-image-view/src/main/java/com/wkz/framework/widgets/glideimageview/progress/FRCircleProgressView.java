@@ -15,7 +15,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 
 import com.wkz.framework.R;
-import com.wkz.framework.utils.SizeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -25,27 +24,27 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class FRCircleProgressView extends ProgressBar {
 
-    private int mReachBarSize = SizeUtils.dp2px(2); // 未完成进度条大小
-    private int mNormalBarSize = SizeUtils.dp2px(2); // 未完成进度条大小
+    private int mReachBarSize = dp2px(2); // 未完成进度条大小
+    private int mNormalBarSize = dp2px(2); // 未完成进度条大小
     private int mReachBarColor = Color.parseColor("#108ee9"); // 已完成进度颜色
     private int mNormalBarColor = Color.parseColor("#FFD3D6DA"); // 未完成进度颜色
-    private int mTextSize = SizeUtils.sp2px(14); // 进度值字体大小
+    private int mTextSize = sp2px(14); // 进度值字体大小
     private int mTextColor = Color.parseColor("#108ee9"); // 进度的值字体颜色
     private float mTextSkewX; // 进度值字体倾斜角度
     private String mTextSuffix = "%"; // 进度值前缀
     private String mTextPrefix = ""; // 进度值后缀
     private boolean mTextVisible = true; // 是否显示进度值
     private boolean mReachCapRound; // 画笔是否使用圆角边界，normalStyle下生效
-    private int mRadius = SizeUtils.dp2px(20); // 半径
+    private int mRadius = dp2px(20); // 半径
     private int mStartArc; // 起始角度
     private int mInnerBackgroundColor; // 内部背景填充颜色
     private int mProgressStyle = ProgressStyle.NORMAL; // 进度风格
-    private int mInnerPadding = SizeUtils.dp2px(1); // 内部圆与外部圆间距
+    private int mInnerPadding = dp2px(1); // 内部圆与外部圆间距
     private int mOuterColor; // 外部圆环颜色
     private boolean needDrawInnerBackground; // 是否需要绘制内部背景
     private RectF rectF; // 外部圆环绘制区域
     private RectF rectInner; // 内部圆环绘制区域
-    private int mOuterSize = SizeUtils.dp2px(1); // 外层圆环宽度
+    private int mOuterSize = dp2px(1); // 外层圆环宽度
     private Paint mTextPaint; // 绘制进度值字体画笔
     private Paint mNormalPaint; // 绘制未完成进度画笔
     private Paint mReachPaint; // 绘制已完成进度画笔
@@ -344,7 +343,7 @@ public class FRCircleProgressView extends ProgressBar {
     }
 
     public void setReachBarSize(int reachBarSize) {
-        mReachBarSize = SizeUtils.dp2px(reachBarSize);
+        mReachBarSize = dp2px(reachBarSize);
         invalidate();
     }
 
@@ -353,7 +352,7 @@ public class FRCircleProgressView extends ProgressBar {
     }
 
     public void setNormalBarSize(int normalBarSize) {
-        mNormalBarSize = SizeUtils.dp2px(normalBarSize);
+        mNormalBarSize = dp2px(normalBarSize);
         invalidate();
     }
 
@@ -380,7 +379,7 @@ public class FRCircleProgressView extends ProgressBar {
     }
 
     public void setTextSize(int textSize) {
-        mTextSize = SizeUtils.sp2px(textSize);
+        mTextSize = sp2px(textSize);
         invalidate();
     }
 
@@ -443,7 +442,7 @@ public class FRCircleProgressView extends ProgressBar {
     }
 
     public void setRadius(int radius) {
-        mRadius = SizeUtils.dp2px(radius);
+        mRadius = dp2px(radius);
         invalidate();
     }
 
@@ -479,7 +478,7 @@ public class FRCircleProgressView extends ProgressBar {
     }
 
     public void setInnerPadding(int innerPadding) {
-        mInnerPadding = SizeUtils.dp2px(innerPadding);
+        mInnerPadding = dp2px(innerPadding);
         int mInnerRadius = mRadius - mOuterSize / 2 - mInnerPadding;
         rectInner = new RectF(-mInnerRadius, -mInnerRadius, mInnerRadius, mInnerRadius);
         invalidate();
@@ -499,7 +498,7 @@ public class FRCircleProgressView extends ProgressBar {
     }
 
     public void setOuterSize(int outerSize) {
-        mOuterSize = SizeUtils.dp2px(outerSize);
+        mOuterSize = dp2px(outerSize);
         invalidate();
     }
 
@@ -590,5 +589,27 @@ public class FRCircleProgressView extends ProgressBar {
     public void invalidate() {
         initPaint();
         super.invalidate();
+    }
+
+    /**
+     * dp转px
+     *
+     * @param dpValue dp值
+     * @return px值
+     */
+    private int dp2px(float dpValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * sp转px
+     *
+     * @param spValue sp值
+     * @return px值
+     */
+    private int sp2px(float spValue) {
+        final float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
     }
 }

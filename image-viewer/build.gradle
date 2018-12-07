@@ -153,7 +153,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
-    api 'com.github.chrisbanes:PhotoView:2.1.4'
+    api 'com.github.chrisbanes:PhotoView:' + rootProject.ext.versionPhotoView
     // 超巨图查看控件
 //    api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
 }

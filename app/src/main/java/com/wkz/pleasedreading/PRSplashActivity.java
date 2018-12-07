@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.wkz.bannerlayout.annotation.FRProgressShapeMode;
 import com.wkz.bannerlayout.widget.FRProgressDrawable;
@@ -54,23 +53,17 @@ public class PRSplashActivity extends BaseActivity {
                         .build()
         );
         progressDrawable.start();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                IntentUtils.startActivity(mContext, PRMainActivity.class);
-                finish();
-            }
+        mHandler.postDelayed(() -> {
+            IntentUtils.startActivity(mContext, PRMainActivity.class);
+            finish();
         }, SPLASH_TIME);
     }
 
     @Override
     public void initListener() {
-        mDataBinding.prRlSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntentUtils.startActivity(mContext, PRMainActivity.class);
-                finish();
-            }
+        mDataBinding.prRlSkip.setOnClickListener(v -> {
+            IntentUtils.startActivity(mContext, PRMainActivity.class);
+            finish();
         });
     }
 

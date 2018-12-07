@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.wkz.framework.FRApplication"
+        android:name=".PRApplication"
         android:allowBackup="true"
         android:icon="@mipmap/pr_ic_launcher"
         android:label="@string/pr_app_name"

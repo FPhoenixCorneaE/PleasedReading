@@ -12,8 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
-import com.wkz.framework.widgets.glideimageview.progress.GlideApp;
 import com.wkz.framework.widgets.ninegridimagelayout.FRMultiImageLayout;
 import com.wkz.framework.widgets.recycleradapter.FRCommonRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
@@ -92,10 +93,12 @@ public class PRGankChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRGankBe
                             @Override
                             public void displayImage(int position, String srcUrl, ImageView imageView) {
                                 final FRScaleImageView scaleImageView = (FRScaleImageView) imageView.getParent();
-                                GlideApp.with(imageView.getContext())
+                                Glide.with(imageView.getContext())
                                         .load(srcUrl)
-                                        .centerCrop()
-                                        .placeholder(new ColorDrawable(Color.BLACK))
+                                        .apply(new RequestOptions()
+                                                .centerCrop()
+                                                .placeholder(new ColorDrawable(Color.BLACK))
+                                        )
                                         .into(new ImageViewTarget<Drawable>(imageView) {
 
                                             @Override
