@@ -19,7 +19,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-import com.wkz.framework.R;
+import com.wkz.glideimageview.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

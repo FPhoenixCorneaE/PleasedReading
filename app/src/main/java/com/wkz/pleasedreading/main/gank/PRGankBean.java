@@ -100,6 +100,12 @@ public class PRGankBean extends BaseObservable implements Serializable {
 
         @Bindable
         public String getPublishedAt() {
+            if (publishedAt != null && publishedAt.contains("T")) {
+                publishedAt = publishedAt.replace("T", " ");
+            }
+            if (publishedAt != null && publishedAt.contains("Z")) {
+                publishedAt = publishedAt.replace("Z", "");
+            }
             return publishedAt;
         }
 

@@ -23,6 +23,7 @@ import com.wkz.framework.widgets.itemdecoration.DividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
 import com.wkz.pleasedreading.R;
+import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 
@@ -33,6 +34,13 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
     private PRGankPresenter mPresenter;
     private PrFragmentGankChildBinding mDataBinding;
     private PRGankChildRecyclerAdapter mPRGankChildRecyclerAdapter;
+    private String mTitle;
+
+    public static PRGankChildFragment create(String title) {
+        PRGankChildFragment gankChildFragment = new PRGankChildFragment();
+        gankChildFragment.setArguments(new FRBundle().putString(PRConstant.PR_FRAGMENT_TITLE, title).create());
+        return gankChildFragment;
+    }
 
     @Override
     public int getLayoutId() {
@@ -92,9 +100,15 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mPresenter.getDataByType("Android");
+        if (getArguments() != null) {
+            mTitle = getArguments().getString(PRConstant.PR_FRAGMENT_TITLE);
+        } else {
+            mTitle = "";
+        }
+        mPresenter.getDataByType(mTitle);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onSuccess(@Nullable Object data) {
         super.onSuccess(data);
@@ -116,12 +130,12 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
 
     @Override
     public void onLoadMore(boolean isReload) {
-        mPresenter.onLoadMoreDataByType("Android");
+        mPresenter.onLoadMoreDataByType(mTitle);
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.onRefreshDataByType("Android");
+        mPresenter.onRefreshDataByType(mTitle);
     }
 
     @Override

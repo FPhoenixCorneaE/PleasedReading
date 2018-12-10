@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wkz.framework">
+    package="com.wkz.glideimageview">
 
     <!-- Glide 权限-->
     <!--如果你计划从 URL 或一个网络连接中加载数据，你需要添加 INTERNET 和 ACCESS_NETWORK_STATE 权限-->

@@ -14,12 +14,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
-import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.FRImageViewerState;
-import com.wkz.viewer.ImageViewerUtil;
-import com.wkz.viewer.R;
 import com.wkz.viewer.FRTransitionCallback;
 import com.wkz.viewer.FRViewData;
+import com.wkz.viewer.IImageLoader;
+import com.wkz.viewer.ImageViewerUtil;
+import com.wkz.viewer.R;
 import com.wkz.viewer.dragger.FRImageDraggerType;
 import com.wkz.viewer.listener.OnImageChangedListener;
 import com.wkz.viewer.listener.OnItemClickListener;
@@ -143,7 +143,7 @@ public class FRImageViewerAttacher implements ViewPager.OnPageChangeListener {
     @Override
     public void onPageSelected(int position) {
         if (indexView.getVisibility() == View.VISIBLE) {
-            indexView.setText(String.format(Locale.getDefault(),"%d/%d", position + 1, mImageDataList.size()));
+            indexView.setText(String.format(Locale.getDefault(), "%d/%d", position + 1, mImageDataList.size()));
         }
         final FRScaleImageView scaleImageView = getCurrentView();
         if (scaleImageView != null) {
@@ -175,7 +175,7 @@ public class FRImageViewerAttacher implements ViewPager.OnPageChangeListener {
     private void handleImageIndex() {
         if (showIndex) {
             if (mImageDataList != null && mImageDataList.size() > 1) {
-                indexView.setText(String.format(Locale.getDefault(),"%d/%d", mStartPosition + 1, mImageDataList.size()));
+                indexView.setText(String.format(Locale.getDefault(), "%d/%d", mStartPosition + 1, mImageDataList.size()));
                 indexView.setVisibility(View.VISIBLE);
             } else {
                 indexView.setVisibility(View.GONE);
@@ -196,8 +196,8 @@ public class FRImageViewerAttacher implements ViewPager.OnPageChangeListener {
     /**
      * 设置 item 视图的配置
      *
-     * @param position  视图的位置
-     * @param itemView  item视图
+     * @param position 视图的位置
+     * @param itemView item视图
      */
     @SuppressWarnings("unchecked")
     public FRScaleImageView setupItemViewConfig(int position, FRScaleImageView itemView) {
@@ -236,16 +236,18 @@ public class FRImageViewerAttacher implements ViewPager.OnPageChangeListener {
     public void watch() {
         viewPager.setScrollable(true);
         FRScaleImageView scaleImageView = createItemView(mStartPosition);
+        //在初始化ViewPager时，应先给Adapter初始化内容后再将该adapter传给ViewPager，
+        //如果不这样处理，在更新adapter的内容后，应该调用一下adapter的notifyDataSetChanged方法，
+        //否则在ADT22以上使用会报The application's PagerAdapter changed the adapter's contents
+        //without calling PagerAdapter#notifyDataSetChanged的异常，具体原因可参考：
+        //http://stackoverflow.com/questions/16756131/fragmentstatepageradapter-stopped-working-after-updating-to-adt-22
         if (mFRPreviewAdapter == null) {
             mFRPreviewAdapter = new FRPreviewAdapter(this);
-            mFRPreviewAdapter.setStartView(scaleImageView);
-            mFRPreviewAdapter.setImageData(mImageDataList);
-            viewPager.setAdapter(mFRPreviewAdapter);
-        } else {
-            mFRPreviewAdapter.setStartView(scaleImageView);
-            mFRPreviewAdapter.setImageData(mImageDataList);
-            mFRPreviewAdapter.notifyDataSetChanged();
         }
+        mFRPreviewAdapter.setStartView(scaleImageView);
+        mFRPreviewAdapter.setImageData(mImageDataList);
+        viewPager.setAdapter(mFRPreviewAdapter);
+        mFRPreviewAdapter.notifyDataSetChanged();
         viewPager.setCurrentItem(mStartPosition, false);
         setPreviewStatus(FRImageViewerState.STATE_READY_OPEN, scaleImageView);
         container.setVisibility(View.VISIBLE);

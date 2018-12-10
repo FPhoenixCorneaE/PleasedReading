@@ -59,13 +59,11 @@ public class FRPreviewAdapter extends PagerAdapter {
             // 无效化起始位置值，防止重复执行此方法
             mStartPosition = INVALID_VALUE;
         } else if (mActiveViews != null && mActiveViews.size() > 0) {
-            if (mActiveViews != null && mActiveViews.size() > 0) {
-                for (int i = 0, len = mActiveViews.size(); i < len; i++) {
-                    FRScaleImageView scaleImageView = mActiveViews.get(i);
-                    if (scaleImageView.getParent() == null) {
-                        itemView = mAttacher.setupItemViewConfig(position, scaleImageView);
-                        break;
-                    }
+            for (int i = 0, len = mActiveViews.size(); i < len; i++) {
+                FRScaleImageView scaleImageView = mActiveViews.get(i);
+                if (scaleImageView.getParent() == null) {
+                    itemView = mAttacher.setupItemViewConfig(position, scaleImageView);
+                    break;
                 }
             }
         }

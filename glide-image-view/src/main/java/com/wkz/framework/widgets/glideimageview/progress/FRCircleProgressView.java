@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 
-import com.wkz.framework.R;
+import com.wkz.glideimageview.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

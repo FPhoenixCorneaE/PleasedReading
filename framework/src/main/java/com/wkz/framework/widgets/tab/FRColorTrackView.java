@@ -56,7 +56,7 @@ public class FRColorTrackView extends View {
     private float mProgress;// 进度，从0到1之间取值
 
     public FRColorTrackView(Context context) {
-        super(context, null);
+        this(context, null);
     }
 
     public FRColorTrackView(Context context, AttributeSet attrs) {
@@ -64,33 +64,33 @@ public class FRColorTrackView extends View {
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        TypedArray ta = context.obtainStyledAttributes(
-                attrs,
-                R.styleable.FRColorTrackView
-        );
-        mText = ta.getString(
-                R.styleable.FRColorTrackView_fr_ctv_text
-        );
-        mTextSize = ta.getDimensionPixelSize(
-                R.styleable.FRColorTrackView_fr_ctv_text_size, mTextSize
-        );
-        mTextOriginColor = ta.getColor(
-                R.styleable.FRColorTrackView_fr_ctv_text_origin_color, mTextOriginColor
-        );
-        mTextChangeColor = ta.getColor(
-                R.styleable.FRColorTrackView_fr_ctv_text_change_color, mTextChangeColor
-        );
-        mProgress = ta.getFloat(
-                R.styleable.FRColorTrackView_fr_ctv_progress, 0
-        );
-        mDirection = ta.getInt(
-                R.styleable.FRColorTrackView_fr_ctv_direction, mDirection
-        );
+        if (attrs != null) {
+            TypedArray ta = context.obtainStyledAttributes(
+                    attrs,
+                    R.styleable.FRColorTrackView
+            );
+            mText = ta.getString(
+                    R.styleable.FRColorTrackView_fr_ctv_text
+            );
+            mTextSize = ta.getDimensionPixelSize(
+                    R.styleable.FRColorTrackView_fr_ctv_text_size, mTextSize
+            );
+            mTextOriginColor = ta.getColor(
+                    R.styleable.FRColorTrackView_fr_ctv_text_origin_color, mTextOriginColor
+            );
+            mTextChangeColor = ta.getColor(
+                    R.styleable.FRColorTrackView_fr_ctv_text_change_color, mTextChangeColor
+            );
+            mProgress = ta.getFloat(
+                    R.styleable.FRColorTrackView_fr_ctv_progress, 0
+            );
+            mDirection = ta.getInt(
+                    R.styleable.FRColorTrackView_fr_ctv_direction, mDirection
+            );
 
-        ta.recycle();
-
+            ta.recycle();
+        }
         mPaint.setTextSize(mTextSize);
-
     }
 
     @Override

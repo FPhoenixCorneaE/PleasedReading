@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FRCommonRecyclerAdapter<T> extends FRBaseRecyclerAdapter<T> {
-    private OnItemClickListener<T> mItemClickListener;
+    protected OnItemClickListener<T> mItemClickListener;
 
     private ArrayList<Integer> mItemChildIds = new ArrayList<>();
     private ArrayList<OnItemChildClickListener<T>> mItemChildListeners = new ArrayList<>();

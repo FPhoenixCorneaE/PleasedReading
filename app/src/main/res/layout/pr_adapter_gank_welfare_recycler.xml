@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="welfareUrl"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+            android:id="@+id/pr_iv_welfare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pr_shape_placeholder_grey"
+            app:welfareUrl="@{welfareUrl}" />
+    </FrameLayout>
+</layout>

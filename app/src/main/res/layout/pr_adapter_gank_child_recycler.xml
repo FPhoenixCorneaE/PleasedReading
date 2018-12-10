@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.wkz.framework.utils.TimeUtils" />
+
         <variable
             name="prGankBean"
             type="com.wkz.pleasedreading.main.gank.PRGankBean.ResultsBean" />
@@ -83,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="@{prGankBean.publishedAt}"
+                    android:text="@{TimeUtils.getFriendlyTimeSpanByNow(prGankBean.publishedAt)}"
                     android:textColor="@color/fr_color_dim_gray"
                     android:textSize="13sp" />
             </android.support.v7.widget.LinearLayoutCompat>

@@ -18,6 +18,7 @@ import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankChildFragment;
+import com.wkz.pleasedreading.main.gank.PRGankFragment;
 
 import java.util.ArrayList;
 
@@ -46,11 +47,9 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
     public void initView() {
         mDataBinding = (PrActivityMainBinding) mViewDataBinding;
 
-//        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
         //layout:pr_content_main添加id后会导致id:pr_fl_container找不到
-        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankChildFragment(), null, false);
-
-
+        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
+//        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankChildFragment(), null, false);
     }
 
     @Override
