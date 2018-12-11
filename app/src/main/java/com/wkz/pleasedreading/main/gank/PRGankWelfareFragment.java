@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +24,6 @@ import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.model.FRBundle;
-import com.wkz.framework.utils.ScreenUtils;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.SpaceDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
@@ -35,6 +36,7 @@ import com.wkz.viewer.FRImageViewerState;
 import com.wkz.viewer.FRViewData;
 import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.listener.OnPreviewStatusListener;
+import com.wkz.viewer.widget.FRImageViewer;
 import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
     private PRGankWelfareRecyclerAdapter mPRGankWelfareRecyclerAdapter;
     private String mTitle;
     private List<FRViewData> mViewList = new ArrayList<>();
+    private FRImageViewer mFrImageViewer;
 
     public static PRGankWelfareFragment create(String title) {
         PRGankWelfareFragment gankWelfareFragment = new PRGankWelfareFragment();
@@ -76,8 +79,18 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
     @Override
     public void initView() {
         mDataBinding = (PrFragmentGankChildBinding) mViewDataBinding;
+        initImageViewer();
         initSmartRefreshLayout();
         initRecyclerView();
+    }
+
+    private void initImageViewer() {
+        mFrImageViewer = new FRImageViewer(mContext);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mFrImageViewer.setLayoutParams(layoutParams);
+        mFrImageViewer.setBackgroundColor(Color.BLACK);
+        mFrImageViewer.setVisibility(View.GONE);
+        ((ViewGroup) mContext.getWindow().getDecorView()).addView(mFrImageViewer);
     }
 
     private void initSmartRefreshLayout() {
@@ -112,16 +125,16 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
             }
         });
         staggeredGridLayoutManager.scrollToPositionWithOffset(0, 0);
-        mDataBinding.prIvViewer.setOnPreviewStatusListener(new OnPreviewStatusListener() {
+        mFrImageViewer.setOnPreviewStatusListener(new OnPreviewStatusListener() {
             @Override
             public void onPreviewStatus(int state, FRScaleImageView imagePager) {
                 if (state == FRImageViewerState.STATE_READY_CLOSE) {
-                    int top = getTop(mDataBinding.prIvViewer.getCurrentPosition());
-                    FRViewData viewData = mViewList.get(mDataBinding.prIvViewer.getCurrentPosition());
+                    int top = getTop(mFrImageViewer.getCurrentPosition());
+                    FRViewData viewData = mViewList.get(mFrImageViewer.getCurrentPosition());
                     viewData.setTargetY(top);
-                    mViewList.set(mDataBinding.prIvViewer.getCurrentPosition(), viewData);
-                    mDataBinding.prIvViewer.setViewData(mViewList);
-                    staggeredGridLayoutManager.scrollToPositionWithOffset(mDataBinding.prIvViewer.getCurrentPosition(), top);
+                    mViewList.set(mFrImageViewer.getCurrentPosition(), viewData);
+                    mFrImageViewer.setViewData(mViewList);
+                    staggeredGridLayoutManager.scrollToPositionWithOffset(mFrImageViewer.getCurrentPosition(), top);
                 }
             }
         });
@@ -132,7 +145,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
         // 当前图片的高度
         float imgH = mViewList.get(position).getTargetHeight();
         // 图片距离 imageViewer 的上下边距
-        int dis = (int) ((mDataBinding.prIvViewer.getHeight() - imgH) / 2);
+        int dis = (int) ((mFrImageViewer.getHeight() - imgH) / 2);
         // 如果图片高度大于等于 imageViewer 的高度
         if (dis <= 0) {
             return top + dis;
@@ -162,7 +175,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
 
     @Override
     public void initListener() {
-        mDataBinding.prIvViewer.setImageLoader(new IImageLoader<String>() {
+        mFrImageViewer.setImageLoader(new IImageLoader<String>() {
             @Override
             public void displayImage(int position, String srcUrl, ImageView imageView) {
                 final FRScaleImageView scaleImageView = (FRScaleImageView) imageView.getParent();
@@ -223,7 +236,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
                     if (data != null) {
                         for (PRGankBean.ResultsBean bean : (List<PRGankBean.ResultsBean>) data) {
                             add(bean.getUrl());
-                            mViewList.add(new FRViewData().setTargetWidth(ScreenUtils.getScreenWidth()));
+                            mViewList.add(new FRViewData());
                         }
                     }
                 }
@@ -236,7 +249,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
                     if (data != null) {
                         for (PRGankBean.ResultsBean bean : (List<PRGankBean.ResultsBean>) data) {
                             add(bean.getUrl());
-                            mViewList.add(new FRViewData().setTargetWidth(ScreenUtils.getScreenWidth()));
+                            mViewList.add(new FRViewData());
                         }
                     }
                 }
@@ -277,10 +290,10 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
                     .setTargetHeight(viewHolder.mDataBinding.prIvWelfare.getMeasuredHeight());
             mViewList.add(viewData);
 
-            mDataBinding.prIvViewer.setImageData(mPRGankWelfareRecyclerAdapter.getAllData());
-            mDataBinding.prIvViewer.setViewData(mViewList);
-            mDataBinding.prIvViewer.setStartPosition(position);
-            mDataBinding.prIvViewer.watch();
+            mFrImageViewer.setImageData(mPRGankWelfareRecyclerAdapter.getAllData());
+            mFrImageViewer.setViewData(mViewList);
+            mFrImageViewer.setStartPosition(position);
+            mFrImageViewer.watch();
         }
     }
 }

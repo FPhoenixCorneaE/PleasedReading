@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
+import com.orhanobut.logger.Logger;
 import com.wkz.framework.FRApplication;
 
 /**
@@ -166,5 +169,59 @@ public final class ScreenUtils {
      */
     public static void setSleepDuration(int duration) {
         Settings.System.putInt(FRApplication.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
+    }
+
+    /**
+     * Get screen density, the logical density of the display
+     */
+    public static float getScreenDensity(Context context) {
+        return FRApplication.getContext().getResources().getDisplayMetrics().density;
+    }
+
+    /**
+     * Get screen density dpi, the screen density expressed as dots-per-inch
+     */
+    public static int getScreenDensityDPI(Context context) {
+        return FRApplication.getContext().getResources().getDisplayMetrics().densityDpi;
+    }
+
+    /**
+     * Get titlebar height, this method cannot be used in onCreate(),onStart(),onResume(), unless it is called in the
+     * post(Runnable).
+     */
+    public static int getTitleBarHeight(Activity activity) {
+        int statusBarHeight = getStatusBarHeight(activity);
+        int contentViewTop = activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+        int titleBarHeight = contentViewTop - statusBarHeight;
+        return titleBarHeight < 0 ? 0 : titleBarHeight;
+    }
+
+    /**
+     * Get statusbar height, this method cannot be used in onCreate(),onStart(),onResume(), unless it is called in the
+     * post(Runnable).
+     */
+    public static int getStatusBarHeight(Activity activity) {
+        Rect rect = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        return rect.top;
+    }
+
+    /**
+     * Get statusbar height
+     */
+    public static int getStatusBarHeight2(Activity activity) {
+        int statusBarHeight = getStatusBarHeight(activity);
+        if (0 == statusBarHeight) {
+            Class<?> localClass;
+            try {
+                localClass = Class.forName("com.android.internal.R$dimen");
+                Object localObject = localClass.newInstance();
+                int id = Integer.parseInt(localClass.getField("status_bar_height").get(localObject).toString());
+                statusBarHeight = activity.getResources().getDimensionPixelSize(id);
+            } catch (Exception e) {
+                Logger.e(e.toString());
+            }
+        }
+        return statusBarHeight;
     }
 }

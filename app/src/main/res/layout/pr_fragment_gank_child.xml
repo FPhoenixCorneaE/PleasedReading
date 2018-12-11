@@ -19,12 +19,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <com.wkz.viewer.widget.FRImageViewer
-            android:id="@+id/pr_iv_viewer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/fr_color_black"
-            android:visibility="gone" />
     </FrameLayout>
 </layout>

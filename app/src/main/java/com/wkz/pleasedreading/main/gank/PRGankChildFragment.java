@@ -1,9 +1,12 @@
 package com.wkz.pleasedreading.main.gank;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -26,6 +29,7 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
+import com.wkz.viewer.widget.FRImageViewer;
 
 import java.util.List;
 
@@ -35,6 +39,7 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
     private PrFragmentGankChildBinding mDataBinding;
     private PRGankChildRecyclerAdapter mPRGankChildRecyclerAdapter;
     private String mTitle;
+    private FRImageViewer mFrImageViewer;
 
     public static PRGankChildFragment create(String title) {
         PRGankChildFragment gankChildFragment = new PRGankChildFragment();
@@ -61,8 +66,18 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
     @Override
     public void initView() {
         mDataBinding = (PrFragmentGankChildBinding) mViewDataBinding;
+        initImageViewer();
         initSmartRefreshLayout();
         initRecyclerView();
+    }
+
+    private void initImageViewer() {
+        mFrImageViewer = new FRImageViewer(mContext);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mFrImageViewer.setLayoutParams(layoutParams);
+        mFrImageViewer.setBackgroundColor(Color.BLACK);
+        mFrImageViewer.setVisibility(View.GONE);
+        ((ViewGroup) mContext.getWindow().getDecorView()).addView(mFrImageViewer);
     }
 
     private void initSmartRefreshLayout() {
@@ -89,7 +104,7 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
                 ((PRGankChildRecyclerAdapter)
                         new PRGankChildRecyclerAdapter(mContext, null, true)
                                 .setOnLoadMoreListener(this))
-                        .setFRImageViewer(mDataBinding.prIvViewer)
+                        .setFRImageViewer(mFrImageViewer)
         );
     }
 
