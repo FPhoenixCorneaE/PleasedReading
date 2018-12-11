@@ -79,51 +79,11 @@ public class PRGankChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRGankBe
                                         .setTargetY(location[1])
                                         .setTargetWidth(viewHolder.mDataBinding.prMilImages.getChildAt(i).getMeasuredWidth())
                                         .setTargetHeight(viewHolder.mDataBinding.prMilImages.getChildAt(i).getMeasuredHeight());
-                            } else {
-                                viewData.setTargetX(0)
-                                        .setTargetY(0)
-                                        .setTargetWidth(0)
-                                        .setTargetHeight(0);
                             }
                             mViewList.add(viewData);
                         }
                         mFRImageViewer.setImageData(data.getImages());
                         mFRImageViewer.setViewData(mViewList);
-                        mFRImageViewer.setImageLoader(new IImageLoader<String>() {
-                            @Override
-                            public void displayImage(int position, String srcUrl, ImageView imageView) {
-                                final FRScaleImageView scaleImageView = (FRScaleImageView) imageView.getParent();
-                                Glide.with(imageView.getContext())
-                                        .load(srcUrl)
-                                        .apply(new RequestOptions()
-                                                .centerCrop()
-                                                .placeholder(new ColorDrawable(Color.BLACK))
-                                        )
-                                        .into(new ImageViewTarget<Drawable>(imageView) {
-
-                                            @Override
-                                            public void onLoadStarted(@Nullable Drawable placeholder) {
-                                                super.onLoadStarted(placeholder);
-                                                scaleImageView.showProgess();
-                                                imageView.setImageDrawable(placeholder);
-                                            }
-
-                                            @Override
-                                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                                                super.onLoadFailed(errorDrawable);
-                                                scaleImageView.removeProgressView();
-                                                imageView.setImageDrawable(errorDrawable);
-                                            }
-
-                                            @Override
-                                            protected void setResource(@Nullable Drawable resource) {
-                                                scaleImageView.removeProgressView();
-                                                imageView.setImageDrawable(resource);
-                                            }
-                                        });
-
-                            }
-                        });
                         mFRImageViewer.setStartPosition(position);
                         mFRImageViewer.watch();
                     }

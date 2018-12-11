@@ -37,11 +37,23 @@ public abstract class BaseFragment
      * 标识已经触发过懒加载数据
      */
     private boolean mHasFetchData;
+    private OnSelectedInterface mOnSelectedInterface;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.v(NAME_FRAGMENT);
+        if (getActivity() instanceof OnSelectedInterface) {
+            this.mOnSelectedInterface = (OnSelectedInterface) getActivity();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mOnSelectedInterface != null) {
+            mOnSelectedInterface.onSelectedFragment(this);
+        }
     }
 
     @Override
@@ -124,6 +136,16 @@ public abstract class BaseFragment
                 parent.removeView(mContentView);
             }
         }
+    }
+
+    /**
+     * 所有继承BaseFragment的子类都将在这个方法中实现物理Back键按下后的逻辑
+     * FragmentActivity捕捉到物理返回键点击事件后会首先询问Fragment是否消费该事件
+     * 如果没有Fragment消息时FragmentActivity自己才会消费该事件
+     * 返回true消费该事件,返回false不消费
+     */
+    public boolean onBackPressed() {
+        return false;
     }
 
     @Override
@@ -233,5 +255,9 @@ public abstract class BaseFragment
         layout.setClickable(true);
         layout.setOnClickListener(listener);
         return layout;
+    }
+
+    public interface OnSelectedInterface {
+        void onSelectedFragment(BaseFragment selectedFragment);
     }
 }

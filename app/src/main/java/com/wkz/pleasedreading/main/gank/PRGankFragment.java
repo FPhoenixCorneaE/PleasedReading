@@ -1,10 +1,19 @@
 package com.wkz.pleasedreading.main.gank;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.wkz.framework.base.BaseFragment;
 import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
@@ -12,6 +21,9 @@ import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrFragmentGankBinding;
+import com.wkz.viewer.IImageLoader;
+import com.wkz.viewer.widget.FRImageViewer;
+import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
 
@@ -19,6 +31,7 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
 
     private PrFragmentGankBinding mDataBinding;
     private PRGankPresenter mPresenter;
+    private FRImageViewer mFrImageViewer;
 
     @Override
     public int getLayoutId() {
@@ -39,6 +52,7 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
     @Override
     public void initView() {
         mDataBinding = ((PrFragmentGankBinding) mViewDataBinding);
+        initImageViewer();
         mDataBinding.prCttlTab.init(
                 new FRColorTrackTabLayout.Builder()
                         .with(mDataBinding.prVpPager)
@@ -47,13 +61,13 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
                             private static final long serialVersionUID = 5955263809472083516L;
 
                             {
-                                add(PRGankChildFragment.create("Android"));
-                                add(PRGankChildFragment.create("iOS"));
-                                add(PRGankChildFragment.create("前端"));
-                                add(PRGankChildFragment.create("App"));
-                                add(PRGankChildFragment.create("休息视频"));
-                                add(PRGankWelfareFragment.create("福利"));
-                                add(PRGankChildFragment.create("拓展资源"));
+                                add(PRGankChildFragment.create("Android").setFrImageViewer(mFrImageViewer));
+                                add(PRGankChildFragment.create("iOS").setFrImageViewer(mFrImageViewer));
+                                add(PRGankChildFragment.create("前端").setFrImageViewer(mFrImageViewer));
+                                add(PRGankChildFragment.create("App").setFrImageViewer(mFrImageViewer));
+                                add(PRGankChildFragment.create("休息视频").setFrImageViewer(mFrImageViewer));
+                                add(PRGankWelfareFragment.create("福利").setFrImageViewer(mFrImageViewer));
+                                add(PRGankChildFragment.create("拓展资源").setFrImageViewer(mFrImageViewer));
                             }
                         })
                         .setPageTitles(new ArrayList<String>() {
@@ -80,5 +94,49 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
 
+    }
+
+    private void initImageViewer() {
+        mFrImageViewer = new FRImageViewer(mContext);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mFrImageViewer.setLayoutParams(layoutParams);
+        mFrImageViewer.setBackgroundColor(Color.BLACK);
+        mFrImageViewer.setImageLoader(new IImageLoader<String>() {
+            @Override
+            public void displayImage(int position, String srcUrl, ImageView imageView) {
+                final FRScaleImageView scaleImageView = (FRScaleImageView) imageView.getParent();
+                Glide.with(imageView.getContext())
+                        .load(srcUrl)
+                        .apply(new RequestOptions()
+                                .centerCrop()
+                                .placeholder(new ColorDrawable(Color.BLACK))
+                        )
+                        .into(new ImageViewTarget<Drawable>(imageView) {
+
+                            @Override
+                            public void onLoadStarted(@Nullable Drawable placeholder) {
+                                super.onLoadStarted(placeholder);
+                                scaleImageView.showProgess();
+                                imageView.setImageDrawable(placeholder);
+                            }
+
+                            @Override
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                super.onLoadFailed(errorDrawable);
+                                scaleImageView.removeProgressView();
+                                imageView.setImageDrawable(errorDrawable);
+                            }
+
+                            @Override
+                            protected void setResource(@Nullable Drawable resource) {
+                                scaleImageView.removeProgressView();
+                                imageView.setImageDrawable(resource);
+                            }
+                        });
+
+            }
+        });
+        mFrImageViewer.setVisibility(View.GONE);
+        ((ViewGroup) mContext.getWindow().getDecorView()).addView(mFrImageViewer);
     }
 }

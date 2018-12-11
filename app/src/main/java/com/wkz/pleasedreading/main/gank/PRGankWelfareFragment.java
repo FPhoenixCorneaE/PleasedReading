@@ -1,20 +1,11 @@
 package com.wkz.pleasedreading.main.gank;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.ImageViewTarget;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
@@ -34,7 +25,6 @@ import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 import com.wkz.viewer.FRImageViewerState;
 import com.wkz.viewer.FRViewData;
-import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.listener.OnPreviewStatusListener;
 import com.wkz.viewer.widget.FRImageViewer;
 import com.wkz.viewer.widget.FRScaleImageView;
@@ -60,6 +50,11 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
         return gankWelfareFragment;
     }
 
+    public PRGankWelfareFragment setFrImageViewer(FRImageViewer mFrImageViewer) {
+        this.mFrImageViewer = mFrImageViewer;
+        return this;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.pr_fragment_gank_child;
@@ -79,18 +74,8 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
     @Override
     public void initView() {
         mDataBinding = (PrFragmentGankChildBinding) mViewDataBinding;
-        initImageViewer();
         initSmartRefreshLayout();
         initRecyclerView();
-    }
-
-    private void initImageViewer() {
-        mFrImageViewer = new FRImageViewer(mContext);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mFrImageViewer.setLayoutParams(layoutParams);
-        mFrImageViewer.setBackgroundColor(Color.BLACK);
-        mFrImageViewer.setVisibility(View.GONE);
-        ((ViewGroup) mContext.getWindow().getDecorView()).addView(mFrImageViewer);
     }
 
     private void initSmartRefreshLayout() {
@@ -175,41 +160,6 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
 
     @Override
     public void initListener() {
-        mFrImageViewer.setImageLoader(new IImageLoader<String>() {
-            @Override
-            public void displayImage(int position, String srcUrl, ImageView imageView) {
-                final FRScaleImageView scaleImageView = (FRScaleImageView) imageView.getParent();
-                Glide.with(imageView.getContext())
-                        .load(srcUrl)
-                        .apply(new RequestOptions()
-                                .centerCrop()
-                                .placeholder(new ColorDrawable(Color.BLACK))
-                        )
-                        .into(new ImageViewTarget<Drawable>(imageView) {
-
-                            @Override
-                            public void onLoadStarted(@Nullable Drawable placeholder) {
-                                super.onLoadStarted(placeholder);
-                                scaleImageView.showProgess();
-                                imageView.setImageDrawable(placeholder);
-                            }
-
-                            @Override
-                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                                super.onLoadFailed(errorDrawable);
-                                scaleImageView.removeProgressView();
-                                imageView.setImageDrawable(errorDrawable);
-                            }
-
-                            @Override
-                            protected void setResource(@Nullable Drawable resource) {
-                                scaleImageView.removeProgressView();
-                                imageView.setImageDrawable(resource);
-                            }
-                        });
-
-            }
-        });
         mPRGankWelfareRecyclerAdapter.setOnItemClickListener(this);
     }
 
@@ -295,5 +245,10 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
             mFrImageViewer.setStartPosition(position);
             mFrImageViewer.watch();
         }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return mFrImageViewer != null && mFrImageViewer.onBackPressed();
     }
 }

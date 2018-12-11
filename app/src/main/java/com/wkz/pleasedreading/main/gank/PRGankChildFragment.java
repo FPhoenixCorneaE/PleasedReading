@@ -1,12 +1,9 @@
 package com.wkz.pleasedreading.main.gank;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -47,6 +44,11 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
         return gankChildFragment;
     }
 
+    public PRGankChildFragment setFrImageViewer(FRImageViewer mFrImageViewer) {
+        this.mFrImageViewer = mFrImageViewer;
+        return this;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.pr_fragment_gank_child;
@@ -66,18 +68,8 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
     @Override
     public void initView() {
         mDataBinding = (PrFragmentGankChildBinding) mViewDataBinding;
-        initImageViewer();
         initSmartRefreshLayout();
         initRecyclerView();
-    }
-
-    private void initImageViewer() {
-        mFrImageViewer = new FRImageViewer(mContext);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mFrImageViewer.setLayoutParams(layoutParams);
-        mFrImageViewer.setBackgroundColor(Color.BLACK);
-        mFrImageViewer.setVisibility(View.GONE);
-        ((ViewGroup) mContext.getWindow().getDecorView()).addView(mFrImageViewer);
     }
 
     private void initSmartRefreshLayout() {
@@ -156,5 +148,10 @@ public class PRGankChildFragment extends BaseFragment implements IGankView, FRBa
     @Override
     public void onItemClick(FRRecyclerViewHolder fRRecyclerViewHolder, PRGankBean.ResultsBean data, int position) {
         IntentUtils.startActivity(mContext, FRWebPageActivity.class, new FRBundle().putString(FRConstant.WEB_URL, data.getUrl()).create());
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return mFrImageViewer != null && mFrImageViewer.onBackPressed();
     }
 }

@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.FRImageViewerState;
 import com.wkz.viewer.FRViewData;
+import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.listener.OnImageChangedListener;
 import com.wkz.viewer.listener.OnItemClickListener;
 import com.wkz.viewer.listener.OnItemLongClickListener;
@@ -200,7 +200,7 @@ public class FRImageViewer extends FrameLayout implements IImageViewer {
     }
 
     /**
-     * 如果本方法未执行，则是因为图片浏览器为获取到焦点，可在外部手动获取焦点
+     * 如果本方法未执行，则是因为图片浏览器未获取到焦点，可在外部手动获取焦点
      * 建议在外部手动调动本方法
      *
      * @param keyCode
@@ -219,6 +219,22 @@ public class FRImageViewer extends FrameLayout implements IImageViewer {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 消费返回键事件
+     */
+    public boolean onBackPressed() {
+        if (!mAttacher.isImageAnimRunning()) {
+            if (getViewState() == FRImageViewerState.STATE_WATCHING) {
+                close();
+                // 消费返回键点击事件，不传递出去
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override

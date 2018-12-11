@@ -20,13 +20,14 @@ import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
 public abstract class BaseActivity
         extends RxAppCompatActivity
-        implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
+        implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, BaseFragment.OnSelectedInterface {
 
     private static final String NAME_ACTIVITY = BaseActivity.class.getName();
     protected BaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
     private FRStatusLayoutManager mFRStatusLayoutManager;
     private View mContentView;
+    private BaseFragment mBaseFragment;
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +79,20 @@ public abstract class BaseActivity
         //反注册网络变化监听
         if (mContext != null) {
             FRNetworkManager.getInstance().unregisterNetwork(mContext);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //如果Fragment的onBackPressed()返回false，就会进入条件内进行默认的操作
+        if (mBaseFragment == null || !mBaseFragment.onBackPressed()) {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                super.onBackPressed();
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
+        } else {
+            return;
         }
     }
 
@@ -157,6 +172,11 @@ public abstract class BaseActivity
     public void onUnavailable(String message) {
         Logger.i(message);
         ToastUtils.showShortSafe(message);
+    }
+
+    @Override
+    public void onSelectedFragment(BaseFragment selectedFragment) {
+        this.mBaseFragment = selectedFragment;
     }
 
     /**

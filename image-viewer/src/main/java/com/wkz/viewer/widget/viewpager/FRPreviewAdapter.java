@@ -24,6 +24,7 @@ public class FRPreviewAdapter extends PagerAdapter {
     // itemView 集合（在 itemView 被移除后，会被重复使用）
     private List<FRScaleImageView> mActiveViews;
     private FRImageViewerAttacher mAttacher;
+    private boolean mIsUpdateData;
 
     public FRPreviewAdapter(FRImageViewerAttacher attacher) {
         this.mAttacher = attacher;
@@ -45,8 +46,16 @@ public class FRPreviewAdapter extends PagerAdapter {
         this.mImageDataList = list;
     }
 
+    public void setIsUpdateData(boolean mIsUpdateData) {
+        this.mIsUpdateData = mIsUpdateData;
+    }
+
     @Override
     public int getCount() {
+        if (mIsUpdateData) {
+            mIsUpdateData = false;
+            notifyDataSetChanged();
+        }
         return mImageDataList != null ? mImageDataList.size() : 0;
     }
 
