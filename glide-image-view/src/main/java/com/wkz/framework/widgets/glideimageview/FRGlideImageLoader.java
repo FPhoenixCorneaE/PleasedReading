@@ -127,6 +127,7 @@ public class FRGlideImageLoader {
 
     public RequestOptions requestOptions(int placeholderResId, int errorResId) {
         return new RequestOptions()
+                .centerCrop()
                 .placeholder(placeholderResId)
                 .error(errorResId);
     }

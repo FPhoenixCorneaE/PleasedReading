@@ -5,8 +5,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wkz.viewer.widget.FRScaleImageView;
 import com.wkz.viewer.widget.FRImageViewerAttacher;
+import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,10 @@ public class FRPreviewAdapter extends PagerAdapter {
     // itemView 集合（在 itemView 被移除后，会被重复使用）
     private List<FRScaleImageView> mActiveViews;
     private FRImageViewerAttacher mAttacher;
-    private boolean mIsUpdateData;
 
     public FRPreviewAdapter(FRImageViewerAttacher attacher) {
         this.mAttacher = attacher;
+        mImageDataList = new ArrayList<>();
         mActiveViews = new ArrayList<>();
     }
 
@@ -43,19 +43,12 @@ public class FRPreviewAdapter extends PagerAdapter {
      * @param list
      */
     public void setImageData(List list) {
-        this.mImageDataList = list;
-    }
-
-    public void setIsUpdateData(boolean mIsUpdateData) {
-        this.mIsUpdateData = mIsUpdateData;
+        this.mImageDataList.clear();
+        this.mImageDataList.addAll(list);
     }
 
     @Override
     public int getCount() {
-        if (mIsUpdateData) {
-            mIsUpdateData = false;
-            notifyDataSetChanged();
-        }
         return mImageDataList != null ? mImageDataList.size() : 0;
     }
 

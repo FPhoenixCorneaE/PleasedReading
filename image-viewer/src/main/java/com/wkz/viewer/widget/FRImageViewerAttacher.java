@@ -243,14 +243,10 @@ public class FRImageViewerAttacher implements ViewPager.OnPageChangeListener {
         //http://stackoverflow.com/questions/16756131/fragmentstatepageradapter-stopped-working-after-updating-to-adt-22
         if (mFRPreviewAdapter == null) {
             mFRPreviewAdapter = new FRPreviewAdapter(this);
-            mFRPreviewAdapter.setStartView(scaleImageView);
-            mFRPreviewAdapter.setImageData(mImageDataList);
-            viewPager.setAdapter(mFRPreviewAdapter);
-        } else {
-            mFRPreviewAdapter.setStartView(scaleImageView);
-            mFRPreviewAdapter.setImageData(mImageDataList);
-            mFRPreviewAdapter.setIsUpdateData(true);
         }
+        mFRPreviewAdapter.setStartView(scaleImageView);
+        mFRPreviewAdapter.setImageData(mImageDataList);
+        viewPager.setAdapter(mFRPreviewAdapter);
         viewPager.setCurrentItem(mStartPosition, false);
         setPreviewStatus(FRImageViewerState.STATE_READY_OPEN, scaleImageView);
         container.setVisibility(View.VISIBLE);

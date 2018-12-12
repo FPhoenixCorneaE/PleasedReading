@@ -23,11 +23,8 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
-import com.wkz.viewer.FRImageViewerState;
 import com.wkz.viewer.FRViewData;
-import com.wkz.viewer.listener.OnPreviewStatusListener;
 import com.wkz.viewer.widget.FRImageViewer;
-import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,52 +107,6 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
             }
         });
         staggeredGridLayoutManager.scrollToPositionWithOffset(0, 0);
-        mFrImageViewer.setOnPreviewStatusListener(new OnPreviewStatusListener() {
-            @Override
-            public void onPreviewStatus(int state, FRScaleImageView imagePager) {
-                if (state == FRImageViewerState.STATE_READY_CLOSE) {
-                    int top = getTop(mFrImageViewer.getCurrentPosition());
-                    FRViewData viewData = mViewList.get(mFrImageViewer.getCurrentPosition());
-                    viewData.setTargetY(top);
-                    mViewList.set(mFrImageViewer.getCurrentPosition(), viewData);
-                    mFrImageViewer.setViewData(mViewList);
-                    staggeredGridLayoutManager.scrollToPositionWithOffset(mFrImageViewer.getCurrentPosition(), top);
-                }
-            }
-        });
-    }
-
-    private int getTop(int position) {
-        int top = 0;
-        // 当前图片的高度
-        float imgH = mViewList.get(position).getTargetHeight();
-        // 图片距离 imageViewer 的上下边距
-        int dis = (int) ((mFrImageViewer.getHeight() - imgH) / 2);
-        // 如果图片高度大于等于 imageViewer 的高度
-        if (dis <= 0) {
-            return top + dis;
-        } else {
-            float th1 = 0;
-            float th2 = 0;
-            // 计算当前图片上方所有 Item 的总高度
-            for (int i = 0; i < position; i++) {
-                // SizeUtils.dp2px(240f + 20 * (position % 4)) 是 Item 的高度
-                th1 += SizeUtils.dp2px(240f + 20 * (position % 4));
-            }
-            // 计算当前图片下方所有 Item 的总高度
-            for (int i = position + 1; i < mViewList.size(); i++) {
-                // SizeUtils.dp2px(240f + 20 * (position % 4)) 是 Item 的高度
-                th2 += SizeUtils.dp2px(240f + 20 * (position % 4));
-            }
-            if (th1 >= dis && th2 >= dis) {
-                return top + dis;
-            } else if (th1 < dis) {
-                return (int) (top + th1);
-            } else if (th2 < dis) {
-                return (int) (mDataBinding.prRvGankChild.getHeight() - imgH);
-            }
-        }
-        return 0;
     }
 
     @Override
