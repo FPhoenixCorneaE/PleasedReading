@@ -10,19 +10,21 @@
             type="com.wkz.pleasedreading.main.gank.PRGankBean.ResultsBean" />
     </data>
 
-    <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.wkz.framework.widgets.FRCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        app:cardBackgroundColor="@color/fr_background_Oxffffffff"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:cardMaxElevation="10dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="false">
+        app:fr_cv_cardBackgroundColor="@color/fr_background_Oxffffffff"
+        app:fr_cv_cornerRadius="5dp"
+        app:fr_cv_elevation="5dp"
+        app:fr_cv_elevationAffectShadowColor="true"
+        app:fr_cv_elevationAffectShadowSize="false"
+        app:fr_cv_shadowColor="@color/fr_color_dim_gray"
+        app:fr_cv_shadowFluidShape="linear"
+        app:fr_cv_shadowStartAlpha="30">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -113,5 +115,5 @@
                 app:fr_mil_placeholder="@drawable/pr_shape_placeholder_grey"
                 app:fr_mil_type="BaiDuPostBar" />
         </RelativeLayout>
-    </android.support.design.card.MaterialCardView>
+    </com.wkz.framework.widgets.FRCardView>
 </layout>

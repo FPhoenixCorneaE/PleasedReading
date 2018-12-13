@@ -114,4 +114,45 @@
             <enum name="unclicked" value="2" />
         </attr>
     </declare-styleable>
+
+    <!--卡片布局，可设置阴影颜色，透明度，圆角大小，阴影宽度-->
+    <declare-styleable name="FRCardView">
+        <!--左侧阴影宽度-->
+        <attr name="fr_cv_leftShadowWidth" format="dimension" />
+        <!--顶部阴影宽度-->
+        <attr name="fr_cv_topShadowHeight" format="dimension" />
+        <!--右侧阴影宽度-->
+        <attr name="fr_cv_rightShadowWidth" format="dimension" />
+        <!--底部阴影宽度-->
+        <attr name="fr_cv_bottomShadowHeight" format="dimension" />
+        <!--四边阴影宽度-->
+        <attr name="fr_cv_shadowSize" format="dimension" />
+        <!--阴影颜色RGB值（透明度此处无效）-->
+        <attr name="fr_cv_shadowColor" format="color" />
+        <!--阴影颜色初始透明度-->
+        <attr name="fr_cv_shadowStartAlpha" format="integer" />
+        <!--阴影流动形状（线性/吸附）-->
+        <attr name="fr_cv_shadowFluidShape" format="enum">
+            <enum name="adsorption" value="0" />
+            <enum name="linear" value="1" />
+        </attr>
+        <!--卡片背景色-->
+        <attr name="fr_cv_cardBackgroundColor" format="color" />
+        <!--卡片四个角的圆角半径-->
+        <attr name="fr_cv_cornerRadius" format="dimension" />
+        <!--左上圆角半径-->
+        <attr name="fr_cv_leftTopCornerRadius" format="dimension" />
+        <!--右上圆角半径-->
+        <attr name="fr_cv_rightTopCornerRadius" format="dimension" />
+        <!--左下圆角半径-->
+        <attr name="fr_cv_leftBottomCornerRadius" format="dimension" />
+        <!--右下圆角半径-->
+        <attr name="fr_cv_rightBottomCornerRadius" format="dimension" />
+        <!--卡片高度-->
+        <attr name="fr_cv_elevation" format="dimension" />
+        <!--卡片高度是否影响阴影颜色-->
+        <attr name="fr_cv_elevationAffectShadowColor" format="boolean" />
+        <!--卡片高度是否影响阴影宽度-->
+        <attr name="fr_cv_elevationAffectShadowSize" format="boolean" />
+    </declare-styleable>
 </resources>
