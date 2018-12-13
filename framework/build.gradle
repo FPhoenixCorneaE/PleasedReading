@@ -158,11 +158,12 @@ android {
     }
 }
 
+//implementation只允许在依赖aar文件的module下调用该aar文件
+//api在其他依赖该library module的module中，也可调用该library module所依赖的aar文件
+//只在编译时有效,不会参与打包,该方式主要依赖一些比如com.android.support，gson这些使用者常用的库，避免冲突
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation fileTree(dir: 'aar', include: ['*.aar'])
-
-    implementation project(':glide-image-view')
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'aar', include: ['*.aar'])
 
     /**
      * support

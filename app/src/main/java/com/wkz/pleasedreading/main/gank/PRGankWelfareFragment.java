@@ -91,8 +91,10 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
     private void initRecyclerView() {
         SpaceDecoration spaceDecoration = new SpaceDecoration(SizeUtils.dp2px(10f));
         mDataBinding.prRvGankChild.addItemDecoration(spaceDecoration);
-        final StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);//定义瀑布流管理器，第一个参数是列数，第二个是方向。
-        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);//不设置的话，图片闪烁错位，有可能有整列错位的情况。
+        //定义瀑布流管理器，第一个参数是列数，第二个是方向。
+        final StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        //不设置的话，图片闪烁错位，有可能有整列错位的情况。
+        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mDataBinding.prRvGankChild.setLayoutManager(staggeredGridLayoutManager);
         mDataBinding.prRvGankChild.setAdapter(mPRGankWelfareRecyclerAdapter =
                 ((PRGankWelfareRecyclerAdapter)
@@ -103,7 +105,8 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                staggeredGridLayoutManager.invalidateSpanAssignments();//这行主要解决了当加载更多数据时，底部需要重绘，否则布局可能衔接不上。
+                //这行主要解决了当加载更多数据时，底部需要重绘，否则布局可能衔接不上。
+                staggeredGridLayoutManager.invalidateSpanAssignments();
             }
         });
         staggeredGridLayoutManager.scrollToPositionWithOffset(0, 0);
@@ -135,6 +138,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
 
                 {
                     if (data != null) {
+                        mViewList.clear();
                         for (PRGankBean.ResultsBean bean : (List<PRGankBean.ResultsBean>) data) {
                             add(bean.getUrl());
                             mViewList.add(new FRViewData());
@@ -189,7 +193,7 @@ public class PRGankWelfareFragment extends BaseFragment implements IGankView, FR
                     .setTargetY(location[1])
                     .setTargetWidth(viewHolder.mDataBinding.prIvWelfare.getMeasuredWidth())
                     .setTargetHeight(viewHolder.mDataBinding.prIvWelfare.getMeasuredHeight());
-            mViewList.add(viewData);
+            mViewList.set(position, viewData);
 
             mFrImageViewer.setImageData(mPRGankWelfareRecyclerAdapter.getAllData());
             mFrImageViewer.setViewData(mViewList);

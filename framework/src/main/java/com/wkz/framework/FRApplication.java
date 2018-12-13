@@ -1,7 +1,6 @@
 package com.wkz.framework;
 
 import android.app.Application;
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -13,9 +12,6 @@ import com.orhanobut.logger.LogcatLogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.wkz.framework.services.InitializeService;
-import com.wkz.framework.widgets.glideimageview.progress.GlideApp;
-
-import java.util.concurrent.Executors;
 
 public class FRApplication extends Application {
 
