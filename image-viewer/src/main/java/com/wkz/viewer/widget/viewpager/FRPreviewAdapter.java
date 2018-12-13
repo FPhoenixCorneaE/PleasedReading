@@ -1,6 +1,7 @@
 package com.wkz.viewer.widget.viewpager;
 
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class FRPreviewAdapter extends PagerAdapter {
      *
      * @param list
      */
+    @SuppressWarnings("unchecked")
     public void setImageData(List list) {
         this.mImageDataList.clear();
         this.mImageDataList.addAll(list);
@@ -52,8 +54,9 @@ public class FRPreviewAdapter extends PagerAdapter {
         return mImageDataList != null ? mImageDataList.size() : 0;
     }
 
+    @NonNull
     @Override
-    public View instantiateItem(ViewGroup container, final int position) {
+    public View instantiateItem(@NonNull ViewGroup container, final int position) {
         FRScaleImageView itemView = null;
         if (mStartPosition == position) {
             itemView = mStartView;
@@ -79,22 +82,20 @@ public class FRPreviewAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         // 回收图片，释放内存
-        if (object != null) {
-            ((FRScaleImageView) object).recycle();
-        }
+        ((FRScaleImageView) object).recycle();
         // 移除页面
         container.removeView((View) object);
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
     @Override
-    public int getItemPosition(Object object) {
+    public int getItemPosition(@NonNull Object object) {
         // 最简单解决 notifyDataSetChanged() 页面不刷新问题的方法，此方法会刷新所有的 item
         return POSITION_NONE;
     }

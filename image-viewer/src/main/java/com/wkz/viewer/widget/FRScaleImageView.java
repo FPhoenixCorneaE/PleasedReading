@@ -242,7 +242,7 @@ public class FRScaleImageView extends FrameLayout {
         performExitAnim(callback);
     }
 
-    public void setPosition(final int position) {
+    public void setPosition(int position) {
         this.mPosition = position;
     }
 
