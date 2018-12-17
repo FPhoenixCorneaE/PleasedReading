@@ -5,7 +5,7 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class MoveType {
+public class FRMoveType {
 
     public static final int fixed = 0;
     public static final int free = 1;

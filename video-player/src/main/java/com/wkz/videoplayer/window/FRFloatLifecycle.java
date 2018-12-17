@@ -20,7 +20,7 @@ import android.support.annotation.RequiresApi;
  */
 
 @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLifecycleCallbacks {
+class FRFloatLifecycle extends BroadcastReceiver implements Application.ActivityLifecycleCallbacks {
 
     private static final String SYSTEM_DIALOG_REASON_KEY = "reason";
     private static final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
@@ -31,10 +31,10 @@ class FloatLifecycle extends BroadcastReceiver implements Application.ActivityLi
     private int startCount;
     private int resumeCount;
     private boolean appBackground;
-    private LifecycleListener mLifecycleListener;
+    private OnLifecycleListener mLifecycleListener;
 
 
-    FloatLifecycle(Context applicationContext, boolean showFlag, Class[] activities, LifecycleListener lifecycleListener) {
+    FRFloatLifecycle(Context applicationContext, boolean showFlag, Class[] activities, OnLifecycleListener lifecycleListener) {
         this.showFlag = showFlag;
         this.activities = activities;
         mLifecycleListener = lifecycleListener;

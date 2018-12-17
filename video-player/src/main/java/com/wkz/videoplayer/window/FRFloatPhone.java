@@ -10,7 +10,7 @@ import android.view.WindowManager;
  * 7.1及以上需申请权限
  */
 
-public class FloatPhone extends FloatView {
+public class FRFloatPhone extends FRFloatView {
 
     private final Context mContext;
 
@@ -19,7 +19,7 @@ public class FloatPhone extends FloatView {
     private View mView;
     private int mX, mY;
 
-    FloatPhone(Context applicationContext) {
+    FRFloatPhone(Context applicationContext) {
         mContext = applicationContext;
         mWindowManager = (WindowManager) applicationContext.getSystemService(Context.WINDOW_SERVICE);
         mLayoutParams = new WindowManager.LayoutParams();
@@ -57,11 +57,11 @@ public class FloatPhone extends FloatView {
     @Override
     public void init() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (WindowUtil.hasPermission(mContext)) {
+            if (FRWindowUtils.hasPermission(mContext)) {
                 mLayoutParams.format = PixelFormat.RGBA_8888;
                 mWindowManager.addView(mView, mLayoutParams);
             } else {
-                PermissionActivity.request(mContext, new PermissionListener() {
+                FRPermissionActivity.request(mContext, new OnPermissionListener() {
                     @Override
                     public void onSuccess() {
                         mLayoutParams.format = PixelFormat.RGBA_8888;

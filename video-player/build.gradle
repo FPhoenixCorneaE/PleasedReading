@@ -11,6 +11,10 @@ android {
         versionCode 100
         versionName "1.0.0"
 
+        ndk {
+            abiFilters "armeabi", "x86", "armeabi-v7a"
+        }
+
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
@@ -157,8 +161,8 @@ dependencies {
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     //其他库文件
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
     //implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
     //implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
-    //implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
     //implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
 }

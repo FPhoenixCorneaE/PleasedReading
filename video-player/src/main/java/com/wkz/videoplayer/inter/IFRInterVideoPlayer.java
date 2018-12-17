@@ -12,7 +12,7 @@ import java.util.Map;
  *     revise:
  * </pre>
  */
-public interface InterVideoPlayer {
+public interface IFRInterVideoPlayer {
 
     /**
      * 设置视频Url，以及headers

@@ -11,9 +11,9 @@ import android.util.Log;
  *     revise:
  * </pre>
  */
-public final class VideoLogUtil {
+public final class FRVideoLogUtils {
 
-    private static final String TAG = "YCVideoPlayer";
+    private static final String TAG = "FRVideoPlayer";
     private static boolean isLog = true;
 
     /**
@@ -21,7 +21,7 @@ public final class VideoLogUtil {
      * @param isLog                 是否开启日志
      */
     public static void setIsLog(boolean isLog) {
-        VideoLogUtil.isLog = isLog;
+        FRVideoLogUtils.isLog = isLog;
     }
 
     public static void d(String message) {

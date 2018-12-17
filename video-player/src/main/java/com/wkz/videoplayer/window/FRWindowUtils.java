@@ -8,7 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.view.WindowManager;
 
 
-public class WindowUtil {
+public class FRWindowUtils {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)

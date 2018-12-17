@@ -3,7 +3,7 @@ package com.wkz.videoplayer.window;
 import android.view.View;
 
 
-public abstract class IFloatWindow {
+public abstract class IFRFloatWindow {
 
     public abstract void show();
 
@@ -15,11 +15,11 @@ public abstract class IFloatWindow {
 
     public abstract void updateX(int x);
 
-    public abstract void updateX(@WindowScreen.screenType int screenType, float ratio);
+    public abstract void updateX(@FRWindowScreen.screenType int screenType, float ratio);
 
     public abstract void updateY(int y);
 
-    public abstract void updateY(@WindowScreen.screenType int screenType, float ratio);
+    public abstract void updateY(@FRWindowScreen.screenType int screenType, float ratio);
 
     public abstract View getView();
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.wkz.videoplayer.R;
 import com.wkz.videoplayer.inter.listener.OnClarityChangedListener;
-import com.wkz.videoplayer.utils.VideoPlayerUtils;
+import com.wkz.videoplayer.utils.FRVideoPlayerUtils;
 
 import java.util.List;
 
@@ -26,13 +26,13 @@ import java.util.List;
  *     revise:
  * </pre>
  */
-public class ChangeClarityDialog extends Dialog {
+public class FRChangeClarityDialog extends Dialog {
 
     private LinearLayout mLinearLayout;
     private int mCurrentCheckedIndex;
 
-    public ChangeClarityDialog(Context context) {
-        super(context, R.style.dialog_change_clarity);
+    public FRChangeClarityDialog(Context context) {
+        super(context, R.style.FRChangeClarityDialogTheme);
         init(context);
     }
 
@@ -57,17 +57,17 @@ public class ChangeClarityDialog extends Dialog {
                 if (mListener != null) {
                     mListener.onClarityNotChanged();
                 }
-                ChangeClarityDialog.this.dismiss();
+                FRChangeClarityDialog.this.dismiss();
             }
         });
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.MarginLayoutParams.MATCH_PARENT);
         setContentView(mLinearLayout, params);
         //注意，这里一定要判空
-        if(getWindow()!=null){
+        if (getWindow() != null) {
             WindowManager.LayoutParams windowParams = getWindow().getAttributes();
-            windowParams.width = VideoPlayerUtils.getScreenHeight(context);
-            windowParams.height = VideoPlayerUtils.getScreenWidth(context);
+            windowParams.width = FRVideoPlayerUtils.getScreenHeight(context);
+            windowParams.height = FRVideoPlayerUtils.getScreenWidth(context);
             getWindow().setAttributes(windowParams);
         }
     }
@@ -75,6 +75,7 @@ public class ChangeClarityDialog extends Dialog {
 
     /**
      * 设置清晰度等级
+     *
      * @param items          清晰度等级items
      * @param defaultChecked 默认选中的清晰度索引
      */
@@ -99,20 +100,21 @@ public class ChangeClarityDialog extends Dialog {
                             mListener.onClarityNotChanged();
                         }
                     }
-                    ChangeClarityDialog.this.dismiss();
+                    FRChangeClarityDialog.this.dismiss();
                 }
             });
             itemView.setText(items.get(i));
             itemView.setSelected(i == defaultChecked);
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)
                     itemView.getLayoutParams();
-            params.topMargin = (i == 0) ? 0 : VideoPlayerUtils.dp2px(getContext(), 16f);
+            params.topMargin = (i == 0) ? 0 : FRVideoPlayerUtils.dp2px(getContext(), 16f);
             mLinearLayout.addView(itemView, params);
         }
     }
 
 
     private OnClarityChangedListener mListener;
+
     public void setOnClarityCheckedListener(OnClarityChangedListener listener) {
         mListener = listener;
     }

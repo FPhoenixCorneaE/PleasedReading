@@ -1,8 +1,8 @@
 package com.wkz.videoplayer.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.TextureView;
+import android.util.AttributeSet;
+import android.view.SurfaceView;
 
 
 /**
@@ -10,19 +10,27 @@ import android.view.TextureView;
  *     @author yangchong
  *     blog  : https://github.com/yangchong211
  *     time  : 2017/10/21
- *     desc  : 重写TextureView，适配视频的宽高和旋转
+ *     desc  : 重写SurfaceView，适配视频的宽高和旋转
  *     revise:
  * </pre>
  */
-@SuppressLint("NewApi")
-public class VideoTextureView extends TextureView {
+public class FRVideoSurfaceView extends SurfaceView {
 
     private int videoHeight;
     private int videoWidth;
 
-    public VideoTextureView(Context context) {
+    public FRVideoSurfaceView(Context context) {
         super(context);
     }
+
+    public FRVideoSurfaceView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public FRVideoSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
 
     /**
      * 自定义video大小
@@ -118,4 +126,5 @@ public class VideoTextureView extends TextureView {
         }
         setMeasuredDimension(width, height);
     }
+
 }

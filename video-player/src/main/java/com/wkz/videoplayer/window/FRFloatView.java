@@ -3,7 +3,7 @@ package com.wkz.videoplayer.window;
 import android.view.View;
 
 
-abstract class FloatView {
+abstract class FRFloatView {
 
     abstract void setSize(int width, int height);
 

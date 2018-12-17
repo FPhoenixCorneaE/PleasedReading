@@ -24,7 +24,7 @@ import java.util.Locale;
  *     revise:
  * </pre>
  */
-public final class VideoPlayerUtils {
+public final class FRVideoPlayerUtils {
 
     /**
      * Get activity from context object

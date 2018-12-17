@@ -1,7 +1,7 @@
 package com.wkz.videoplayer.window;
 
 
-interface PermissionListener {
+interface OnPermissionListener {
 
     void onSuccess();
 

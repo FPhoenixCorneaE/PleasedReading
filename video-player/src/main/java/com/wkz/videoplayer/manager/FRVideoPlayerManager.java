@@ -1,7 +1,7 @@
 package com.wkz.videoplayer.manager;
 
 
-import com.wkz.videoplayer.player.VideoPlayer;
+import com.wkz.videoplayer.player.FRVideoPlayer;
 
 
 /**
@@ -13,20 +13,20 @@ import com.wkz.videoplayer.player.VideoPlayer;
  *     revise:
  * </pre>
  */
-public final class VideoPlayerManager {
+public final class FRVideoPlayerManager {
 
-    private VideoPlayer mVideoPlayer;
-    private static VideoPlayerManager sInstance;
-    private VideoPlayerManager() {}
+    private FRVideoPlayer mVideoPlayer;
+    private static FRVideoPlayerManager sInstance;
+    private FRVideoPlayerManager() {}
 
     /**
      * 一定要使用单例模式，保证同一时刻只有一个视频在播放，其他的都是初始状态
      * 单例模式
      * @return          VideoPlayerManager对象
      */
-    public static synchronized VideoPlayerManager instance() {
+    public static synchronized FRVideoPlayerManager instance() {
         if (sInstance == null) {
-            sInstance = new VideoPlayerManager();
+            sInstance = new FRVideoPlayerManager();
         }
         return sInstance;
     }
@@ -36,7 +36,7 @@ public final class VideoPlayerManager {
      * 获取对象
      * @return          VideoPlayerManager对象
      */
-    public VideoPlayer getCurrentVideoPlayer() {
+    public FRVideoPlayer getCurrentVideoPlayer() {
         return mVideoPlayer;
     }
 
@@ -45,7 +45,7 @@ public final class VideoPlayerManager {
      * 设置VideoPlayer
      * @param videoPlayer       VideoPlayerManager对象
      */
-    public void setCurrentVideoPlayer(VideoPlayer videoPlayer) {
+    public void setCurrentVideoPlayer(FRVideoPlayer videoPlayer) {
         if (mVideoPlayer != videoPlayer) {
             releaseVideoPlayer();
             mVideoPlayer = videoPlayer;

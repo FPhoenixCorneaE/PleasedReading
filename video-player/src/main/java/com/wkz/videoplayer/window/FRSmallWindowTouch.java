@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
  *     revise:
  * </pre>
  */
-public class SmallWindowTouch implements View.OnTouchListener {
+public class FRSmallWindowTouch implements View.OnTouchListener {
 
     private int mDownX, mDownY;
     private int mMarginLeft, mMarginTop;
@@ -23,7 +23,7 @@ public class SmallWindowTouch implements View.OnTouchListener {
     private View mView;
 
 
-    SmallWindowTouch(View view, int marginLeft, int marginTop) {
+    FRSmallWindowTouch(View view, int marginLeft, int marginTop) {
         super();
         mMarginLeft = marginLeft;
         mMarginTop = marginTop;

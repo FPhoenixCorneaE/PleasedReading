@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * 自定义 toast 方式，无需申请权限
  */
 
-public class FloatToast extends FloatView {
+public class FRFloatToast extends FRFloatView {
 
 
     private Toast toast;
@@ -23,7 +23,7 @@ public class FloatToast extends FloatView {
     private int mHeight;
 
 
-    FloatToast(Context applicationContext) {
+    FRFloatToast(Context applicationContext) {
         toast = new Toast(applicationContext);
     }
 

@@ -14,7 +14,7 @@ import java.lang.annotation.RetentionPolicy;
  *     revise:
  * </pre>
  */
-public final class ConstantKeys {
+public final class FRConstantKeys {
 
 
     /**

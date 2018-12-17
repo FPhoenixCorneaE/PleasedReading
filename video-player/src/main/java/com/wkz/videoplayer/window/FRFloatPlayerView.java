@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.wkz.videoplayer.R;
-import com.wkz.videoplayer.constant.ConstantKeys;
-import com.wkz.videoplayer.controller.VideoPlayerController;
+import com.wkz.videoplayer.constant.FRConstantKeys;
+import com.wkz.videoplayer.controller.FRVideoPlayerController;
 import com.wkz.videoplayer.inter.listener.OnCompletedListener;
-import com.wkz.videoplayer.manager.VideoPlayerManager;
-import com.wkz.videoplayer.player.VideoPlayer;
-import com.wkz.videoplayer.utils.VideoLogUtil;
+import com.wkz.videoplayer.manager.FRVideoPlayerManager;
+import com.wkz.videoplayer.player.FRVideoPlayer;
+import com.wkz.videoplayer.utils.FRVideoLogUtils;
 
 
 /**
@@ -25,21 +25,21 @@ import com.wkz.videoplayer.utils.VideoLogUtil;
  *     revise:
  * </pre>
  */
-public class FloatPlayerView extends FrameLayout {
+public class FRFloatPlayerView extends FrameLayout {
 
-    private VideoPlayer mVideoPlayer;
+    private FRVideoPlayer mVideoPlayer;
 
-    public FloatPlayerView(Context context) {
+    public FRFloatPlayerView(Context context) {
         super(context);
         init();
     }
 
-    public FloatPlayerView(Context context, AttributeSet attrs) {
+    public FRFloatPlayerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public FloatPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FRFloatPlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -51,17 +51,17 @@ public class FloatPlayerView extends FrameLayout {
             view = inflater.inflate(R.layout.fr_view_window_dialog, this);
             mVideoPlayer = view.findViewById(R.id.video_player);
             mVideoPlayer.setUp(path,null);
-            mVideoPlayer.setPlayerType(ConstantKeys.IjkPlayerType.TYPE_NATIVE);
+            mVideoPlayer.setPlayerType(FRConstantKeys.IjkPlayerType.TYPE_NATIVE);
             //创建视频控制器
-            VideoPlayerController controller = new VideoPlayerController(getContext());
+            FRVideoPlayerController controller = new FRVideoPlayerController(getContext());
             controller.setTopVisibility(false);
-            controller.setLoadingType(ConstantKeys.Loading.LOADING_QQ);
+            controller.setLoadingType(FRConstantKeys.Loading.LOADING_QQ);
             controller.imageView().setBackgroundColor(Color.BLACK);
             controller.setCenterPlayer(true,R.mipmap.fr_ic_player_center);
             controller.setOnCompletedListener(new OnCompletedListener() {
                 @Override
                 public void onCompleted() {
-                    VideoPlayerManager.instance().releaseVideoPlayer();
+                    FRVideoPlayerManager.instance().releaseVideoPlayer();
                     if(mCompletedListener!=null){
                         mCompletedListener.Completed();
                     }
@@ -72,16 +72,16 @@ public class FloatPlayerView extends FrameLayout {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    VideoLogUtil.d("点击事件"+mVideoPlayer.getCurrentState());
+                    FRVideoLogUtils.d("点击事件"+mVideoPlayer.getCurrentState());
                     if(mVideoPlayer.isPlaying()){
                         mVideoPlayer.pause();
                     }else if(mVideoPlayer.isPaused()){
                         mVideoPlayer.restart();
                     }
-                    VideoLogUtil.d("点击事件"+mVideoPlayer.getCurrentState());
+                    FRVideoLogUtils.d("点击事件"+mVideoPlayer.getCurrentState());
                 }
             });
-            view.setOnTouchListener(new SmallWindowTouch(view,0,0));
+            view.setOnTouchListener(new FRSmallWindowTouch(view,0,0));
         }
     }
 

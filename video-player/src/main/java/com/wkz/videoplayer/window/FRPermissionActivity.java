@@ -21,9 +21,9 @@ import java.util.List;
  *     revise:
  * </pre>
  */
-public class PermissionActivity extends AppCompatActivity {
+public class FRPermissionActivity extends AppCompatActivity {
 
-    private static List<PermissionListener> mPermissionListenerList;
+    private static List<OnPermissionListener> mPermissionListenerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class PermissionActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (Build.VERSION.SDK_INT >= 23){
             //用23以上编译即可出现canDrawOverlays
-            if (WindowUtil.hasPermission(this)) {
+            if (FRWindowUtils.hasPermission(this)) {
                 mPermissionListener.onSuccess();
             } else {
                 mPermissionListener.onFail();
@@ -56,25 +56,25 @@ public class PermissionActivity extends AppCompatActivity {
         finish();
     }
 
-    static synchronized void request(Context context, PermissionListener permissionListener) {
+    static synchronized void request(Context context, OnPermissionListener permissionListener) {
         if (mPermissionListenerList == null) {
             mPermissionListenerList = new ArrayList<>();
-            mPermissionListener = new PermissionListener() {
+            mPermissionListener = new OnPermissionListener() {
                 @Override
                 public void onSuccess() {
-                    for (PermissionListener listener : mPermissionListenerList) {
+                    for (OnPermissionListener listener : mPermissionListenerList) {
                         listener.onSuccess();
                     }
                 }
 
                 @Override
                 public void onFail() {
-                    for (PermissionListener listener : mPermissionListenerList) {
+                    for (OnPermissionListener listener : mPermissionListenerList) {
                         listener.onFail();
                     }
                 }
             };
-            Intent intent = new Intent(context, PermissionActivity.class);
+            Intent intent = new Intent(context, FRPermissionActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
@@ -82,7 +82,7 @@ public class PermissionActivity extends AppCompatActivity {
     }
 
 
-    private static PermissionListener mPermissionListener;
+    private static OnPermissionListener mPermissionListener;
 
 
 }

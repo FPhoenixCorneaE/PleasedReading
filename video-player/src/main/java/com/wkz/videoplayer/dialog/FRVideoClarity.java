@@ -10,7 +10,7 @@ package com.wkz.videoplayer.dialog;
  *     revise:
  * </pre>
  */
-public class VideoClarity {
+public class FRVideoClarity {
 
     /**
      * 清晰度等级
@@ -25,7 +25,7 @@ public class VideoClarity {
      */
     private String videoUrl;
 
-    public VideoClarity(String grade, String p, String videoUrl) {
+    public FRVideoClarity(String grade, String p, String videoUrl) {
         this.grade = grade;
         this.p = p;
         this.videoUrl = videoUrl;

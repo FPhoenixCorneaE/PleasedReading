@@ -1,7 +1,7 @@
 package com.wkz.videoplayer.window;
 
 
-interface LifecycleListener {
+interface OnLifecycleListener {
 
     void onShow();
 

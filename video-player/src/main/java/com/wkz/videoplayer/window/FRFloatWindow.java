@@ -18,20 +18,20 @@ import java.util.Map;
  * 记得添加下面这个权限
  * uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"
  */
-public class FloatWindow {
+public class FRFloatWindow {
 
-    private FloatWindow() {
+    private FRFloatWindow() {
 
     }
 
     private static final String mDefaultTag = "default_float_window_tag";
-    private static Map<String, IFloatWindow> mFloatWindowMap;
+    private static Map<String, IFRFloatWindow> mFloatWindowMap;
 
-    public static IFloatWindow get() {
+    public static IFRFloatWindow get() {
         return get(mDefaultTag);
     }
 
-    public static IFloatWindow get(@NonNull String tag) {
+    public static IFRFloatWindow get(@NonNull String tag) {
         return mFloatWindowMap == null ? null : mFloatWindowMap.get(tag);
     }
 
@@ -64,7 +64,7 @@ public class FloatWindow {
         int yOffset;
         boolean mShow = true;
         Class[] mActivities;
-        int mMoveType = MoveType.fixed;
+        int mMoveType = FRMoveType.fixed;
         long mDuration = 300;
         TimeInterpolator mInterpolator;
         private String mTag = mDefaultTag;
@@ -97,18 +97,18 @@ public class FloatWindow {
             return this;
         }
 
-        public B setWidth(@WindowScreen.screenType int screenType, float ratio) {
-            mWidth = (int) ((screenType == WindowScreen.width ?
-                    WindowUtil.getScreenWidth(mApplicationContext) :
-                    WindowUtil.getScreenHeight(mApplicationContext)) * ratio);
+        public B setWidth(@FRWindowScreen.screenType int screenType, float ratio) {
+            mWidth = (int) ((screenType == FRWindowScreen.width ?
+                    FRWindowUtils.getScreenWidth(mApplicationContext) :
+                    FRWindowUtils.getScreenHeight(mApplicationContext)) * ratio);
             return this;
         }
 
 
-        public B setHeight(@WindowScreen.screenType int screenType, float ratio) {
-            mHeight = (int) ((screenType == WindowScreen.width ?
-                    WindowUtil.getScreenWidth(mApplicationContext) :
-                    WindowUtil.getScreenHeight(mApplicationContext)) * ratio);
+        public B setHeight(@FRWindowScreen.screenType int screenType, float ratio) {
+            mHeight = (int) ((screenType == FRWindowScreen.width ?
+                    FRWindowUtils.getScreenWidth(mApplicationContext) :
+                    FRWindowUtils.getScreenHeight(mApplicationContext)) * ratio);
             return this;
         }
 
@@ -123,17 +123,17 @@ public class FloatWindow {
             return this;
         }
 
-        public B setX(@WindowScreen.screenType int screenType, float ratio) {
-            xOffset = (int) ((screenType == WindowScreen.width ?
-                    WindowUtil.getScreenWidth(mApplicationContext) :
-                    WindowUtil.getScreenHeight(mApplicationContext)) * ratio);
+        public B setX(@FRWindowScreen.screenType int screenType, float ratio) {
+            xOffset = (int) ((screenType == FRWindowScreen.width ?
+                    FRWindowUtils.getScreenWidth(mApplicationContext) :
+                    FRWindowUtils.getScreenHeight(mApplicationContext)) * ratio);
             return this;
         }
 
-        public B setY(@WindowScreen.screenType int screenType, float ratio) {
-            yOffset = (int) ((screenType == WindowScreen.width ?
-                    WindowUtil.getScreenWidth(mApplicationContext) :
-                    WindowUtil.getScreenHeight(mApplicationContext)) * ratio);
+        public B setY(@FRWindowScreen.screenType int screenType, float ratio) {
+            yOffset = (int) ((screenType == FRWindowScreen.width ?
+                    FRWindowUtils.getScreenWidth(mApplicationContext) :
+                    FRWindowUtils.getScreenHeight(mApplicationContext)) * ratio);
             return this;
         }
 
@@ -151,7 +151,7 @@ public class FloatWindow {
         }
 
 
-        public B setMoveType(@MoveType.MOVE_TYPE int moveType) {
+        public B setMoveType(@FRMoveType.MOVE_TYPE int moveType) {
             mMoveType = moveType;
             return this;
         }
@@ -172,7 +172,7 @@ public class FloatWindow {
                 mFloatWindowMap = new HashMap<>();
             }
             if (mFloatWindowMap.containsKey(mTag)) {
-                throw new IllegalArgumentException("FloatWindow of this tag has been added, Please set a new tag for the new FloatWindow");
+                throw new IllegalArgumentException("FRFloatWindow of this tag has been added, Please set a new tag for the new FRFloatWindow");
             }
             if (mView == null && mLayoutId == 0) {
                 throw new IllegalArgumentException("View has not been set!");
@@ -184,7 +184,7 @@ public class FloatWindow {
                     mView = inflate.inflate(mLayoutId, null);
                 }
             }
-            IFloatWindow floatWindowImpl = new IFloatWindowImpl(this);
+            IFRFloatWindow floatWindowImpl = new FRFloatWindowImpl(this);
             mFloatWindowMap.put(mTag, floatWindowImpl);
         }
     }

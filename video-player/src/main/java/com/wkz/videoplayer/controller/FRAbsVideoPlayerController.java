@@ -8,9 +8,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.wkz.videoplayer.utils.VideoPlayerUtils;
-import com.wkz.videoplayer.constant.ConstantKeys;
-import com.wkz.videoplayer.inter.InterVideoPlayer;
+import com.wkz.videoplayer.utils.FRVideoPlayerUtils;
+import com.wkz.videoplayer.constant.FRConstantKeys;
+import com.wkz.videoplayer.inter.IFRInterVideoPlayer;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,10 +24,10 @@ import java.util.TimerTask;
  *     revise:
  * </pre>
  */
-public abstract class AbsVideoPlayerController extends FrameLayout implements View.OnTouchListener {
+public abstract class FRAbsVideoPlayerController extends FrameLayout implements View.OnTouchListener {
 
     private Context mContext;
-    protected InterVideoPlayer mVideoPlayer;
+    protected IFRInterVideoPlayer mVideoPlayer;
     private Timer mUpdateProgressTimer;
     private TimerTask mUpdateProgressTimerTask;
     private float mDownX;
@@ -51,13 +51,13 @@ public abstract class AbsVideoPlayerController extends FrameLayout implements Vi
     private long mNewPosition;
 
 
-    public AbsVideoPlayerController(Context context) {
+    public FRAbsVideoPlayerController(Context context) {
         super(context);
         mContext = context;
         this.setOnTouchListener(this);
     }
 
-    public void setVideoPlayer(InterVideoPlayer videoPlayer) {
+    public void setVideoPlayer(IFRInterVideoPlayer videoPlayer) {
         mVideoPlayer = videoPlayer;
     }
 
@@ -95,7 +95,7 @@ public abstract class AbsVideoPlayerController extends FrameLayout implements Vi
      *             目前1，是仿腾讯加载loading
      *             2，是转圈加载loading
      */
-    public abstract void setLoadingType(@ConstantKeys.LoadingType int type);
+    public abstract void setLoadingType(@FRConstantKeys.LoadingType int type);
 
     /**
      * 设置播放的视频的标题
@@ -160,7 +160,7 @@ public abstract class AbsVideoPlayerController extends FrameLayout implements Vi
                 @Override
                 public void run() {
                     //在子线程中更新进度，包括进度条进度，展示的当前播放位置时长，总时长等。
-                    AbsVideoPlayerController.this.post(new Runnable() {
+                    FRAbsVideoPlayerController.this.post(new Runnable() {
                         @Override
                         public void run() {
                             updateProgress();
@@ -252,7 +252,7 @@ public abstract class AbsVideoPlayerController extends FrameLayout implements Vi
         //boolean tinyWindow = mVideoPlayer.isTinyWindow();
         int playType = mVideoPlayer.getPlayType();
         //如果是小窗口模式，则可以拖拽。其他情况则正常处理
-        if(playType == ConstantKeys.PlayMode.MODE_FULL_SCREEN){
+        if(playType == FRConstantKeys.PlayMode.MODE_FULL_SCREEN){
             //处理全屏播放时，滑动处理调节声音和亮度的逻辑
             return setOnTouch(v,event);
         }
@@ -309,7 +309,7 @@ public abstract class AbsVideoPlayerController extends FrameLayout implements Vi
                         if (mDownX < getWidth() * 0.5f) {
                             // 左侧改变亮度
                             mNeedChangeBrightness = true;
-                            mGestureDownBrightness = VideoPlayerUtils.scanForActivity(mContext)
+                            mGestureDownBrightness = FRVideoPlayerUtils.scanForActivity(mContext)
                                     .getWindow().getAttributes().screenBrightness;
                         } else {
                             // 右侧改变声音
@@ -331,9 +331,9 @@ public abstract class AbsVideoPlayerController extends FrameLayout implements Vi
                     float newBrightness = mGestureDownBrightness + deltaBrightness;
                     newBrightness = Math.max(0, Math.min(newBrightness, 1));
                     float newBrightnessPercentage = newBrightness;
-                    WindowManager.LayoutParams params = VideoPlayerUtils.scanForActivity(mContext).getWindow().getAttributes();
+                    WindowManager.LayoutParams params = FRVideoPlayerUtils.scanForActivity(mContext).getWindow().getAttributes();
                     params.screenBrightness = newBrightnessPercentage;
-                    VideoPlayerUtils.scanForActivity(mContext).getWindow().setAttributes(params);
+                    FRVideoPlayerUtils.scanForActivity(mContext).getWindow().setAttributes(params);
                     int newBrightnessProgress = (int) (100f * newBrightnessPercentage);
                     showChangeBrightness(newBrightnessProgress);
                 }
