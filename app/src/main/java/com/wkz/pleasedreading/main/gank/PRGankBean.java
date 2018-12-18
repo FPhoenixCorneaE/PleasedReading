@@ -67,6 +67,8 @@ public class PRGankBean extends BaseObservable implements Serializable {
         private boolean used;
         private String who;
         private List<String> images;
+        private String playAddr;
+        private String cover;
 
         @Bindable
         public String getId() {
@@ -174,6 +176,26 @@ public class PRGankBean extends BaseObservable implements Serializable {
             notifyPropertyChanged(BR.images);
         }
 
+        @Bindable
+        public String getPlayAddr() {
+            return playAddr;
+        }
+
+        public void setPlayAddr(String playAddr) {
+            this.playAddr = playAddr;
+            notifyPropertyChanged(BR.playAddr);
+        }
+
+        @Bindable
+        public String getCover() {
+            return cover;
+        }
+
+        public void setCover(String cover) {
+            this.cover = cover;
+            notifyPropertyChanged(BR.cover);
+        }
+
         @Override
         public String toString() {
             return "ResultsBean{" +
@@ -187,6 +209,8 @@ public class PRGankBean extends BaseObservable implements Serializable {
                     ", used=" + used +
                     ", who='" + who + '\'' +
                     ", images=" + images +
+                    ", playAddr='" + playAddr + '\'' +
+                    ", cover='" + cover + '\'' +
                     '}';
         }
     }

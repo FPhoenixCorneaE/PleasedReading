@@ -17,9 +17,13 @@ public interface PRGankContract {
         void onLoadMoreDataByType(String type);
 
         void getDataByType(String type);
+
+        void getVideoInfo(PRGankBean.ResultsBean prGankBean);
     }
 
     interface IGankModel extends BaseModel {
         void getDataByType(String type, int pageNum, int pageCount, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRGankBean> callback);
+
+        void getVideoInfo(PRGankBean.ResultsBean prGankBean, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRGankBean.ResultsBean> callback);
     }
 }

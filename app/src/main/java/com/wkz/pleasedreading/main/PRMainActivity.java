@@ -17,8 +17,8 @@ import com.wkz.framework.widgets.FRInsLoadingView;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
-import com.wkz.pleasedreading.main.gank.PRGankChildFragment;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
+import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,6 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
 
         //layout:pr_content_main添加id后会导致id:pr_fl_container找不到
         FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
-//        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankChildFragment(), null, false);
     }
 
     @Override
@@ -71,6 +70,18 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
     public void initListener() {
         mDataBinding.prDlDrawer.addDrawerListener(this);
         mDataBinding.setOnMainClickListener(new OnMainClickListener().setDrawerLayout(mDataBinding.prDlDrawer));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FRVideoPlayerManager.instance().releaseVideoPlayer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (FRVideoPlayerManager.instance().onBackPressed()) return;
+        super.onBackPressed();
     }
 
     @Override

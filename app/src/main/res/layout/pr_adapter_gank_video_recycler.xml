@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.wkz.framework.utils.TimeUtils" />
+
+        <variable
+            name="prGankBean"
+            type="com.wkz.pleasedreading.main.gank.PRGankBean.ResultsBean" />
+    </data>
+
+    <com.wkz.framework.widgets.FRCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        app:fr_cv_cardBackgroundColor="@color/fr_background_Oxffffffff"
+        app:fr_cv_cornerRadius="5dp"
+        app:fr_cv_elevation="5dp"
+        app:fr_cv_elevationAffectShadowColor="true"
+        app:fr_cv_elevationAffectShadowSize="false"
+        app:fr_cv_shadowColor="@color/fr_color_dim_gray"
+        app:fr_cv_shadowFluidShape="linear"
+        app:fr_cv_shadowStartAlpha="30">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/pr_rl_video_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp">
+
+                <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+                    android:id="@+id/pr_iv_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/pr_shape_placeholder_avatar_circle"
+                    app:fr_siv_pressed_alpha="0"
+                    app:fr_siv_pressed_color="@color/fr_color_transparent"
+                    app:fr_siv_shape_type="circle" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/pr_tv_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/pr_iv_avatar"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_toEndOf="@+id/pr_iv_avatar"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="@{prGankBean.who}"
+                    android:textColor="@color/fr_color_black"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/pr_iv_avatar"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_toEndOf="@+id/pr_iv_avatar"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/pr_tv_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{prGankBean.source}"
+                        android:textColor="@color/fr_color_dim_gray"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@color/fr_color_dark_gray" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/pr_tv_publishTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="@{TimeUtils.getFriendlyTimeSpanByNow(prGankBean.publishedAt)}"
+                        android:textColor="@color/fr_color_dim_gray"
+                        android:textSize="13sp" />
+                </android.support.v7.widget.LinearLayoutCompat>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/pr_tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pr_iv_avatar"
+                    android:layout_marginTop="15dp"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="2dp"
+                    android:maxLines="4"
+                    android:text="@{prGankBean.desc}"
+                    android:textColor="@color/fr_color_black"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <com.wkz.videoplayer.player.FRVideoPlayer
+                android:id="@+id/pr_vp_video"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_below="@id/pr_rl_video_info" />
+        </RelativeLayout>
+    </com.wkz.framework.widgets.FRCardView>
+</layout>

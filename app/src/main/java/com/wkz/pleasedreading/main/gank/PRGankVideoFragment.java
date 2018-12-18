@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -22,13 +23,18 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
+import com.wkz.videoplayer.manager.FRVideoPlayerManager;
+import com.wkz.videoplayer.player.FRVideoPlayer;
 
 import java.util.List;
 
-public class PRGankChildFragment extends PRGankFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener, FRBaseRecyclerAdapter.OnItemClickListener<PRGankBean.ResultsBean> {
+/**
+ * 视频
+ */
+public class PRGankVideoFragment extends PRGankFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener, FRBaseRecyclerAdapter.OnItemClickListener<PRGankBean.ResultsBean> {
 
     private PrFragmentGankChildBinding mDataBinding;
-    private PRGankChildRecyclerAdapter mPRGankChildRecyclerAdapter;
+    private PRGankVideoRecyclerAdapter mPrGankVideoRecyclerAdapter;
     private String mTitle;
 
     @Override
@@ -63,17 +69,38 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
         );
         mDataBinding.prRvGankChild.addItemDecoration(dividerDecoration);
         mDataBinding.prRvGankChild.setLayoutManager(new LinearLayoutManager(mContext));
-        mDataBinding.prRvGankChild.setAdapter(mPRGankChildRecyclerAdapter =
-                ((PRGankChildRecyclerAdapter)
-                        new PRGankChildRecyclerAdapter(mContext, null, true)
+        mDataBinding.prRvGankChild.setAdapter(mPrGankVideoRecyclerAdapter =
+                ((PRGankVideoRecyclerAdapter)
+                        new PRGankVideoRecyclerAdapter(mContext, null, true)
                                 .setOnLoadMoreListener(this))
-                        .setFRImageViewer(mFrImageViewer)
         );
     }
 
     @Override
     public void initListener() {
-        mPRGankChildRecyclerAdapter.setOnItemClickListener(this);
+        mPrGankVideoRecyclerAdapter.setOnItemClickListener(this);
+        mDataBinding.prRvGankChild.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+        mDataBinding.prRvGankChild.setRecyclerListener(new RecyclerView.RecyclerListener() {
+            @Override
+            public void onViewRecycled(@NonNull RecyclerView.ViewHolder viewHolder) {
+                if (viewHolder instanceof PRGankVideoRecyclerAdapter.ViewHolder) {
+                    FRVideoPlayer videoPlayer = ((PRGankVideoRecyclerAdapter.ViewHolder) viewHolder).mDataBinding.prVpVideo;
+                    if (videoPlayer == FRVideoPlayerManager.instance().getCurrentVideoPlayer()) {
+                        FRVideoPlayerManager.instance().releaseVideoPlayer();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -92,9 +119,9 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
         super.onSuccess(data);
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
-            mPRGankChildRecyclerAdapter.setNewData((List<PRGankBean.ResultsBean>) data);
+            mPrGankVideoRecyclerAdapter.setNewData((List<PRGankBean.ResultsBean>) data);
         } else {
-            mPRGankChildRecyclerAdapter.setLoadMoreData((List<PRGankBean.ResultsBean>) data);
+            mPrGankVideoRecyclerAdapter.setLoadMoreData((List<PRGankBean.ResultsBean>) data);
         }
     }
 
@@ -122,7 +149,8 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     }
 
     @Override
-    public boolean onBackPressed() {
-        return mFrImageViewer != null && mFrImageViewer.onBackPressed();
+    public void onStop() {
+        super.onStop();
+        FRVideoPlayerManager.instance().releaseVideoPlayer();
     }
 }

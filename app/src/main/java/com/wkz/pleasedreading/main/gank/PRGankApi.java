@@ -4,6 +4,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.functions.retrofit.FRRetrofitFactory;
 import com.wkz.pleasedreading.constant.PRUrl;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 
 public class PRGankApi extends FRRetrofitFactory {
@@ -35,5 +36,13 @@ public class PRGankApi extends FRRetrofitFactory {
      */
     public void getDataByType(String type, int pageNum, int pageCount, LifecycleTransformer lifecycleTransformer, Observer<PRGankBean> observer) {
         setObserver(createRetrofit(PRGank.class).getDataByType(type, pageNum, pageCount), lifecycleTransformer, observer);
+    }
+
+    /**
+     * 获取干货视频信息
+     * {@link PRGankVideoSubscriber(PRGankBean.ResultsBean)}
+     */
+    public void getVideoInfo(PRGankBean.ResultsBean prGankBean, LifecycleTransformer lifecycleTransformer, Observer<PRGankBean.ResultsBean> observer) {
+        setObserver(Observable.create(new PRGankVideoSubscriber<>(prGankBean)), lifecycleTransformer, observer);
     }
 }

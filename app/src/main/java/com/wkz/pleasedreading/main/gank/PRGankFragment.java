@@ -14,12 +14,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
+import com.orhanobut.logger.Logger;
 import com.wkz.framework.base.BaseFragment;
 import com.wkz.framework.base.BaseModel;
 import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
+import com.wkz.framework.model.FRBundle;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
 import com.wkz.pleasedreading.R;
+import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankBinding;
 import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.widget.FRImageViewer;
@@ -30,8 +33,23 @@ import java.util.ArrayList;
 public class PRGankFragment extends BaseFragment implements PRGankContract.IGankView {
 
     private PrFragmentGankBinding mDataBinding;
-    private PRGankPresenter mPresenter;
-    private FRImageViewer mFrImageViewer;
+    protected PRGankPresenter mPresenter;
+    protected FRImageViewer mFrImageViewer;
+
+    private <T extends PRGankFragment> T create(String title, Class<T> tClass) {
+        T gankChildFragment = null;
+        try {
+            //class.newInstance()是通过无参构造函数实例化的，一个对象默认是有一个无参构造函数，
+            //如果有一个有参构造函数，无参构造函数就不存在了，在通过反射获得对象会抛出 java.lang.InstantiationException 异常。
+            gankChildFragment = tClass.newInstance();
+            gankChildFragment.setArguments(new FRBundle().putString(PRConstant.PR_FRAGMENT_TITLE, title).create());
+        } catch (IllegalAccessException e) {
+            Logger.e(e.toString());
+        } catch (java.lang.InstantiationException e) {
+            Logger.e(e.toString());
+        }
+        return gankChildFragment;
+    }
 
     @Override
     public int getLayoutId() {
@@ -61,13 +79,13 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
                             private static final long serialVersionUID = 5955263809472083516L;
 
                             {
-                                add(PRGankChildFragment.create("Android").setFrImageViewer(mFrImageViewer));
-                                add(PRGankChildFragment.create("iOS").setFrImageViewer(mFrImageViewer));
-                                add(PRGankChildFragment.create("前端").setFrImageViewer(mFrImageViewer));
-                                add(PRGankChildFragment.create("App").setFrImageViewer(mFrImageViewer));
-                                add(PRGankChildFragment.create("休息视频").setFrImageViewer(mFrImageViewer));
-                                add(PRGankWelfareFragment.create("福利").setFrImageViewer(mFrImageViewer));
-                                add(PRGankChildFragment.create("拓展资源").setFrImageViewer(mFrImageViewer));
+                                add(create("Android", PRGankChildFragment.class));
+                                add(create("iOS", PRGankChildFragment.class));
+                                add(create("前端", PRGankChildFragment.class));
+                                add(create("App", PRGankChildFragment.class));
+                                add(create("休息视频", PRGankVideoFragment.class));
+                                add(create("福利", PRGankWelfareFragment.class));
+                                add(create("拓展资源", PRGankChildFragment.class));
                             }
                         })
                         .setPageTitles(new ArrayList<String>() {

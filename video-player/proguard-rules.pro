@@ -20,7 +20,31 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-dontwarn com.wkz.videoplayer.**
+-keep class com.wkz.videoplayer.controller.**{
+    public <methods>;
+}
+-keep class com.wkz.videoplayer.inter.**{*;}
+-keep class com.wkz.videoplayer.manager.FRVideoPlayerManager{
+    public <methods>;
+}
+-keep class com.wkz.videoplayer.player.FRVideoPlayer{
+    public <methods>;
+}
+-keep class com.wkz.videoplayer.window.FRFloatPlayerView{
+    public <methods>;
+}
+-keep class com.wkz.videoplayer.window.FRFloatWindow{
+    public <methods>;
+}
+-keep class com.wkz.videoplayer.window.FRWindowUtils{
+    public <methods>;
+}
 
+# 本地代码通过反射调用其他的类，但是经过了混淆之后，就会出现异常：ClassNotFoundException,NoSuchMethodError,InvocationTargetException...
+# 调用了JNI之后，C或者C++和java代码进行交互的时候找不到java的类或者方法，导致发生了异常......等等，还有好多
+# 只需要将被调用的java类标注为不混淆即可
+-keep class tv.danmaku.ijk.media.**{*;}
 
 
 

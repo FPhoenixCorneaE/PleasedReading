@@ -88,14 +88,13 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
     }
 
     public FRVideoPlayer(Context context, AttributeSet attrs) {
-        this(context, attrs ,0);
+        this(context, attrs, 0);
     }
 
     public FRVideoPlayer(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         init();
-
     }
 
     /**
@@ -116,9 +115,9 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        FRVideoLogUtils.i("如果锁屏1，则屏蔽返回键onKeyDown"+event.getAction());
-        if(keyCode == KeyEvent.KEYCODE_BACK ){
-            if(mController!=null && mController.getLock()){
+        FRVideoLogUtils.i("如果锁屏1，则屏蔽返回键onKeyDown" + event.getAction());
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mController != null && mController.getLock()) {
                 //如果锁屏，那就屏蔽返回键
                 return true;
             }
@@ -128,15 +127,19 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
 
     /*--------------setUp为必须设置的方法，二选其一--------------------------------------*/
+
     /**
      * 设置，必须设置
-     * @param url               视频地址，可以是本地，也可以是网络视频
-     * @param headers           请求header.
+     *
+     * @param url     视频地址，可以是本地，也可以是网络视频
+     * @param headers 请求header.
      */
     @Override
     public void setUp(String url, Map<String, String> headers) {
-        if(url==null || url.length()==0){
+        if (url == null || url.length() == 0) {
             FRVideoLogUtils.d("设置的视频链接不能为空");
+        } else {
+            FRVideoLogUtils.d("视频链接地址：" + url);
         }
         mUrl = url;
         mHeaders = headers;
@@ -145,7 +148,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 设置视频控制器，必须设置
-     * @param controller        AbsVideoPlayerController子类对象，可用VideoPlayerController，也可自定义
+     *
+     * @param controller AbsVideoPlayerController子类对象，可用VideoPlayerController，也可自定义
      */
     public void setController(FRAbsVideoPlayerController controller) {
         //这里必须先移除
@@ -164,6 +168,7 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
      * 设置播放器类型，必须设置
      * 注意：感谢某人建议，这里限定了传入值类型
      * 输入值：FRConstantKeys.IjkPlayerType.TYPE_IJK   或者  FRConstantKeys.IjkPlayerType.TYPE_NATIVE
+     *
      * @param playerType IjkPlayer or MediaPlayer.
      */
     public void setPlayerType(@FRConstantKeys.PlayerType int playerType) {
@@ -185,13 +190,14 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
     /**
      * 注意：MediaPlayer没有这个方法
      * 设置播放速度，不必须
-     * @param speed                     播放速度
+     *
+     * @param speed 播放速度
      */
     @Override
     public void setSpeed(float speed) {
         if (mMediaPlayer instanceof IjkMediaPlayer) {
             ((IjkMediaPlayer) mMediaPlayer).setSpeed(speed);
-        } else if(mMediaPlayer instanceof MediaPlayer){
+        } else if (mMediaPlayer instanceof MediaPlayer) {
             //((MediaPlayer) mMediaPlayer).setSpeed(speed);
             FRVideoLogUtils.d("只有IjkPlayer才能设置播放速度");
         } else {
@@ -219,7 +225,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 开始播放
-     * @param position                 播放位置
+     *
+     * @param position 播放位置
      */
     @Override
     public void start(long position) {
@@ -277,7 +284,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 设置播放位置
-     * @param pos                   播放位置
+     *
+     * @param pos 播放位置
      */
     @Override
     public void seekTo(long pos) {
@@ -289,7 +297,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 设置音量
-     * @param volume                音量值
+     *
+     * @param volume 音量值
      */
     @Override
     public void setVolume(int volume) {
@@ -301,7 +310,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断是否开始播放
-     * @return                      true表示播放未开始
+     *
+     * @return true表示播放未开始
      */
     @Override
     public boolean isIdle() {
@@ -311,7 +321,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否播放准备中
-     * @return                      true表示播放准备中
+     *
+     * @return true表示播放准备中
      */
     @Override
     public boolean isPreparing() {
@@ -321,7 +332,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否准备就绪
-     * @return                      true表示播放准备就绪
+     *
+     * @return true表示播放准备就绪
      */
     @Override
     public boolean isPrepared() {
@@ -331,7 +343,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否正在缓冲(播放器正在播放时，缓冲区数据不足，进行缓冲，缓冲区数据足够后恢复播放)
-     * @return                      true表示正在缓冲
+     *
+     * @return true表示正在缓冲
      */
     @Override
     public boolean isBufferingPlaying() {
@@ -341,7 +354,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断是否是否缓冲暂停
-     * @return                      true表示缓冲暂停
+     *
+     * @return true表示缓冲暂停
      */
     @Override
     public boolean isBufferingPaused() {
@@ -351,7 +365,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否正在播放
-     * @return                      true表示正在播放
+     *
+     * @return true表示正在播放
      */
     @Override
     public boolean isPlaying() {
@@ -361,7 +376,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否暂停播放
-     * @return                      true表示暂停播放
+     *
+     * @return true表示暂停播放
      */
     @Override
     public boolean isPaused() {
@@ -371,7 +387,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否播放错误
-     * @return                      true表示播放错误
+     *
+     * @return true表示播放错误
      */
     @Override
     public boolean isError() {
@@ -381,7 +398,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否播放完成
-     * @return                      true表示播放完成
+     *
+     * @return true表示播放完成
      */
     @Override
     public boolean isCompleted() {
@@ -391,7 +409,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否播放全屏
-     * @return                      true表示播放全屏
+     *
+     * @return true表示播放全屏
      */
     @Override
     public boolean isFullScreen() {
@@ -401,7 +420,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否播放小窗口
-     * @return                      true表示播放小窗口
+     *
+     * @return true表示播放小窗口
      */
     @Override
     public boolean isTinyWindow() {
@@ -411,7 +431,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否正常播放
-     * @return                      true表示正常播放
+     *
+     * @return true表示正常播放
      */
     @Override
     public boolean isNormal() {
@@ -421,7 +442,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取最大音量
-     * @return                  音量值
+     *
+     * @return 音量值
      */
     @Override
     public int getMaxVolume() {
@@ -434,7 +456,7 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
     /**
      * 获取当前播放状态
      *
-     * @return  播放状态
+     * @return 播放状态
      */
     @Override
     public int getPlayType() {
@@ -444,7 +466,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取音量值
-     * @return                  音量值
+     *
+     * @return 音量值
      */
     @Override
     public int getVolume() {
@@ -457,7 +480,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取持续时长
-     * @return                  long时间值
+     *
+     * @return long时间值
      */
     @Override
     public long getDuration() {
@@ -467,7 +491,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取播放位置
-     * @return                  位置
+     *
+     * @return 位置
      */
     @Override
     public long getCurrentPosition() {
@@ -477,7 +502,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取缓冲区百分比
-     * @return                  百分比
+     *
+     * @return 百分比
      */
     @Override
     public int getBufferPercentage() {
@@ -487,8 +513,9 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取播放速度
-     * @param speed             播放速度
-     * @return                  速度
+     *
+     * @param speed 播放速度
+     * @return 速度
      */
     @Override
     public float getSpeed(float speed) {
@@ -501,7 +528,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取播放速度
-     * @return                  速度
+     *
+     * @return 速度
      */
     @Override
     public long getTcpSpeed() {
@@ -513,9 +541,10 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 获取当前播放模式
+     *
      * @return
      */
-    public int getCurrentState(){
+    public int getCurrentState() {
         return mCurrentState;
     }
 
@@ -550,18 +579,18 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
                     //创建IjkMediaPlayer对象
                     mMediaPlayer = new IjkMediaPlayer();
                     //设置ijkPlayer播放器的硬件解码相关参数
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(1, "analyzemaxduration", 100L);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(1, "probesize", 10240L);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(1, "flush_packets", 1L);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "packet-buffering", 0L);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "framedrop", 1L);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "mediacodec", 0);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "opensles", 0);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "overlay-format", IjkMediaPlayer.SDL_FCC_RV32);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "framedrop", 1);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(4, "start-on-prepared", 0);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(1, "http-detect-range-support", 0);
-                    ((IjkMediaPlayer)mMediaPlayer).setOption(2, "skip_loop_filter", 48);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(1, "analyzemaxduration", 100L);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(1, "probesize", 10240L);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(1, "flush_packets", 1L);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "packet-buffering", 0L);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "framedrop", 1L);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "mediacodec", 0);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "opensles", 0);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "overlay-format", IjkMediaPlayer.SDL_FCC_RV32);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "framedrop", 1);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(4, "start-on-prepared", 0);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(1, "http-detect-range-support", 0);
+                    ((IjkMediaPlayer) mMediaPlayer).setOption(2, "skip_loop_filter", 48);
                     break;
             }
             //设置音频流类型
@@ -656,8 +685,8 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
         // 设置时间文本监听器
         mMediaPlayer.setOnTimedTextListener(mOnTimedTextListener);
         // 设置dataSource
-        if(mUrl==null || mUrl.length()==0){
-            Toast.makeText(mContext,"视频链接不能为空",Toast.LENGTH_SHORT).show();
+        if (mUrl == null || mUrl.length() == 0) {
+            Toast.makeText(mContext, "视频链接不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
         Uri path = Uri.parse(mUrl);
@@ -843,7 +872,7 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
      */
     @Override
     public void enterFullScreen() {
-        if (mCurrentMode == FRConstantKeys.PlayMode.MODE_FULL_SCREEN){
+        if (mCurrentMode == FRConstantKeys.PlayMode.MODE_FULL_SCREEN) {
             return;
         }
         // 隐藏ActionBar、状态栏，并横屏
@@ -868,7 +897,7 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
      */
     @Override
     public void enterVerticalScreenScreen() {
-        if (mCurrentMode == FRConstantKeys.PlayMode.MODE_FULL_SCREEN){
+        if (mCurrentMode == FRConstantKeys.PlayMode.MODE_FULL_SCREEN) {
             return;
         }
         // 隐藏ActionBar、状态栏，并横屏
@@ -887,8 +916,6 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
         mController.onPlayModeChanged(mCurrentMode);
         FRVideoLogUtils.d("MODE_FULL_SCREEN");
     }
-
-
 
 
     /**
@@ -1010,7 +1037,7 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
      * 关于我的github：https://github.com/yangchong211
      * 关于我的个人网站：www.ycbjie.cn或者www.yczbj.org
      * 杨充修改：
-     *      17年12月23日，添加释放音频和TextureView
+     * 17年12月23日，添加释放音频和TextureView
      */
     @Override
     public void releasePlayer() {

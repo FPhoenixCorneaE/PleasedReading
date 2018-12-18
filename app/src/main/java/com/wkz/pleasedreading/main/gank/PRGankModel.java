@@ -35,4 +35,33 @@ public class PRGankModel implements PRGankContract.IGankModel {
             }
         });
     }
+
+    @Override
+    public void getVideoInfo(PRGankBean.ResultsBean prGankBean, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRGankBean.ResultsBean> callback) {
+        PRGankApi.getInstance().getVideoInfo(prGankBean, lifecycleTransformer, new Observer<PRGankBean.ResultsBean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(PRGankBean.ResultsBean gankBean) {
+                if (callback != null) {
+                    callback.onSuccess(gankBean);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (callback != null) {
+                    callback.onFailure(e.getLocalizedMessage());
+                }
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 }

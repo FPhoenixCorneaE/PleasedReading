@@ -10,11 +10,6 @@ import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.wkz.framework.base.BaseFragment;
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BasePresenter;
-import com.wkz.framework.factorys.ModelFactory;
-import com.wkz.framework.model.FRBundle;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.SpaceDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
@@ -24,7 +19,6 @@ import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 import com.wkz.viewer.FRViewData;
-import com.wkz.viewer.widget.FRImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,40 +26,17 @@ import java.util.List;
 /**
  * 福利
  */
-public class PRGankWelfareFragment extends BaseFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener, FRBaseRecyclerAdapter.OnItemClickListener<String> {
+public class PRGankWelfareFragment extends PRGankFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener, FRBaseRecyclerAdapter.OnItemClickListener<String> {
 
-    private PRGankPresenter mPresenter;
     private PrFragmentGankChildBinding mDataBinding;
     private PRGankWelfareRecyclerAdapter mPRGankWelfareRecyclerAdapter;
     private String mTitle;
     private List<FRViewData> mViewList = new ArrayList<>();
-    private FRImageViewer mFrImageViewer;
 
-    public static PRGankWelfareFragment create(String title) {
-        PRGankWelfareFragment gankWelfareFragment = new PRGankWelfareFragment();
-        gankWelfareFragment.setArguments(new FRBundle().putString(PRConstant.PR_FRAGMENT_TITLE, title).create());
-        return gankWelfareFragment;
-    }
-
-    public PRGankWelfareFragment setFrImageViewer(FRImageViewer mFrImageViewer) {
-        this.mFrImageViewer = mFrImageViewer;
-        return this;
-    }
 
     @Override
     public int getLayoutId() {
         return R.layout.pr_fragment_gank_child;
-    }
-
-    @NonNull
-    @Override
-    public BasePresenter createPresenter() {
-        return mPresenter = new PRGankPresenter(this, this);
-    }
-
-    @Override
-    public BaseModel createModel() {
-        return ModelFactory.createModel(PRGankModel.class);
     }
 
     @Override

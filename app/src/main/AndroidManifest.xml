@@ -41,6 +41,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/FRTheme.Activity"
             android:windowSoftInputMode="adjustNothing" />
+        <!--视频-->
+        <activity
+            android:name=".main.gank.PRGankVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/FRTheme.Activity"
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 
 </manifest>
