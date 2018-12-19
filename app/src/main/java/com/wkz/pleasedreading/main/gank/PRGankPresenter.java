@@ -5,7 +5,6 @@ import com.wkz.framework.base.BasePresenter;
 import com.wkz.framework.base.BaseView;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
-import com.wkz.videoplayer.inter.IFRInterVideoPlayer;
 
 public class PRGankPresenter extends BasePresenter implements PRGankContract.IGankPresenter {
 
@@ -49,11 +48,6 @@ public class PRGankPresenter extends BasePresenter implements PRGankContract.IGa
                 if (mView != null) {
                     if (!data.isError()) {
                         mView.onSuccess(data.getResults());
-                        if ("休息视频".equals(type)) {
-                            for (int i = 0; i < data.getResults().size(); i++) {
-                                getVideoInfo(data.getResults().get(i));
-                            }
-                        }
                     } else {
                         mView.onFailure(FRHttpError.ERROR_UNKNOWN, FRHttpError.MESSAGE_UNKNOWN);
                     }
@@ -71,15 +65,19 @@ public class PRGankPresenter extends BasePresenter implements PRGankContract.IGa
 
     @Override
     public void getVideoInfo(PRGankBean.ResultsBean prGankBean) {
-        mModel.getVideoInfo(prGankBean, bindUntilFragmentEvent(), new OnFRHttpCallback<PRGankBean.ResultsBean>() {
+        mModel.getVideoInfo(prGankBean, bindUntilActivityEvent(), new OnFRHttpCallback<PRGankBean.ResultsBean>() {
             @Override
             public void onSuccess(PRGankBean.ResultsBean data) {
-
+                if (mView != null) {
+                    mView.onSuccess(data);
+                }
             }
 
             @Override
             public void onFailure(String msg) {
-
+                if (mView != null) {
+                    mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
+                }
             }
         });
     }

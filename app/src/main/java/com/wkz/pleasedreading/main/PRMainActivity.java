@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class PRMainActivity extends BaseActivity implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
 
-    private PRMainPresenter mPRMainPresenter;
+    private PRMainPresenter mPresenter;
     private PrActivityMainBinding mDataBinding;
 
     @Override
@@ -32,10 +32,9 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
         return R.layout.pr_activity_main;
     }
 
-    @NonNull
     @Override
     public BasePresenter createPresenter() {
-        return mPRMainPresenter = new PRMainPresenter(this, this);
+        return mPresenter = new PRMainPresenter(this, this);
     }
 
     @Override
@@ -122,6 +121,7 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
 
     /**
      * 加载头像背景
+     * 方法必须用static修饰
      *
      * @param prIvAvatarBg
      * @param avatarUrl
@@ -133,6 +133,7 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
 
     /**
      * 加载头像
+     * 方法必须用static修饰
      *
      * @param prIvAvatar
      * @param avatarUrl
@@ -144,6 +145,7 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
 
     /**
      * 加载头像Loading
+     * 方法必须用static修饰
      *
      * @param prIlvAvatar
      * @param avatarUrl

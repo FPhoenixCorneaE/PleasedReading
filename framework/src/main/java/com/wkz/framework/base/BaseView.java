@@ -1,13 +1,11 @@
 package com.wkz.framework.base;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public interface BaseView {
     int getLayoutId();
 
-    @NonNull
     BasePresenter createPresenter();
 
     BaseModel createModel();

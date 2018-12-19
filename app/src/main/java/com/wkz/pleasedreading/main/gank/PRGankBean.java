@@ -2,6 +2,8 @@ package com.wkz.pleasedreading.main.gank;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.wkz.pleasedreading.BR;
@@ -41,7 +43,7 @@ public class PRGankBean extends BaseObservable implements Serializable {
         notifyPropertyChanged(BR.results);
     }
 
-    public static class ResultsBean extends BaseObservable implements Serializable {
+    public static class ResultsBean extends BaseObservable implements Serializable, Parcelable {
         private static final long serialVersionUID = -7027641487501151048L;
         /**
          * _id : 5bba1b899d212261127b79d1
@@ -69,6 +71,36 @@ public class PRGankBean extends BaseObservable implements Serializable {
         private List<String> images;
         private String playAddr;
         private String cover;
+
+        public ResultsBean() {
+        }
+
+        protected ResultsBean(Parcel in) {
+            id = in.readString();
+            createdAt = in.readString();
+            desc = in.readString();
+            publishedAt = in.readString();
+            source = in.readString();
+            type = in.readString();
+            url = in.readString();
+            used = in.readByte() != 0;
+            who = in.readString();
+            images = in.createStringArrayList();
+            playAddr = in.readString();
+            cover = in.readString();
+        }
+
+        public static final Creator<ResultsBean> CREATOR = new Creator<ResultsBean>() {
+            @Override
+            public ResultsBean createFromParcel(Parcel in) {
+                return new ResultsBean(in);
+            }
+
+            @Override
+            public ResultsBean[] newArray(int size) {
+                return new ResultsBean[size];
+            }
+        };
 
         @Bindable
         public String getId() {
@@ -212,6 +244,27 @@ public class PRGankBean extends BaseObservable implements Serializable {
                     ", playAddr='" + playAddr + '\'' +
                     ", cover='" + cover + '\'' +
                     '}';
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(id);
+            dest.writeString(createdAt);
+            dest.writeString(desc);
+            dest.writeString(publishedAt);
+            dest.writeString(source);
+            dest.writeString(type);
+            dest.writeString(url);
+            dest.writeByte((byte) (used ? 1 : 0));
+            dest.writeString(who);
+            dest.writeStringList(images);
+            dest.writeString(playAddr);
+            dest.writeString(cover);
         }
     }
 

@@ -160,7 +160,9 @@ dependencies {
         exclude group: "com.android.support"
     }
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
-    implementation "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide"
+    implementation("com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide") {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
     /**
      * picasso
      */

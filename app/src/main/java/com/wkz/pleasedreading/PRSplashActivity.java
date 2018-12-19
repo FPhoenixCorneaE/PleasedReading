@@ -1,9 +1,7 @@
 package com.wkz.pleasedreading;
 
+import android.animation.Animator;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.wkz.bannerlayout.annotation.FRProgressShapeMode;
@@ -20,14 +18,12 @@ public class PRSplashActivity extends BaseActivity {
 
     private static final long SPLASH_TIME = 4000;
     private PrActivitySplashBinding mDataBinding;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     public int getLayoutId() {
         return R.layout.pr_activity_splash;
     }
 
-    @NonNull
     @Override
     public BasePresenter createPresenter() {
         return null;
@@ -50,13 +46,31 @@ public class PRSplashActivity extends BaseActivity {
                         .setBackgroundColor(ResourceUtils.getColor(R.color.fr_color_white))
                         .setProgressColor(ResourceUtils.getColor(R.color.fr_color_light_red))
                         .setDuration(SPLASH_TIME)
+                        .setAnimatorListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                IntentUtils.startActivity(mContext, PRMainActivity.class);
+                                finish();
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        })
                         .build()
         );
         progressDrawable.start();
-        mHandler.postDelayed(() -> {
-            IntentUtils.startActivity(mContext, PRMainActivity.class);
-            finish();
-        }, SPLASH_TIME);
     }
 
     @Override
@@ -70,13 +84,5 @@ public class PRSplashActivity extends BaseActivity {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mHandler != null) {
-            mHandler.removeCallbacksAndMessages(null);
-        }
     }
 }

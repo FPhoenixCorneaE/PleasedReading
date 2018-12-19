@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -56,9 +55,9 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
         return R.layout.pr_fragment_gank;
     }
 
-    @NonNull
     @Override
     public BasePresenter createPresenter() {
+        initImageViewer();
         return mPresenter = new PRGankPresenter(this, this);
     }
 
@@ -70,7 +69,6 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
     @Override
     public void initView() {
         mDataBinding = ((PrFragmentGankBinding) mViewDataBinding);
-        initImageViewer();
         mDataBinding.prCttlTab.init(
                 new FRColorTrackTabLayout.Builder()
                         .with(mDataBinding.prVpPager)
@@ -83,7 +81,7 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
                                 add(create("iOS", PRGankChildFragment.class));
                                 add(create("前端", PRGankChildFragment.class));
                                 add(create("App", PRGankChildFragment.class));
-                                add(create("休息视频", PRGankVideoFragment.class));
+                                add(create("休息视频", PRGankChildFragment.class));
                                 add(create("福利", PRGankWelfareFragment.class));
                                 add(create("拓展资源", PRGankChildFragment.class));
                             }

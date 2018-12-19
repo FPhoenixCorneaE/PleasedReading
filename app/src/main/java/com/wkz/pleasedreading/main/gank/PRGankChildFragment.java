@@ -118,7 +118,11 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
 
     @Override
     public void onItemClick(FRRecyclerViewHolder fRRecyclerViewHolder, PRGankBean.ResultsBean data, int position) {
-        IntentUtils.startActivity(mContext, FRWebPageActivity.class, new FRBundle().putString(FRConstant.WEB_URL, data.getUrl()).create());
+        if ("休息视频".equals(data.getType())) {
+            IntentUtils.startActivity(mContext, PRGankVideoActivity.class, new FRBundle().putSerializable(PRConstant.PR_GANK_VIDEO_INFO, data).create());
+        } else {
+            IntentUtils.startActivity(mContext, FRWebPageActivity.class, new FRBundle().putString(FRConstant.WEB_URL, data.getUrl()).create());
+        }
     }
 
     @Override
