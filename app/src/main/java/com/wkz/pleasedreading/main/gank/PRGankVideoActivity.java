@@ -14,7 +14,10 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrActivityGankVideoBinding;
 import com.wkz.videoplayer.controller.FRVideoPlayerController;
+import com.wkz.videoplayer.dialog.FRVideoClarity;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
+
+import java.util.ArrayList;
 
 public class PRGankVideoActivity extends BaseActivity implements PRGankContract.IGankView {
 
@@ -80,6 +83,16 @@ public class PRGankVideoActivity extends BaseActivity implements PRGankContract.
             FRVideoPlayerController videoPlayerController = new FRVideoPlayerController(mContext);
             mDataBinding.prVpVideo.setController(videoPlayerController);
             videoPlayerController.setTitle(prGankBean.getDesc());
+            videoPlayerController.setClarity(new ArrayList<FRVideoClarity>() {
+                private static final long serialVersionUID = -2418882412837550237L;
+
+                {
+                    add(new FRVideoClarity("标清", "270P", prGankBean.getPlayAddr()));
+                    add(new FRVideoClarity("高清", "480P", prGankBean.getPlayAddr()));
+                    add(new FRVideoClarity("超清", "720P", prGankBean.getPlayAddr()));
+                    add(new FRVideoClarity("蓝光", "1080P", prGankBean.getPlayAddr()));
+                }
+            }, 0);
             GlideUtils.setupImagePlaceColorRes(videoPlayerController.imageView(), prGankBean.getCover(), R.color.fr_color_black_translucent50);
             mDataBinding.prVpVideo.setUp(prGankBean.getPlayAddr(), null);
 

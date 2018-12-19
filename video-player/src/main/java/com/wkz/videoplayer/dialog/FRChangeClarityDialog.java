@@ -6,7 +6,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -61,14 +60,13 @@ public class FRChangeClarityDialog extends Dialog {
             }
         });
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.MarginLayoutParams.MATCH_PARENT);
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
         setContentView(mLinearLayout, params);
         //注意，这里一定要判空
         if (getWindow() != null) {
-            WindowManager.LayoutParams windowParams = getWindow().getAttributes();
-            windowParams.width = FRVideoPlayerUtils.getScreenHeight(context);
-            windowParams.height = FRVideoPlayerUtils.getScreenWidth(context);
-            getWindow().setAttributes(windowParams);
+            getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         }
     }
 

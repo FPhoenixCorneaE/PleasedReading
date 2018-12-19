@@ -1,6 +1,8 @@
 package com.wkz.videoplayer.dialog;
 
 
+import java.io.Serializable;
+
 /**
  * <pre>
  *     @author yangchong
@@ -10,8 +12,9 @@ package com.wkz.videoplayer.dialog;
  *     revise:
  * </pre>
  */
-public class FRVideoClarity {
+public class FRVideoClarity implements Serializable {
 
+    private static final long serialVersionUID = 523120972761618256L;
     /**
      * 清晰度等级
      */
@@ -24,6 +27,9 @@ public class FRVideoClarity {
      * 视频链接地址
      */
     private String videoUrl;
+
+    public FRVideoClarity() {
+    }
 
     public FRVideoClarity(String grade, String p, String videoUrl) {
         this.grade = grade;
@@ -53,5 +59,14 @@ public class FRVideoClarity {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "FRVideoClarity{" +
+                "grade='" + grade + '\'' +
+                ", p='" + p + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                '}';
     }
 }

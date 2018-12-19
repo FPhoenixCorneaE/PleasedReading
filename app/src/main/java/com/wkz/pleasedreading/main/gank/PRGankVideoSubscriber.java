@@ -18,10 +18,9 @@ import io.reactivex.ObservableOnSubscribe;
 
 
 /**
- * 豆瓣图书书评详情
- * Created on 2017/5/16.
+ * 干货视频
+ * Created on 2018/12/19.
  */
-
 public class PRGankVideoSubscriber<T> implements ObservableOnSubscribe<T> {
 
     /*设置网页抓取响应时间*/

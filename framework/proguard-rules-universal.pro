@@ -118,7 +118,7 @@
 }
 
 # 保留Serializable序列化的类不被混淆
--keepclassmembers class * implements java.io.Serializable {
+-keep class * implements java.io.Serializable {
    static final long serialVersionUID;
    private static final java.io.ObjectStreamField[] serialPersistentFields;
    !static !transient <fields>;
