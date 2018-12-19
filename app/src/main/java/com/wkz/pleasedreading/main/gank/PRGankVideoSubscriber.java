@@ -59,7 +59,7 @@ public class PRGankVideoSubscriber<T> implements ObservableOnSubscribe<T> {
                 Logger.i(paramsJson.toString());
                 /*播放地址*/
                 if (paramsJson.has("playAddr")) {
-                    playAddr = paramsJson.getString("playAddr").replace("https://", "http://");
+                    playAddr = paramsJson.getString("playAddr");
                     Logger.i(playAddr);
                 }
                 /*视频封面*/
