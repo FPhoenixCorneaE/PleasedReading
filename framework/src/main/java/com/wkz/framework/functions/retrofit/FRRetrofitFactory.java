@@ -30,6 +30,7 @@ public abstract class FRRetrofitFactory {
 
     //加载动态代码块
     static {
+        FRSslSocketUtils.SSLParams sslParams = FRSslSocketUtils.getSslSocketFactory();
         mOkHttpClient = new OkHttpClient.Builder()
                 //添加请求头拦截器
                 .addInterceptor(new FRHeaderInterceptor())
@@ -45,6 +46,9 @@ public abstract class FRRetrofitFactory {
                 )
                 //添加网络连接器
                 .addNetworkInterceptor(new FRNetworkInterceptor())
+                //信任所有证书,不安全有风险
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .hostnameVerifier(FRSslSocketUtils.UnSafeHostnameVerifier)
                 //设置连接超时时间
                 .connectTimeout(15, TimeUnit.SECONDS)
                 //设置请求读写的超时时间

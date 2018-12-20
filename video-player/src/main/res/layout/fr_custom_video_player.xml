@@ -11,7 +11,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:visibility="visible"/>
     <!--加载动画view-->
     <include layout="@layout/fr_custom_video_player_loading"/>

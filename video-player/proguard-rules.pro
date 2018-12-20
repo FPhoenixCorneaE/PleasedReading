@@ -21,6 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn com.wkz.videoplayer.**
+-keep class com.wkz.videoplayer.constant.**{*;}
 -keep class com.wkz.videoplayer.controller.**{
     public <methods>;
 }
