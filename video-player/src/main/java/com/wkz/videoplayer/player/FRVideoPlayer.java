@@ -26,6 +26,7 @@ import com.wkz.videoplayer.inter.IFRInterVideoPlayer;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 import com.wkz.videoplayer.utils.FRVideoLogUtils;
 import com.wkz.videoplayer.utils.FRVideoPlayerUtils;
+import com.wkz.videoplayer.videocache.manager.FRVideoCacheManager;
 import com.wkz.videoplayer.view.FRVideoTextureView;
 
 import java.io.IOException;
@@ -141,7 +142,12 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
         } else {
             FRVideoLogUtils.d("视频链接地址：" + url);
         }
-        mUrl = url;
+        try {
+            //获取视频缓存代理url
+            mUrl = FRVideoCacheManager.getProxy(mContext).getProxyUrl(url);
+        } catch (Exception e) {
+            mUrl = url;
+        }
         mHeaders = headers;
     }
 

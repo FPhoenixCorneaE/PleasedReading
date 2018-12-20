@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 101
-        versionName "1.0.1"
+        versionCode 102
+        versionName "1.0.2"
 
         ndk {
             abiFilters "armeabi", "x86", "armeabi-v7a", "arm64-v8a"
@@ -157,6 +157,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
     //这两个是必须要加的，其它的可供选择
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'

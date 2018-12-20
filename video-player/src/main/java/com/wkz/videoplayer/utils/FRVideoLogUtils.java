@@ -2,6 +2,8 @@ package com.wkz.videoplayer.utils;
 
 import android.util.Log;
 
+import com.wkz.videoplayer.BuildConfig;
+
 /**
  * <pre>
  *     @author yangchong
@@ -14,33 +16,44 @@ import android.util.Log;
 public final class FRVideoLogUtils {
 
     private static final String TAG = "FRVideoPlayer";
-    private static boolean isLog = true;
+    private static boolean isLog = BuildConfig.DEBUG;
 
     /**
      * 设置是否开启日志
-     * @param isLog                 是否开启日志
+     *
+     * @param isLog 是否开启日志
      */
     public static void setIsLog(boolean isLog) {
         FRVideoLogUtils.isLog = isLog;
     }
 
     public static void d(String message) {
-        if(isLog){
+        if (isLog) {
             Log.d(TAG, message);
         }
     }
 
     public static void i(String message) {
-        if(isLog){
+        if (isLog) {
             Log.i(TAG, message);
         }
+    }
 
+    public static void w(String message) {
+        if (isLog) {
+            Log.w(TAG, message);
+        }
+    }
+
+    public static void e(String message) {
+        if (isLog) {
+            Log.e(TAG, message);
+        }
     }
 
     public static void e(String message, Throwable throwable) {
-        if(isLog){
+        if (isLog) {
             Log.e(TAG, message, throwable);
         }
     }
-
 }
