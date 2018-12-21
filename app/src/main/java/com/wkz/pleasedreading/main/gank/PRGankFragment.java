@@ -58,7 +58,7 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
     @Override
     public BasePresenter createPresenter() {
         initImageViewer();
-        return mPresenter = new PRGankPresenter(this, this);
+        return mPresenter = new PRGankPresenter(this);
     }
 
     @Override

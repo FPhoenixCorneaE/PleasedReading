@@ -1,23 +1,16 @@
 package com.wkz.pleasedreading.main.gank;
 
-import com.trello.rxlifecycle2.LifecycleProvider;
 import com.wkz.framework.base.BasePresenter;
-import com.wkz.framework.base.BaseView;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 
-public class PRGankPresenter extends BasePresenter implements PRGankContract.IGankPresenter {
-
-    private PRGankContract.IGankView mView;
-    private PRGankContract.IGankModel mModel;
+public class PRGankPresenter extends BasePresenter<PRGankContract.IGankView, PRGankContract.IGankModel> implements PRGankContract.IGankPresenter {
 
     private int mPageNum = 10;
     private int mPageCount = 1;
 
-    public PRGankPresenter(BaseView view, LifecycleProvider provider) {
-        super(view, provider);
-        mView = (PRGankContract.IGankView) getView();
-        mModel = (PRGankContract.IGankModel) getModel();
+    public PRGankPresenter(PRGankContract.IGankView view) {
+        super(view);
     }
 
     /**
@@ -42,7 +35,7 @@ public class PRGankPresenter extends BasePresenter implements PRGankContract.IGa
 
     @Override
     public void getDataByType(String type) {
-        mModel.getDataByType(type, mPageNum, mPageCount, bindUntilFragmentEvent(), new OnFRHttpCallback<PRGankBean>() {
+        mModel.getDataByType(type, mPageNum, mPageCount, mView.bindToLife(), new OnFRHttpCallback<PRGankBean>() {
             @Override
             public void onSuccess(PRGankBean data) {
                 if (mView != null) {
@@ -65,7 +58,7 @@ public class PRGankPresenter extends BasePresenter implements PRGankContract.IGa
 
     @Override
     public void getVideoInfo(PRGankBean.ResultsBean prGankBean) {
-        mModel.getVideoInfo(prGankBean, bindUntilActivityEvent(), new OnFRHttpCallback<PRGankBean.ResultsBean>() {
+        mModel.getVideoInfo(prGankBean, mView.bindToLife(), new OnFRHttpCallback<PRGankBean.ResultsBean>() {
             @Override
             public void onSuccess(PRGankBean.ResultsBean data) {
                 if (mView != null) {

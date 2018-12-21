@@ -36,7 +36,7 @@ public class PRGankVideoActivity extends BaseActivity implements PRGankContract.
 
     @Override
     public BasePresenter createPresenter() {
-        return mPresenter = new PRGankPresenter(this, this);
+        return mPresenter = new PRGankPresenter(this);
     }
 
     @Override

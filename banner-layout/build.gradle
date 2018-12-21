@@ -164,6 +164,10 @@ dependencies {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
     /**
+     * okhttp3
+     */
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
+    /**
      * picasso
      */
     implementation 'com.squareup.picasso:picasso:' + rootProject.ext.versionPicasso

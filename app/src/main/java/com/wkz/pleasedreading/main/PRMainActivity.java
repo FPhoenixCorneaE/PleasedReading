@@ -34,7 +34,7 @@ public class PRMainActivity extends BaseActivity implements PRMainContract.IMain
 
     @Override
     public BasePresenter createPresenter() {
-        return mPresenter = new PRMainPresenter(this, this);
+        return mPresenter = new PRMainPresenter(this);
     }
 
     @Override

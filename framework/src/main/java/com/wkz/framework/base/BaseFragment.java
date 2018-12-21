@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
@@ -151,6 +153,11 @@ public abstract class BaseFragment
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindToLife() {
+        return bindUntilEvent(FragmentEvent.DESTROY);
     }
 
     @Override

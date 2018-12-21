@@ -163,4 +163,8 @@ dependencies {
     implementation("com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide") {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
+    /**
+     * okhttp3
+     */
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
 }

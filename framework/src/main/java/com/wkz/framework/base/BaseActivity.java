@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
@@ -94,6 +96,11 @@ public abstract class BaseActivity
         } else {
             return;
         }
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindToLife() {
+        return bindUntilEvent(ActivityEvent.DESTROY);
     }
 
     @Override

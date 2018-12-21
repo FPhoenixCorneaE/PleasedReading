@@ -1,49 +1,20 @@
 package com.wkz.framework.base;
 
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
+public class BasePresenter<V extends BaseView, M extends BaseModel> {
 
-public class BasePresenter {
+    protected V mView;
+    protected M mModel;
 
-    private BaseView mView;
-    private BaseModel mModel;
-    private LifecycleProvider mProvider;
-
-    public BasePresenter(BaseView view, LifecycleProvider provider) {
+    public BasePresenter(V view) {
         this.mView = view;
-        this.mProvider = provider;
-        this.mModel = mView.createModel();
+        this.mModel = (M) mView.createModel();
     }
 
-    /**
-     * 在Activity里取消订阅
-     *
-     * @return
-     */
-    public LifecycleTransformer bindUntilActivityEvent() {
-        return mProvider.bindUntilEvent(ActivityEvent.DESTROY);
-    }
-
-    /**
-     * 在Fragment里取消订阅
-     *
-     * @return
-     */
-    public LifecycleTransformer bindUntilFragmentEvent() {
-        return mProvider.bindUntilEvent(FragmentEvent.DESTROY);
-    }
-
-    public BaseView getView() {
+    public V getView() {
         return mView;
     }
 
-    public BaseModel getModel() {
+    public M getModel() {
         return mModel;
-    }
-
-    public LifecycleProvider getProvider() {
-        return mProvider;
     }
 }
