@@ -293,6 +293,15 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2"
 
     /**
+     * rxbinding2
+     */
+    implementation 'com.jakewharton.rxbinding2:rxbinding:' + rootProject.ext.versionRxbinding2
+    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:' + rootProject.ext.versionRxbinding2
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:' + rootProject.ext.versionRxbinding2
+    implementation 'com.jakewharton.rxbinding2:rxbinding-design:' + rootProject.ext.versionRxbinding2
+    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:' + rootProject.ext.versionRxbinding2
+
+    /**
      * okhttp3
      */
     implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"

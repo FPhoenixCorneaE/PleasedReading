@@ -33,7 +33,7 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
 
     private PrFragmentGankBinding mDataBinding;
     protected PRGankPresenter mPresenter;
-    protected FRImageViewer mFrImageViewer;
+    private FRImageViewer mFrImageViewer;
 
     private <T extends PRGankFragment> T create(String title, Class<T> tClass) {
         T gankChildFragment = null;
@@ -42,6 +42,11 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
             //如果有一个有参构造函数，无参构造函数就不存在了，在通过反射获得对象会抛出 java.lang.InstantiationException 异常。
             gankChildFragment = tClass.newInstance();
             gankChildFragment.setArguments(new FRBundle().putString(PRConstant.PR_FRAGMENT_TITLE, title).create());
+            if (gankChildFragment instanceof PRGankChildFragment) {
+                ((PRGankChildFragment) gankChildFragment).setImageViewer(mFrImageViewer);
+            } else if (gankChildFragment instanceof PRGankWelfareFragment) {
+                ((PRGankWelfareFragment) gankChildFragment).setImageViewer(mFrImageViewer);
+            }
         } catch (IllegalAccessException e) {
             Logger.e(e.toString());
         } catch (java.lang.InstantiationException e) {

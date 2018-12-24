@@ -19,6 +19,7 @@ import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 import com.wkz.viewer.FRViewData;
+import com.wkz.viewer.widget.FRImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,11 @@ public class PRGankWelfareFragment extends PRGankFragment implements IGankView, 
     private PRGankWelfareRecyclerAdapter mPRGankWelfareRecyclerAdapter;
     private String mTitle;
     private List<FRViewData> mViewList = new ArrayList<>();
+    private FRImageViewer mFrImageViewer;
 
+    public void setImageViewer(FRImageViewer mFrImageViewer) {
+        this.mFrImageViewer = mFrImageViewer;
+    }
 
     @Override
     public int getLayoutId() {

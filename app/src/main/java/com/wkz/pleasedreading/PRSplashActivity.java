@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.wkz.bannerlayout.annotation.FRProgressShapeMode;
 import com.wkz.bannerlayout.widget.FRProgressDrawable;
 import com.wkz.framework.base.BaseActivity;
@@ -13,6 +14,11 @@ import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.pleasedreading.databinding.PrActivitySplashBinding;
 import com.wkz.pleasedreading.main.PRMainActivity;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class PRSplashActivity extends BaseActivity {
 
@@ -75,10 +81,31 @@ public class PRSplashActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        mDataBinding.prRlSkip.setOnClickListener(v -> {
-            IntentUtils.startActivity(mContext, PRMainActivity.class);
-            finish();
-        });
+        RxView.clicks(mDataBinding.prRlSkip)
+                //throttleFirst操作符,设置间隔1秒才能发送下一个事件
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        IntentUtils.startActivity(mContext, PRMainActivity.class);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
