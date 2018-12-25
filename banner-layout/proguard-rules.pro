@@ -24,15 +24,15 @@
 -keep class com.wkz.bannerlayout.annotation.**{*;}
 -keepnames class com.wkz.bannerlayout.imagemanager.**
 -keep class com.wkz.bannerlayout.listener.**{*;}
--keep class com.wkz.bannerlayout.widget.FRBannerLayout {
+-keep class com.wkz.bannerlayout.widget.FRBannerLayout{
     public static <fields>;
     public *** *(...);
 }
--keep class com.wkz.bannerlayout.widget.FRProgressDrawable {
+-keep class com.wkz.bannerlayout.widget.FRProgressDrawable{
     public static <fields>;
     public *** *(...);
 }
--keep class com.wkz.bannerlayout.widget.FRProgressDrawable$Builder {
+-keep class com.wkz.bannerlayout.widget.FRProgressDrawable$*{
     public static <fields>;
     public *** *(...);
 }

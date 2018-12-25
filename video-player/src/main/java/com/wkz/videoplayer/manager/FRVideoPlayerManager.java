@@ -17,12 +17,15 @@ public final class FRVideoPlayerManager {
 
     private FRVideoPlayer mVideoPlayer;
     private static FRVideoPlayerManager sInstance;
-    private FRVideoPlayerManager() {}
+
+    private FRVideoPlayerManager() {
+    }
 
     /**
      * 一定要使用单例模式，保证同一时刻只有一个视频在播放，其他的都是初始状态
      * 单例模式
-     * @return          VideoPlayerManager对象
+     *
+     * @return VideoPlayerManager对象
      */
     public static synchronized FRVideoPlayerManager instance() {
         if (sInstance == null) {
@@ -34,7 +37,8 @@ public final class FRVideoPlayerManager {
 
     /**
      * 获取对象
-     * @return          VideoPlayerManager对象
+     *
+     * @return VideoPlayerManager对象
      */
     public FRVideoPlayer getCurrentVideoPlayer() {
         return mVideoPlayer;
@@ -43,7 +47,8 @@ public final class FRVideoPlayerManager {
 
     /**
      * 设置VideoPlayer
-     * @param videoPlayer       VideoPlayerManager对象
+     *
+     * @param videoPlayer VideoPlayerManager对象
      */
     public void setCurrentVideoPlayer(FRVideoPlayer videoPlayer) {
         if (mVideoPlayer != videoPlayer) {
@@ -92,13 +97,11 @@ public final class FRVideoPlayerManager {
     public boolean onBackPressed() {
         if (mVideoPlayer != null) {
             if (mVideoPlayer.isFullScreen()) {
-                return mVideoPlayer.exitFullScreen();
+                return mVideoPlayer.isLocked() || mVideoPlayer.exitFullScreen();
             } else if (mVideoPlayer.isTinyWindow()) {
                 return mVideoPlayer.exitTinyWindow();
             }
         }
         return false;
     }
-
-
 }

@@ -1,11 +1,11 @@
 package com.wkz.framework.base;
 
-public class BasePresenter<V extends BaseView, M extends BaseModel> {
+public class FRBasePresenter<V extends IFRBaseView, M extends IFRBaseModel> {
 
     protected V mView;
     protected M mModel;
 
-    public BasePresenter(V view) {
+    public FRBasePresenter(V view) {
         this.mView = view;
         this.mModel = (M) mView.createModel();
     }

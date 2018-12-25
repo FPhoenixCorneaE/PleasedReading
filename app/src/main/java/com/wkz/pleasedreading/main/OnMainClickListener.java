@@ -3,7 +3,7 @@ package com.wkz.pleasedreading.main;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
-import com.wkz.framework.base.BaseActivity;
+import com.wkz.framework.base.FRBaseActivity;
 
 public class OnMainClickListener {
 
@@ -20,7 +20,7 @@ public class OnMainClickListener {
         }
     }
 
-    public void clickGank(View view, BaseActivity context,DrawerLayout drawerLayout) {
+    public void clickGank(View view, FRBaseActivity context, DrawerLayout drawerLayout) {
         context.materialRipple(view, v -> {
             if (drawerLayout != null) {
                 drawerLayout.closeDrawers();

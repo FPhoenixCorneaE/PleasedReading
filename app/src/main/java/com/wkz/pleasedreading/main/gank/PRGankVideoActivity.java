@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
-import com.wkz.framework.base.BaseActivity;
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.base.FRBaseActivity;
+import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.FRBasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.utils.GlideUtils;
 import com.wkz.framework.utils.ScreenUtils;
@@ -24,7 +24,7 @@ import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
 import java.util.ArrayList;
 
-public class PRGankVideoActivity extends BaseActivity implements PRGankContract.IGankView {
+public class PRGankVideoActivity extends FRBaseActivity implements PRGankContract.IGankView {
 
     private PRGankPresenter mPresenter;
     private PrActivityGankVideoBinding mDataBinding;
@@ -35,12 +35,12 @@ public class PRGankVideoActivity extends BaseActivity implements PRGankContract.
     }
 
     @Override
-    public BasePresenter createPresenter() {
+    public FRBasePresenter createPresenter() {
         return mPresenter = new PRGankPresenter(this);
     }
 
     @Override
-    public BaseModel createModel() {
+    public IFRBaseModel createModel() {
         return ModelFactory.createModel(PRGankModel.class);
     }
 

@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.wkz.bannerlayout.annotation.FRProgressShapeMode;
 import com.wkz.bannerlayout.widget.FRProgressDrawable;
-import com.wkz.framework.base.BaseActivity;
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.base.FRBaseActivity;
+import com.wkz.framework.base.FRBasePresenter;
+import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.pleasedreading.databinding.PrActivitySplashBinding;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class PRSplashActivity extends BaseActivity {
+public class PRSplashActivity extends FRBaseActivity {
 
     private static final long SPLASH_TIME = 4000;
     private PrActivitySplashBinding mDataBinding;
@@ -31,12 +31,12 @@ public class PRSplashActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter createPresenter() {
+    public FRBasePresenter createPresenter() {
         return null;
     }
 
     @Override
-    public BaseModel createModel() {
+    public IFRBaseModel createModel() {
         return null;
     }
 

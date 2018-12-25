@@ -5,7 +5,7 @@
 
         <variable
             name="context"
-            type="com.wkz.framework.base.BaseActivity" />
+            type="com.wkz.framework.base.FRBaseActivity" />
 
         <variable
             name="drawerLayout"

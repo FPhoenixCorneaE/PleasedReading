@@ -1,18 +1,20 @@
 package com.wkz.framework.base;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
@@ -20,26 +22,58 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class BaseActivity
-        extends RxAppCompatActivity
-        implements BaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, BaseFragment.OnSelectedInterface {
+public abstract class FRBaseFragment
+        extends RxFragment
+        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
 
-    private static final String NAME_ACTIVITY = BaseActivity.class.getName();
-    protected BaseActivity mContext;
+    private static final String NAME_FRAGMENT = FRBaseFragment.class.getName();
+    protected FRBaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
-    private FRStatusLayoutManager mFRStatusLayoutManager;
     private View mContentView;
-    private BaseFragment mBaseFragment;
+    private FRStatusLayoutManager mFRStatusLayoutManager;
+    /**
+     * 标识fragment视图已经初始化完毕
+     */
+    private boolean mIsViewPrepared;
+    /**
+     * 标识已经触发过懒加载数据
+     */
+    private boolean mHasFetchData;
+    private OnSelectedInterface mOnSelectedInterface;
 
     @Override
-    protected final void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.v(NAME_ACTIVITY);
-        mContext = this;
+        Logger.v(NAME_FRAGMENT);
+        if (getActivity() instanceof OnSelectedInterface) {
+            this.mOnSelectedInterface = (OnSelectedInterface) getActivity();
+        }
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mOnSelectedInterface != null) {
+            mOnSelectedInterface.onSelectedFragment(this);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context != null) {
+            mContext = (FRBaseActivity) context;
+        } else {
+            mContext = (FRBaseActivity) getActivity();
+        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //设置内容视图
-        mContentView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
-        mViewDataBinding = DataBindingUtil.setContentView(mContext, getLayoutId());
+        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        mContentView = mViewDataBinding.getRoot();
         //设置状态布局
         mFRStatusLayoutManager = new FRStatusLayoutManager.Builder(mContentView)
                 .setOnStatusLayoutClickListener(this)
@@ -57,50 +91,73 @@ public abstract class BaseActivity
         initListener();
         //初始化数据
         initData(savedInstanceState);
+        return mContentView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mIsViewPrepared = true;
+        lazyFetchDataIfPrepared();
     }
 
     /**
-     * DataBinding结合BaseActivity和多状态布局使用的解决方案
-     *
-     * @param layoutResID
+     * 用户可见fragment && 没有加载过数据 && 视图已经准备完毕
      */
-    @Override
-    public void setContentView(int layoutResID) {
-        ViewGroup frParent = new FrameLayout(mContext);
-        frParent.addView(mContentView);
-        setContentView(frParent);
+    private void lazyFetchDataIfPrepared() {
+        if (getUserVisibleHint() && !mHasFetchData && mIsViewPrepared) {
+            mHasFetchData = true;
+            lazyFetchData();
+        }
+    }
 
-        ViewGroup androidContentView = findViewById(android.R.id.content);
-        frParent.setId(android.R.id.content);
-        androidContentView.setId(View.NO_ID);
+    /**
+     * 懒加载的方式获取数据，仅在满足fragment可见和视图已经准备好的时候调用一次
+     */
+    public void lazyFetchData() {
+
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //反注册网络变化监听
-        if (mContext != null) {
-            FRNetworkManager.getInstance().unregisterNetwork(mContext);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if ((isVisibleToUser && isResumed())) {
+            onResume();
         }
     }
 
     @Override
-    public void onBackPressed() {
-        //如果Fragment的onBackPressed()返回false，就会进入条件内进行默认的操作
-        if (mBaseFragment == null || !mBaseFragment.onBackPressed()) {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-                super.onBackPressed();
-            } else {
-                getSupportFragmentManager().popBackStack();
+    public void onDestroyView() {
+        super.onDestroyView();
+        // view被销毁后，将可以重新触发数据懒加载，因为在viewpager下，fragment不会再次新建并走onCreate的生命周期流程，将从onCreateView开始
+        mHasFetchData = false;
+        mIsViewPrepared = false;
+        if (mContentView != null) {
+            ViewGroup parent = (ViewGroup) mContentView.getParent();
+            if (parent != null) {
+                parent.removeView(mContentView);
             }
-        } else {
-            return;
         }
+    }
+
+    /**
+     * 所有继承BaseFragment的子类都将在这个方法中实现物理Back键按下后的逻辑
+     * FragmentActivity捕捉到物理返回键点击事件后会首先询问Fragment是否消费该事件
+     * 如果没有Fragment消息时FragmentActivity自己才会消费该事件
+     * 返回true消费该事件,返回false不消费
+     */
+    public boolean onBackPressed() {
+        return false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
     public <T> LifecycleTransformer<T> bindToLife() {
-        return bindUntilEvent(ActivityEvent.DESTROY);
+        return bindUntilEvent(FragmentEvent.DESTROY);
     }
 
     @Override
@@ -145,8 +202,11 @@ public abstract class BaseActivity
 
     @Override
     public void onFailure(int code, String msg) {
+        Logger.e("code-->" + code + "; errorMsg-->" + msg);
         showError();
-        ToastUtils.showShortSafe(msg);
+        if (!TextUtils.isEmpty(msg)) {
+            ToastUtils.showShortSafe(msg);
+        }
     }
 
     @Override
@@ -166,24 +226,14 @@ public abstract class BaseActivity
 
     @Override
     public void onWifiActive(String message) {
-        Logger.i(message);
     }
 
     @Override
     public void onMobileActive(String message) {
-        Logger.i(message);
-        ToastUtils.showShortSafe(message);
     }
 
     @Override
     public void onUnavailable(String message) {
-        Logger.i(message);
-        ToastUtils.showShortSafe(message);
-    }
-
-    @Override
-    public void onSelectedFragment(BaseFragment selectedFragment) {
-        this.mBaseFragment = selectedFragment;
     }
 
     /**
@@ -212,5 +262,9 @@ public abstract class BaseActivity
         layout.setClickable(true);
         layout.setOnClickListener(listener);
         return layout;
+    }
+
+    public interface OnSelectedInterface {
+        void onSelectedFragment(FRBaseFragment selectedFragment);
     }
 }

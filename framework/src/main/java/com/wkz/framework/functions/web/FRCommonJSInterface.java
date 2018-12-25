@@ -2,15 +2,15 @@ package com.wkz.framework.functions.web;
 
 import android.webkit.JavascriptInterface;
 
-import com.wkz.framework.base.BaseActivity;
+import com.wkz.framework.base.FRBaseActivity;
 
 public class FRCommonJSInterface {
 
     public static final String NAME = "FRFramework";
 
-    private BaseActivity mContext;
+    private FRBaseActivity mContext;
 
-    public FRCommonJSInterface(BaseActivity mContext) {
+    public FRCommonJSInterface(FRBaseActivity mContext) {
         this.mContext = mContext;
     }
 

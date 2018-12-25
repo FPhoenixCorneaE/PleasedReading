@@ -1,10 +1,10 @@
 package com.wkz.pleasedreading.main;
 
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BaseView;
+import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.IFRBaseView;
 
 public interface PRMainContract {
-    interface IMainView extends BaseView {
+    interface IMainView extends IFRBaseView {
 
     }
 
@@ -12,7 +12,7 @@ public interface PRMainContract {
 
     }
 
-    interface IMainModel extends BaseModel {
+    interface IMainModel extends IFRBaseModel {
 
     }
 }

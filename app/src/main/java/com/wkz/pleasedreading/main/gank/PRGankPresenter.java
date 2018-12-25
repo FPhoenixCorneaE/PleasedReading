@@ -1,10 +1,10 @@
 package com.wkz.pleasedreading.main.gank;
 
-import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.base.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 
-public class PRGankPresenter extends BasePresenter<PRGankContract.IGankView, PRGankContract.IGankModel> implements PRGankContract.IGankPresenter {
+public class PRGankPresenter extends FRBasePresenter<PRGankContract.IGankView, PRGankContract.IGankModel> implements PRGankContract.IGankPresenter {
 
     private int mPageNum = 10;
     private int mPageCount = 1;

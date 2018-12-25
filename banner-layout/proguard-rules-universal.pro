@@ -66,6 +66,9 @@
 # 这在JSON实体映射时非常重要，比如fastJson
 -keepattributes Signature
 
+# 保留内部类
+-keepattributes InnerClasses
+
 # 抛出异常时保留代码行号
 -keepattributes SourceFile,LineNumberTable
 

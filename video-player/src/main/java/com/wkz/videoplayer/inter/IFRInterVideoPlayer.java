@@ -17,8 +17,8 @@ public interface IFRInterVideoPlayer {
     /**
      * 设置视频Url，以及headers
      *
-     * @param url           视频地址，可以是本地，也可以是网络视频
-     * @param headers       请求header.
+     * @param url     视频地址，可以是本地，也可以是网络视频
+     * @param headers 请求header.
      */
     void setUp(String url, Map<String, String> headers);
 
@@ -30,7 +30,7 @@ public interface IFRInterVideoPlayer {
     /**
      * 从指定的位置开始播放
      *
-     * @param position      播放位置
+     * @param position 播放位置
      */
     void start(long position);
 
@@ -73,15 +73,25 @@ public interface IFRInterVideoPlayer {
     void continueFromLastPosition(boolean continueFromLastPosition);
 
 
-    /**------------------以下9个方法是播放器在当前的播放状态----------------------------*/
+    /**
+     * ------------------以下9个方法是播放器在当前的播放状态----------------------------
+     */
     boolean isIdle();
+
     boolean isPreparing();
+
     boolean isPrepared();
+
     boolean isBufferingPlaying();
+
     boolean isBufferingPaused();
+
     boolean isPlaying();
+
     boolean isPaused();
+
     boolean isError();
+
     boolean isCompleted();
 
     /**------------------以下3个方法是播放器的模式----------------------------*/
@@ -90,14 +100,21 @@ public interface IFRInterVideoPlayer {
      * 是否是全屏播放
      */
     boolean isFullScreen();
+
     /**
      * 是否是小窗口播放
      */
     boolean isTinyWindow();
+
     /**
      * 是否是正常播放
      */
     boolean isNormal();
+
+    /**
+     * 是否锁住
+     */
+    boolean isLocked();
 
     /**
      * 获取最大音量
@@ -109,7 +126,7 @@ public interface IFRInterVideoPlayer {
     /**
      * 获取当前播放状态
      *
-     * @return  播放状态
+     * @return 播放状态
      */
     int getPlayType();
 
@@ -155,6 +172,7 @@ public interface IFRInterVideoPlayer {
      * @return 网络加载速度
      */
     long getTcpSpeed();
+
     /**
      * 进入全屏模式
      * 这个是横屏模式

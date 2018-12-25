@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.base.BaseFragment;
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.base.FRBaseFragment;
+import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.FRBasePresenter;
 import com.wkz.framework.factorys.ModelFactory;
 import com.wkz.framework.model.FRBundle;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
@@ -29,7 +29,7 @@ import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
 
-public class PRGankFragment extends BaseFragment implements PRGankContract.IGankView {
+public class PRGankFragment extends FRBaseFragment implements PRGankContract.IGankView {
 
     private PrFragmentGankBinding mDataBinding;
     protected PRGankPresenter mPresenter;
@@ -61,13 +61,13 @@ public class PRGankFragment extends BaseFragment implements PRGankContract.IGank
     }
 
     @Override
-    public BasePresenter createPresenter() {
+    public FRBasePresenter createPresenter() {
         initImageViewer();
         return mPresenter = new PRGankPresenter(this);
     }
 
     @Override
-    public BaseModel createModel() {
+    public IFRBaseModel createModel() {
         return ModelFactory.createModel(PRGankModel.class);
     }
 

@@ -1,13 +1,13 @@
 package com.wkz.pleasedreading.main.gank;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BaseView;
+import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.IFRBaseView;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 
 public interface PRGankContract {
 
-    interface IGankView extends BaseView {
+    interface IGankView extends IFRBaseView {
 
     }
 
@@ -21,7 +21,7 @@ public interface PRGankContract {
         void getVideoInfo(PRGankBean.ResultsBean prGankBean);
     }
 
-    interface IGankModel extends BaseModel {
+    interface IGankModel extends IFRBaseModel {
         void getDataByType(String type, int pageNum, int pageCount, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRGankBean> callback);
 
         void getVideoInfo(PRGankBean.ResultsBean prGankBean, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRGankBean.ResultsBean> callback);

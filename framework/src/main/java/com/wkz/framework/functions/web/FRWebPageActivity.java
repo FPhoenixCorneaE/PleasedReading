@@ -2,20 +2,19 @@ package com.wkz.framework.functions.web;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.wkz.framework.R;
-import com.wkz.framework.base.BaseActivity;
-import com.wkz.framework.base.BaseModel;
-import com.wkz.framework.base.BasePresenter;
+import com.wkz.framework.base.FRBaseActivity;
+import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.FRBasePresenter;
 import com.wkz.framework.constant.FRConstant;
 import com.wkz.framework.databinding.FrActivityWebPageBinding;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.framework.widgets.FRProgressBar;
 
-public class FRWebPageActivity extends BaseActivity implements FRWebView.Listener {
+public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Listener {
 
     private FrActivityWebPageBinding mDataBinding;
     private String mUrl;
@@ -25,14 +24,13 @@ public class FRWebPageActivity extends BaseActivity implements FRWebView.Listene
         return R.layout.fr_activity_web_page;
     }
 
-    @NonNull
     @Override
-    public BasePresenter createPresenter() {
+    public FRBasePresenter createPresenter() {
         return null;
     }
 
     @Override
-    public BaseModel createModel() {
+    public IFRBaseModel createModel() {
         return null;
     }
 

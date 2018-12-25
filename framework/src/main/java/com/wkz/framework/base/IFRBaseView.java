@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
-public interface BaseView {
+public interface IFRBaseView {
     /**
      * 获取布局id
      *
@@ -16,14 +16,14 @@ public interface BaseView {
     /**
      * 构造presenter
      */
-    BasePresenter createPresenter();
+    FRBasePresenter createPresenter();
 
     /**
      * 构造model
      *
      * @return
      */
-    BaseModel createModel();
+    IFRBaseModel createModel();
 
     /**
      * 绑定生命周期,取消订阅

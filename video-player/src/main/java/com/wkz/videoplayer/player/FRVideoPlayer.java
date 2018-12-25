@@ -445,6 +445,14 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
         return mCurrentMode == FRConstantKeys.PlayMode.MODE_NORMAL;
     }
 
+    /**
+     * 判断视频是否被锁住
+     * @return
+     */
+    @Override
+    public boolean isLocked() {
+        return mController != null && mController.getLock();
+    }
 
     /**
      * 获取最大音量
