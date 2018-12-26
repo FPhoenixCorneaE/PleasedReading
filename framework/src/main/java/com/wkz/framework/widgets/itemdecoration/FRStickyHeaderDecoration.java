@@ -31,9 +31,9 @@ import java.util.Map;
 /**
  * A sticky header decoration for android's RecyclerView.
  */
-public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
+public class FRStickyHeaderDecoration extends RecyclerView.ItemDecoration {
     /**
-     * The adapter to assist the {@link StickyHeaderDecoration} in creating and binding the header views.
+     * The adapter to assist the {@link FRStickyHeaderDecoration} in creating and binding the header views.
      *
      * @param <T> the header view holder
      */
@@ -79,14 +79,14 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
     /**
      * @param adapter the sticky header adapter to use
      */
-    public StickyHeaderDecoration(IStickyHeaderAdapter adapter) {
+    public FRStickyHeaderDecoration(IStickyHeaderAdapter adapter) {
         this(adapter, false);
     }
 
     /**
      * @param adapter the sticky header adapter to use
      */
-    public StickyHeaderDecoration(IStickyHeaderAdapter adapter, boolean renderInline) {
+    public FRStickyHeaderDecoration(IStickyHeaderAdapter adapter, boolean renderInline) {
         mAdapter = adapter;
         mHeaderCache = new HashMap<>();
         mRenderInline = renderInline;

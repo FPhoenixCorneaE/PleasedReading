@@ -17,7 +17,7 @@ import com.orhanobut.logger.Logger;
 import com.wkz.framework.base.FRBaseFragment;
 import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.base.FRBasePresenter;
-import com.wkz.framework.factorys.ModelFactory;
+import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.model.FRBundle;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
 import com.wkz.pleasedreading.R;
@@ -29,10 +29,9 @@ import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
 
-public class PRGankFragment extends FRBaseFragment implements PRGankContract.IGankView {
+public class PRGankFragment extends FRBaseFragment<PRGankPresenter> implements PRGankContract.IGankView {
 
     private PrFragmentGankBinding mDataBinding;
-    protected PRGankPresenter mPresenter;
     private FRImageViewer mFrImageViewer;
 
     private <T extends PRGankFragment> T create(String title, Class<T> tClass) {
@@ -63,12 +62,12 @@ public class PRGankFragment extends FRBaseFragment implements PRGankContract.IGa
     @Override
     public FRBasePresenter createPresenter() {
         initImageViewer();
-        return mPresenter = new PRGankPresenter(this);
+        return new PRGankPresenter(this);
     }
 
     @Override
     public IFRBaseModel createModel() {
-        return ModelFactory.createModel(PRGankModel.class);
+        return FRModelFactory.createModel(PRGankModel.class);
     }
 
     @Override

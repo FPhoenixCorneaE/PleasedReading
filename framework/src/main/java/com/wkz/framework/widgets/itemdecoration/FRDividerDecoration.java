@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 
-public class DividerDecoration extends RecyclerView.ItemDecoration {
+public class FRDividerDecoration extends RecyclerView.ItemDecoration {
     private ColorDrawable mColorDrawable;
     private int mHeight;
     private int mPaddingLeft;
@@ -20,12 +20,12 @@ public class DividerDecoration extends RecyclerView.ItemDecoration {
     private boolean mDrawLastItem = true;
     private boolean mDrawHeaderFooter = false;
 
-    public DividerDecoration(int color, int height) {
+    public FRDividerDecoration(int color, int height) {
         this.mColorDrawable = new ColorDrawable(color);
         this.mHeight = height;
     }
 
-    public DividerDecoration(int color, int height, int paddingLeft, int paddingRight) {
+    public FRDividerDecoration(int color, int height, int paddingLeft, int paddingRight) {
         this.mColorDrawable = new ColorDrawable(color);
         this.mHeight = height;
         this.mPaddingLeft = paddingLeft;

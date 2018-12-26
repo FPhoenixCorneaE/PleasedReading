@@ -3,7 +3,6 @@ package com.wkz.pleasedreading.main.toutiao;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.functions.retrofit.FRRetrofitFactory;
 import com.wkz.pleasedreading.constant.PRUrl;
-import com.wkz.pleasedreading.main.gank.PRGankBean;
 
 import io.reactivex.Observer;
 
@@ -34,7 +33,7 @@ public class PRTouTiaoApi extends FRRetrofitFactory {
      * 获取视频列表
      * {@link PRTouTiao#getVideoList(String, String)}
      */
-    public void getDataByType(String category, String maxBehotTime, LifecycleTransformer lifecycleTransformer, Observer<PRGankBean> observer) {
+    public void getVideoList(String category, String maxBehotTime, LifecycleTransformer lifecycleTransformer, Observer<PRTouTiaoVideoBean> observer) {
         setObserver(createRetrofit(PRTouTiao.class).getVideoList(category, maxBehotTime), lifecycleTransformer, observer);
     }
 }

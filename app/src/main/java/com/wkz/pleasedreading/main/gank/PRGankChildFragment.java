@@ -15,7 +15,7 @@ import com.wkz.framework.model.FRBundle;
 import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.framework.utils.SizeUtils;
-import com.wkz.framework.widgets.itemdecoration.DividerDecoration;
+import com.wkz.framework.widgets.itemdecoration.FRDividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
 import com.wkz.pleasedreading.R;
@@ -63,7 +63,7 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     }
 
     private void initRecyclerView() {
-        DividerDecoration dividerDecoration = new DividerDecoration(
+        FRDividerDecoration dividerDecoration = new FRDividerDecoration(
                 ResourceUtils.getColor(R.color.fr_color_transparent),
                 SizeUtils.dp2px(0f)
         );

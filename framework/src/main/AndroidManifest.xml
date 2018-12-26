@@ -22,6 +22,6 @@
             android:theme="@style/FRTheme.Activity"
             android:windowSoftInputMode="adjustNothing" />
         <!--初始化服务-->
-        <service android:name=".services.InitializeService" />
+        <service android:name=".services.FRInitializeService" />
     </application>
 </manifest>

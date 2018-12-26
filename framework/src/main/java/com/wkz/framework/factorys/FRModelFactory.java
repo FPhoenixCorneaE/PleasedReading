@@ -3,7 +3,7 @@ package com.wkz.framework.factorys;
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.base.IFRBaseModel;
 
-public class ModelFactory {
+public class FRModelFactory {
 
     /**
      * 实例化Model对象

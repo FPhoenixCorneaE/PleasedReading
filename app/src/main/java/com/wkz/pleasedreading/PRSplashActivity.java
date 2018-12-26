@@ -43,8 +43,8 @@ public class PRSplashActivity extends FRBaseActivity {
     @Override
     public void initView() {
         mDataBinding = (PrActivitySplashBinding) mViewDataBinding;
-        FRProgressDrawable progressDrawable;
-        mDataBinding.prTvProgress.setBackground(progressDrawable =
+        FRProgressDrawable mProgressDrawable;
+        mDataBinding.prTvProgress.setBackground(mProgressDrawable =
                 new FRProgressDrawable.Builder(mContext)
                         .setShapeMode(FRProgressShapeMode.RING)
                         .setRadius(18f)
@@ -61,8 +61,10 @@ public class PRSplashActivity extends FRBaseActivity {
 
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                IntentUtils.startActivity(mContext, PRMainActivity.class);
-                                finish();
+                                if (!mContext.isFinishing()) {
+                                    IntentUtils.startActivity(mContext, PRMainActivity.class);
+                                    finish();
+                                }
                             }
 
                             @Override
@@ -77,7 +79,7 @@ public class PRSplashActivity extends FRBaseActivity {
                         })
                         .build()
         );
-        progressDrawable.start();
+        mProgressDrawable.start();
     }
 
     @Override

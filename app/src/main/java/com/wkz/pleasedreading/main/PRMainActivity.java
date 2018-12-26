@@ -10,7 +10,7 @@ import android.view.View;
 import com.wkz.framework.base.FRBaseActivity;
 import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.base.FRBasePresenter;
-import com.wkz.framework.factorys.ModelFactory;
+import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.FragmentUtils;
 import com.wkz.framework.utils.GlideUtils;
 import com.wkz.framework.widgets.FRInsLoadingView;
@@ -22,9 +22,8 @@ import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
 import java.util.ArrayList;
 
-public class PRMainActivity extends FRBaseActivity implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
+public class PRMainActivity extends FRBaseActivity<PRMainPresenter> implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
 
-    private PRMainPresenter mPresenter;
     private PrActivityMainBinding mDataBinding;
 
     @Override
@@ -34,12 +33,12 @@ public class PRMainActivity extends FRBaseActivity implements PRMainContract.IMa
 
     @Override
     public FRBasePresenter createPresenter() {
-        return mPresenter = new PRMainPresenter(this);
+        return new PRMainPresenter(this);
     }
 
     @Override
     public IFRBaseModel createModel() {
-        return ModelFactory.createModel(PRMainModel.class);
+        return FRModelFactory.createModel(PRMainModel.class);
     }
 
     @Override

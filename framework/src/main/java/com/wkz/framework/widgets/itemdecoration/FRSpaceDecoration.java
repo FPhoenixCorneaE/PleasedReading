@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 
-public class SpaceDecoration extends RecyclerView.ItemDecoration {
+public class FRSpaceDecoration extends RecyclerView.ItemDecoration {
 
     private int halfSpace;
     private int headerCount = -1;
@@ -21,7 +21,7 @@ public class SpaceDecoration extends RecyclerView.ItemDecoration {
     private boolean mPaddingHeaderFooter = false;
 
 
-    public SpaceDecoration(int space) {
+    public FRSpaceDecoration(int space) {
         this.halfSpace = space / 2;
     }
 

@@ -11,25 +11,24 @@ import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
 
-public class DefaultLongAdapter implements JsonSerializer<Long>, JsonDeserializer<Long> {
+public class FRDefaultDoubleAdapter implements JsonSerializer<Double>, JsonDeserializer<Double> {
     @Override
-    public Long deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+    public Double deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
-            if (json.getAsString().equals("") || json.getAsString().equals("null")) {//定义为Long类型,如果后台返回""或者null,则返回0
-                return 0L;
+            if (json.getAsString().equals("") || json.getAsString().equals("null")) {//定义为Double类型,如果后台返回""或者null,则返回0.00
+                return 0.00D;
             }
         } catch (Exception ignore) {
         }
         try {
-            return json.getAsLong();
+            return json.getAsDouble();
         } catch (NumberFormatException e) {
             throw new JsonSyntaxException(e);
         }
     }
 
     @Override
-    public JsonElement serialize(Long src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Double src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(src);
     }
 }

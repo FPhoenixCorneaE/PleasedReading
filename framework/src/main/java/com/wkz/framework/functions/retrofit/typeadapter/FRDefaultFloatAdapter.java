@@ -11,24 +11,24 @@ import com.google.gson.JsonSyntaxException;
 
 import java.lang.reflect.Type;
 
-public class DefaultStringAdapter implements JsonSerializer<String>, JsonDeserializer<String> {
+public class FRDefaultFloatAdapter implements JsonSerializer<Float>, JsonDeserializer<Float> {
     @Override
-    public String deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Float deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
-            if (json.getAsString().equals("null")) {//定义为String类型,如果后台返回null,则返回""
-                return "";
+            if (json.getAsString().equals("") || json.getAsString().equals("null")) {//定义为Float类型,如果后台返回""或者null,则返回0.0
+                return 0.0F;
             }
         } catch (Exception ignore) {
         }
         try {
-            return json.getAsString();
+            return json.getAsFloat();
         } catch (NumberFormatException e) {
             throw new JsonSyntaxException(e);
         }
     }
 
     @Override
-    public JsonElement serialize(String src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Float src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(src);
     }
 }

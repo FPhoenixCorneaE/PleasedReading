@@ -9,12 +9,12 @@ import com.wkz.framework.model.GlideApp;
 /**
  * 初始化服务,主要用于初始化一些影响应用启动速度的耗时任务,从而优化启动速度
  */
-public class InitializeService extends IntentService {
+public class FRInitializeService extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      */
-    public InitializeService() {
-        super("InitializeService");
+    public FRInitializeService() {
+        super("FRInitializeService");
     }
 
     @Override

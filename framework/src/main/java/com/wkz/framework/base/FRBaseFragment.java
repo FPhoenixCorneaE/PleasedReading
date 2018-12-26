@@ -22,7 +22,7 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class FRBaseFragment
+public abstract class FRBaseFragment<P extends FRBasePresenter>
         extends RxFragment
         implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
 
@@ -31,6 +31,7 @@ public abstract class FRBaseFragment
     protected ViewDataBinding mViewDataBinding;
     private View mContentView;
     private FRStatusLayoutManager mFRStatusLayoutManager;
+    protected P mPresenter;
     /**
      * 标识fragment视图已经初始化完毕
      */
@@ -80,7 +81,7 @@ public abstract class FRBaseFragment
                 .build();
 
         //构建Presenter
-        createPresenter();
+        mPresenter = (P) createPresenter();
 
         //注册网络变化监听
         FRNetworkManager.getInstance().registerNetwork(mContext, this);

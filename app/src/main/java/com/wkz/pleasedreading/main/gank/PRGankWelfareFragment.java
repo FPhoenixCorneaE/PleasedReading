@@ -11,7 +11,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wkz.framework.utils.SizeUtils;
-import com.wkz.framework.widgets.itemdecoration.SpaceDecoration;
+import com.wkz.framework.widgets.itemdecoration.FRSpaceDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
 import com.wkz.pleasedreading.R;
@@ -65,7 +65,7 @@ public class PRGankWelfareFragment extends PRGankFragment implements IGankView, 
     }
 
     private void initRecyclerView() {
-        SpaceDecoration spaceDecoration = new SpaceDecoration(SizeUtils.dp2px(10f));
+        FRSpaceDecoration spaceDecoration = new FRSpaceDecoration(SizeUtils.dp2px(10f));
         mDataBinding.prRvGankChild.addItemDecoration(spaceDecoration);
         //定义瀑布流管理器，第一个参数是列数，第二个是方向。
         final StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);

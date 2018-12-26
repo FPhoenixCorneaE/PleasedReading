@@ -11,7 +11,7 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.LogcatLogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.wkz.framework.services.InitializeService;
+import com.wkz.framework.services.FRInitializeService;
 
 public class FRApplication extends Application {
 
@@ -45,7 +45,7 @@ public class FRApplication extends Application {
      * 在Application的onCreate方法中，在工作线程调用一次GlideApp.get(this)可优化启动速度
      */
     private void initPictureFrame() {
-        startService(new Intent(getContext(), InitializeService.class));
+        startService(new Intent(getContext(), FRInitializeService.class));
     }
 
     private void initLogger() {

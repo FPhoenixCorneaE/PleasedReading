@@ -20,7 +20,7 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class FRBaseActivity
+public abstract class FRBaseActivity<P extends FRBasePresenter>
         extends RxAppCompatActivity
         implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, FRBaseFragment.OnSelectedInterface {
 
@@ -29,6 +29,7 @@ public abstract class FRBaseActivity
     protected ViewDataBinding mViewDataBinding;
     private FRStatusLayoutManager mFRStatusLayoutManager;
     private View mContentView;
+    protected P mPresenter;
     private FRBaseFragment mBaseFragment;
 
     @Override
@@ -46,7 +47,7 @@ public abstract class FRBaseActivity
                 .build();
 
         //构建Presenter
-        createPresenter();
+        mPresenter = (P) createPresenter();
 
         //注册网络变化监听
         FRNetworkManager.getInstance().registerNetwork(mContext, this);

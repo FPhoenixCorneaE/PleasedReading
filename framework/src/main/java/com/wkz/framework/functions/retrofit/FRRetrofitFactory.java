@@ -5,11 +5,11 @@ import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.annotations.FRMemoryUnit;
-import com.wkz.framework.functions.retrofit.typeadapter.DefaultDoubleAdapter;
-import com.wkz.framework.functions.retrofit.typeadapter.DefaultFloatAdapter;
-import com.wkz.framework.functions.retrofit.typeadapter.DefaultIntegerAdapter;
-import com.wkz.framework.functions.retrofit.typeadapter.DefaultLongAdapter;
-import com.wkz.framework.functions.retrofit.typeadapter.DefaultStringAdapter;
+import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultDoubleAdapter;
+import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultFloatAdapter;
+import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultIntegerAdapter;
+import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultLongAdapter;
+import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultStringAdapter;
 import com.wkz.framework.utils.FileUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -94,11 +94,11 @@ public abstract class FRRetrofitFactory {
                 //使打印的json字符串更美观，如果不设置，打印出来的字符串不分行
                 .setPrettyPrinting()
                 //自定义类型适配器
-                .registerTypeAdapter(Double.class, new DefaultDoubleAdapter())
-                .registerTypeAdapter(Float.class, new DefaultFloatAdapter())
-                .registerTypeAdapter(Integer.class, new DefaultIntegerAdapter())
-                .registerTypeAdapter(Long.class, new DefaultLongAdapter())
-                .registerTypeAdapter(String.class, new DefaultStringAdapter())
+                .registerTypeAdapter(Double.class, new FRDefaultDoubleAdapter())
+                .registerTypeAdapter(Float.class, new FRDefaultFloatAdapter())
+                .registerTypeAdapter(Integer.class, new FRDefaultIntegerAdapter())
+                .registerTypeAdapter(Long.class, new FRDefaultLongAdapter())
+                .registerTypeAdapter(String.class, new FRDefaultStringAdapter())
                 .create();
     }
 
