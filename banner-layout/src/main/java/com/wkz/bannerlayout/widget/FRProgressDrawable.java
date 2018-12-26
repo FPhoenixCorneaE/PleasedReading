@@ -30,8 +30,7 @@ public class FRProgressDrawable extends Drawable implements Animatable {
     @FRProgressShapeMode
     private int mShapeMode;
     private float mRingThickness;
-    @ColorInt
-    private int mInnerCircleColor;
+    private boolean mIsReverse;
 
     private Paint mPaint;
     private ValueAnimator mAnimator;
@@ -54,7 +53,7 @@ public class FRProgressDrawable extends Drawable implements Animatable {
         this.mRadius = builder.mRadius;
         this.mShapeMode = builder.mShapeMode;
         this.mRingThickness = builder.mRingThickness;
-        this.mInnerCircleColor = builder.mInnerCircleColor;
+        this.mIsReverse = builder.mIsReverse;
 
         init();
     }
@@ -62,8 +61,17 @@ public class FRProgressDrawable extends Drawable implements Animatable {
     private void init() {
         // 设置画笔参数
         mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.FILL);
+        //去掉锯齿
         mPaint.setAntiAlias(true);
+        if (FRProgressShapeMode.RECTANGLE == mShapeMode) {
+            mPaint.setStyle(Paint.Style.FILL);
+        } else {
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(mRingThickness);
+            //画笔默认为矩形，用圆形画笔，使效果更加平滑
+            mPaint.setStrokeJoin(Paint.Join.ROUND);
+            mPaint.setStrokeCap(Paint.Cap.ROUND);
+        }
 
         //是否动画
         if (mIsAnimated) {
@@ -137,22 +145,34 @@ public class FRProgressDrawable extends Drawable implements Animatable {
             // 绘制进度
             if (mIsAnimated) {
                 mPaint.setColor(mProgressColor);
-                canvas.drawRoundRect(new RectF(0, 0, mProgressWidth, mHeight),
-                        mRadius, mRadius, mPaint);
+                canvas.drawRoundRect(
+                        new RectF(0, 0,
+                                mIsReverse ? mWidth - mProgressWidth : mProgressWidth,
+                                mHeight), mRadius, mRadius, mPaint);
             }
         } else if (FRProgressShapeMode.RING == mShapeMode) {
             // 绘制背景
             mPaint.setColor(mBackgroundColor);
-            canvas.drawCircle(mRadius, mRadius, mRadius, mPaint);
+            canvas.drawCircle(
+                    mRadius + mRingThickness / 2,
+                    mRadius + mRingThickness / 2,
+                    mRadius,
+                    mPaint
+            );
 
             // 绘制进度
             mPaint.setColor(mProgressColor);
-            canvas.drawArc(new RectF(0, 0, mRadius * 2, mRadius * 2),
-                    -90, 360 * mProgress, true, mPaint);
-
-            // 绘制空心圆
-            mPaint.setColor(mInnerCircleColor);
-            canvas.drawCircle(mRadius, mRadius, mRadius - mRingThickness, mPaint);
+            canvas.drawArc(
+                    new RectF(
+                            mRingThickness / 2,
+                            mRingThickness / 2,
+                            mRadius * 2 + mRingThickness / 2,
+                            mRadius * 2 + mRingThickness / 2
+                    ),
+                    -90,
+                    360 * (mIsReverse ? 1 - mProgress : mProgress),
+                    false, mPaint
+            );
         }
     }
 
@@ -202,24 +222,55 @@ public class FRProgressDrawable extends Drawable implements Animatable {
         private static final float DEFAULT_RADIUS = 10F;
         private static final int DEFAULT_SHAPE_MODE = FRProgressShapeMode.RECTANGLE;
         private static final float DEFAULT_RING_THICKNESS = 2.5F;
-        private static final int DEFAULT_INNER_CIRCLE_COLOR = Color.LTGRAY;
+        private static final boolean DEFAULT_IS_REVERSE = false;
 
         private Context mContext;
         private Animator.AnimatorListener mAnimatorListener;
+        /**
+         * 是否开启动画
+         */
         private boolean mIsAnimated;
+        /**
+         * 图形模式为RECTANGLE的宽度
+         */
         private float mWidth;
+        /**
+         * 图形模式为RECTANGLE的高度
+         */
         private float mHeight;
+        /**
+         * 持续时间
+         */
         private long mDuration;
+        /**
+         * 背景颜色
+         */
         @ColorInt
         private int mBackgroundColor;
+        /**
+         * 进度条颜色
+         */
         @ColorInt
         private int mProgressColor;
+        /**
+         * 图形模式为RECTANGLE时为圆角半径,
+         * 图形模式为RECTANGLE时为圆环内圆半径
+         */
         private float mRadius;
+        /**
+         * 图形模式
+         * {@link FRProgressShapeMode}
+         */
         @FRProgressShapeMode
         private int mShapeMode;
+        /**
+         * 圆环厚度
+         */
         private float mRingThickness;
-        @ColorInt
-        private int mInnerCircleColor;
+        /**
+         * 是否倒放动画
+         */
+        private boolean mIsReverse;
 
         public Builder(Context mContext) {
             this.mContext = mContext;
@@ -232,7 +283,7 @@ public class FRProgressDrawable extends Drawable implements Animatable {
             this.mRadius = dp2px(DEFAULT_RADIUS);
             this.mShapeMode = DEFAULT_SHAPE_MODE;
             this.mRingThickness = dp2px(DEFAULT_RING_THICKNESS);
-            this.mInnerCircleColor = DEFAULT_INNER_CIRCLE_COLOR;
+            this.mIsReverse = DEFAULT_IS_REVERSE;
         }
 
         public boolean isAnimated() {
@@ -325,12 +376,12 @@ public class FRProgressDrawable extends Drawable implements Animatable {
             return this;
         }
 
-        public int getInnerCircleColor() {
-            return mInnerCircleColor;
+        public boolean isReverse() {
+            return mIsReverse;
         }
 
-        public Builder setInnerCircleColor(int mInnerCircleColor) {
-            this.mInnerCircleColor = mInnerCircleColor;
+        public Builder setReverse(boolean reverse) {
+            mIsReverse = reverse;
             return this;
         }
 

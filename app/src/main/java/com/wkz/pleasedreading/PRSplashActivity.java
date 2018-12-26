@@ -49,8 +49,9 @@ public class PRSplashActivity extends FRBaseActivity {
                         .setShapeMode(FRProgressShapeMode.RING)
                         .setRadius(18f)
                         .setRingThickness(1.5f)
-                        .setBackgroundColor(ResourceUtils.getColor(R.color.fr_color_white))
+                        .setBackgroundColor(ResourceUtils.getColor(R.color.fr_color_black_translucent10))
                         .setProgressColor(ResourceUtils.getColor(R.color.fr_color_light_red))
+                        .setReverse(true)
                         .setDuration(SPLASH_TIME)
                         .setAnimatorListener(new Animator.AnimatorListener() {
                             @Override
