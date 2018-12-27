@@ -41,7 +41,7 @@ public class FRMaterialRippleLayout extends FrameLayout {
     private static final int DEFAULT_FADE_DURATION = 75;
     private static final float DEFAULT_DIAMETER_DP = 35;
     private static final float DEFAULT_ALPHA = 0.2f;
-    private static final int DEFAULT_COLOR = Color.BLACK;
+    private static final int DEFAULT_COLOR = Color.LTGRAY;
     private static final int DEFAULT_BACKGROUND = Color.TRANSPARENT;
     private static final boolean DEFAULT_HOVER = true;
     private static final boolean DEFAULT_DELAY_CLICK = true;

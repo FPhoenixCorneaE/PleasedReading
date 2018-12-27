@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.main.gank;
+package com.wkz.pleasedreading.main.toutiao;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,42 +9,30 @@ import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.wkz.framework.constant.FRConstant;
-import com.wkz.framework.functions.web.FRWebPageActivity;
-import com.wkz.framework.model.FRBundle;
-import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.FRDividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
-import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
-import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
-import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
-import com.wkz.viewer.widget.FRImageViewer;
+import com.wkz.pleasedreading.databinding.PrFragmentToutiaoChildBinding;
 
 import java.util.List;
 
-public class PRGankChildFragment extends PRGankFragment implements IGankView, FRBaseRecyclerAdapter.OnLoadMoreListener, OnRefreshListener, FRBaseRecyclerAdapter.OnItemClickListener<PRGankBean.ResultsBean> {
+public class PRTouTiaoChildFragment extends PRTouTiaoFragment implements PRTouTiaoContract.ITouTiaoView, OnRefreshListener, FRBaseRecyclerAdapter.OnLoadMoreListener {
 
-    private PrFragmentGankChildBinding mDataBinding;
-    private PRGankChildRecyclerAdapter mPRGankChildRecyclerAdapter;
-    private String mTitle;
-    private FRImageViewer mFrImageViewer;
-
-    public void setImageViewer(FRImageViewer mFrImageViewer) {
-        this.mFrImageViewer = mFrImageViewer;
-    }
+    private PrFragmentToutiaoChildBinding mDataBinding;
+    private PRTouTiaoChildRecyclerAdapter mPRTouTiaoChildRecyclerAdapter;
+    private String mCatagoryId;
 
     @Override
     public int getLayoutId() {
-        return R.layout.pr_fragment_gank_child;
+        return R.layout.pr_fragment_toutiao_child;
     }
 
     @Override
     public void initView() {
-        mDataBinding = (PrFragmentGankChildBinding) mViewDataBinding;
+        mDataBinding = (PrFragmentToutiaoChildBinding) mViewDataBinding;
         initSmartRefreshLayout();
         initRecyclerView();
     }
@@ -69,37 +57,37 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
         );
         mDataBinding.prRvGankChild.addItemDecoration(dividerDecoration);
         mDataBinding.prRvGankChild.setLayoutManager(new LinearLayoutManager(mContext));
-        mDataBinding.prRvGankChild.setAdapter(mPRGankChildRecyclerAdapter =
-                ((PRGankChildRecyclerAdapter)
-                        new PRGankChildRecyclerAdapter(mContext, null, true)
-                                .setOnLoadMoreListener(this))
-                        .setFRImageViewer(mFrImageViewer)
+        mDataBinding.prRvGankChild.setAdapter(
+                mPRTouTiaoChildRecyclerAdapter = ((PRTouTiaoChildRecyclerAdapter)
+                        new PRTouTiaoChildRecyclerAdapter(mContext, null, true)
+                                .setIgnorePageNum(true)
+                                .setOnLoadMoreListener(this)
+                )
         );
     }
 
     @Override
     public void initListener() {
-        mPRGankChildRecyclerAdapter.setOnItemClickListener(this);
+
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
-            mTitle = getArguments().getString(PRConstant.PR_FRAGMENT_TITLE);
+            mCatagoryId = getArguments().getString(PRConstant.PR_TOUTIAO_VIDEO_CATAGORY_ID);
         } else {
-            mTitle = "";
+            mCatagoryId = "";
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void onSuccess(@Nullable Object data) {
         super.onSuccess(data);
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
-            mPRGankChildRecyclerAdapter.setNewData((List<PRGankBean.ResultsBean>) data);
+            mPRTouTiaoChildRecyclerAdapter.setNewData((List<PRTouTiaoVideoBean.DataBean>) data);
         } else {
-            mPRGankChildRecyclerAdapter.setLoadMoreData((List<PRGankBean.ResultsBean>) data);
+            mPRTouTiaoChildRecyclerAdapter.setLoadMoreData((List<PRTouTiaoVideoBean.DataBean>) data);
         }
     }
 
@@ -112,26 +100,12 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     }
 
     @Override
-    public void onLoadMore(boolean isReload) {
-        mPresenter.onLoadMoreDataByType(mTitle);
-    }
-
-    @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.onRefreshDataByType(mTitle);
+        mPresenter.onRefreshData(mCatagoryId);
     }
 
     @Override
-    public void onItemClick(FRRecyclerViewHolder fRRecyclerViewHolder, PRGankBean.ResultsBean data, int position) {
-        if ("休息视频".equals(data.getType())) {
-            IntentUtils.startActivity(mContext, PRGankVideoActivity.class, new FRBundle().putSerializable(PRConstant.PR_GANK_VIDEO_INFO, data).create());
-        } else {
-            IntentUtils.startActivity(mContext, FRWebPageActivity.class, new FRBundle().putString(FRConstant.WEB_URL, data.getUrl()).create());
-        }
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return mFrImageViewer != null && mFrImageViewer.onBackPressed();
+    public void onLoadMore(boolean isReload) {
+        mPresenter.onLoadMoreData(mCatagoryId);
     }
 }

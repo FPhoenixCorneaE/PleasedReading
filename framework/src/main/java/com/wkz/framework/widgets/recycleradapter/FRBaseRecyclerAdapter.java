@@ -72,6 +72,7 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     @Status
     private int mStatus;//当前状态
     private boolean showHeaderView;//是否显示HeaderView
+    private boolean mIgnorePageNum;
     private int mPageNum = 10;
 
     protected abstract int getViewType(int position, T data);
@@ -428,13 +429,22 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
         return this;
     }
 
+    public boolean isIgnorePageNum() {
+        return mIgnorePageNum;
+    }
+
+    public FRBaseRecyclerAdapter<T> setIgnorePageNum(boolean ignorePageNum) {
+        this.mIgnorePageNum = ignorePageNum;
+        return this;
+    }
+
     /**
      * 刷新加载更多的数据
      *
      * @param datas
      */
     public FRBaseRecyclerAdapter<T> setLoadMoreData(List<T> datas) {
-        if (datas != null && datas.size() == mPageNum) {
+        if ((datas != null && datas.size() == mPageNum) || mIgnorePageNum) {
             mStatus = Status.LOADING_END;
             insert(datas, mDatas.size());
         } else {
@@ -455,7 +465,7 @@ public abstract class FRBaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
      * @param datas
      */
     public FRBaseRecyclerAdapter<T> setNewData(List<T> datas) {
-        if (datas != null && datas.size() == mPageNum) {
+        if ((datas != null && datas.size() == mPageNum) || mIgnorePageNum) {
             mStatus = Status.LOADING_END;
             mDatas.clear();
             insert(datas, mDatas.size());

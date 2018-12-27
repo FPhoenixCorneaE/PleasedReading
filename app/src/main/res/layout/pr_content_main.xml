@@ -10,6 +10,10 @@
         <variable
             name="title"
             type="String" />
+
+        <variable
+            name="onMainClickListener"
+            type="com.wkz.pleasedreading.main.OnMainClickListener" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,6 +42,7 @@
                 android:layout_width="@dimen/pr_actionBarSize"
                 android:layout_height="@dimen/pr_actionBarSize"
                 android:layout_centerVertical="true"
+                android:onClick="@{onMainClickListener::openDrawer}"
                 android:src="@drawable/pr_shape_placeholder_avatar_circle"
                 app:avatarLoadingUrl="@{avatarUrl}"
                 app:fr_ilv_end_color="@color/fr_color_light_purple"

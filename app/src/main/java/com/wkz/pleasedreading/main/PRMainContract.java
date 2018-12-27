@@ -1,6 +1,7 @@
 package com.wkz.pleasedreading.main;
 
 import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.IFRBasePresenter;
 import com.wkz.framework.base.IFRBaseView;
 
 public interface PRMainContract {
@@ -8,7 +9,7 @@ public interface PRMainContract {
 
     }
 
-    interface IMainPresenter {
+    interface IMainPresenter extends IFRBasePresenter {
 
     }
 

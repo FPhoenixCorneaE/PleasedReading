@@ -2,6 +2,7 @@ package com.wkz.pleasedreading.main.gank;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.base.IFRBasePresenter;
 import com.wkz.framework.base.IFRBaseView;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 
@@ -11,7 +12,7 @@ public interface PRGankContract {
 
     }
 
-    interface IGankPresenter {
+    interface IGankPresenter extends IFRBasePresenter {
         void onRefreshDataByType(String type);
 
         void onLoadMoreDataByType(String type);

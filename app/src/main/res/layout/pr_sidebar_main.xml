@@ -9,7 +9,7 @@
 
         <variable
             name="drawerLayout"
-            type="android.support.v4.widget.DrawerLayout"/>
+            type="android.support.v4.widget.DrawerLayout" />
 
         <variable
             name="avatarUrl"
@@ -99,29 +99,33 @@
                     <android.support.v7.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
 
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="15dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:onClick="@{onMainClickListener::clickGank}"
+                            android:onClick="@{(view)->onMainClickListener.clickGank(view,context,drawerLayout)}"
                             android:paddingStart="20dp"
+                            android:paddingTop="10dp"
                             android:paddingEnd="20dp"
+                            android:paddingBottom="10dp"
                             android:text="@{menuList[0]}"
                             android:textColor="@color/fr_color_black"
                             android:textSize="18sp" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="15dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:onClickListener="@{(view)->onMainClickListener.clickGank(view,context,drawerLayout)}"
+                            android:onClickListener="@{(view)->onMainClickListener.clickTouTiaoVideo(view,context,drawerLayout)}"
                             android:paddingStart="20dp"
+                            android:paddingTop="10dp"
                             android:paddingEnd="20dp"
-                            android:text="@{menuList[0]}"
+                            android:paddingBottom="10dp"
+                            android:text="@{menuList[1]}"
                             android:textColor="@color/fr_color_black"
                             android:textSize="18sp" />
                     </android.support.v7.widget.LinearLayoutCompat>

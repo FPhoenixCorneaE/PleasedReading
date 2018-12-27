@@ -22,7 +22,7 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class FRBaseFragment<P extends FRBasePresenter>
+public abstract class FRBaseFragment<P extends IFRBasePresenter>
         extends RxFragment
         implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
 

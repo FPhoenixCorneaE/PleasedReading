@@ -22,9 +22,10 @@ import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
 import java.util.ArrayList;
 
-public class PRMainActivity extends FRBaseActivity<PRMainPresenter> implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
+public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter> implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
 
     private PrActivityMainBinding mDataBinding;
+    private PRGankFragment mPrGankFragment;
 
     @Override
     public int getLayoutId() {
@@ -46,7 +47,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainPresenter> implements P
         mDataBinding = (PrActivityMainBinding) mViewDataBinding;
 
         //layout:pr_content_main添加id后会导致id:pr_fl_container找不到
-        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, new PRGankFragment(), null, false);
+        FragmentUtils.addFragment(mContext, R.id.pr_fl_container, mPrGankFragment = new PRGankFragment(), null, false);
     }
 
     @Override
@@ -60,6 +61,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainPresenter> implements P
 
             {
                 add("Gank");
+                add("头条视频");
             }
         });
     }
@@ -67,7 +69,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainPresenter> implements P
     @Override
     public void initListener() {
         mDataBinding.prDlDrawer.addDrawerListener(this);
-        mDataBinding.setOnMainClickListener(new OnMainClickListener().setDrawerLayout(mDataBinding.prDlDrawer));
+        mDataBinding.setOnMainClickListener(new OnMainClickListener(mPrGankFragment).setDrawerLayout(mDataBinding.prDlDrawer));
     }
 
     @Override

@@ -29,29 +29,29 @@ import com.wkz.viewer.widget.FRScaleImageView;
 
 import java.util.ArrayList;
 
-public class PRGankFragment extends FRBaseFragment<PRGankPresenter> implements PRGankContract.IGankView {
+public class PRGankFragment extends FRBaseFragment<PRGankContract.IGankPresenter> implements PRGankContract.IGankView {
 
     private PrFragmentGankBinding mDataBinding;
     private FRImageViewer mFrImageViewer;
 
     private <T extends PRGankFragment> T create(String title, Class<T> tClass) {
-        T gankChildFragment = null;
+        T childFragment = null;
         try {
             //class.newInstance()是通过无参构造函数实例化的，一个对象默认是有一个无参构造函数，
             //如果有一个有参构造函数，无参构造函数就不存在了，在通过反射获得对象会抛出 java.lang.InstantiationException 异常。
-            gankChildFragment = tClass.newInstance();
-            gankChildFragment.setArguments(new FRBundle().putString(PRConstant.PR_FRAGMENT_TITLE, title).create());
-            if (gankChildFragment instanceof PRGankChildFragment) {
-                ((PRGankChildFragment) gankChildFragment).setImageViewer(mFrImageViewer);
-            } else if (gankChildFragment instanceof PRGankWelfareFragment) {
-                ((PRGankWelfareFragment) gankChildFragment).setImageViewer(mFrImageViewer);
+            childFragment = tClass.newInstance();
+            childFragment.setArguments(new FRBundle().putString(PRConstant.PR_FRAGMENT_TITLE, title).create());
+            if (childFragment instanceof PRGankChildFragment) {
+                ((PRGankChildFragment) childFragment).setImageViewer(mFrImageViewer);
+            } else if (childFragment instanceof PRGankWelfareFragment) {
+                ((PRGankWelfareFragment) childFragment).setImageViewer(mFrImageViewer);
             }
         } catch (IllegalAccessException e) {
             Logger.e(e.toString());
         } catch (java.lang.InstantiationException e) {
             Logger.e(e.toString());
         }
-        return gankChildFragment;
+        return childFragment;
     }
 
     @Override

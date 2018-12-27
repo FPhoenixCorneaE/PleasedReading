@@ -43,6 +43,7 @@
             <include
                 layout="@layout/pr_content_main"
                 bind:avatarUrl="@{avatarUrl}"
+                bind:onMainClickListener="@{onMainClickListener}"
                 bind:title="@{title}" />
 
             <!--左侧菜单-->

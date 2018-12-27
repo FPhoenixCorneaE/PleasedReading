@@ -24,7 +24,7 @@ import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
 import java.util.ArrayList;
 
-public class PRGankVideoActivity extends FRBaseActivity<PRGankPresenter> implements PRGankContract.IGankView {
+public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPresenter> implements PRGankContract.IGankView {
 
     private PrActivityGankVideoBinding mDataBinding;
 
@@ -47,9 +47,10 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankPresenter> impleme
     public void initView() {
         mDataBinding = (PrActivityGankVideoBinding) mViewDataBinding;
 
+        //设置宽高比例为16:9
         ViewGroup.LayoutParams layoutParams = mDataBinding.prVpVideo.getLayoutParams();
         layoutParams.width = ScreenUtils.getScreenWidth();
-        layoutParams.height = layoutParams.width * 9 / 16;
+        layoutParams.height = (int) (layoutParams.width * 9f / 16f);
         mDataBinding.prVpVideo.setLayoutParams(layoutParams);
     }
 
