@@ -41,7 +41,7 @@ public class FRColorTrackTabLayout extends RelativeLayout {
         if (mBuilder.mPageTitles == null) return;
         if (mBuilder.mPageFragments.size() != mBuilder.mPageTitles.size()) return;
         mBuilder.mViewPager.setAdapter(new SimpleFragmentPagerAdapter(mBuilder.mFragmentManager, mBuilder.mPageFragments, mBuilder.mPageTitles));
-        mBuilder.mViewPager.setOffscreenPageLimit(3);
+        mBuilder.mViewPager.setOffscreenPageLimit(1);
         LayoutParams layoutParams = new LayoutParams(mBuilder.mTabWidth, mBuilder.mTabHeight);
         TabLayout tabLayout = new TabLayout(getContext());
         tabLayout.setLayoutParams(layoutParams);

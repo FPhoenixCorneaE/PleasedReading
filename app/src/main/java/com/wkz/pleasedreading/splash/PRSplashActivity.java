@@ -1,6 +1,7 @@
-package com.wkz.pleasedreading;
+package com.wkz.pleasedreading.splash;
 
 import android.animation.Animator;
+import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -10,8 +11,11 @@ import com.wkz.bannerlayout.widget.FRProgressDrawable;
 import com.wkz.framework.base.FRBaseActivity;
 import com.wkz.framework.base.FRBasePresenter;
 import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.ResourceUtils;
+import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
+import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivitySplashBinding;
 import com.wkz.pleasedreading.main.PRMainActivity;
 
@@ -20,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class PRSplashActivity extends FRBaseActivity {
+public class PRSplashActivity extends FRBaseActivity<PRSplashContract.ISplashPresenter> implements PRSplashContract.ISplashView {
 
     private static final long SPLASH_TIME = 4000;
     private PrActivitySplashBinding mDataBinding;
@@ -32,12 +36,12 @@ public class PRSplashActivity extends FRBaseActivity {
 
     @Override
     public FRBasePresenter createPresenter() {
-        return null;
+        return new PRSplashPresenter(this);
     }
 
     @Override
     public IFRBaseModel createModel() {
-        return null;
+        return FRModelFactory.createModel(PRSplashModel.class);
     }
 
     @Override
@@ -49,7 +53,7 @@ public class PRSplashActivity extends FRBaseActivity {
                         .setShapeMode(FRProgressShapeMode.RING)
                         .setRadius(18f)
                         .setRingThickness(1.5f)
-                        .setBackgroundColor(ResourceUtils.getColor(R.color.fr_color_black_translucent10))
+                        .setBackgroundColor(ResourceUtils.getColor(R.color.fr_color_transparent))
                         .setProgressColor(ResourceUtils.getColor(R.color.fr_color_light_red))
                         .setReverse(true)
                         .setDuration(SPLASH_TIME)
@@ -113,6 +117,17 @@ public class PRSplashActivity extends FRBaseActivity {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mPresenter.getDailyImage();
+    }
 
+    @Override
+    public void onSuccess(@Nullable Object data) {
+        super.onSuccess(data);
+        mDataBinding.setSplashUrl((String) data);
+    }
+
+    @BindingAdapter({"splashUrl"})
+    public static void setSplashUrl(FRGlideImageView prIvSplash, String splashUrl) {
+        prIvSplash.loadImage(splashUrl, R.mipmap.pr_img_splash);
     }
 }

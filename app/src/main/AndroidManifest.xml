@@ -19,12 +19,12 @@
         android:theme="@style/FRTheme.Base">
         <!--闪屏页-->
         <activity
-            android:name=".PRSplashActivity"
+            android:name=".splash.PRSplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/FRTheme.Splash"
+            android:theme="@style/PRTheme.Splash"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

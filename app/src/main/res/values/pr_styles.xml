@@ -1,3 +1,7 @@
 <resources>
 
+    <!--启动页主题-->
+    <style name="PRTheme.Splash" parent="FRTheme.Splash">
+        <item name="android:windowBackground">@drawable/pr_bg_splash</item>
+    </style>
 </resources>
