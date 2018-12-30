@@ -8,6 +8,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.os.Build;
 
+import com.orhanobut.logger.Logger;
 import com.wkz.framework.FRApplication;
 import com.wkz.framework.R;
 import com.wkz.framework.utils.NetworkUtils;
@@ -18,6 +19,8 @@ public class FRNetworkManager {
     private static volatile FRNetworkManager instance;
     private OnNetworkCallback mOnNetworkCallback;
     private OnNetworkChangedReceiver mOnNetworkChangedReceiver;
+    //为了避免BroadcastReceiver多次unregisterReceiver 导致 Receiver not registered问题，增加是否已注册广播接收器标识
+    private boolean mReceiverIsRegistered;
 
     private FRNetworkManager() {
     }
@@ -50,7 +53,10 @@ public class FRNetworkManager {
                         .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                         .build();
-                connectivityManager.registerNetworkCallback(request, mOnNetworkCallback);
+                if (!mReceiverIsRegistered) {//在注册广播接受者的时候 判断是否已被注册,避免重复多次注册广播
+                    mReceiverIsRegistered = true;
+                    connectivityManager.registerNetworkCallback(request, mOnNetworkCallback);
+                }
             }
         } else {
             if (activity != null) {
@@ -75,10 +81,14 @@ public class FRNetworkManager {
                         );
                     }
                 }
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);//网络连接过滤器
                 mOnNetworkChangedReceiver = new OnNetworkChangedReceiver(onNetworkChangedListener);
-                activity.registerReceiver(mOnNetworkChangedReceiver, intentFilter);
+                if (!mReceiverIsRegistered) {//在注册广播接受者的时候 判断是否已被注册,避免重复多次注册广播
+                    mReceiverIsRegistered = true;
+                    Logger.i(activity.getLocalClassName() + "网络广播接收器已注册");
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);//网络连接过滤器
+                    activity.registerReceiver(mOnNetworkChangedReceiver, intentFilter);
+                }
             }
         }
     }
@@ -92,12 +102,19 @@ public class FRNetworkManager {
         if (activity != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ConnectivityManager connectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager != null) {
+                if (connectivityManager != null && mReceiverIsRegistered) {//判断广播是否注册
+                    mReceiverIsRegistered = false;
                     connectivityManager.unregisterNetworkCallback(mOnNetworkCallback);
                 }
             } else {
-                if (mOnNetworkChangedReceiver != null) {
-                    activity.unregisterReceiver(mOnNetworkChangedReceiver);
+                if (mOnNetworkChangedReceiver != null && mReceiverIsRegistered) {//判断广播是否注册
+                    try {
+                        mReceiverIsRegistered = false;
+                        Logger.i(activity.getLocalClassName() + "网络广播接收器已反注册");
+                        activity.unregisterReceiver(mOnNetworkChangedReceiver);
+                    } catch (Exception e) {
+                        Logger.e(e.toString());
+                    }
                 }
             }
         }

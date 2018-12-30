@@ -49,9 +49,6 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
         //构建Presenter
         mPresenter = (P) createPresenter();
 
-        //注册网络变化监听
-        FRNetworkManager.getInstance().registerNetwork(mContext, this);
-
         //初始化视图
         initView();
         //初始化监听
@@ -77,12 +74,24 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        //注册网络变化监听
+        FRNetworkManager.getInstance().registerNetwork(mContext, this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         //反注册网络变化监听
         if (mContext != null) {
             FRNetworkManager.getInstance().unregisterNetwork(mContext);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -168,18 +177,27 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     @Override
     public void onWifiActive(String message) {
         Logger.i(message);
+        if (mBaseFragment != null) {
+            mBaseFragment.onWifiActive(message);
+        }
     }
 
     @Override
     public void onMobileActive(String message) {
         Logger.i(message);
         ToastUtils.showShortSafe(message);
+        if (mBaseFragment != null) {
+            mBaseFragment.onMobileActive(message);
+        }
     }
 
     @Override
     public void onUnavailable(String message) {
         Logger.i(message);
         ToastUtils.showShortSafe(message);
+        if (mBaseFragment != null) {
+            mBaseFragment.onUnavailable(message);
+        }
     }
 
     @Override

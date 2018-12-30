@@ -15,7 +15,6 @@ import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
@@ -83,9 +82,6 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
         //构建Presenter
         mPresenter = (P) createPresenter();
 
-        //注册网络变化监听
-        FRNetworkManager.getInstance().registerNetwork(mContext, this);
-
         //初始化视图
         initView();
         //初始化监听
@@ -149,6 +145,15 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
      */
     public boolean onBackPressed() {
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
