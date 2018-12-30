@@ -35,7 +35,7 @@ public class IntentUtils {
      * 显示意图,传参,不带动画
      */
     public static void startActivity(Context context, Class<?> className, Bundle bundle) {
-        startActivity(context, className, bundle, null);
+        startActivity(context, className, bundle, FRActivityAnimator.Animator.PULL_RIGHT_PUSH_LEFT);
     }
 
     /**

@@ -2,11 +2,63 @@ package com.wkz.framework.model;
 
 
 import android.app.Activity;
+import android.support.annotation.StringDef;
 
 import com.wkz.framework.R;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 
 public class FRActivityAnimator {
+
+    @StringDef({
+            Animator.APPEAR_TOP_LEFT,
+            Animator.APPEAR_BOTTOM_RIGHT,
+            Animator.DISAPPEAR_BOTTOM_RIGHT,
+            Animator.DISAPPEAR_TOP_LEFT,
+            Animator.FADE,
+            Animator.FLIP_HORIZONTAL,
+            Animator.FLIP_VERTICAL,
+            Animator.JUMP,
+            Animator.PULL_LEFT_PUSH_LEFT,
+            Animator.PULL_LEFT_PUSH_RIGHT,
+            Animator.PULL_TOP_PUSH_DOWN,
+            Animator.PULL_TOP_PUSH_TOP,
+            Animator.PULL_RIGHT_PUSH_LEFT,
+            Animator.PULL_RIGHT_PUSH_RIGHT,
+            Animator.PULL_DOWN_PUSH_TOP,
+            Animator.PULL_DOWN_PUSH_DOWN,
+            Animator.ROTATE_DOWN,
+            Animator.ROTATE_UP,
+            Animator.SCALE,
+            Animator.UNZOOM,
+            Animator.ZOOM,
+    })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Animator {
+        String APPEAR_TOP_LEFT = "appearTopLeft";
+        String APPEAR_BOTTOM_RIGHT = "appearBottomRight";
+        String DISAPPEAR_BOTTOM_RIGHT = "disappearBottomRight";
+        String DISAPPEAR_TOP_LEFT = "disappearTopLeft";
+        String FADE = "fade";
+        String FLIP_HORIZONTAL = "flipHorizontal";
+        String FLIP_VERTICAL = "flipVertical";
+        String JUMP = "jump";
+        String PULL_LEFT_PUSH_LEFT = "pullLeftPushLeft";
+        String PULL_LEFT_PUSH_RIGHT = "pullLeftPushRight";
+        String PULL_TOP_PUSH_DOWN = "pullTopPushDown";
+        String PULL_TOP_PUSH_TOP = "pullTopPushTop";
+        String PULL_RIGHT_PUSH_LEFT = "pullRightPushLeft";
+        String PULL_RIGHT_PUSH_RIGHT = "pullRightPushRight";
+        String PULL_DOWN_PUSH_TOP = "pullDownPushTop";
+        String PULL_DOWN_PUSH_DOWN = "pullDownPushDown";
+        String ROTATE_DOWN = "rotateDown";
+        String ROTATE_UP = "rotateUp";
+        String SCALE = "scale";
+        String UNZOOM = "unzoom";
+        String ZOOM = "unzoom";
+    }
 
     public void appearTopLeft(Activity a) {
         a.overridePendingTransition(R.anim.fr_appear_top_left_in, R.anim.fr_appear_top_left_out);

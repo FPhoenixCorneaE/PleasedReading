@@ -1,5 +1,6 @@
 package com.wkz.framework.base;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -15,10 +16,13 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
+import com.wkz.framework.model.FRActivityAnimator;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
+
+import java.lang.reflect.InvocationTargetException;
 
 public abstract class FRBaseActivity<P extends IFRBasePresenter>
         extends RxAppCompatActivity
@@ -103,8 +107,13 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
             } else {
                 getSupportFragmentManager().popBackStack();
             }
-        } else {
-            return;
+        }
+        //退出动画,如果界面切换动画无效果则可以去手机系统设置-->开发者选项-->过渡动画比例，设置比例
+        try {
+            FRActivityAnimator anim = new FRActivityAnimator();
+            anim.getClass().getMethod(FRActivityAnimator.Animator.PULL_LEFT_PUSH_RIGHT, Activity.class).invoke(anim, mContext);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | NullPointerException e) {
+            Logger.e(e.toString());
         }
     }
 
