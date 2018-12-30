@@ -539,6 +539,11 @@ public class FRWebView extends WebView {
         }
         webSettings.setUserAgentString("android");
 
+        //设置可以支持缩放
+        webSettings.setSupportZoom(true);
+        //设置不出现缩放工具
+        webSettings.setBuiltInZoomControls(false);
+
         //电脑网页适应手机屏幕
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);

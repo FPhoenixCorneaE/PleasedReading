@@ -94,6 +94,22 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
         }
     }
 
+    private void addImageClickListener() {
+        //遍历页面中所有img的节点，因为节点里面的图片的url即objs[i].src，保存所有图片的src.
+        //为每个图片设置点击事件，objs[i].onclick
+        mDataBinding.frWvWebPage.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName(\"img\"); " +
+                "for(var i=0;i<objs.length;i++) " +
+                "{" +
+                "window." + FRCommonJSInterface.NAME + ".setImageUrl(objs[i].src); " +
+                " objs[i].onclick=function() " +
+                " { " +
+                " window." + FRCommonJSInterface.NAME + ".clickImage(this.src); " +
+                " } " +
+                "}" +
+                "})()");
+    }
+
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
         showLoadingProgressBar();
@@ -107,6 +123,8 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
     @Override
     public void onPageFinished(String url) {
         hideLoadingProgressBar();
+        //当页面加载完成，就调用我们的addImageClickListener()函数
+        addImageClickListener();
     }
 
     @Override
