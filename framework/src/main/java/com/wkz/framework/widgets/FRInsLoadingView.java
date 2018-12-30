@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.wkz.framework.BuildConfig;
 import com.wkz.framework.R;
 
 import java.lang.annotation.Retention;
@@ -36,7 +35,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class FRInsLoadingView extends AppCompatImageView {
     private static String TAG = "FRInsLoadingView";
-    private static boolean DEBUG = BuildConfig.DEBUG;
+    private static boolean DEBUG = false;
     private static final float ARC_WIDTH = 12;
     private static final int MIN_WIDTH = 300;
     private static final float circleDia = 0.9f;

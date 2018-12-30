@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wkz.framework.functions.retrofit;
+package com.wkz.framework.functions.retrofit.ssl;
 
 import com.orhanobut.logger.Logger;
 
@@ -127,12 +127,13 @@ public class FRSslSocketUtils {
                 manager = UnSafeTrustManager;
             }
             // 创建TLS类型的SSLContext对象， that uses our TrustManager
-            SSLContext sslContext = SSLContext.getInstance("TLS");
+            // 设置Android4.4及以下的系统支持HTTPS相关协议（v1.1或者v1.2）
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
             // 用上面得到的trustManagers初始化SSLContext，这样sslContext就会信任keyStore中的证书
             // 第一个参数是授权的密钥管理器，用来授权验证，比如授权自签名的证书验证。第二个是被授权的证书管理器，用来验证服务器端的证书
             sslContext.init(keyManagers, new TrustManager[]{manager}, null);
             // 通过sslContext获取SSLSocketFactory对象
-            sslParams.sSLSocketFactory = sslContext.getSocketFactory();
+            sslParams.sSLSocketFactory = new FRNoSSLv3SocketFactory(sslContext.getSocketFactory());
             sslParams.trustManager = manager;
             return sslParams;
         } catch (NoSuchAlgorithmException e) {

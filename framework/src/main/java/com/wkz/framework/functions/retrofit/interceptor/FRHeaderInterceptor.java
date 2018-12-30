@@ -1,4 +1,4 @@
-package com.wkz.framework.functions.retrofit;
+package com.wkz.framework.functions.retrofit.interceptor;
 
 import com.wkz.framework.utils.DeviceIdUtils;
 
