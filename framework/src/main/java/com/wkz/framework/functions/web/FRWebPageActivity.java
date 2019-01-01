@@ -1,5 +1,6 @@
 package com.wkz.framework.functions.web;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -92,6 +93,25 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
         if (mDataBinding.frPbProgress != null && View.VISIBLE == mDataBinding.frPbProgress.getVisibility()) {
             mDataBinding.frPbProgress.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //选择相册图片返回结果
+        if (mDataBinding.frWvWebPage != null) {
+            mDataBinding.frWvWebPage.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //判断webview是否可以返回上一页
+        if (mDataBinding.frWvWebPage != null && mDataBinding.frWvWebPage.canGoBack()) {
+            mDataBinding.frWvWebPage.goBack();
+            return;
+        }
+        super.onBackPressed();
     }
 
     private void addImageClickListener() {
