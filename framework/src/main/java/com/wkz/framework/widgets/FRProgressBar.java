@@ -99,6 +99,8 @@ public class FRProgressBar extends View {
     private boolean showCenterRect = true;
 
     private Paint mPaint;
+    private int mWidth;
+    private int mHeight;
 
     public FRProgressBar(Context context) {
         this(context, null);
@@ -113,11 +115,17 @@ public class FRProgressBar extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        this.mWidth = w;
+        this.mHeight = h;
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        centerX = getWidth() / 2;
-        centerY = getHeight() / 2;
+        centerX = mWidth / 2;
+        centerY = mHeight / 2;
         radius = centerX - strokeWidth / 2;
         if (orientation == STYLE_HORIZONTAL) {
             drawHoriRectProgressBar(canvas, mPaint);
@@ -193,18 +201,18 @@ public class FRProgressBar extends View {
         }
         // 画水平矩形
         canvas.drawRoundRect(new RectF(0, 0,
-                getWidth(), getHeight()), rectRound, rectRound, piant);
+                mWidth, mHeight), rectRound, rectRound, piant);
 
         // 画水平进度
         piant.setStyle(Paint.Style.FILL);
         piant.setColor(progressColor);
         if (isHorizonStroke) {
             canvas.drawRoundRect(new RectF(0, 0,
-                    ((progress * 100 / max) * getWidth()) / 100, getHeight()), rectRound, rectRound, piant);
+                    ((progress * 100 / max) * mWidth) / 100, mHeight), rectRound, rectRound, piant);
         } else {
             piant.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
             canvas.drawRoundRect(new RectF(0, 0,
-                    ((progress * 100 / max) * getWidth()) / 100, getHeight()), rectRound, rectRound, piant);
+                    ((progress * 100 / max) * mWidth) / 100, mHeight), rectRound, rectRound, piant);
             piant.setXfermode(null);
         }
 
@@ -223,8 +231,8 @@ public class FRProgressBar extends View {
             piant.getTextBounds(percent, 0, percent.length(), rect);
             float textWidth = rect.width();
             float textHeight = rect.height();
-            if (textWidth >= getWidth()) {
-                textWidth = getWidth();
+            if (textWidth >= mWidth) {
+                textWidth = mWidth;
             }
             canvas.drawText(percent, centerX - textWidth / 2, centerY + textHeight / 2, piant);
         }

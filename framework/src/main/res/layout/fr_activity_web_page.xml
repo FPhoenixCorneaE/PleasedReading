@@ -28,7 +28,7 @@
             <com.wkz.framework.widgets.FRProgressBar
                 android:id="@+id/fr_pb_progress"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
+                android:layout_height="2dp"
                 android:visibility="gone" />
 
             <com.wkz.framework.functions.web.FRWebView
