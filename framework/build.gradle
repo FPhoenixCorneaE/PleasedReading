@@ -237,10 +237,5 @@ dependencies {
     /**
      * ijkplayer
      */
-    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-
-    /**
-     * 沉浸式状态栏,适用于Activity、Fragment、DialogFragment、Dialog，并且适配刘海屏，适配软键盘弹出等问题
-     */
-    implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta15'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:' + rootProject.ext.versionIjkplayer
 }

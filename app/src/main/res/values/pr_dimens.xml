@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pr_statusBarSize">25dp</dimen>
+    <dimen name="pr_statusBarSize">0dp</dimen>
     <dimen name="pr_actionBarSize">48dp</dimen>
 </resources>

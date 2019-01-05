@@ -1,6 +1,7 @@
 package com.wkz.framework.base;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -10,11 +11,18 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import com.gyf.barlibrary.BarHide;
+import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.ImmersionOwner;
+import com.gyf.barlibrary.ImmersionProxy;
+import com.gyf.barlibrary.OnKeyboardListener;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.wkz.framework.R;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
@@ -23,7 +31,7 @@ import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
 public abstract class FRBaseFragment<P extends IFRBasePresenter>
         extends RxFragment
-        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
+        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, ImmersionOwner {
 
     private static final String NAME_FRAGMENT = FRBaseFragment.class.getName();
     protected FRBaseActivity mContext;
@@ -40,6 +48,10 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
      */
     private boolean mHasFetchData;
     private OnSelectedInterface mOnSelectedInterface;
+    /**
+     * ImmersionBar代理类
+     */
+    private ImmersionProxy mImmersionProxy = new ImmersionProxy(this);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +60,13 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
         if (getActivity() instanceof OnSelectedInterface) {
             this.mOnSelectedInterface = (OnSelectedInterface) getActivity();
         }
+        mImmersionProxy.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mImmersionProxy.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -121,6 +140,7 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
         if ((isVisibleToUser && isResumed())) {
             onResume();
         }
+        mImmersionProxy.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
@@ -150,15 +170,31 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
     @Override
     public void onResume() {
         super.onResume();
+        mImmersionProxy.onResume();
     }
+
     @Override
     public void onPause() {
         super.onPause();
+        mImmersionProxy.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mImmersionProxy.onDestroy();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        mImmersionProxy.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mImmersionProxy.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -240,6 +276,97 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
 
     @Override
     public void onUnavailable(String message) {
+    }
+
+    /**
+     * 懒加载，在view初始化完成之前执行
+     * On lazy after view.
+     */
+    @Override
+    public void onLazyBeforeView() {
+    }
+
+    /**
+     * 懒加载，在view初始化完成之后执行
+     * On lazy before view.
+     */
+    @Override
+    public void onLazyAfterView() {
+    }
+
+    /**
+     * Fragment用户可见时候调用
+     * On visible.
+     */
+    @Override
+    public void onVisible() {
+    }
+
+    /**
+     * Fragment用户不可见时候调用
+     * On invisible.
+     */
+    @Override
+    public void onInvisible() {
+    }
+
+    /**
+     * 初始化沉浸式状态栏
+     */
+    @Override
+    public void initImmersionBar() {
+        ImmersionBar.with(mContext)
+                .transparentStatusBar()  //透明状态栏，不写默认透明色
+                .transparentNavigationBar()  //透明导航栏，不写默认黑色(设置此方法，fullScreen()方法自动为true)
+                .transparentBar()             //透明状态栏和导航栏，不写默认状态栏为透明色，导航栏为黑色（设置此方法，fullScreen()方法自动为true）
+                .statusBarColor(R.color.fr_colorPrimary)     //状态栏颜色，不写默认透明色
+                .navigationBarColor(R.color.fr_colorPrimary) //导航栏颜色，不写默认黑色
+                .barColor(R.color.fr_colorPrimary)  //同时自定义状态栏和导航栏颜色，不写默认状态栏为透明色，导航栏为黑色
+                .statusBarAlpha(0.3f)  //状态栏透明度，不写默认0.0f
+                .navigationBarAlpha(0.4f)  //导航栏透明度，不写默认0.0F
+                .barAlpha(0.3f)  //状态栏和导航栏透明度，不写默认0.0f
+                .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
+                .navigationBarDarkIcon(true) //导航栏图标是深色，不写默认为亮色
+                .flymeOSStatusBarFontColor(R.color.fr_colorAccent)  //修改flyme OS状态栏字体颜色
+                .fullScreen(true)      //有导航栏的情况下，activity全屏显示，也就是activity最下面被导航栏覆盖，不写默认非全屏
+                .hideBar(BarHide.FLAG_HIDE_BAR)  //隐藏状态栏或导航栏或两者，不写默认不隐藏
+//                .addViewSupportTransformColor(toolbar)  //设置支持view变色，可以添加多个view，不指定颜色，默认和状态栏同色，还有两个重载方法
+//                .titleBar(view)    //解决状态栏和布局重叠问题，任选其一
+//                .titleBarMarginTop(view)     //解决状态栏和布局重叠问题，任选其一
+//                .statusBarView(view)  //解决状态栏和布局重叠问题，任选其一
+                .fitsSystemWindows(true)    //解决状态栏和布局重叠问题，任选其一，默认为false，当为true时一定要指定statusBarColor()，不然状态栏为透明色，还有一些重载方法
+                .supportActionBar(true) //支持ActionBar使用
+                .statusBarColorTransform(R.color.fr_color_white)  //状态栏变色后的颜色
+                .navigationBarColorTransform(R.color.fr_color_white) //导航栏变色后的颜色
+                .barColorTransform(R.color.fr_color_white)  //状态栏和导航栏变色后的颜色
+//                .removeSupportView(toolbar)  //移除指定view支持
+                .removeSupportAllView() //移除全部view支持
+                .navigationBarEnable(true)   //是否可以修改导航栏颜色，默认为true
+                .navigationBarWithKitkatEnable(true)  //是否可以修改安卓4.4和emui3.1手机导航栏颜色，默认为true
+                .fixMarginAtBottom(true)   //已过时，当xml里使用android:fitsSystemWindows="true"属性时,解决4.4和emui3.1手机底部有时会出现多余空白的问题，默认为false，非必须
+                .addTag("tag")  //给以上设置的参数打标记
+                .getTag("tag")  //根据tag获得沉浸式参数
+                .reset()  //重置所以沉浸式参数
+                .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)  //单独指定软键盘模式
+                .setOnKeyboardListener(new OnKeyboardListener() {    //软键盘监听回调
+                    @Override
+                    public void onKeyboardChange(boolean isPopup, int keyboardHeight) {
+                        Logger.e("软键盘是否弹出" + isPopup);  //isPopup为true，软键盘弹出，为false，软键盘关闭
+                    }
+                })
+                .init();  //必须调用方可沉浸式
+    }
+
+    /**
+     * 是否可以实现沉浸式，当为true的时候才可以执行initImmersionBar方法
+     * Immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    @Override
+    public boolean immersionBarEnabled() {
+        return true;
     }
 
     /**

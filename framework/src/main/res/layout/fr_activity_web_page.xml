@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlHeaderHeight="200dp"
-        app:srlHeaderMaxDragRate="1">
+        android:layout_height="match_parent">
 
-        <TextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fr_statusBarSize"
+            android:background="@color/fr_colorPrimaryDark" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/fr_color_dim_gray"
-            android:gravity="center_horizontal"
-            android:lineSpacingExtra="5dp"
-            android:padding="20dp"
-            android:textColor="@color/fr_color_white"
-            android:textSize="16sp"
-            app:layout_srlBackgroundColor="@color/fr_color_dim_gray"
-            app:layout_srlSpinnerStyle="FixedBehind" />
+            android:layout_marginTop="@dimen/fr_statusBarSize"
+            app:srlHeaderHeight="200dp"
+            app:srlHeaderMaxDragRate="1">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/fr_background_Oxffffffff"
-            android:orientation="vertical">
-
-            <com.wkz.framework.widgets.FRProgressBar
-                android:id="@+id/fr_pb_progress"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:visibility="gone" />
+                android:layout_height="match_parent"
+                android:background="@color/fr_color_dim_gray"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="5dp"
+                android:padding="20dp"
+                android:textColor="@color/fr_color_white"
+                android:textSize="16sp"
+                app:layout_srlBackgroundColor="@color/fr_color_dim_gray"
+                app:layout_srlSpinnerStyle="FixedBehind" />
 
-            <com.wkz.framework.functions.web.FRWebView
-                android:id="@+id/fr_wv_web_page"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:layout_height="match_parent"
+                android:background="@color/fr_background_Oxffffffff"
+                android:orientation="vertical">
+
+                <com.wkz.framework.widgets.FRProgressBar
+                    android:id="@+id/fr_pb_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:visibility="gone" />
+
+                <com.wkz.framework.functions.web.FRWebView
+                    android:id="@+id/fr_wv_web_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </FrameLayout>
 </layout>

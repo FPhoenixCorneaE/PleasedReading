@@ -22,6 +22,7 @@ ext {
     versionFresco = "1.11.0"
     versionGlide = '4.8.0'
     versionGson = '2.8.0'
+    versionIjkplayer = '0.8.8'
     versionLogger = '2.2.0'
     versionMultiDex = '1.0.3'
     versionNineOld = '2.4.0'
