@@ -65,8 +65,8 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
     private void initProgressBar() {
         mDataBinding.frPbProgress.setOrientation(FRProgressBar.STYLE_HORIZONTAL)
                 .setProgressBarBgColor(ResourceUtils.getColor(R.color.fr_background_Oxffededed))
-                .setProgressColor(ResourceUtils.getColor(R.color.fr_color_light_blue))
-                .setRectRound(SizeUtils.dp2px(1f))
+                .setProgressColor(ResourceUtils.getColor(R.color.fr_statusBar))
+                .setRectRound(SizeUtils.dp2px(2f))
                 .setMax(100);
     }
 
@@ -121,6 +121,7 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
         //为每个图片设置点击事件，objs[i].onclick
         mDataBinding.frWvWebPage.loadUrl("javascript:(function(){" +
                 "var objs = document.getElementsByTagName(\"img\"); " +
+                "window." + FRCommonJSInterface.NAME + ".clearImage(); " +
                 "for(var i=0;i<objs.length;i++) " +
                 "{" +
                 "window." + FRCommonJSInterface.NAME + ".setImageUrl(objs[i].src); " +

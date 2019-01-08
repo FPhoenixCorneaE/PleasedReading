@@ -1,21 +1,24 @@
 package com.wkz.framework.functions.web;
 
-import android.util.SparseArray;
+import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
+import com.orhanobut.logger.Logger;
 import com.wkz.framework.base.FRBaseActivity;
 import com.wkz.framework.utils.ToastUtils;
+
+import java.util.ArrayList;
 
 public class FRCommonJSInterface {
 
     public static final String NAME = "FRFramework";
-    private SparseArray<String> mImgList;
+    private ArrayList<String> mImgList;
 
     private FRBaseActivity mContext;
 
     public FRCommonJSInterface(FRBaseActivity mContext) {
         this.mContext = mContext;
-        this.mImgList = new SparseArray<>();
+        this.mImgList = new ArrayList<>();
     }
 
     /**
@@ -25,7 +28,8 @@ public class FRCommonJSInterface {
      */
     @JavascriptInterface
     public void setImageUrl(String imgUrl) {
-        mImgList.put(mImgList.size(), imgUrl);
+        Logger.t("webimage").i(imgUrl);
+        mImgList.add(imgUrl);
     }
 
     /**
@@ -35,7 +39,18 @@ public class FRCommonJSInterface {
      */
     @JavascriptInterface
     public void clickImage(String imgUrl) {
-        ToastUtils.showShort("点击了第" + mImgList.indexOfValue(imgUrl) + "张图片");
+        Logger.t("webimage").i(mImgList.toString());
+        for (int i = 0; i < mImgList.size(); i++) {
+            if (!TextUtils.isEmpty(imgUrl) && imgUrl.equals(mImgList.get(i))) {
+                ToastUtils.showShort("点击了第" + i + "张图片");
+                break;
+            }
+        }
+    }
+
+    @JavascriptInterface
+    public void clearImage() {
+        mImgList.clear();
     }
 
     @Override
