@@ -55,9 +55,9 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
         return R.layout.pr_adapter_toutiao_child_recycler;
     }
 
-    private static class ViewHolder extends FRRecyclerViewHolder {
+    protected static class ViewHolder extends FRRecyclerViewHolder {
 
-        private PrAdapterToutiaoChildRecyclerBinding mDataBinding;
+        protected PrAdapterToutiaoChildRecyclerBinding mDataBinding;
         private FRVideoPlayerController mController;
         private Gson mGson = new Gson();
 
@@ -66,7 +66,7 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
          *
          * @param itemView
          */
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             mDataBinding = DataBindingUtil.bind(itemView);
 
@@ -101,13 +101,14 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
                         R.color.fr_color_black_translucent50
                 );
             }
-            if (!TextUtils.isEmpty(content.getDisplay_url())) {
-                mDataBinding.prVpVideo.setUp(content.getDisplay_url().replace("http://", "https://"), null);
-            } else if (!TextUtils.isEmpty(content.getUrl())) {
-                mDataBinding.prVpVideo.setUp(content.getUrl(), null);
-            } else if (!TextUtils.isEmpty(content.getArticle_url())) {
-                mDataBinding.prVpVideo.setUp(content.getArticle_url(), null);
-            }
+//            if (!TextUtils.isEmpty(content.getDisplay_url())) {
+//                mDataBinding.prVpVideo.setUp(content.getDisplay_url().replace("http://", "https://"), null);
+//            } else if (!TextUtils.isEmpty(content.getUrl())) {
+//                mDataBinding.prVpVideo.setUp(content.getUrl(), null);
+//            } else if (!TextUtils.isEmpty(content.getArticle_url())) {
+//                mDataBinding.prVpVideo.setUp(content.getArticle_url(), null);
+//            }
+            mDataBinding.prVpVideo.setUp(data.getVideoUrl(), null);
         }
     }
 }

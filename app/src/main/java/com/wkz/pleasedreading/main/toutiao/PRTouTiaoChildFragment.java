@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -16,6 +17,7 @@ import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentToutiaoChildBinding;
+import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
 import java.util.List;
 
@@ -64,6 +66,18 @@ public class PRTouTiaoChildFragment extends PRTouTiaoFragment implements PRTouTi
                                 .setOnLoadMoreListener(this)
                 )
         );
+        mDataBinding.prRvGankChild.setRecyclerListener(new RecyclerView.RecyclerListener() {
+            @Override
+            public void onViewRecycled(@NonNull RecyclerView.ViewHolder viewHolder) {
+                //释放视频资源
+                if (viewHolder instanceof PRTouTiaoChildRecyclerAdapter.ViewHolder) {
+                    PRTouTiaoChildRecyclerAdapter.ViewHolder holder = (PRTouTiaoChildRecyclerAdapter.ViewHolder) viewHolder;
+                    if (holder.mDataBinding.prVpVideo == FRVideoPlayerManager.instance().getCurrentVideoPlayer()) {
+                        FRVideoPlayerManager.instance().releaseVideoPlayer();
+                    }
+                }
+            }
+        });
     }
 
     @Override

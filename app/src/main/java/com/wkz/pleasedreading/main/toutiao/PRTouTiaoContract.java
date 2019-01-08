@@ -17,9 +17,13 @@ public interface PRTouTiaoContract {
         void onLoadMoreData(String category);
 
         void getVideoList(String category, String maxBehotTime);
+
+        void getVideoContent(PRTouTiaoVideoBean.DataBean dataBean, String url);
     }
 
     interface ITouTiaoModel extends IFRBaseModel {
         void getVideoList(String category, String maxBehotTime, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRTouTiaoVideoBean> callback);
+
+        void getVideoContent(String url, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRTouTiaoVideoContentBean> callback);
     }
 }

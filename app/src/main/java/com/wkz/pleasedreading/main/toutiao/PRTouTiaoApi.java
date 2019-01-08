@@ -36,4 +36,12 @@ public class PRTouTiaoApi extends FRRetrofitFactory {
     public void getVideoList(String category, String maxBehotTime, LifecycleTransformer lifecycleTransformer, Observer<PRTouTiaoVideoBean> observer) {
         setObserver(createRetrofit(PRTouTiao.class).getVideoList(category, maxBehotTime), lifecycleTransformer, observer);
     }
+
+    /**
+     * 获取视频内容
+     * {@link PRTouTiao#getVideoContent(String)}
+     */
+    public void getVideoContent(String url, LifecycleTransformer lifecycleTransformer, Observer<PRTouTiaoVideoContentBean> observer) {
+        setObserver(createRetrofit(PRTouTiao.class).getVideoContent(url), lifecycleTransformer, observer);
+    }
 }

@@ -9,4 +9,9 @@ public class PRTouTiaoModel implements PRTouTiaoContract.ITouTiaoModel {
     public void getVideoList(String category, String maxBehotTime, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRTouTiaoVideoBean> callback) {
         PRTouTiaoApi.getInstance().getVideoList(category, maxBehotTime, lifecycleTransformer, new FRObserver<>(callback));
     }
+
+    @Override
+    public void getVideoContent(String url, LifecycleTransformer lifecycleTransformer, OnFRHttpCallback<PRTouTiaoVideoContentBean> callback) {
+        PRTouTiaoApi.getInstance().getVideoContent(url, lifecycleTransformer, new FRObserver<>(callback));
+    }
 }
