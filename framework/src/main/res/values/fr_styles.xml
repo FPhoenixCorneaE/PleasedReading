@@ -35,4 +35,34 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <!--自定义Dialog样式-->
+    <style name="FRTheme.Dialog.Normal" parent="AlertDialog.AppCompat">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!--顶部弹出动画-->
+    <style name="FRAnimation.TopPopup" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/fr_top_in</item>
+        <item name="@android:windowExitAnimation">@anim/fr_top_out</item>
+    </style>
+
+    <!--底部弹出动画-->
+    <style name="FRTheme.Dialog.BottomPopup" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/fr_bottom_in</item>
+        <item name="@android:windowExitAnimation">@anim/fr_bottom_out</item>
+    </style>
+
+    <!--左边弹出动画-->
+    <style name="FRTheme.Dialog.LeftPopup" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/fr_left_in</item>
+        <item name="@android:windowExitAnimation">@anim/fr_left_out</item>
+    </style>
+
+    <!--右边弹出动画-->
+    <style name="FRTheme.Dialog.RightPopup" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/fr_right_in</item>
+        <item name="@android:windowExitAnimation">@anim/fr_right_out</item>
+    </style>
 </resources>
