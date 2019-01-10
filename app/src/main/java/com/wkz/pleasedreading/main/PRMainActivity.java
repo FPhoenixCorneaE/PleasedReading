@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 
 import com.wkz.framework.base.FRBaseActivity;
-import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.base.FRBasePresenter;
+import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.FragmentUtils;
 import com.wkz.framework.utils.GlideUtils;
@@ -18,15 +19,18 @@ import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
+import com.wkz.pleasedreading.main.toutiao.PRTouTiaoFragment;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 import com.wkz.videoplayer.window.FRFloatWindow;
 
 import java.util.ArrayList;
 
-public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter> implements PRMainContract.IMainView, DrawerLayout.DrawerListener {
+public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter> implements PRMainContract.IMainView, DrawerLayout.DrawerListener, OnMainClickListener {
 
     private PrActivityMainBinding mDataBinding;
+    private ArrayList<String> mMenuList;
     private PRGankFragment mPrGankFragment;
+    private PRTouTiaoFragment mPrTouTiaoFragment;
 
     @Override
     public int getLayoutId() {
@@ -55,9 +59,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
     public void initData(@Nullable Bundle savedInstanceState) {
         mDataBinding.setContext(mContext);
         mDataBinding.setAvatarUrl("http://img0.imgtn.bdimg.com/it/u=1365742167,1660121271&fm=26&gp=0.jpg");
-        mDataBinding.setTitle("Gank");
-        mDataBinding.setNickname("烽火戏诸侯");
-        mDataBinding.setMenuList(new ArrayList<String>() {
+        mDataBinding.setMenuList(mMenuList = new ArrayList<String>() {
             private static final long serialVersionUID = 4548353330276131214L;
 
             {
@@ -65,12 +67,14 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
                 add("头条视频");
             }
         });
+        mDataBinding.setTitle(mMenuList.get(0));
+        mDataBinding.setNickname("烽火戏诸侯");
     }
 
     @Override
     public void initListener() {
         mDataBinding.prDlDrawer.addDrawerListener(this);
-        mDataBinding.setOnMainClickListener(new OnMainClickListener(mPrGankFragment).setDrawerLayout(mDataBinding.prDlDrawer));
+        mDataBinding.setOnMainClickListener(this);
     }
 
     @Override
@@ -158,5 +162,34 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
     @BindingAdapter({"avatarLoadingUrl"})
     public static void loadAvatarLoading(FRInsLoadingView prIlvAvatar, String avatarUrl) {
         GlideUtils.setupCircleImagePlaceDrawableRes(prIlvAvatar, avatarUrl, R.drawable.pr_shape_placeholder_avatar_circle);
+    }
+
+    @Override
+    public void openDrawer(View view) {
+        mDataBinding.prDlDrawer.openDrawer(Gravity.START);
+    }
+
+    @Override
+    public void clickGank(View view, FRBaseActivity context, DrawerLayout drawerLayout) {
+        if (mPrGankFragment == null) {
+            mPrGankFragment = new PRGankFragment();
+        }
+        FragmentUtils.hideAndShowFragment(context, R.id.pr_fl_container, mPrTouTiaoFragment, mPrGankFragment, null, false);
+        mDataBinding.setTitle(mMenuList.get(0));
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawers();
+        }
+    }
+
+    @Override
+    public void clickTouTiaoVideo(View view, FRBaseActivity context, DrawerLayout drawerLayout) {
+        if (mPrTouTiaoFragment == null) {
+            mPrTouTiaoFragment = new PRTouTiaoFragment();
+        }
+        FragmentUtils.hideAndShowFragment(context, R.id.pr_fl_container, mPrGankFragment, mPrTouTiaoFragment, null, false);
+        mDataBinding.setTitle(mMenuList.get(1));
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawers();
+        }
     }
 }

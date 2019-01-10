@@ -59,7 +59,7 @@
                 android:gravity="center"
                 android:text="@{title}"
                 android:textColor="@color/fr_color_black"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
     </FrameLayout>
 </layout>
