@@ -46,24 +46,24 @@ public class FRFloatPlayerView extends FrameLayout {
 
     private void init() {
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view ;
+        View view;
         if (inflater != null) {
             view = inflater.inflate(R.layout.fr_view_window_dialog, this);
             mVideoPlayer = view.findViewById(R.id.video_player);
-            mVideoPlayer.setUp(path,null);
+            mVideoPlayer.setUp(path, null);
             mVideoPlayer.setPlayerType(FRConstantKeys.IjkPlayerType.TYPE_NATIVE);
             //创建视频控制器
             FRVideoPlayerController controller = new FRVideoPlayerController(getContext());
             controller.setTopVisibility(false);
             controller.setLoadingType(FRConstantKeys.Loading.LOADING_QQ);
             controller.imageView().setBackgroundColor(Color.BLACK);
-            controller.setCenterPlayer(true,R.mipmap.fr_ic_player_center);
+            controller.setCenterPlayer(true, R.mipmap.fr_ic_player_center);
             controller.setOnCompletedListener(new OnCompletedListener() {
                 @Override
                 public void onCompleted() {
                     FRVideoPlayerManager.instance().releaseVideoPlayer();
-                    if(mCompletedListener!=null){
-                        mCompletedListener.Completed();
+                    if (mCompletedListener != null) {
+                        mCompletedListener.onCompleted();
                     }
                 }
             });
@@ -72,34 +72,32 @@ public class FRFloatPlayerView extends FrameLayout {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FRVideoLogUtils.d("点击事件"+mVideoPlayer.getCurrentState());
-                    if(mVideoPlayer.isPlaying()){
+                    FRVideoLogUtils.d("点击事件" + mVideoPlayer.getCurrentState());
+                    if (mVideoPlayer.isPlaying()) {
                         mVideoPlayer.pause();
-                    }else if(mVideoPlayer.isPaused()){
+                    } else if (mVideoPlayer.isPaused()) {
                         mVideoPlayer.restart();
                     }
-                    FRVideoLogUtils.d("点击事件"+mVideoPlayer.getCurrentState());
+                    FRVideoLogUtils.d("点击事件" + mVideoPlayer.getCurrentState());
                 }
             });
-            view.setOnTouchListener(new FRSmallWindowTouch(view,0,0));
+            view.setOnTouchListener(new FRSmallWindowTouch(view, 0, 0));
         }
     }
 
     private static String path;
+
     public static void setUrl(String url) {
         path = url;
-    }
-
-    public interface CompletedListener{
-        void Completed();
     }
 
     /**
      * 监听视频播放完成事件
      */
-    private CompletedListener mCompletedListener;
-    public void setCompletedListener(CompletedListener listener){
-        this.mCompletedListener = listener;
+    private static OnCompletedListener mCompletedListener;
+
+    public static void setOnCompletedListener(OnCompletedListener listener) {
+        mCompletedListener = listener;
     }
 
 }

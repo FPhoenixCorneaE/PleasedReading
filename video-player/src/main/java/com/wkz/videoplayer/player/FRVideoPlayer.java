@@ -126,6 +126,12 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * 获取视频控制器
+     */
+    public FRAbsVideoPlayerController getController() {
+        return mController;
+    }
 
     /*--------------setUp为必须设置的方法，二选其一--------------------------------------*/
 
@@ -447,6 +453,7 @@ public class FRVideoPlayer extends FrameLayout implements IFRInterVideoPlayer {
 
     /**
      * 判断视频是否被锁住
+     *
      * @return
      */
     @Override

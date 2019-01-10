@@ -1,6 +1,7 @@
 package com.wkz.videoplayer.manager;
 
 
+import com.wkz.videoplayer.controller.FRVideoPlayerController;
 import com.wkz.videoplayer.player.FRVideoPlayer;
 
 
@@ -100,6 +101,10 @@ public final class FRVideoPlayerManager {
                 return mVideoPlayer.isLocked() || mVideoPlayer.exitFullScreen();
             } else if (mVideoPlayer.isTinyWindow()) {
                 return mVideoPlayer.exitTinyWindow();
+            } else {
+                if (mVideoPlayer.getController() instanceof FRVideoPlayerController) {
+                    ((FRVideoPlayerController) mVideoPlayer.getController()).unRegisterNetChangedReceiver();
+                }
             }
         }
         return false;

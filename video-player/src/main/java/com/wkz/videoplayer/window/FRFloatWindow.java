@@ -49,7 +49,13 @@ public class FRFloatWindow {
         if (mFloatWindowMap == null || !mFloatWindowMap.containsKey(tag)) {
             return;
         }
-        mFloatWindowMap.get(tag).dismiss();
+        if (mFloatWindowMap.get(tag) != null) {
+            try {
+                mFloatWindowMap.get(tag).dismiss();
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
         mFloatWindowMap.remove(tag);
     }
 

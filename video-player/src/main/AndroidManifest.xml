@@ -1,1 +1,12 @@
-<manifest package="com.wkz.videoplayer" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wkz.videoplayer">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application>
+        <activity
+            android:name=".window.FRPermissionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind" />
+    </application>
+</manifest>

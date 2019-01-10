@@ -49,7 +49,7 @@ import java.util.Locale;
  *     revise: 注意：建议先判断状态，再进行设置参数
  * </pre>
  */
-public class FRVideoPlayerController extends FRAbsVideoPlayerController implements View.OnClickListener{
+public class FRVideoPlayerController extends FRAbsVideoPlayerController implements View.OnClickListener {
 
     private Context mContext;
     private ImageView mImage;
@@ -136,6 +136,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      * 网络变化监听广播，在网络变更时进行对应处理
      */
     private NetChangedReceiver netChangedReceiver;
+
     private class NetChangedReceiver extends BroadcastReceiver {
         private String getConnectionType(int type) {
             String connType = "";
@@ -162,7 +163,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
                     } else {
                         FRVideoLogUtils.i(getConnectionType(info.getType()) + "断开");
                         onPlayStateChanged(FRConstantKeys.CurrentState.STATE_ERROR);
-                        if(mVideoPlayer.isIdle()){
+                        if (mVideoPlayer.isIdle()) {
                             mVideoPlayer.pause();
                         }
                     }
@@ -224,7 +225,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
         }
     }
 
-    private void unRegisterNetChangedReceiver() {
+    public void unRegisterNetChangedReceiver() {
         if (hasRegisterNetReceiver) {
             if (netChangedReceiver != null) {
                 mContext.unregisterReceiver(netChangedReceiver);
@@ -253,7 +254,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
         mTitle = findViewById(R.id.title);
         mLlTopOther = findViewById(R.id.ll_top_other);
         mIvDownload = findViewById(R.id.iv_download);
-        mIvAudio =  findViewById(R.id.iv_audio);
+        mIvAudio = findViewById(R.id.iv_audio);
         mIvShare = findViewById(R.id.iv_share);
         mIvMenu = findViewById(R.id.iv_menu);
 
@@ -294,7 +295,6 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
         setTopVisibility(mIsTopAndBottomVisibility);
     }
-
 
 
     private void initListener() {
@@ -342,16 +342,17 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置视频播放器中间的播放键是否显示，设置自定义图片
-     * @param isVisibility          是否可见
-     * @param image                 image
+     *
+     * @param isVisibility 是否可见
+     * @param image        image
      */
     @Override
     public void setCenterPlayer(boolean isVisibility, @DrawableRes int image) {
         this.mIsCenterPlayerVisibility = isVisibility;
-        if(isVisibility){
-            if(image==0){
+        if (isVisibility) {
+            if (image == 0) {
                 mCenterStart.setImageResource(R.mipmap.fr_ic_player_center_start);
-            }else {
+            } else {
                 mCenterStart.setImageResource(image);
             }
         }
@@ -361,14 +362,15 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
     /**
      * 18年3月15日添加
      * 设置是否显示视频头部的下载，分享布局控件
-     * @param isVisibility          是否可见
+     *
+     * @param isVisibility 是否可见
      */
     @Override
     public void setTopVisibility(boolean isVisibility) {
         this.mIsTopAndBottomVisibility = isVisibility;
-        if(isVisibility){
+        if (isVisibility) {
             mLlTopOther.setVisibility(VISIBLE);
-        }else {
+        } else {
             mLlTopOther.setVisibility(GONE);
         }
     }
@@ -386,7 +388,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      */
     @Override
     public void setLoadingType(@FRConstantKeys.LoadingType int type) {
-        switch (type){
+        switch (type) {
             case FRConstantKeys.Loading.LOADING_RING:
                 pbLoadingRing.setVisibility(VISIBLE);
                 pbLoadingQq.setVisibility(GONE);
@@ -405,7 +407,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置不操作后，多久自动隐藏头部和底部布局
-     * @param time                  时间
+     *
+     * @param time 时间
      */
     @Override
     public void setHideTime(long time) {
@@ -415,7 +418,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置视频标题
-     * @param title             视频标题
+     *
+     * @param title 视频标题
      */
     @Override
     public void setTitle(String title) {
@@ -425,7 +429,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 获取ImageView的对象
-     * @return                  对象
+     *
+     * @return 对象
      */
     @Override
     public ImageView imageView() {
@@ -435,7 +440,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置图片
-     * @param resId             视频底图资源
+     *
+     * @param resId 视频底图资源
      */
     @Override
     public void setImage(@DrawableRes int resId) {
@@ -445,7 +451,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置视频时长
-     * @param length            时长，long类型
+     *
+     * @param length 时长，long类型
      */
     @Override
     public void setLength(long length) {
@@ -455,7 +462,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置视频时长
-     * @param length            时长，String类型
+     *
+     * @param length 时长，String类型
      */
     @Override
     public void setLength(String length) {
@@ -465,7 +473,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置播放器
-     * @param VideoPlayer   播放器
+     *
+     * @param VideoPlayer 播放器
      */
     @Override
     public void setVideoPlayer(IFRInterVideoPlayer VideoPlayer) {
@@ -477,10 +486,10 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
     }
 
 
-
     /**
      * 获取是否是锁屏模式
-     * @return              true表示锁屏
+     *
+     * @return true表示锁屏
      */
     @Override
     public boolean getLock() {
@@ -500,8 +509,9 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置视频清晰度
-     * @param clarities                         清晰度
-     * @param defaultClarityIndex               默认清晰度
+     *
+     * @param clarities           清晰度
+     * @param defaultClarityIndex 默认清晰度
      */
     public void setClarity(final List<FRVideoClarity> clarities, int defaultClarityIndex) {
         if (clarities != null && clarities.size() > 1) {
@@ -546,6 +556,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 当播放状态发生改变时
+     *
      * @param playState 播放状态：
      */
     @Override
@@ -579,7 +590,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
             //暂停播放
             case FRConstantKeys.CurrentState.STATE_PAUSED:
                 mLoading.setVisibility(View.GONE);
-                mCenterStart.setVisibility(mIsCenterPlayerVisibility?View.VISIBLE:View.GONE);
+                mCenterStart.setVisibility(mIsCenterPlayerVisibility ? View.VISIBLE : View.GONE);
                 mRestartPause.setImageResource(R.mipmap.fr_ic_player_start);
                 cancelDismissTopBottomTimer();
                 break;
@@ -612,7 +623,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
                 mImage.setVisibility(View.VISIBLE);
                 mCompleted.setVisibility(View.VISIBLE);
                 //设置播放完成的监听事件
-                if(mOnCompletedListener!=null){
+                if (mOnCompletedListener != null) {
                     mOnCompletedListener.onCompleted();
                 }
                 //当播放完成就解除广播
@@ -626,6 +637,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 当播放器的播放模式发生变化时
+     *
      * @param playMode 播放器的模式：
      */
     @Override
@@ -656,9 +668,9 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
                     mClarity.setVisibility(View.VISIBLE);
                 }
                 mLlTopOther.setVisibility(GONE);
-                if (mIsTopAndBottomVisibility){
+                if (mIsTopAndBottomVisibility) {
                     mLlHorizontal.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     mLlHorizontal.setVisibility(View.GONE);
                 }
                 if (!hasRegisterBatteryReceiver) {
@@ -714,7 +726,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
             //开始播放
             if (mVideoPlayer.isIdle()) {
                 mVideoPlayer.start();
-            }else if (mVideoPlayer.isPlaying() || mVideoPlayer.isBufferingPlaying()) {
+            } else if (mVideoPlayer.isPlaying() || mVideoPlayer.isBufferingPlaying()) {
                 mVideoPlayer.pause();
             } else if (mVideoPlayer.isPaused() || mVideoPlayer.isBufferingPaused()) {
                 mVideoPlayer.restart();
@@ -727,30 +739,30 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
             } else if (mVideoPlayer.isTinyWindow()) {
                 //如果是小窗口，则退出小窗口
                 mVideoPlayer.exitTinyWindow();
-            }else {
+            } else {
                 //如果两种情况都不是，执行逻辑交给使用者自己实现
-                if(mBackListener!=null){
+                if (mBackListener != null) {
                     mBackListener.onBackClick();
-                }else {
+                } else {
                     FRVideoLogUtils.d("返回键逻辑，如果是全屏，则先退出全屏；如果是小窗口，则退出小窗口；如果两种情况都不是，执行逻辑交给使用者自己实现");
                 }
             }
         } else if (v == mRestartPause) {
-            if(FRVideoPlayerUtils.isConnected(mContext)){
+            if (FRVideoPlayerUtils.isConnected(mContext)) {
                 //重新播放或者暂停
                 if (mVideoPlayer.isPlaying() || mVideoPlayer.isBufferingPlaying()) {
                     mVideoPlayer.pause();
-                    if(mOnPlayOrPauseListener!=null){
+                    if (mOnPlayOrPauseListener != null) {
                         mOnPlayOrPauseListener.onPlayOrPauseClick(true);
                     }
                 } else if (mVideoPlayer.isPaused() || mVideoPlayer.isBufferingPaused()) {
                     mVideoPlayer.restart();
-                    if(mOnPlayOrPauseListener!=null){
+                    if (mOnPlayOrPauseListener != null) {
                         mOnPlayOrPauseListener.onPlayOrPauseClick(false);
                     }
                 }
-            }else {
-                Toast.makeText(mContext,"请检测是否有网络",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, "请检测是否有网络", Toast.LENGTH_SHORT).show();
             }
         } else if (v == mFullScreen) {
             //全屏模式，重置锁屏，设置为未选中状态
@@ -772,67 +784,67 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
         } else if (v == mRetry) {
             //点击重试
             //不论是否记录播放位置，都是从零开始播放
-            if(FRVideoPlayerUtils.isConnected(mContext)){
+            if (FRVideoPlayerUtils.isConnected(mContext)) {
                 mVideoPlayer.restart();
-            }else {
-                Toast.makeText(mContext,"请检测是否有网络",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, "请检测是否有网络", Toast.LENGTH_SHORT).show();
             }
         } else if (v == mReplay) {
             //重新播放
-            if(FRVideoPlayerUtils.isConnected(mContext)){
+            if (FRVideoPlayerUtils.isConnected(mContext)) {
                 mRetry.performClick();
-            }else {
-                Toast.makeText(mContext,"请检测是否有网络",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, "请检测是否有网络", Toast.LENGTH_SHORT).show();
             }
         } else if (v == mShare) {
             //分享
             Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
-        } else if(v == mFlLock){
+        } else if (v == mFlLock) {
             //点击锁屏按钮，则进入锁屏模式
             setLock(mIsLock);
-        } else if(v == mIvDownload){
-            if(mVideoControlListener==null){
+        } else if (v == mIvDownload) {
+            if (mVideoControlListener == null) {
                 FRVideoLogUtils.d("请在初始化的时候设置下载监听事件");
                 return;
             }
             //点击下载
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.DOWNLOAD);
-        } else if(v == mIvAudio){
-            if(mVideoControlListener==null){
+        } else if (v == mIvAudio) {
+            if (mVideoControlListener == null) {
                 FRVideoLogUtils.d("请在初始化的时候设置切换监听事件");
                 return;
             }
             //点击切换音频
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.AUDIO);
-        }else if(v == mIvShare){
-            if(mVideoControlListener==null){
+        } else if (v == mIvShare) {
+            if (mVideoControlListener == null) {
                 FRVideoLogUtils.d("请在初始化的时候设置分享监听事件");
                 return;
             }
             //点击分享
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.SHARE);
-        }else if(v == mIvMenu){
-            if(mVideoControlListener==null){
+        } else if (v == mIvMenu) {
+            if (mVideoControlListener == null) {
                 FRVideoLogUtils.d("请在初始化的时候设置分享监听事件");
                 return;
             }
             //点击菜单
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.MENU);
-        }else if(v == mIvHorAudio){
-            if(mVideoControlListener==null){
+        } else if (v == mIvHorAudio) {
+            if (mVideoControlListener == null) {
                 FRVideoLogUtils.d("请在初始化的时候设置横向音频监听事件");
                 return;
             }
             //点击横向音频
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.HOR_AUDIO);
-        }else if(v == mIvHorTv){
-            if(mVideoControlListener==null){
+        } else if (v == mIvHorTv) {
+            if (mVideoControlListener == null) {
                 FRVideoLogUtils.d("请在初始化的时候设置横向Tv监听事件");
                 return;
             }
             //点击横向TV
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.TV);
-        }  else if (v == this) {
+        } else if (v == this) {
             if (mVideoPlayer.isPlaying() || mVideoPlayer.isPaused()
                     || mVideoPlayer.isBufferingPlaying() || mVideoPlayer.isBufferingPaused()) {
                 setTopBottomVisible(!topBottomVisible);
@@ -843,6 +855,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 设置top、bottom的显示和隐藏
+     *
      * @param visible true显示，false隐藏.
      */
     private void setTopBottomVisible(boolean visible) {
@@ -864,7 +877,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      * 比如，视频常用功能，当用户5秒不操作后，自动隐藏头部和顶部
      */
     private void startDismissTopBottomTimer() {
-        if(time==0){
+        if (time == 0) {
             time = 8000;
         }
         cancelDismissTopBottomTimer();
@@ -897,13 +910,14 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
     /**
      * 设置锁屏模式，默认是未锁屏的
      * 当为true时，则锁屏；否则为未锁屏
-     * @param isLock            是否锁屏
+     *
+     * @param isLock 是否锁屏
      */
-    private void setLock(boolean isLock){
-        if(isLock){
+    private void setLock(boolean isLock) {
+        if (isLock) {
             mIsLock = false;
             mIvLock.setImageResource(R.mipmap.fr_player_unlock_btn);
-        }else {
+        } else {
             mIsLock = true;
             mIvLock.setImageResource(R.mipmap.fr_player_locked_btn);
         }
@@ -939,6 +953,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 显示视频播放位置
+     *
      * @param duration            视频总时长ms
      * @param newPositionProgress 新的位置进度，取值0到100。
      */
@@ -964,6 +979,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 展示视频播放音量
+     *
      * @param newVolumeProgress 新的音量进度，取值1到100。
      */
     @Override
@@ -984,6 +1000,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
 
     /**
      * 展示视频播放亮度
+     *
      * @param newBrightnessProgress 新的亮度进度，取值1到100。
      */
     @Override
@@ -1008,6 +1025,7 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      * 如果你觉得项目可以，欢迎star
      */
     private OnVideoBackListener mBackListener;
+
     public void setOnVideoBackListener(OnVideoBackListener listener) {
         this.mBackListener = listener;
     }
@@ -1016,7 +1034,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      * 设置视频分享，下载，音视频转化点击事件
      */
     private OnVideoControlListener mVideoControlListener;
-    public void setOnVideoControlListener(OnVideoControlListener listener){
+
+    public void setOnVideoControlListener(OnVideoControlListener listener) {
         this.mVideoControlListener = listener;
     }
 
@@ -1024,7 +1043,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      * 播放暂停监听事件
      */
     private OnPlayOrPauseListener mOnPlayOrPauseListener;
-    public void setOnPlayOrPauseListener(OnPlayOrPauseListener listener){
+
+    public void setOnPlayOrPauseListener(OnPlayOrPauseListener listener) {
         this.mOnPlayOrPauseListener = listener;
     }
 
@@ -1032,7 +1052,8 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
      * 监听视频播放完成事件
      */
     private OnCompletedListener mOnCompletedListener;
-    public void setOnCompletedListener(OnCompletedListener listener){
+
+    public void setOnCompletedListener(OnCompletedListener listener) {
         this.mOnCompletedListener = listener;
     }
 

@@ -19,6 +19,7 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
+import com.wkz.videoplayer.window.FRFloatWindow;
 
 import java.util.ArrayList;
 
@@ -76,6 +77,9 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
     public void onStop() {
         super.onStop();
         FRVideoPlayerManager.instance().releaseVideoPlayer();
+        if (FRFloatWindow.get() != null) {
+            FRFloatWindow.destroy();
+        }
     }
 
     @Override

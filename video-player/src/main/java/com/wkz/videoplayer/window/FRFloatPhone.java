@@ -18,6 +18,7 @@ public class FRFloatPhone extends FRFloatView {
     private final WindowManager.LayoutParams mLayoutParams;
     private View mView;
     private int mX, mY;
+    private boolean isAttached;
 
     FRFloatPhone(Context applicationContext) {
         mContext = applicationContext;
@@ -60,12 +61,14 @@ public class FRFloatPhone extends FRFloatView {
             if (FRWindowUtils.hasPermission(mContext)) {
                 mLayoutParams.format = PixelFormat.RGBA_8888;
                 mWindowManager.addView(mView, mLayoutParams);
+                isAttached = true;
             } else {
                 FRPermissionActivity.request(mContext, new OnPermissionListener() {
                     @Override
                     public void onSuccess() {
                         mLayoutParams.format = PixelFormat.RGBA_8888;
                         mWindowManager.addView(mView, mLayoutParams);
+                        isAttached = true;
                     }
 
                     @Override
@@ -79,27 +82,36 @@ public class FRFloatPhone extends FRFloatView {
 
     @Override
     public void dismiss() {
-        mWindowManager.removeView(mView);
+        if (isAttached) {
+            mWindowManager.removeView(mView);
+            isAttached = false;
+        }
     }
 
     @Override
     public void updateXY(int x, int y) {
         mLayoutParams.x = mX = x;
         mLayoutParams.y = mY = y;
-        mWindowManager.updateViewLayout(mView, mLayoutParams);
+        if (isAttached) {
+            mWindowManager.updateViewLayout(mView, mLayoutParams);
+        }
     }
 
     @Override
     void updateX(int x) {
         mLayoutParams.x = mX = x;
-        mWindowManager.updateViewLayout(mView, mLayoutParams);
+        if (isAttached) {
+            mWindowManager.updateViewLayout(mView, mLayoutParams);
+        }
 
     }
 
     @Override
     void updateY(int y) {
         mLayoutParams.y = mY = y;
-        mWindowManager.updateViewLayout(mView, mLayoutParams);
+        if (isAttached) {
+            mWindowManager.updateViewLayout(mView, mLayoutParams);
+        }
     }
 
     @Override

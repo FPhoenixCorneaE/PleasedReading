@@ -3,10 +3,11 @@ package com.wkz.pleasedreading.main.gank;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 
 import com.wkz.framework.base.FRBaseActivity;
-import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.base.FRBasePresenter;
+import com.wkz.framework.base.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.GlideUtils;
 import com.wkz.framework.utils.ScreenUtils;
@@ -17,16 +18,22 @@ import com.wkz.pleasedreading.databinding.PrActivityGankVideoBinding;
 import com.wkz.videoplayer.constant.FRConstantKeys;
 import com.wkz.videoplayer.controller.FRVideoPlayerController;
 import com.wkz.videoplayer.dialog.FRVideoClarity;
+import com.wkz.videoplayer.inter.listener.OnCompletedListener;
 import com.wkz.videoplayer.inter.listener.OnPlayOrPauseListener;
 import com.wkz.videoplayer.inter.listener.OnVideoBackListener;
 import com.wkz.videoplayer.inter.listener.OnVideoControlListener;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
+import com.wkz.videoplayer.window.FRFloatPlayerView;
+import com.wkz.videoplayer.window.FRFloatWindow;
+import com.wkz.videoplayer.window.FRMoveType;
+import com.wkz.videoplayer.window.FRWindowScreen;
 
 import java.util.ArrayList;
 
 public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPresenter> implements PRGankContract.IGankView {
 
     private PrActivityGankVideoBinding mDataBinding;
+    private String mVideoUrl;
 
     @Override
     public int getLayoutId() {
@@ -52,6 +59,10 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
         layoutParams.width = ScreenUtils.getScreenWidth();
         layoutParams.height = (int) (layoutParams.width * 9f / 16f);
         mDataBinding.prVpVideo.setLayoutParams(layoutParams);
+
+        if (FRFloatWindow.get() != null) {
+            FRFloatWindow.destroy();
+        }
     }
 
     @Override
@@ -70,13 +81,49 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
     @Override
     protected void onStop() {
         super.onStop();
-        FRVideoPlayerManager.instance().releaseVideoPlayer();
+        //为了小窗口视频播放完毕能隐藏掉小窗口,这里不释放播放器资源
+//        FRVideoPlayerManager.instance().releaseVideoPlayer();
     }
 
     @Override
     public void onBackPressed() {
         if (FRVideoPlayerManager.instance().onBackPressed()) return;
         super.onBackPressed();
+    }
+
+    @Override
+    public void finish() {
+        startWindow();
+        super.finish();
+    }
+
+    /**
+     * 小窗口视频播放
+     */
+    private void startWindow() {
+        if (FRFloatWindow.get() != null || mDataBinding.prVpVideo.isCompleted()) {
+            return;
+        }
+        FRFloatPlayerView.setUrl(mVideoUrl);
+        FRFloatPlayerView.setOnCompletedListener(new OnCompletedListener() {
+            @Override
+            public void onCompleted() {
+                FRFloatWindow.destroy();
+            }
+        });
+        FRFloatPlayerView floatPlayerView = new FRFloatPlayerView(getApplicationContext());
+        FRFloatWindow
+                .with(getApplicationContext())
+                .setView(floatPlayerView)
+                //这个是设置位置
+                .setX(FRWindowScreen.width, 0.8f)
+                .setY(FRWindowScreen.height, 0.5f)
+                .setMoveType(FRMoveType.slide)
+                //用于指定在哪些界面显示悬浮窗，默认全部界面都显示
+                .setFilter(false)
+                .setMoveStyle(500, new BounceInterpolator())
+                .build();
+        FRFloatWindow.get().show();
     }
 
     @Override
@@ -98,9 +145,9 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
         //设置播放类型
         mDataBinding.prVpVideo.setPlayerType(FRConstantKeys.IjkPlayerType.TYPE_IJK);
         //网络视频地址
-        String videoUrl = prGankBean.getPlayAddr();
+        mVideoUrl = prGankBean.getPlayAddr();
         //设置视频地址和请求头部
-        mDataBinding.prVpVideo.setUp(videoUrl, null);
+        mDataBinding.prVpVideo.setUp(mVideoUrl, null);
         //是否从上一次的位置继续播放
         mDataBinding.prVpVideo.continueFromLastPosition(false);
         //设置播放速度

@@ -30,7 +30,7 @@ public class FRFloatWindowImpl extends IFRFloatWindow {
     FRFloatWindowImpl(FRFloatWindow.B b) {
         mB = b;
         if (mB.mMoveType == FRMoveType.fixed) {
-            if (Build.VERSION.SDK_INT >=25) {
+            if (Build.VERSION.SDK_INT >= 25) {
                 mFloatView = new FRFloatPhone(b.mApplicationContext);
             } else {
                 mFloatView = new FRFloatToast(b.mApplicationContext);
@@ -82,6 +82,7 @@ public class FRFloatWindowImpl extends IFRFloatWindow {
 
     @Override
     void dismiss() {
+        if (once || !isShow) return;
         mFloatView.dismiss();
         isShow = false;
     }
