@@ -27,6 +27,7 @@
         <com.wkz.videoplayer.player.FRVideoPlayer
             android:id="@+id/pr_vp_video"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:setVideoInfo="@{videoInfo}" />
     </com.wkz.framework.widgets.FRCardView>
 </layout>

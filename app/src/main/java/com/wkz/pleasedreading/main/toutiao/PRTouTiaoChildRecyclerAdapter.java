@@ -1,6 +1,7 @@
 package com.wkz.pleasedreading.main.toutiao;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrAdapterToutiaoChildRecyclerBinding;
 import com.wkz.videoplayer.constant.FRConstantKeys;
 import com.wkz.videoplayer.controller.FRVideoPlayerController;
+import com.wkz.videoplayer.player.FRVideoPlayer;
 
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
             //因此，executePendingBindings()是很重要的。
             viewHolder.mDataBinding.executePendingBindings();
 
-            viewHolder.setVideoInfo(data);
+            viewHolder.mDataBinding.setVideoInfo(data);
         }
     }
 
@@ -55,11 +57,9 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
         return R.layout.pr_adapter_toutiao_child_recycler;
     }
 
-    protected static class ViewHolder extends FRRecyclerViewHolder {
+    public static class ViewHolder extends FRRecyclerViewHolder {
 
         protected PrAdapterToutiaoChildRecyclerBinding mDataBinding;
-        private FRVideoPlayerController mController;
-        private Gson mGson = new Gson();
 
         /**
          * 构造方法
@@ -70,9 +70,6 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
             super(itemView);
             mDataBinding = DataBindingUtil.bind(itemView);
 
-            //创建视频控制器，只要创建一次就可以了呢
-            mController = new FRVideoPlayerController(itemView.getContext());
-
             if (mDataBinding != null) {
                 //设置宽高比例为16:9
                 ViewGroup.LayoutParams layoutParams = mDataBinding.prVpVideo.getLayoutParams();
@@ -80,35 +77,35 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
                 layoutParams.height = (int) (layoutParams.width * 9f / 16f);
                 mDataBinding.prVpVideo.setLayoutParams(layoutParams);
 
+                //创建视频控制器，只要创建一次就可以了呢
+                FRVideoPlayerController mController = new FRVideoPlayerController(itemView.getContext());
+                //设置加载动画
+                mController.setLoadingType(FRConstantKeys.Loading.LOADING_RING);
+                //显示中心播放按钮
+                mController.setCenterPlayer(true, 0);
                 mDataBinding.prVpVideo.setController(mController);
             }
         }
 
-        public void setVideoInfo(PRTouTiaoVideoBean.DataBean data) {
-            PRTouTiaoVideoBean.DataBean.ContentBean content = mGson.fromJson(data.getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
+        @BindingAdapter({"setVideoInfo"})
+        public static void setVideoInfo(FRVideoPlayer prVpVideo, PRTouTiaoVideoBean.DataBean data) {
+            if (data == null || TextUtils.isEmpty(data.getContent())) return;
+
+            PRTouTiaoVideoBean.DataBean.ContentBean content = new Gson().fromJson(data.getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
+
             //设置视频标题
-            mController.setTitle(content.getTitle());
-            //设置加载动画
-            mController.setLoadingType(FRConstantKeys.Loading.LOADING_RING);
-            //显示中心播放按钮
-            mController.setCenterPlayer(true, 0);
+            prVpVideo.getController().setTitle(content.getTitle());
             //视频封面
             if (content.getVideo_detail_info() != null &&
                     content.getVideo_detail_info().getDetail_video_large_image() != null) {
                 GlideUtils.setupImagePlaceColorRes(
-                        mController.imageView(),
+                        prVpVideo.getController().imageView(),
                         content.getVideo_detail_info().getDetail_video_large_image().getUrl(),
                         R.color.fr_color_black_translucent50
                 );
             }
-//            if (!TextUtils.isEmpty(content.getDisplay_url())) {
-//                mDataBinding.prVpVideo.setUp(content.getDisplay_url().replace("http://", "https://"), null);
-//            } else if (!TextUtils.isEmpty(content.getUrl())) {
-//                mDataBinding.prVpVideo.setUp(content.getUrl(), null);
-//            } else if (!TextUtils.isEmpty(content.getArticle_url())) {
-//                mDataBinding.prVpVideo.setUp(content.getArticle_url(), null);
-//            }
-            mDataBinding.prVpVideo.setUp(data.getVideoUrl(), null);
+
+            prVpVideo.setUp(data.getVideoUrl(), null);
         }
     }
 }
