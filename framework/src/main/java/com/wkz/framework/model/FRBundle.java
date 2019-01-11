@@ -3,6 +3,7 @@ package com.wkz.framework.model;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Size;
 import android.util.SizeF;
@@ -11,13 +12,29 @@ import android.util.SparseArray;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FRBundle {
+public class FRBundle implements Cloneable, Parcelable {
 
     private Bundle mBundle;
 
     public FRBundle() {
         mBundle = new Bundle();
     }
+
+    protected FRBundle(Parcel in) {
+        mBundle = in.readParcelable(Bundle.class.getClassLoader());
+    }
+
+    public static final Creator<FRBundle> CREATOR = new Creator<FRBundle>() {
+        @Override
+        public FRBundle createFromParcel(Parcel in) {
+            return new FRBundle(in);
+        }
+
+        @Override
+        public FRBundle[] newArray(int size) {
+            return new FRBundle[size];
+        }
+    };
 
     public FRBundle putBoolean(String key, boolean value) {
         mBundle.putBoolean(key, value);
@@ -162,5 +179,20 @@ public class FRBundle {
 
     public Bundle create() {
         return mBundle;
+    }
+
+    @Override
+    protected Object clone() {
+        return new FRBundle();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mBundle, flags);
     }
 }
