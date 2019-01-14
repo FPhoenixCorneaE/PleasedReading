@@ -14,6 +14,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/pr_ic_launcher"
         android:label="@string/pr_app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/pr_ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FRTheme.Base">

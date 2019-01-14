@@ -1,5 +1,7 @@
 package com.wkz.pleasedreading.main.gank;
 
+import android.support.annotation.NonNull;
+
 import com.wkz.framework.base.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
@@ -9,7 +11,7 @@ public class PRGankPresenter extends FRBasePresenter<PRGankContract.IGankView, P
     private int mPageNum = 10;
     private int mPageCount = 1;
 
-    public PRGankPresenter(PRGankContract.IGankView view) {
+    public PRGankPresenter(@NonNull PRGankContract.IGankView view) {
         super(view);
     }
 
@@ -38,20 +40,16 @@ public class PRGankPresenter extends FRBasePresenter<PRGankContract.IGankView, P
         mModel.getDataByType(type, mPageNum, mPageCount, mView.bindToLife(), new OnFRHttpCallback<PRGankBean>() {
             @Override
             public void onSuccess(PRGankBean data) {
-                if (mView != null) {
-                    if (!data.isError()) {
-                        mView.onSuccess(data.getResults());
-                    } else {
-                        mView.onFailure(FRHttpError.ERROR_UNKNOWN, FRHttpError.MESSAGE_UNKNOWN);
-                    }
+                if (!data.isError()) {
+                    mView.onSuccess(data.getResults());
+                } else {
+                    mView.onFailure(FRHttpError.ERROR_UNKNOWN, FRHttpError.MESSAGE_UNKNOWN);
                 }
             }
 
             @Override
             public void onFailure(String msg) {
-                if (mView != null) {
-                    mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
-                }
+                mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
             }
         });
     }
@@ -61,16 +59,12 @@ public class PRGankPresenter extends FRBasePresenter<PRGankContract.IGankView, P
         mModel.getVideoInfo(prGankBean, mView.bindToLife(), new OnFRHttpCallback<PRGankBean.ResultsBean>() {
             @Override
             public void onSuccess(PRGankBean.ResultsBean data) {
-                if (mView != null) {
-                    mView.onSuccess(data);
-                }
+                mView.onSuccess(data);
             }
 
             @Override
             public void onFailure(String msg) {
-                if (mView != null) {
-                    mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
-                }
+                mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
             }
         });
     }

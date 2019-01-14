@@ -92,6 +92,7 @@ public class PRTouTiaoChildFragment extends PRTouTiaoFragment implements PRTouTi
         } else {
             mCatagoryId = "";
         }
+        mPresenter.setCategoryId(mCatagoryId);
     }
 
     @Override
@@ -99,6 +100,8 @@ public class PRTouTiaoChildFragment extends PRTouTiaoFragment implements PRTouTi
         super.onSuccess(data);
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
+            //清空数据
+            mPresenter.clear();
             mPRTouTiaoChildRecyclerAdapter.setNewData((List<PRTouTiaoVideoBean.DataBean>) data);
         } else {
             mPRTouTiaoChildRecyclerAdapter.setLoadMoreData((List<PRTouTiaoVideoBean.DataBean>) data);
@@ -121,5 +124,16 @@ public class PRTouTiaoChildFragment extends PRTouTiaoFragment implements PRTouTi
     @Override
     public void onLoadMore(boolean isReload) {
         mPresenter.onLoadMoreData(mCatagoryId);
+    }
+
+    @Override
+    public void onGetVideoContentSuccess(int position, String videoUrl) {
+        mPRTouTiaoChildRecyclerAdapter.getData(position).setVideoUrl(videoUrl);
+        mPRTouTiaoChildRecyclerAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void onGetVideoContentFailure(String errorMsg) {
+
     }
 }

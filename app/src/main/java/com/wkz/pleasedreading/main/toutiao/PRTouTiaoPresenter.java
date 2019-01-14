@@ -1,5 +1,6 @@
 package com.wkz.pleasedreading.main.toutiao;
 
+import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import com.google.gson.Gson;
@@ -8,16 +9,28 @@ import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 import com.wkz.framework.utils.TimeUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.zip.CRC32;
 
+@SuppressWarnings("ConstantConditions")
 public class PRTouTiaoPresenter extends FRBasePresenter<PRTouTiaoContract.ITouTiaoView, PRTouTiaoContract.ITouTiaoModel>
         implements PRTouTiaoContract.ITouTiaoPresenter {
 
     private String mTime;
+    private HashMap<String, ArrayList<PRTouTiaoVideoBean.DataBean>> mDataMap;
+    private String mCategoryId;
 
-    public PRTouTiaoPresenter(PRTouTiaoContract.ITouTiaoView view) {
+    public PRTouTiaoPresenter(@NonNull PRTouTiaoContract.ITouTiaoView view) {
         super(view);
+        mDataMap = new HashMap<>();
+    }
+
+    @Override
+    public void setCategoryId(String mCategoryId) {
+        this.mCategoryId = mCategoryId;
+        this.mDataMap.put(mCategoryId, new ArrayList<>());
     }
 
     /**
@@ -25,6 +38,7 @@ public class PRTouTiaoPresenter extends FRBasePresenter<PRTouTiaoContract.ITouTi
      *
      * @param category
      */
+    @Override
     public void onRefreshData(String category) {
         mTime = TimeUtils.getNowString();
         getVideoList(category, mTime);
@@ -35,6 +49,7 @@ public class PRTouTiaoPresenter extends FRBasePresenter<PRTouTiaoContract.ITouTi
      *
      * @param category
      */
+    @Override
     public void onLoadMoreData(String category) {
         getVideoList(category, mTime);
     }
@@ -44,60 +59,70 @@ public class PRTouTiaoPresenter extends FRBasePresenter<PRTouTiaoContract.ITouTi
         mModel.getVideoList(category, maxBehotTime, mView.bindToLife(), new OnFRHttpCallback<PRTouTiaoVideoBean>() {
             @Override
             public void onSuccess(PRTouTiaoVideoBean data) {
-                if (mView != null) {
-                    Gson gson = new Gson();
-                    PRTouTiaoVideoBean.DataBean.ContentBean contentBean = gson.fromJson(data.getData().get(data.getData().size() - 1).getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
-                    mTime = contentBean.getBehot_time() + "";
-                    mView.onSuccess(data.getData());
+                Gson gson = new Gson();
+                PRTouTiaoVideoBean.DataBean.ContentBean contentBean = gson.fromJson(data.getData().get(data.getData().size() - 1).getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
+                mTime = contentBean.getBehot_time() + "";
+                mView.onSuccess(data.getData());
 
-                    for (PRTouTiaoVideoBean.DataBean dataBean : data.getData()) {
-                        PRTouTiaoVideoBean.DataBean.ContentBean contentBean1 = gson.fromJson(dataBean.getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
-                        String url = getVideoContentApi(contentBean1.getVideo_id());
-                        getVideoContent(dataBean, url);
+                int index = 0;
+                for (PRTouTiaoVideoBean.DataBean dataBean : data.getData()) {
+                    PRTouTiaoVideoBean.DataBean.ContentBean contentBean1 = gson.fromJson(dataBean.getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
+                    String url = getVideoContentApi(contentBean1.getVideo_id());
+                    if (mDataMap.containsKey(mCategoryId) && mDataMap.get(mCategoryId) != null) {
+                        getVideoContent(mDataMap.get(mCategoryId).size() + index, url);
                     }
+                    index++;
+                }
+
+                if (mDataMap.containsKey(mCategoryId) && mDataMap.get(mCategoryId) != null) {
+                    mDataMap.get(mCategoryId).addAll(data.getData());
                 }
             }
 
             @Override
             public void onFailure(String msg) {
-                if (mView != null) {
-                    mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
-                }
+                mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
             }
         });
     }
 
     @Override
-    public void getVideoContent(PRTouTiaoVideoBean.DataBean dataBean, String url) {
+    public void getVideoContent(int position, String url) {
         mModel.getVideoContent(url, mView.bindToLife(), new OnFRHttpCallback<PRTouTiaoVideoContentBean>() {
             @Override
             public void onSuccess(PRTouTiaoVideoContentBean data) {
-                if (dataBean != null) {
-                    PRTouTiaoVideoContentBean.DataBean.VideoListBean videoListBean = data.getData().getVideo_list();
-                    String videoUrl = "";
-                    if (videoListBean.getVideo_3() != null) {
-                        String base64 = videoListBean.getVideo_3().getMain_url();
-                        videoUrl = (new String(Base64.decode(base64.getBytes(), Base64.DEFAULT)));
-                    }
-
-                    if (videoListBean.getVideo_2() != null) {
-                        String base64 = videoListBean.getVideo_2().getMain_url();
-                        videoUrl = (new String(Base64.decode(base64.getBytes(), Base64.DEFAULT)));
-                    }
-
-                    if (videoListBean.getVideo_1() != null) {
-                        String base64 = videoListBean.getVideo_1().getMain_url();
-                        videoUrl = (new String(Base64.decode(base64.getBytes(), Base64.DEFAULT)));
-                    }
-                    dataBean.setVideoUrl(videoUrl);
+                if (data == null || data.getData() == null) return;
+                PRTouTiaoVideoContentBean.DataBean.VideoListBean videoListBean = data.getData().getVideo_list();
+                String videoUrl = "";
+                if (videoListBean.getVideo_3() != null) {
+                    String base64 = videoListBean.getVideo_3().getMain_url();
+                    videoUrl = (new String(Base64.decode(base64.getBytes(), Base64.DEFAULT)));
                 }
+
+                if (videoListBean.getVideo_2() != null) {
+                    String base64 = videoListBean.getVideo_2().getMain_url();
+                    videoUrl = (new String(Base64.decode(base64.getBytes(), Base64.DEFAULT)));
+                }
+
+                if (videoListBean.getVideo_1() != null) {
+                    String base64 = videoListBean.getVideo_1().getMain_url();
+                    videoUrl = (new String(Base64.decode(base64.getBytes(), Base64.DEFAULT)));
+                }
+                mView.onGetVideoContentSuccess(position, videoUrl);
             }
 
             @Override
             public void onFailure(String msg) {
-
+                mView.onGetVideoContentFailure(msg);
             }
         });
+    }
+
+    @Override
+    public void clear() {
+        if (mDataMap.containsKey(mCategoryId) && mDataMap.get(mCategoryId) != null) {
+            mDataMap.get(mCategoryId).clear();
+        }
     }
 
     private static String getVideoContentApi(String videoId) {

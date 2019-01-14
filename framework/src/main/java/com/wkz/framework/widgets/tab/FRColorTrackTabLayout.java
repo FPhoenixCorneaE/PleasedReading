@@ -41,10 +41,9 @@ public class FRColorTrackTabLayout extends RelativeLayout {
         if (mBuilder.mPageTitles == null) return;
         if (mBuilder.mPageFragments.size() != mBuilder.mPageTitles.size()) return;
         mBuilder.mViewPager.setAdapter(new SimpleFragmentPagerAdapter(mBuilder.mFragmentManager, mBuilder.mPageFragments, mBuilder.mPageTitles));
-        mBuilder.mViewPager.setOffscreenPageLimit(1);
-        LayoutParams layoutParams = new LayoutParams(mBuilder.mTabWidth, mBuilder.mTabHeight);
+        mBuilder.mViewPager.setOffscreenPageLimit(mBuilder.mOffscreenPageLimit);
         TabLayout tabLayout = new TabLayout(getContext());
-        tabLayout.setLayoutParams(layoutParams);
+        tabLayout.setLayoutParams(new LayoutParams(mBuilder.mTabWidth, mBuilder.mTabHeight));
         tabLayout.setBackgroundColor(mBuilder.mTabBackground);
         tabLayout.setTabMode(mBuilder.mTabMode);
         tabLayout.setTabGravity(mBuilder.mTabGravity);
@@ -52,6 +51,9 @@ public class FRColorTrackTabLayout extends RelativeLayout {
         tabLayout.setSelectedTabIndicatorHeight(mBuilder.mTabIndicatorHeight);
         tabLayout.setSelectedTabIndicatorColor(mBuilder.mTabIndicatorColor);
         tabLayout.setupWithViewPager(mBuilder.mViewPager);
+        if (mBuilder.mOnTabSelectedListener != null) {
+            tabLayout.addOnTabSelectedListener(mBuilder.mOnTabSelectedListener);
+        }
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             if (tab == null) return;
@@ -159,6 +161,7 @@ public class FRColorTrackTabLayout extends RelativeLayout {
         private int mTabIndicatorHeight = SizeUtils.dp2px(2f);
         private TabLayout.OnTabSelectedListener mOnTabSelectedListener;
         private ColorStateList mTabTextColors = createColorStateList(Color.BLACK, Color.RED);
+        private int mOffscreenPageLimit;
 
         public Builder() {
         }
@@ -231,6 +234,11 @@ public class FRColorTrackTabLayout extends RelativeLayout {
 
         public Builder setTabTextColors(@Nullable ColorStateList textColor) {
             this.mTabTextColors = textColor;
+            return this;
+        }
+
+        public Builder setOffscreenPageLimit(int mOffscreenPageLimit) {
+            this.mOffscreenPageLimit = mOffscreenPageLimit;
             return this;
         }
 

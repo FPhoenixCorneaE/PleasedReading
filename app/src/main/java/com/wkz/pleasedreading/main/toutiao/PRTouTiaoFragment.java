@@ -88,4 +88,14 @@ public class PRTouTiaoFragment extends FRBaseFragment<PRTouTiaoContract.ITouTiao
     public void initData(@Nullable Bundle savedInstanceState) {
 
     }
+
+    @Override
+    public void onGetVideoContentSuccess(int position, String videoUrl) {
+
+    }
+
+    @Override
+    public void onGetVideoContentFailure(String errorMsg) {
+
+    }
 }
