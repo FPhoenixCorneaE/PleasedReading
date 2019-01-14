@@ -5,11 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.base.FRBaseFragment;
-import com.wkz.framework.base.FRBasePresenter;
-import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.bases.FRBaseFragment;
+import com.wkz.framework.bases.FRBasePresenter;
+import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
-import com.wkz.framework.model.FRBundle;
+import com.wkz.framework.models.FRBundle;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;

@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.wkz.framework.model.GlideApp;
+import com.wkz.framework.models.GlideApp;
 
 /**
  * 初始化服务,主要用于初始化一些影响应用启动速度的耗时任务,从而优化启动速度

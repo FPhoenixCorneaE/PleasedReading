@@ -1,6 +1,6 @@
 package com.wkz.pleasedreading.splash;
 
-import com.wkz.framework.base.FRBasePresenter;
+import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 import com.wkz.pleasedreading.constant.PRUrl;

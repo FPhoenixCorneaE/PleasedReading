@@ -1,31 +1,27 @@
-package com.wkz.framework.base;
+package com.wkz.framework.bases;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.BarHide;
 import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.ImmersionOwner;
+import com.gyf.barlibrary.ImmersionProxy;
 import com.gyf.barlibrary.OnKeyboardListener;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
-import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wkz.framework.R;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
@@ -33,11 +29,11 @@ import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
 
-public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
-        extends RxAppCompatDialogFragment
-        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener {
+public abstract class FRBaseFragment<P extends IFRBasePresenter>
+        extends RxFragment
+        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, ImmersionOwner {
 
-    private static final String NAME_FRAGMENT = FRBaseDialogFragment.class.getName();
+    private static final String NAME_FRAGMENT = FRBaseFragment.class.getName();
     protected FRBaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
     private View mContentView;
@@ -53,17 +49,9 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
     private boolean mHasFetchData;
     private OnSelectedInterface mOnSelectedInterface;
     /**
-     * 窗口
+     * ImmersionBar代理类
      */
-    protected Window mWindow;
-    /**
-     * 屏幕宽度
-     */
-    protected int mWidth;
-    /**
-     * 屏幕高度
-     */
-    protected int mHeight;
+    private ImmersionProxy mImmersionProxy = new ImmersionProxy(this);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,14 +60,13 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
         if (getActivity() instanceof OnSelectedInterface) {
             this.mOnSelectedInterface = (OnSelectedInterface) getActivity();
         }
-
-        //全屏透明主题
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.FRTheme_Dialog_Normal);
+        mImmersionProxy.onCreate(savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mImmersionProxy.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -88,49 +75,6 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
         if (mOnSelectedInterface != null) {
             mOnSelectedInterface.onSelectedFragment(this);
         }
-
-        Dialog dialog = getDialog();
-        //点击外部消失
-        dialog.setCanceledOnTouchOutside(true);
-        mWindow = dialog.getWindow();
-        //测量宽高
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (getActivity() != null) {
-                DisplayMetrics dm = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(dm);
-                mWidth = dm.widthPixels;
-                mHeight = dm.heightPixels;
-            }
-        } else {
-            DisplayMetrics metrics = getResources().getDisplayMetrics();
-            mWidth = metrics.widthPixels;
-            mHeight = metrics.heightPixels;
-        }
-
-        setGravity();
-        setAnimation();
-        setLayout();
-    }
-
-    /**
-     * 若要修改重力方向可重写该方法
-     */
-    protected void setGravity() {
-        mWindow.setGravity(Gravity.TOP);
-    }
-
-    /**
-     * 若要修改动画可重写该方法
-     */
-    protected void setAnimation() {
-        mWindow.setWindowAnimations(R.style.FRAnimation_TopPopup);
-    }
-
-    /**
-     * 若要修改宽高可重写该方法
-     */
-    protected void setLayout() {
-        mWindow.setLayout(mWidth, mHeight / 2);
     }
 
     @Override
@@ -157,10 +101,6 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
         //构建Presenter
         mPresenter = (P) createPresenter();
 
-        //初始化沉浸式
-        if (isImmersionBarEnabled()) {
-            initImmersionBar();
-        }
         //初始化视图
         initView();
         //初始化监听
@@ -200,6 +140,7 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
         if ((isVisibleToUser && isResumed())) {
             onResume();
         }
+        mImmersionProxy.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
@@ -229,27 +170,31 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
     @Override
     public void onResume() {
         super.onResume();
+        mImmersionProxy.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        mImmersionProxy.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(mContext).destroy();
+        mImmersionProxy.onDestroy();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        mImmersionProxy.onHiddenChanged(hidden);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        mImmersionProxy.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -334,8 +279,41 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
     }
 
     /**
+     * 懒加载，在view初始化完成之前执行
+     * On lazy after view.
+     */
+    @Override
+    public void onLazyBeforeView() {
+    }
+
+    /**
+     * 懒加载，在view初始化完成之后执行
+     * On lazy before view.
+     */
+    @Override
+    public void onLazyAfterView() {
+    }
+
+    /**
+     * Fragment用户可见时候调用
+     * On visible.
+     */
+    @Override
+    public void onVisible() {
+    }
+
+    /**
+     * Fragment用户不可见时候调用
+     * On invisible.
+     */
+    @Override
+    public void onInvisible() {
+    }
+
+    /**
      * 初始化沉浸式状态栏
      */
+    @Override
     public void initImmersionBar() {
         ImmersionBar.with(mContext)
                 .transparentStatusBar()  //透明状态栏，不写默认透明色
@@ -386,7 +364,8 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
      *
      * @return the boolean
      */
-    public boolean isImmersionBarEnabled() {
+    @Override
+    public boolean immersionBarEnabled() {
         return true;
     }
 
@@ -419,6 +398,6 @@ public abstract class FRBaseDialogFragment<P extends IFRBasePresenter>
     }
 
     public interface OnSelectedInterface {
-        void onSelectedFragment(FRBaseDialogFragment selectedFragment);
+        void onSelectedFragment(FRBaseFragment selectedFragment);
     }
 }

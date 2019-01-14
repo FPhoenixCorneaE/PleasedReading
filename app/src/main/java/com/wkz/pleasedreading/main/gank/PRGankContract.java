@@ -1,9 +1,9 @@
 package com.wkz.pleasedreading.main.gank;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.wkz.framework.base.IFRBaseModel;
-import com.wkz.framework.base.IFRBasePresenter;
-import com.wkz.framework.base.IFRBaseView;
+import com.wkz.framework.bases.IFRBaseModel;
+import com.wkz.framework.bases.IFRBasePresenter;
+import com.wkz.framework.bases.IFRBaseView;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 
 public interface PRGankContract {

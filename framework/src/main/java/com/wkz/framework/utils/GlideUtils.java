@@ -15,7 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.wkz.framework.model.GlideApp;
+import com.wkz.framework.models.GlideApp;
 
 /**
  * Glide加载图片工具类

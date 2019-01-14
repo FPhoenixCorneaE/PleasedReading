@@ -17,7 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.model.FRActivityAnimator;
+import com.wkz.framework.models.FRActivityAnimator;
 
 /**
  * Intent操作

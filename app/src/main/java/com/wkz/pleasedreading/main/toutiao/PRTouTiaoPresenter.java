@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import com.google.gson.Gson;
-import com.wkz.framework.base.FRBasePresenter;
+import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 import com.wkz.framework.utils.TimeUtils;

@@ -1,4 +1,4 @@
-package com.wkz.framework.base;
+package com.wkz.framework.bases;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,7 +26,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wkz.framework.R;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
-import com.wkz.framework.model.FRActivityAnimator;
+import com.wkz.framework.models.FRActivityAnimator;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;

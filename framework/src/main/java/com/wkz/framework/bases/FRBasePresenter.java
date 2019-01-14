@@ -1,4 +1,4 @@
-package com.wkz.framework.base;
+package com.wkz.framework.bases;
 
 import android.support.annotation.NonNull;
 

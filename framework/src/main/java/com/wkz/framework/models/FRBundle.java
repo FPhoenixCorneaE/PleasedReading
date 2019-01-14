@@ -1,4 +1,4 @@
-package com.wkz.framework.model;
+package com.wkz.framework.models;
 
 import android.os.Build;
 import android.os.Bundle;

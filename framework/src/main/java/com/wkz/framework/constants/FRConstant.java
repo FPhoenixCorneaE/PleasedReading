@@ -1,4 +1,4 @@
-package com.wkz.framework.constant;
+package com.wkz.framework.constants;
 
 public class FRConstant {
 

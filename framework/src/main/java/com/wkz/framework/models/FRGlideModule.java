@@ -1,4 +1,4 @@
-package com.wkz.framework.model;
+package com.wkz.framework.models;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

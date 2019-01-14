@@ -1,7 +1,7 @@
 package com.wkz.framework.factorys;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.bases.IFRBaseModel;
 
 public class FRModelFactory {
 

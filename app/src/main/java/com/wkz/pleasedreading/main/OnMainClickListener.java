@@ -3,7 +3,7 @@ package com.wkz.pleasedreading.main;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
-import com.wkz.framework.base.FRBaseActivity;
+import com.wkz.framework.bases.FRBaseActivity;
 
 public interface OnMainClickListener {
 

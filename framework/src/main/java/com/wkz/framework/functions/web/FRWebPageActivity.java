@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.wkz.framework.R;
-import com.wkz.framework.base.FRBaseActivity;
-import com.wkz.framework.base.FRBasePresenter;
-import com.wkz.framework.base.IFRBaseModel;
-import com.wkz.framework.constant.FRConstant;
+import com.wkz.framework.bases.FRBaseActivity;
+import com.wkz.framework.bases.FRBasePresenter;
+import com.wkz.framework.bases.IFRBaseModel;
+import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.databinding.FrActivityWebPageBinding;
 import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.framework.utils.SizeUtils;

@@ -5,9 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 
-import com.wkz.framework.base.FRBaseActivity;
-import com.wkz.framework.base.FRBasePresenter;
-import com.wkz.framework.base.IFRBaseModel;
+import com.wkz.framework.bases.FRBaseActivity;
+import com.wkz.framework.bases.FRBasePresenter;
+import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.GlideUtils;
 import com.wkz.framework.utils.ScreenUtils;
