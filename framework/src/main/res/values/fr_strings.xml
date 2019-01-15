@@ -13,4 +13,7 @@
     <string name="fr_recycler_loading">努力加载中…</string>
     <string name="fr_recycler_loadfailed">加载失败，点击重新加载</string>
     <string name="fr_recycler_loadend">没有更多数据了 ლ(´•д• ̀ლ</string>
+
+    <string name="fr_image_viewer_go_back">返回</string>
+    <string name="fr_image_viewer_more">更多</string>
 </resources>

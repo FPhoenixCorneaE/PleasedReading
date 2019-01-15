@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/fr_tv_cover_go_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/fr_ic_go_back_white_translucent50"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/fr_image_viewer_go_back"
+            android:textColor="@color/fr_color_white_translucent50"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/fr_ib_cover_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:background="@color/fr_color_transparent"
+            android:contentDescription="@string/fr_image_viewer_more"
+            android:padding="15dp"
+            android:src="@drawable/fr_ic_more_horiz_white_translucent50" />
+
+        <TextView
+            android:id="@+id/fr_tv_cover_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="30dp"
+            android:paddingTop="10dp"
+            android:text=""
+            android:textColor="@color/fr_color_white_translucent50"
+            android:textSize="16sp" />
+    </FrameLayout>
+</layout>

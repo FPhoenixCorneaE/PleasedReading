@@ -10,6 +10,11 @@ import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.wkz.framework.constants.FRConstant;
+import com.wkz.framework.functions.imageviewer.FRImageViewerActivity;
+import com.wkz.framework.models.FRActivityAnimator;
+import com.wkz.framework.models.FRBundle;
+import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.FRSpaceDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
@@ -21,6 +26,7 @@ import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 import com.wkz.viewer.FRViewData;
 import com.wkz.viewer.widget.FRImageViewer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +38,7 @@ public class PRGankWelfareFragment extends PRGankFragment implements IGankView, 
     private PrFragmentGankChildBinding mDataBinding;
     private PRGankWelfareRecyclerAdapter mPRGankWelfareRecyclerAdapter;
     private String mTitle;
-    private List<FRViewData> mViewList = new ArrayList<>();
+    private ArrayList<FRViewData> mViewList = new ArrayList<>();
     private FRImageViewer mFrImageViewer;
 
     public void setImageViewer(FRImageViewer mFrImageViewer) {
@@ -171,10 +177,19 @@ public class PRGankWelfareFragment extends PRGankFragment implements IGankView, 
                     .setTargetHeight(viewHolder.mDataBinding.prIvWelfare.getMeasuredHeight());
             mViewList.set(position, viewData);
 
-            mFrImageViewer.setImageData(mPRGankWelfareRecyclerAdapter.getAllData());
-            mFrImageViewer.setViewData(mViewList);
-            mFrImageViewer.setStartPosition(position);
-            mFrImageViewer.watch();
+//            mFrImageViewer.setImageData(mPRGankWelfareRecyclerAdapter.getAllData());
+//            mFrImageViewer.setViewData(mViewList);
+//            mFrImageViewer.setStartPosition(position);
+//            mFrImageViewer.watch();
+            IntentUtils.startActivity(mContext,
+                    FRImageViewerActivity.class,
+                    new FRBundle()
+                            .putParcelableArrayList(FRConstant.IMAGE_VIEWER_VIEW_DATA, mViewList)
+                            .putSerializable(FRConstant.IMAGE_VIEWER_IMAGE_DATA, (Serializable) mPRGankWelfareRecyclerAdapter.getAllData())
+                            .putInt(FRConstant.IMAGE_VIEWER_START_POSITION, position)
+                            .create(),
+                    FRActivityAnimator.Animator.SCALE_IN_SCALE_OUT
+            );
         }
     }
 

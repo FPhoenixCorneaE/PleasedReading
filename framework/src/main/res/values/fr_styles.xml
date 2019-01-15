@@ -13,6 +13,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <!--全屏透明主题,设置android:windowIsTranslucent不兼容activity切换动画,加上android:windowAnimationStyle后可兼容-->
+    <style name="FRTheme.Fullscreen.Transparent" parent="FRTheme.Fullscreen">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/FRAnimation.ScaleInScaleOut</item>
+    </style>
+
     <!--启动页主题-->
     <style name="FRTheme.Splash" parent="FRTheme.Base">
         <item name="android:windowFullscreen">true</item>
@@ -49,20 +55,26 @@
     </style>
 
     <!--底部弹出动画-->
-    <style name="FRTheme.Dialog.BottomPopup" parent="android:Animation">
+    <style name="FRAnimation.BottomPopup" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/fr_bottom_in</item>
         <item name="@android:windowExitAnimation">@anim/fr_bottom_out</item>
     </style>
 
     <!--左边弹出动画-->
-    <style name="FRTheme.Dialog.LeftPopup" parent="android:Animation">
+    <style name="FRAnimation.LeftPopup" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/fr_left_in</item>
         <item name="@android:windowExitAnimation">@anim/fr_left_out</item>
     </style>
 
     <!--右边弹出动画-->
-    <style name="FRTheme.Dialog.RightPopup" parent="android:Animation">
+    <style name="FRAnimation.RightPopup" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/fr_right_in</item>
         <item name="@android:windowExitAnimation">@anim/fr_right_out</item>
+    </style>
+
+    <!--透明主题，淡入淡出缩放动画-->
+    <style name="FRAnimation.ScaleInScaleOut" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/fr_fade_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/fr_fade_scale_out</item>
     </style>
 </resources>

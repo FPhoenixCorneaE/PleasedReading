@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
+import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.models.FRActivityAnimator;
 
 /**
@@ -96,6 +97,7 @@ public class IntentUtils {
             Intent intent = new Intent();
             intent.setClass(context, className);
             if (bundle == null) bundle = new Bundle();
+            bundle.putString(FRConstant.ACTIVITY_ANIMATION, animation);
             intent.putExtras(bundle);
 
             if (Integer.MIN_VALUE == requestCode) {

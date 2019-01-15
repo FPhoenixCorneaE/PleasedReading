@@ -17,7 +17,7 @@ public class FRActivityAnimator {
             Animator.APPEAR_BOTTOM_RIGHT,
             Animator.DISAPPEAR_BOTTOM_RIGHT,
             Animator.DISAPPEAR_TOP_LEFT,
-            Animator.FADE,
+            Animator.FADE_IN_FADE_OUT,
             Animator.FLIP_HORIZONTAL,
             Animator.FLIP_VERTICAL,
             Animator.JUMP,
@@ -32,6 +32,7 @@ public class FRActivityAnimator {
             Animator.ROTATE_DOWN,
             Animator.ROTATE_UP,
             Animator.SCALE,
+            Animator.SCALE_IN_SCALE_OUT,
             Animator.UNZOOM,
             Animator.ZOOM,
     })
@@ -41,7 +42,7 @@ public class FRActivityAnimator {
         String APPEAR_BOTTOM_RIGHT = "appearBottomRight";
         String DISAPPEAR_BOTTOM_RIGHT = "disappearBottomRight";
         String DISAPPEAR_TOP_LEFT = "disappearTopLeft";
-        String FADE = "fade";
+        String FADE_IN_FADE_OUT = "fadeInFadeOut";
         String FLIP_HORIZONTAL = "flipHorizontal";
         String FLIP_VERTICAL = "flipVertical";
         String JUMP = "jump";
@@ -56,6 +57,7 @@ public class FRActivityAnimator {
         String ROTATE_DOWN = "rotateDown";
         String ROTATE_UP = "rotateUp";
         String SCALE = "scale";
+        String SCALE_IN_SCALE_OUT = "scaleInScaleOut";
         String UNZOOM = "unzoom";
         String ZOOM = "unzoom";
     }
@@ -76,7 +78,7 @@ public class FRActivityAnimator {
         a.overridePendingTransition(R.anim.fr_disappear_top_left_in, R.anim.fr_disappear_top_left_out);
     }
 
-    public void fade(Activity a) {
+    public void fadeInFadeOut(Activity a) {
         a.overridePendingTransition(R.anim.fr_fade_in, R.anim.fr_fade_out);
     }
 
@@ -134,6 +136,10 @@ public class FRActivityAnimator {
 
     public void scale(Activity a) {
         a.overridePendingTransition(R.anim.fr_scale_up, R.anim.fr_scale_down);
+    }
+
+    public void scaleInScaleOut(Activity a) {
+        a.overridePendingTransition(R.anim.fr_fade_scale_in, R.anim.fr_fade_scale_out);
     }
 
     public void unzoom(Activity a) {

@@ -8,6 +8,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wkz.framework.R;
+import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.models.FRActivityAnimator;
@@ -205,21 +207,20 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
                 getSupportFragmentManager().popBackStack();
             }
         }
-        //退出动画,如果界面切换动画无效果则可以去手机系统设置-->开发者选项-->过渡动画比例，设置比例
-        try {
-            FRActivityAnimator anim = new FRActivityAnimator();
-            anim.getClass().getMethod(FRActivityAnimator.Animator.PULL_LEFT_PUSH_RIGHT, Activity.class).invoke(anim, mContext);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | NullPointerException e) {
-            Logger.e(e.toString());
-        }
     }
 
     @Override
     public void finish() {
         super.finish();
+        //隐藏软键盘
         hideSoftKeyBoard();
+        //执行退出动画
+        doExitAnimation();
     }
 
+    /**
+     * 隐藏软键盘
+     */
     public void hideSoftKeyBoard() {
         View localView = getCurrentFocus();
         if (this.mInputMethodManager == null) {
@@ -227,6 +228,28 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
         }
         if ((localView != null) && (this.mInputMethodManager != null)) {
             this.mInputMethodManager.hideSoftInputFromWindow(localView.getWindowToken(), 2);
+        }
+    }
+
+    /**
+     * 退出动画
+     */
+    private void doExitAnimation() {
+        try {
+            //退出动画,如果界面切换动画无效果则可以去手机系统设置-->开发者选项-->过渡动画比例，设置比例
+            FRActivityAnimator anim = new FRActivityAnimator();
+            @FRActivityAnimator.Animator
+            String activityAnimator = getIntent().getStringExtra(FRConstant.ACTIVITY_ANIMATION);
+            switch (activityAnimator) {
+                case FRActivityAnimator.Animator.PULL_RIGHT_PUSH_LEFT:
+                    anim.getClass().getMethod(FRActivityAnimator.Animator.PULL_LEFT_PUSH_RIGHT, Activity.class).invoke(anim, mContext);
+                    break;
+                case FRActivityAnimator.Animator.SCALE_IN_SCALE_OUT:
+                    anim.getClass().getMethod(FRActivityAnimator.Animator.SCALE_IN_SCALE_OUT, Activity.class).invoke(anim, mContext);
+                    break;
+            }
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | NullPointerException e) {
+            Logger.e(e.toString());
         }
     }
 

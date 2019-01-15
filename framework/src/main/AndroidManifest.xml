@@ -27,6 +27,15 @@
             android:theme="@style/FRTheme.Activity"
             android:windowSoftInputMode="adjustNothing" />
 
+        <!--大图浏览-->
+        <activity
+            android:name=".functions.imageviewer.FRImageViewerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/FRTheme.Fullscreen.Transparent"
+            android:windowSoftInputMode="adjustNothing" />
+
         <!--初始化服务-->
         <service android:name=".services.FRInitializeService" />
 
