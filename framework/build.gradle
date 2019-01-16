@@ -177,49 +177,97 @@ dependencies {
     /**
      * logger
      */
-    implementation 'com.orhanobut:logger:' + rootProject.ext.versionLogger
+    api('com.orhanobut:logger:' + rootProject.ext.versionLogger) {
+        transitive true
+    }
 
     /**
      * rxlifecycle2
      */
-    implementation("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
+    api("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
+        transitive true
         exclude group: 'io.reactivex.rxjava2', module: 'rxandroid'
     }
 
     /**
      * rxandroid
      */
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.versionRxandroid"
+    api("io.reactivex.rxjava2:rxandroid:$rootProject.ext.versionRxandroid") {
+        transitive true
+    }
 
     /**
      * rxjava2
      */
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.versionRxjava2"
+    api("io.reactivex.rxjava2:rxjava:$rootProject.ext.versionRxjava2") {
+        transitive true
+    }
 
     /**
      * retrofit2
      */
-    implementation("com.squareup.retrofit2:retrofit:$rootProject.ext.versionRetrofit2") {
+    api("com.squareup.retrofit2:retrofit:$rootProject.ext.versionRetrofit2") {
+        transitive true
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2"
+    api("com.squareup.retrofit2:converter-gson:$rootProject.ext.versionRetrofit2") {
+        transitive true
+    }
     implementation "com.squareup.retrofit2:converter-scalars:$rootProject.ext.versionRetrofit2"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.versionRetrofit2"
 
     /**
+     * rxbinding2
+     */
+    api('com.jakewharton.rxbinding2:rxbinding:' + rootProject.ext.versionRxbinding2) {
+        transitive true
+    }
+    api('com.jakewharton.rxbinding2:rxbinding-support-v4:' + rootProject.ext.versionRxbinding2) {
+        transitive true
+    }
+    api('com.jakewharton.rxbinding2:rxbinding-appcompat-v7:' + rootProject.ext.versionRxbinding2) {
+        transitive true
+    }
+    api('com.jakewharton.rxbinding2:rxbinding-design:' + rootProject.ext.versionRxbinding2) {
+        transitive true
+    }
+    api('com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:' + rootProject.ext.versionRxbinding2) {
+        transitive true
+    }
+
+    /**
+     * rxpermissions
+     */
+    implementation("com.github.tbruyelle:rxpermissions:$rootProject.ext.versionRxpermission") {
+        exclude module: 'rxjava'
+        exclude group: 'com.android.support'
+    }
+
+    /**
      * okhttp3
      */
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
+    api("com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3") {
+        transitive true
+    }
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.versionOkhttp3"
+
+    /**
+     * okio
+     */
+    implementation "com.squareup.okio:okio:$rootProject.ext.versionOkio"
 
     /**
      * glide
      */
-    implementation("com.github.bumptech.glide:glide:$rootProject.ext.versionGlide") {
+    api("com.github.bumptech.glide:glide:$rootProject.ext.versionGlide") {
+        transitive true
         exclude group: "com.android.support"
     }
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
-    implementation("com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide") {
+    annotationProcessor("com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide") {
+        transitive true
+    }
+    api("com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide") {
+        transitive true
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
@@ -231,8 +279,12 @@ dependencies {
     /**
      * 智能下拉刷新框架，支持越界回弹、越界拖动，具有极强的扩展性
      */
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:' + rootProject.ext.versionSmartRefresh
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:' + rootProject.ext.versionSmartRefresh
+    api('com.scwang.smartrefresh:SmartRefreshLayout:' + rootProject.ext.versionSmartRefresh) {
+        transitive true
+    }
+    api('com.scwang.smartrefresh:SmartRefreshHeader:' + rootProject.ext.versionSmartRefresh) {
+        transitive true
+    }
 
     /**
      * ijkplayer

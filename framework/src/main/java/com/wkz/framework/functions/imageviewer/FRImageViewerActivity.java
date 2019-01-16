@@ -17,6 +17,7 @@ import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.databinding.FrActivityImageViewerBinding;
+import com.wkz.framework.utils.GlideDownloadImageUtils;
 import com.wkz.viewer.FRImageViewerState;
 import com.wkz.viewer.FRViewData;
 import com.wkz.viewer.IImageLoader;
@@ -118,8 +119,8 @@ public class FRImageViewerActivity extends FRBaseActivity implements View.OnClic
                 })
                 .setOnItemLongClickListener(new OnItemLongClickListener() {
                     @Override
-                    public void onItemLongClick(int i, View view) {
-
+                    public void onItemLongClick(int position, View view) {
+                        GlideDownloadImageUtils.savePictureToLocalAlbum(mContext, imageDatas.get(position));
                     }
                 })
                 .setOnImageChangedListener(new OnImageChangedListener() {
