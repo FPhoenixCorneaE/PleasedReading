@@ -261,9 +261,4 @@ dependencies {
     implementation "com.android.support:design:$rootProject.ext.versionSupport"
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.versionSupport"
     implementation "com.android.support:cardview-v7:$rootProject.ext.versionSupport"
-
-    /**
-     * photoview
-     */
-    implementation 'com.github.chrisbanes:PhotoView:' + rootProject.ext.versionPhotoView
 }
