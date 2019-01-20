@@ -290,4 +290,11 @@ dependencies {
      * ijkplayer
      */
     implementation 'tv.danmaku.ijk.media:ijkplayer-java:' + rootProject.ext.versionIjkplayer
+
+    /**
+     * photoview
+     */
+    api('com.github.chrisbanes:PhotoView:' + rootProject.ext.versionPhotoView) {
+        transitive true
+    }
 }
