@@ -37,17 +37,15 @@
             android:paddingStart="15dp"
             android:paddingEnd="15dp">
 
-            <com.wkz.framework.widgets.FRInsLoadingView
-                android:id="@+id/pr_ilv_avatar"
-                android:layout_width="@dimen/pr_actionBarSize"
-                android:layout_height="@dimen/pr_actionBarSize"
+            <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+                android:id="@+id/pr_iv_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:onClick="@{onMainClickListener::openDrawer}"
-                android:src="@drawable/pr_shape_placeholder_avatar_circle"
-                app:avatarLoadingUrl="@{avatarUrl}"
-                app:fr_ilv_end_color="@color/fr_color_light_purple"
-                app:fr_ilv_start_color="@color/fr_color_pink"
-                app:fr_ilv_status="loading" />
+                app:avatarUrl="@{avatarUrl}"
+                app:fr_siv_pressed_alpha="0"
+                app:fr_siv_pressed_color="@color/fr_color_transparent" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/pr_tv_title"
