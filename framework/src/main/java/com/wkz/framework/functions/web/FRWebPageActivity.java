@@ -16,7 +16,7 @@ import com.wkz.framework.utils.ResourceUtils;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.FRProgressBar;
 
-public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Listener {
+public class FRWebPageActivity extends FRBaseActivity implements FRWebView.OnPageListener {
 
     private FrActivityWebPageBinding mDataBinding;
     private String mUrl;
@@ -44,7 +44,7 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
 
     @Override
     public void initListener() {
-        mDataBinding.frWvWebPage.setListener(mContext, this);
+        mDataBinding.frWvWebPage.setOnPageListener(mContext, this);
     }
 
     @Override
@@ -114,6 +114,15 @@ public class FRWebPageActivity extends FRBaseActivity implements FRWebView.Liste
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //为了避免可能引起内存积压，导致内存溢出的现象，Activity退出的时候销毁WebView
+        if (mDataBinding.frWvWebPage != null) {
+            mDataBinding.frWvWebPage.onDestroy();
+        }
     }
 
     private void addImageClickListener() {

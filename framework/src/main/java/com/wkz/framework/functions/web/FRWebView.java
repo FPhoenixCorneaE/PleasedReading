@@ -71,7 +71,7 @@ import java.util.MissingResourceException;
 @SuppressWarnings("deprecation")
 public class FRWebView extends WebView {
 
-    public interface Listener {
+    public interface OnPageListener {
         void onPageStarted(String url, Bitmap favicon);
 
         void onPageLoading(int progress);
@@ -96,7 +96,7 @@ public class FRWebView extends WebView {
     protected static final String[] ALTERNATIVE_BROWSERS = new String[]{"org.mozilla.firefox", "com.android.chrome", "com.opera.browser", "org.mozilla.firefox_beta", "com.chrome.beta", "com.opera.browser.beta"};
     protected WeakReference<Activity> mActivity;
     protected WeakReference<Fragment> mFragment;
-    protected Listener mListener;
+    protected OnPageListener mListener;
     protected final List<String> mPermittedHostnames = new LinkedList<>();
     /**
      * File upload callback for platform versions prior to Android 5.0
@@ -128,35 +128,35 @@ public class FRWebView extends WebView {
         init(context);
     }
 
-    public void setListener(final Activity activity, final Listener listener) {
-        setListener(activity, listener, REQUEST_CODE_FILE_PICKER);
+    public void setOnPageListener(final Activity activity, final OnPageListener listener) {
+        setOnPageListener(activity, listener, REQUEST_CODE_FILE_PICKER);
     }
 
-    public void setListener(final Activity activity, final Listener listener, final int requestCodeFilePicker) {
+    public void setOnPageListener(final Activity activity, final OnPageListener listener, final int requestCodeFilePicker) {
         if (activity != null) {
             mActivity = new WeakReference<>(activity);
         } else {
             mActivity = null;
         }
 
-        setListener(listener, requestCodeFilePicker);
+        setOnPageListener(listener, requestCodeFilePicker);
     }
 
-    public void setListener(final Fragment fragment, final Listener listener) {
-        setListener(fragment, listener, REQUEST_CODE_FILE_PICKER);
+    public void setOnPageListener(final Fragment fragment, final OnPageListener listener) {
+        setOnPageListener(fragment, listener, REQUEST_CODE_FILE_PICKER);
     }
 
-    public void setListener(final Fragment fragment, final Listener listener, final int requestCodeFilePicker) {
+    public void setOnPageListener(final Fragment fragment, final OnPageListener listener, final int requestCodeFilePicker) {
         if (fragment != null) {
             mFragment = new WeakReference<>(fragment);
         } else {
             mFragment = null;
         }
 
-        setListener(listener, requestCodeFilePicker);
+        setOnPageListener(listener, requestCodeFilePicker);
     }
 
-    protected void setListener(final Listener listener, final int requestCodeFilePicker) {
+    protected void setOnPageListener(final OnPageListener listener, final int requestCodeFilePicker) {
         mListener = listener;
         mRequestCodeFilePicker = requestCodeFilePicker;
     }
@@ -272,13 +272,17 @@ public class FRWebView extends WebView {
         // try to remove this view from its parent first
         try {
             loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            clearHistory();
             ((ViewGroup) getParent()).removeView(this);
         } catch (Exception ignored) {
         }
 
         // then try to remove all child views from this view
         try {
+            stopLoading();
+            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
+            getSettings().setJavaScriptEnabled(false);
+            clearHistory();
+            clearView();
             removeAllViews();
         } catch (Exception ignored) {
         }
