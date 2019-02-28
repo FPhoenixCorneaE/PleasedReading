@@ -9,9 +9,11 @@ import com.wkz.framework.bases.FRBaseActivity;
 import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
+import com.wkz.framework.listeners.OnFRVideoControlListener;
 import com.wkz.framework.utils.GlideUtils;
+import com.wkz.framework.utils.NetworkUtils;
 import com.wkz.framework.utils.ScreenUtils;
-import com.wkz.framework.utils.ToastUtils;
+import com.wkz.okserver.OkDownload;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constant.PRConstant;
 import com.wkz.pleasedreading.databinding.PrActivityGankVideoBinding;
@@ -21,7 +23,6 @@ import com.wkz.videoplayer.dialog.FRVideoClarity;
 import com.wkz.videoplayer.inter.listener.OnCompletedListener;
 import com.wkz.videoplayer.inter.listener.OnPlayOrPauseListener;
 import com.wkz.videoplayer.inter.listener.OnVideoBackListener;
-import com.wkz.videoplayer.inter.listener.OnVideoControlListener;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 import com.wkz.videoplayer.window.FRFloatPlayerView;
 import com.wkz.videoplayer.window.FRFloatWindow;
@@ -34,6 +35,7 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
 
     private PrActivityGankVideoBinding mDataBinding;
     private String mVideoUrl;
+    private String mVideoTitle;
 
     @Override
     public int getLayoutId() {
@@ -72,6 +74,9 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        //从数据库中恢复下载数据
+        OkDownload.restore();
+
         if (getIntent() != null) {
             PRGankBean.ResultsBean prGankBean = (PRGankBean.ResultsBean) getIntent().getSerializableExtra(PRConstant.PR_GANK_VIDEO_INFO);
             mPresenter.getVideoInfo(prGankBean);
@@ -142,10 +147,12 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
      * @param prGankBean
      */
     private void initVideoPlayer(PRGankBean.ResultsBean prGankBean) {
-        //设置播放类型
-        mDataBinding.prVpVideo.setPlayerType(FRConstantKeys.IjkPlayerType.TYPE_IJK);
         //网络视频地址
         mVideoUrl = prGankBean.getPlayAddr();
+        //网络视频标题
+        mVideoTitle = prGankBean.getDesc();
+        //设置播放类型
+        mDataBinding.prVpVideo.setPlayerType(FRConstantKeys.IjkPlayerType.TYPE_IJK);
         //设置视频地址和请求头部
         mDataBinding.prVpVideo.setUp(mVideoUrl, null);
         //是否从上一次的位置继续播放
@@ -156,11 +163,12 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
         //创建视频控制器，只要创建一次就可以了呢
         FRVideoPlayerController controller = new FRVideoPlayerController(mContext);
         //设置视频标题
-        controller.setTitle(prGankBean.getDesc());
+        controller.setTitle(mVideoTitle);
         //设置加载动画
         controller.setLoadingType(FRConstantKeys.Loading.LOADING_QQ);
         //显示中心播放按钮
         controller.setCenterPlayer(true, 0);
+        //显示下载、分享等功能
         controller.setTopVisibility(true);
         //视频封面
         GlideUtils.setupImagePlaceColorRes(
@@ -173,10 +181,10 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
             private static final long serialVersionUID = -2418882412837550237L;
 
             {
-                add(new FRVideoClarity("标清", "270P", prGankBean.getPlayAddr()));
-                add(new FRVideoClarity("高清", "480P", prGankBean.getPlayAddr()));
-                add(new FRVideoClarity("超清", "720P", prGankBean.getPlayAddr()));
-                add(new FRVideoClarity("蓝光", "1080P", prGankBean.getPlayAddr()));
+                add(new FRVideoClarity("标清", "270P", mVideoUrl));
+                add(new FRVideoClarity("高清", "480P", mVideoUrl));
+                add(new FRVideoClarity("超清", "720P", mVideoUrl));
+                add(new FRVideoClarity("蓝光", "1080P", mVideoUrl));
             }
         }, 0);
         controller.setOnVideoBackListener(new OnVideoBackListener() {
@@ -191,31 +199,19 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
 
             }
         });
-        controller.setOnVideoControlListener(new OnVideoControlListener() {
-            @Override
-            public void onVideoControlClick(int type) {
-                switch (type) {
-                    case FRConstantKeys.VideoControl.DOWNLOAD:
-                        ToastUtils.showShort("下载音视频");
-                        break;
-                    case FRConstantKeys.VideoControl.AUDIO:
-                        ToastUtils.showShort("切换音频");
-                        break;
-                    case FRConstantKeys.VideoControl.SHARE:
-                        ToastUtils.showShort("分享内容");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        //设置视屏控制监听
+        controller.setOnVideoControlListener(new OnFRVideoControlListener(mVideoUrl, mVideoTitle, R.mipmap.pr_ic_launcher));
         //设置视频控制器
         mDataBinding.prVpVideo.setController(controller);
 
-        //进入竖屏播放
-        if (mDataBinding.prVpVideo.isIdle()) {
-            mDataBinding.prVpVideo.start();
+        if (NetworkUtils.isWifiConnected()) {
+            //进入竖屏播放
+            if (mDataBinding.prVpVideo.isIdle()) {
+                mDataBinding.prVpVideo.start();
+            }
+            mDataBinding.prVpVideo.enterVerticalScreenScreen();
+        } else if (NetworkUtils.isMobileConnected()) {
+            //TODO 手机网络连接，弹窗提示用户是否用流量播放
         }
-        mDataBinding.prVpVideo.enterVerticalScreenScreen();
     }
 }

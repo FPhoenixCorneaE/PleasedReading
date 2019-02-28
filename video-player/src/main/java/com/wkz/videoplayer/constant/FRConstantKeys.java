@@ -27,21 +27,23 @@ public final class FRConstantKeys {
         int TYPE_IJK = 111;
         int TYPE_NATIVE = 222;
     }
-    @IntDef({IjkPlayerType.TYPE_IJK,IjkPlayerType.TYPE_NATIVE})
-    public @interface PlayerType{}
+
+    @IntDef({IjkPlayerType.TYPE_IJK, IjkPlayerType.TYPE_NATIVE})
+    public @interface PlayerType {
+    }
 
 
     /**
      * 控制器上的视频顶部View点击事件
-     *                  在竖屏模式下
-     *                  1.DOWNLOAD，下载
-     *                  2.AUDIO，切换音频
-     *                  3.SHARE，分享
-     *                  4.MENU，菜单
-     *
-     *                  在横屏模式下
-     *                  5.TV，点击投影到电视上
-     *                  6.HOR_AUDIO，音频
+     * 在竖屏模式下
+     * 1.DOWNLOAD，下载
+     * 2.AUDIO，切换音频
+     * 3.SHARE，分享
+     * 4.MENU，菜单
+     * <p>
+     * 在横屏模式下
+     * 5.TV，点击投影到电视上
+     * 6.HOR_AUDIO，音频
      */
     @Retention(RetentionPolicy.SOURCE)
     public @interface VideoControl {
@@ -65,7 +67,7 @@ public final class FRConstantKeys {
      * 6                正在缓冲(播放器正在播放时，缓冲区数据不足，进行缓冲，此时暂停播放器，继续缓冲，缓冲区数据足够后恢复暂停
      * 7                播放完成
      */
-    public @interface CurrentState{
+    public @interface CurrentState {
         int STATE_ERROR = -1;
         int STATE_IDLE = 0;
         int STATE_PREPARING = 1;
@@ -78,7 +80,7 @@ public final class FRConstantKeys {
     }
 
     /**
-     * 播放模式，普通模式，小窗口模式，正常模式三种其中一种
+     * 播放模式：普通模式，小窗口模式，正常模式三种其中一种
      */
     @Retention(RetentionPolicy.SOURCE)
     public @interface PlayMode {
@@ -86,7 +88,6 @@ public final class FRConstantKeys {
         int MODE_FULL_SCREEN = 1002;
         int MODE_TINY_WINDOW = 1003;
     }
-
 
 
     /**
@@ -100,8 +101,10 @@ public final class FRConstantKeys {
         int LOADING_RING = 1;
         int LOADING_QQ = 2;
     }
-    @IntDef({Loading.LOADING_RING,Loading.LOADING_QQ})
-    public @interface LoadingType{}
+
+    @IntDef({Loading.LOADING_RING, Loading.LOADING_QQ})
+    public @interface LoadingType {
+    }
 
 
 }

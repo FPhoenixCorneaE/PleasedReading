@@ -218,7 +218,7 @@ public class FRStatusLayoutManager {
         // 设置默认空数据布局的图片
         ImageView emptyImageView = emptyLayout.findViewById(DEFAULT_EMPTY_IMG_ID);
         if (emptyImageView != null) {
-            if (emptyImgID > 0) {
+            if (emptyImgID != 0) {
                 emptyImageView.setVisibility(View.VISIBLE);
                 emptyImageView.setImageResource(emptyImgID);
             } else {
@@ -297,7 +297,7 @@ public class FRStatusLayoutManager {
         // 设置默认出错布局的图片
         ImageView errorImageView = errorLayout.findViewById(DEFAULT_ERROR_IMG_ID);
         if (errorImageView != null) {
-            if (errorImgID > 0) {
+            if (errorImgID != 0) {
                 errorImageView.setVisibility(View.VISIBLE);
                 errorImageView.setImageResource(errorImgID);
             } else {

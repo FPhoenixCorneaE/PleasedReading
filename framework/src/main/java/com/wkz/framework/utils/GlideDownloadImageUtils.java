@@ -3,7 +3,6 @@ package com.wkz.framework.utils;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
@@ -75,8 +74,7 @@ public class GlideDownloadImageUtils {
                     public Observable<Uri> apply(File file) throws Exception {
                         File mFile = null;
                         try {
-                            String path = Environment.getExternalStorageDirectory() + File.separator + FRFilesDirectory.DIR_IMAGE_DOWNLOAD;
-                            File dir = new File(path);
+                            File dir = FRFilesDirectory.DIR_DOWNLOAD_IMAGES;
                             if (!dir.exists()) {
                                 //noinspection ResultOfMethodCallIgnored
                                 dir.mkdirs();
@@ -126,8 +124,7 @@ public class GlideDownloadImageUtils {
                     @Override
                     public String apply(Uri uri) throws Exception {
                         if (uri != null && !TextUtils.isEmpty(uri.getPath())) {
-                            Logger.i(uri.getPath());
-                            return String.format("图片已保存至 %s 文件夹！", FRFilesDirectory.DIR_IMAGE_DOWNLOAD);
+                            return String.format("图片已保存至 %s 文件夹！", FRFilesDirectory.DIR_DOWNLOAD_IMAGES.getAbsolutePath());
                         } else {
                             return "图片保存失败！";
                         }

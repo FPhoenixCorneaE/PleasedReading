@@ -1,11 +1,14 @@
 package com.wkz.pleasedreading.splash;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.jakewharton.rxbinding2.view.RxView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wkz.bannerlayout.annotation.FRProgressShapeMode;
 import com.wkz.bannerlayout.widget.FRProgressDrawable;
 import com.wkz.framework.bases.FRBaseActivity;
@@ -84,6 +87,32 @@ public class PRSplashActivity extends FRBaseActivity<PRSplashContract.ISplashPre
                         .build()
         );
         mProgressDrawable.start();
+
+        //申请权限
+        new RxPermissions(mContext)
+                .requestEach(Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(permission -> { // will emit 2 Permission objects
+                    if (TextUtils.equals(Manifest.permission.READ_PHONE_STATE, permission.name)) {
+                        if (permission.granted) {
+                            // `permission.name` is granted !
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // Denied permission without ask never again
+                        } else {
+                            // Denied permission with ask never again
+                            // Need to go to the settings
+                        }
+                    } else if (TextUtils.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE, permission.name)) {
+                        if (permission.granted) {
+                            // `permission.name` is granted !
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // Denied permission without ask never again
+                        } else {
+                            // Denied permission with ask never again
+                            // Need to go to the settings
+                        }
+                    }
+                });
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wkz.framework.R;
+import com.wkz.framework.annotations.FRNetworkState;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
@@ -47,7 +48,11 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
      * 标识已经触发过懒加载数据
      */
     private boolean mHasFetchData;
-    private OnSelectedInterface mOnSelectedInterface;
+    private IFRSelectedFragment mISelectedFragment;
+    /**
+     * 网络状态
+     */
+    protected int mNetworkState;
     /**
      * ImmersionBar代理类
      */
@@ -57,8 +62,8 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.v(NAME_FRAGMENT);
-        if (getActivity() instanceof OnSelectedInterface) {
-            this.mOnSelectedInterface = (OnSelectedInterface) getActivity();
+        if (getActivity() instanceof IFRSelectedFragment) {
+            this.mISelectedFragment = (IFRSelectedFragment) getActivity();
         }
         mImmersionProxy.onCreate(savedInstanceState);
     }
@@ -72,8 +77,8 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
     @Override
     public void onStart() {
         super.onStart();
-        if (mOnSelectedInterface != null) {
-            mOnSelectedInterface.onSelectedFragment(this);
+        if (mISelectedFragment != null) {
+            mISelectedFragment.onSelectedFragment(this);
         }
     }
 
@@ -268,14 +273,17 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
 
     @Override
     public void onWifiActive(String message) {
+        mNetworkState = FRNetworkState.WifiActive;
     }
 
     @Override
     public void onMobileActive(String message) {
+        mNetworkState = FRNetworkState.MobileActive;
     }
 
     @Override
     public void onUnavailable(String message) {
+        mNetworkState = FRNetworkState.Unavailable;
     }
 
     /**
@@ -395,9 +403,5 @@ public abstract class FRBaseFragment<P extends IFRBasePresenter>
         layout.setClickable(true);
         layout.setOnClickListener(listener);
         return layout;
-    }
-
-    public interface OnSelectedInterface {
-        void onSelectedFragment(FRBaseFragment selectedFragment);
     }
 }

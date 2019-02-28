@@ -162,8 +162,8 @@ android {
 //api在其他依赖该library module的module中，也可调用该library module所依赖的aar文件
 //只在编译时有效,不会参与打包,该方式主要依赖一些比如com.android.support，gson这些使用者常用的库，避免冲突
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    api fileTree(dir: 'aar', include: ['*.aar'])
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.aar'], dir: 'aar')
 
     /**
      * support
@@ -238,7 +238,8 @@ dependencies {
     /**
      * rxpermissions
      */
-    implementation("com.github.tbruyelle:rxpermissions:$rootProject.ext.versionRxpermission") {
+    api("com.github.tbruyelle:rxpermissions:$rootProject.ext.versionRxpermission") {
+        transitive true
         exclude module: 'rxjava'
         exclude group: 'com.android.support'
     }
@@ -297,4 +298,9 @@ dependencies {
     api('com.github.chrisbanes:PhotoView:' + rootProject.ext.versionPhotoView) {
         transitive true
     }
+
+    /**
+     * okserver
+     */
+    api project(':okserver')
 }

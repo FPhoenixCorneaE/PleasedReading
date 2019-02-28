@@ -8,7 +8,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +25,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wkz.framework.R;
+import com.wkz.framework.annotations.FRNetworkState;
 import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
@@ -38,7 +39,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class FRBaseActivity<P extends IFRBasePresenter>
         extends RxAppCompatActivity
-        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, FRBaseFragment.OnSelectedInterface {
+        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, IFRSelectedFragment {
 
     private static final String NAME_ACTIVITY = FRBaseActivity.class.getName();
     protected FRBaseActivity mContext;
@@ -46,8 +47,12 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     private FRStatusLayoutManager mFRStatusLayoutManager;
     private View mContentView;
     protected P mPresenter;
-    private FRBaseFragment mBaseFragment;
+    private Fragment mCurrentFragment;
     private InputMethodManager mInputMethodManager;
+    /**
+     * 网络状态
+     */
+    protected int mNetworkState;
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
@@ -200,7 +205,9 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     @Override
     public void onBackPressed() {
         //如果Fragment的onBackPressed()返回false，就会进入条件内进行默认的操作
-        if (mBaseFragment == null || !mBaseFragment.onBackPressed()) {
+        if (mCurrentFragment == null ||
+                (mCurrentFragment instanceof FRBaseFragment && !((FRBaseFragment) mCurrentFragment).onBackPressed()) ||
+                (mCurrentFragment instanceof FRBaseDialogFragment && !((FRBaseDialogFragment) mCurrentFragment).onBackPressed())) {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 super.onBackPressed();
             } else {
@@ -322,32 +329,35 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     @Override
     public void onWifiActive(String message) {
         Logger.i(message);
-        if (mBaseFragment != null) {
-            mBaseFragment.onWifiActive(message);
+        mNetworkState = FRNetworkState.WifiActive;
+        if (mCurrentFragment instanceof OnNetworkChangedListener) {
+            ((OnNetworkChangedListener) mCurrentFragment).onWifiActive(message);
         }
     }
 
     @Override
     public void onMobileActive(String message) {
         Logger.i(message);
+        mNetworkState = FRNetworkState.MobileActive;
         ToastUtils.showShortSafe(message);
-        if (mBaseFragment != null) {
-            mBaseFragment.onMobileActive(message);
+        if (mCurrentFragment instanceof OnNetworkChangedListener) {
+            ((OnNetworkChangedListener) mCurrentFragment).onMobileActive(message);
         }
     }
 
     @Override
     public void onUnavailable(String message) {
         Logger.i(message);
+        mNetworkState = FRNetworkState.Unavailable;
         ToastUtils.showShortSafe(message);
-        if (mBaseFragment != null) {
-            mBaseFragment.onUnavailable(message);
+        if (mCurrentFragment instanceof OnNetworkChangedListener) {
+            ((OnNetworkChangedListener) mCurrentFragment).onUnavailable(message);
         }
     }
 
     @Override
-    public void onSelectedFragment(FRBaseFragment selectedFragment) {
-        this.mBaseFragment = selectedFragment;
+    public void onSelectedFragment(Fragment selectedFragment) {
+        this.mCurrentFragment = selectedFragment;
     }
 
     /**

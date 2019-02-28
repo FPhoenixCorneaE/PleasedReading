@@ -1,7 +1,6 @@
 package com.wkz.pleasedreading.splash;
 
 import com.wkz.framework.bases.FRBasePresenter;
-import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
 import com.wkz.pleasedreading.constant.PRUrl;
 
@@ -23,9 +22,7 @@ public class PRSplashPresenter extends FRBasePresenter<PRSplashContract.ISplashV
 
             @Override
             public void onFailure(String msg) {
-                if (mView != null) {
-                    mView.onFailure(FRHttpError.ERROR_UNKNOWN, msg);
-                }
+
             }
         });
     }

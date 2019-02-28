@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.wkz.framework.listeners.OnFRVideoControlListener;
 import com.wkz.framework.utils.GlideUtils;
 import com.wkz.framework.utils.ScreenUtils;
 import com.wkz.framework.utils.SizeUtils;
@@ -83,6 +84,8 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
                 mController.setLoadingType(FRConstantKeys.Loading.LOADING_RING);
                 //显示中心播放按钮
                 mController.setCenterPlayer(true, 0);
+                //显示下载、分享等功能
+                mController.setTopVisibility(true);
                 mDataBinding.prVpVideo.setController(mController);
             }
         }
@@ -95,6 +98,8 @@ public class PRTouTiaoChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRTou
 
             //设置视频标题
             prVpVideo.getController().setTitle(content.getTitle());
+            //设置视屏控制监听
+            ((FRVideoPlayerController) prVpVideo.getController()).setOnVideoControlListener(new OnFRVideoControlListener(data.getVideoUrl(), content.getTitle(), R.mipmap.pr_ic_launcher));
             //视频封面
             if (content.getVideo_detail_info() != null &&
                     content.getVideo_detail_info().getDetail_video_large_image() != null) {

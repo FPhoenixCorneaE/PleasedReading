@@ -797,8 +797,13 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
                 Toast.makeText(mContext, "请检测是否有网络", Toast.LENGTH_SHORT).show();
             }
         } else if (v == mShare) {
-            //分享
-            Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
+            //播放完毕后分享
+            if (mVideoControlListener == null) {
+                FRVideoLogUtils.d("请在初始化的时候设置分享监听事件");
+                return;
+            }
+            //点击分享
+            mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.SHARE);
         } else if (v == mFlLock) {
             //点击锁屏按钮，则进入锁屏模式
             setLock(mIsLock);
@@ -817,15 +822,11 @@ public class FRVideoPlayerController extends FRAbsVideoPlayerController implemen
             //点击切换音频
             mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.AUDIO);
         } else if (v == mIvShare) {
-            if (mVideoControlListener == null) {
-                FRVideoLogUtils.d("请在初始化的时候设置分享监听事件");
-                return;
-            }
             //点击分享
-            mVideoControlListener.onVideoControlClick(FRConstantKeys.VideoControl.SHARE);
+            mShare.performClick();
         } else if (v == mIvMenu) {
             if (mVideoControlListener == null) {
-                FRVideoLogUtils.d("请在初始化的时候设置分享监听事件");
+                FRVideoLogUtils.d("请在初始化的时候设置菜单监听事件");
                 return;
             }
             //点击菜单

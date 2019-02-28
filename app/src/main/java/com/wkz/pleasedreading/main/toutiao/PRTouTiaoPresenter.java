@@ -21,10 +21,12 @@ public class PRTouTiaoPresenter extends FRBasePresenter<PRTouTiaoContract.ITouTi
     private String mTime;
     private HashMap<String, ArrayList<PRTouTiaoVideoBean.DataBean>> mDataMap;
     private String mCategoryId;
+    private Gson mGson;
 
     public PRTouTiaoPresenter(@NonNull PRTouTiaoContract.ITouTiaoView view) {
         super(view);
         mDataMap = new HashMap<>();
+        mGson = new Gson();
     }
 
     @Override
@@ -59,14 +61,20 @@ public class PRTouTiaoPresenter extends FRBasePresenter<PRTouTiaoContract.ITouTi
         mModel.getVideoList(category, maxBehotTime, mView.bindToLife(), new OnFRHttpCallback<PRTouTiaoVideoBean>() {
             @Override
             public void onSuccess(PRTouTiaoVideoBean data) {
-                Gson gson = new Gson();
-                PRTouTiaoVideoBean.DataBean.ContentBean contentBean = gson.fromJson(data.getData().get(data.getData().size() - 1).getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
+                if (data == null || data.getData().size() < 1) {
+                    if (mDataMap.containsKey(mCategoryId) &&
+                            mDataMap.get(mCategoryId) != null &&
+                            mDataMap.get(mCategoryId).isEmpty())
+                        mView.showEmpty();
+                    return;
+                }
+                PRTouTiaoVideoBean.DataBean.ContentBean contentBean = mGson.fromJson(data.getData().get(data.getData().size() - 1).getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
                 mTime = contentBean.getBehot_time() + "";
                 mView.onSuccess(data.getData());
 
                 int index = 0;
                 for (PRTouTiaoVideoBean.DataBean dataBean : data.getData()) {
-                    PRTouTiaoVideoBean.DataBean.ContentBean contentBean1 = gson.fromJson(dataBean.getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
+                    PRTouTiaoVideoBean.DataBean.ContentBean contentBean1 = mGson.fromJson(dataBean.getContent(), PRTouTiaoVideoBean.DataBean.ContentBean.class);
                     String url = getVideoContentApi(contentBean1.getVideo_id());
                     if (mDataMap.containsKey(mCategoryId) && mDataMap.get(mCategoryId) != null) {
                         getVideoContent(mDataMap.get(mCategoryId).size() + index, url);
