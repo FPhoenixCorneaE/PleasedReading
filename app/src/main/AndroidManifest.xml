@@ -39,7 +39,13 @@
         <activity
             android:name=".main.gank.PRGankVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/FRTheme.Activity"
+            android:windowSoftInputMode="adjustNothing" />
+        <!--本地视频-->
+        <activity
+            android:name=".myself.localvideo.PRLocalVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FRTheme.Activity"
             android:windowSoftInputMode="adjustNothing" />
