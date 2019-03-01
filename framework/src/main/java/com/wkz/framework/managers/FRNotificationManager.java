@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.framework.managers;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -7,24 +7,33 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
 import com.wkz.framework.FRApplication;
 
-public class NotificationUtils {
+public class FRNotificationManager {
 
-    private static NotificationManager mNotificationManager;
+    private static class Holder {
+        private static FRNotificationManager INSTANCE = new FRNotificationManager();
+    }
 
-    private static NotificationManager getNotificationManager() {
+    private FRNotificationManager() {
+    }
+
+    public static FRNotificationManager getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    private NotificationManager mNotificationManager;
+
+    private NotificationManager getNotificationManager() {
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) FRApplication.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return mNotificationManager;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private static Notification.Builder getNotificationBuilder(String title, String content, String channelId, @DrawableRes int icon) {
+    private Notification.Builder getNotificationBuilder(String title, String content, String channelId, @DrawableRes int icon) {
         //大于8.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //id随便指定
@@ -44,27 +53,32 @@ public class NotificationUtils {
             //通知管理者创建的渠道
             getNotificationManager().createNotificationChannel(channel);
 
+            return new Notification.Builder(FRApplication.getContext())
+                    .setAutoCancel(true)
+                    .setChannelId(channelId)
+                    .setContentTitle(title)
+                    .setContentText(content)
+                    .setSmallIcon(icon);
+        } else {
+            return new Notification.Builder(FRApplication.getContext())
+                    .setAutoCancel(true)
+                    .setContentTitle(title)
+                    .setContentText(content)
+                    .setSmallIcon(icon);
         }
-        return new Notification.Builder(FRApplication.getContext())
-                .setAutoCancel(true)
-                .setChannelId(channelId)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(icon);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void showNotification(String title, String content, int manageId, String channelId, int progress, int maxProgress, @DrawableRes int icon) {
+    public void showNotification(String title, String content, int manageId, String channelId, int progress, int maxProgress, @DrawableRes int icon) {
         Notification.Builder builder = getNotificationBuilder(title, content, channelId, icon);
         builder.setOnlyAlertOnce(true);
         builder.setDefaults(Notification.FLAG_ONLY_ALERT_ONCE);
         builder.setProgress(maxProgress, progress, false);
         builder.setWhen(System.currentTimeMillis());
+        //通知管理者发通知
         getNotificationManager().notify(manageId, builder.build());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static void cancleNotification(int manageId) {
+    public void cancleNotification(int manageId) {
         getNotificationManager().cancel(manageId);
     }
 }

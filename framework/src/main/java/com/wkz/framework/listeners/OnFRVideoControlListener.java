@@ -1,13 +1,12 @@
 package com.wkz.framework.listeners;
 
-import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.constants.FRFilesDirectory;
+import com.wkz.framework.managers.FRNotificationManager;
 import com.wkz.framework.utils.NetworkUtils;
-import com.wkz.framework.utils.NotificationUtils;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.okgo.OkGo;
 import com.wkz.okgo.model.OkProgress;
@@ -21,6 +20,7 @@ import com.wkz.videoplayer.constant.FRConstantKeys;
 import com.wkz.videoplayer.inter.listener.OnVideoControlListener;
 
 import java.io.File;
+import java.util.Random;
 
 public class OnFRVideoControlListener implements OnVideoControlListener {
     private String mVideoUrl;
@@ -94,35 +94,28 @@ public class OnFRVideoControlListener implements OnVideoControlListener {
                 .save()
                 .register(new OnOkDownloadListener(mVideoUrl) {
                     private int mDotCount;
+                    private int mManageId = new Random().nextInt(Integer.MAX_VALUE);
 
                     @Override
                     public void onStart(OkProgress progress) {
                         ToastUtils.showShort("开始下载视频");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            NotificationUtils.showNotification(mVideoTitle, "下载开始！", 1, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
-                        }
+                        FRNotificationManager.getInstance().showNotification(mVideoTitle, "下载开始！", mManageId, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
                     }
 
                     @Override
                     public void onProgress(OkProgress progress) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            NotificationUtils.showNotification(mVideoTitle, "下载中" + "......".substring(mDotCount++ % 6), 1, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
-                        }
+                        FRNotificationManager.getInstance().showNotification(mVideoTitle, "下载中" + "......".substring(0, mDotCount++ % 6 + 1), mManageId, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
                     }
 
                     @Override
                     public void onError(OkProgress progress) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            NotificationUtils.showNotification(mVideoTitle, "下载出错了！", 1, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
-                        }
+                        FRNotificationManager.getInstance().showNotification(mVideoTitle, "下载出错了！", mManageId, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
                     }
 
                     @Override
                     public void onFinish(File file, OkProgress progress) {
                         ToastUtils.showShort("视频下载完成");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            NotificationUtils.showNotification(mVideoTitle, "下载完成！", 1, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
-                        }
+                        FRNotificationManager.getInstance().showNotification(mVideoTitle, "下载完成！", mManageId, OkDownloadType.Video, (int) (progress.fraction * 100), 100, icon);
                     }
 
                     @Override
