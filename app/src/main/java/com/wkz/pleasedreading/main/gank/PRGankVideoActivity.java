@@ -15,7 +15,7 @@ import com.wkz.framework.utils.NetworkUtils;
 import com.wkz.framework.utils.ScreenUtils;
 import com.wkz.okserver.OkDownload;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.constant.PRConstant;
+import com.wkz.pleasedreading.constants.PRConstant;
 import com.wkz.pleasedreading.databinding.PrActivityGankVideoBinding;
 import com.wkz.videoplayer.constant.FRConstantKeys;
 import com.wkz.videoplayer.controller.FRVideoPlayerController;

@@ -21,7 +21,7 @@ import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.models.FRBundle;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.constant.PRConstant;
+import com.wkz.pleasedreading.constants.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankBinding;
 import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.widget.FRImageViewer;

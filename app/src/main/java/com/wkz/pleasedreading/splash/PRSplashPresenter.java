@@ -2,7 +2,7 @@ package com.wkz.pleasedreading.splash;
 
 import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
-import com.wkz.pleasedreading.constant.PRUrl;
+import com.wkz.pleasedreading.constants.PRUrl;
 
 public class PRSplashPresenter extends FRBasePresenter<PRSplashContract.ISplashView, PRSplashContract.ISplashModel> implements PRSplashContract.ISplashPresenter {
 

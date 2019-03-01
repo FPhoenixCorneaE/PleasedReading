@@ -2,7 +2,7 @@ package com.wkz.pleasedreading.main.gank;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.functions.retrofit.FRRetrofitFactory;
-import com.wkz.pleasedreading.constant.PRUrl;
+import com.wkz.pleasedreading.constants.PRUrl;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;

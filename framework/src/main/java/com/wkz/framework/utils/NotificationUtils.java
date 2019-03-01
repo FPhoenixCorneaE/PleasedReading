@@ -28,7 +28,7 @@ public class NotificationUtils {
         //大于8.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //id随便指定
-            NotificationChannel channel = new NotificationChannel(channelId, FRApplication.getContext().getPackageName(), NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(channelId, FRApplication.getContext().getPackageName(), NotificationManager.IMPORTANCE_HIGH);
             channel.canBypassDnd();//可否绕过，请勿打扰模式
             channel.enableLights(true);//闪光
             channel.setLockscreenVisibility(NotificationCompat.VISIBILITY_SECRET);//锁屏显示通知

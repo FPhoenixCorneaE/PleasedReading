@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.constant;
+package com.wkz.pleasedreading.constants;
 
 public class PRConstant {
 

@@ -29,6 +29,8 @@ import com.wkz.framework.annotations.FRNetworkState;
 import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.functions.network.FRNetworkManager;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
+import com.wkz.framework.helpers.FRBroadcastReceiverHelper;
+import com.wkz.framework.listeners.OnFRHomeKeyListener;
 import com.wkz.framework.models.FRActivityAnimator;
 import com.wkz.framework.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
@@ -39,7 +41,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class FRBaseActivity<P extends IFRBasePresenter>
         extends RxAppCompatActivity
-        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, IFRSelectedFragment {
+        implements IFRBaseView, OnStatusLayoutClickListener, OnNetworkChangedListener, IFRSelectedFragment, OnFRHomeKeyListener {
 
     private static final String NAME_ACTIVITY = FRBaseActivity.class.getName();
     protected FRBaseActivity mContext;
@@ -162,6 +164,8 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
         super.onResume();
         //注册网络变化监听
         FRNetworkManager.getInstance().registerNetwork(mContext, this);
+        //Home键监听广播注册
+        FRBroadcastReceiverHelper.getInstance().registerHomeKeyReceiver(mContext, this);
         // 非必加
         // 如果你的app可以横竖屏切换，适配了华为emui3系列系统手机，并且navigationBarWithEMUI3Enable为true，
         // 请在onResume方法里添加这句代码（同时满足这三个条件才需要加上代码哦：1、横竖屏可以切换；2、华为emui3系列系统手机；3、navigationBarWithEMUI3Enable为true）
@@ -175,9 +179,9 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     protected void onPause() {
         super.onPause();
         //反注册网络变化监听
-        if (mContext != null) {
-            FRNetworkManager.getInstance().unregisterNetwork(mContext);
-        }
+        FRNetworkManager.getInstance().unregisterNetwork(mContext);
+        //Home键监听广播反注册
+        FRBroadcastReceiverHelper.getInstance().unRegisterHomeKeyReceiver(mContext);
     }
 
     @Override
@@ -358,6 +362,34 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     @Override
     public void onSelectedFragment(Fragment selectedFragment) {
         this.mCurrentFragment = selectedFragment;
+    }
+
+    /**
+     * 按Home按键
+     */
+    public void onClickHome() {
+
+    }
+
+    /**
+     * 最近任务键也就是菜单键
+     */
+    public void onClickRecents() {
+
+    }
+
+    /**
+     * 长按Home按键
+     */
+    public void onLongClickHome() {
+
+    }
+
+    /**
+     * 锁屏
+     */
+    public void onLockScreen() {
+
     }
 
     /**

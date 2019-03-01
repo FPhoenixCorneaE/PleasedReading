@@ -19,7 +19,7 @@ import com.wkz.framework.widgets.itemdecoration.FRDividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.constant.PRConstant;
+import com.wkz.pleasedreading.constants.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 import com.wkz.viewer.widget.FRImageViewer;

@@ -16,7 +16,7 @@ import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.FRDividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.pleasedreading.R;
-import com.wkz.pleasedreading.constant.PRConstant;
+import com.wkz.pleasedreading.constants.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentToutiaoChildBinding;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 
