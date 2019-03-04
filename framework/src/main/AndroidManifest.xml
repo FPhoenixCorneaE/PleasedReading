@@ -40,6 +40,17 @@
         <!--初始化服务-->
         <service android:name=".services.FRInitializeService" />
 
+        <!--Android 7.0适配-应用之间共享文件-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fr_file_provider" />
+        </provider>
+
         <!--适配全面屏-->
         <meta-data
             android:name="android.max_aspect"

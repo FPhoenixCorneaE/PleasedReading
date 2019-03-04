@@ -45,12 +45,12 @@ public class AppUtils {
     /**
      * Get version code
      */
-    public static int getVersionCode() {
+    public static long getVersionCode() {
         Context context = FRApplication.getContext();
         PackageInfo info;
         try {
             info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return info.versionCode;
+            return info.getLongVersionCode();
         } catch (NameNotFoundException e) {
             Logger.e(e.toString());
         }
@@ -105,12 +105,12 @@ public class AppUtils {
     /**
      * Get app version code
      */
-    public static int getVersionCode(String packageName) {
+    public static long getVersionCode(String packageName) {
         Context context = FRApplication.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);
-            return packageInfo.versionCode;
+            return packageInfo.getLongVersionCode();
         } catch (NameNotFoundException e) {
             Logger.e(e.toString());
         }

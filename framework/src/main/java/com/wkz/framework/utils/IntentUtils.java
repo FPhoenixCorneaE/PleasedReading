@@ -14,11 +14,15 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
+import com.wkz.framework.FRApplication;
 import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.models.FRActivityAnimator;
+
+import java.io.File;
 
 /**
  * Intent操作
@@ -338,5 +342,28 @@ public class IntentUtils {
             intent.putExtra(appPkgName, packageName);
         }
         context.startActivity(intent);
+    }
+
+    /**
+     * 安装apk
+     *
+     * @param apkPath apk路径
+     */
+    public static void installApk(String apkPath) {
+        //下载完成安装,安装完成后返回显示启动
+        File apkFile = new File(apkPath);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri;
+        //安卓版本大于7.0适配-应用之间共享文件
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            String authority = AppUtils.getPackageName() + ".fileprovider";
+            uri = FileProvider.getUriForFile(FRApplication.getContext(), authority, apkFile);
+        } else {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            uri = Uri.fromFile(apkFile);
+        }
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        FRApplication.getContext().startActivity(intent);
     }
 }
