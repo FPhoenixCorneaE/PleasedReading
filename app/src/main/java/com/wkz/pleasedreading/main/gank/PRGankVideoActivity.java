@@ -205,10 +205,11 @@ public class PRGankVideoActivity extends FRBaseActivity<PRGankContract.IGankPres
         mDataBinding.prVpVideo.setController(controller);
 
         if (NetworkUtils.isWifiConnected()) {
-            //进入竖屏播放
+            //开始播放
             if (mDataBinding.prVpVideo.isIdle()) {
                 mDataBinding.prVpVideo.start();
             }
+            //进入竖屏播放
             mDataBinding.prVpVideo.enterVerticalScreenScreen();
         } else if (NetworkUtils.isMobileConnected()) {
             //TODO 手机网络连接，弹窗提示用户是否用流量播放

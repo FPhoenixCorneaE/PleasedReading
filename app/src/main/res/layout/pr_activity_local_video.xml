@@ -9,51 +9,70 @@
             type="String" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:layout_height="match_parent">
 
-            <View
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/pr_statusBarSize"
-                android:background="@color/pr_statusBar"
-                app:layout_scrollFlags="scroll" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/pr_toolbar"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/pr_statusBarSize"
+                    android:background="@color/pr_statusBar"
+                    app:layout_scrollFlags="scroll" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/pr_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:navigationIcon="@mipmap/fr_ic_back_white"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <TextView
+                        android:id="@+id/pr_tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@{title}"
+                        android:textColor="@color/fr_color_black"
+                        android:textSize="20sp" />
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pr_rv_local_video"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                app:contentInsetStart="0dp"
-                app:contentInsetStartWithNavigation="0dp"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:navigationIcon="@mipmap/fr_ic_back_white"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                android:layout_height="match_parent"
+                android:background="@color/fr_background_Oxffededed"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.design.widget.CoordinatorLayout>
 
-                <TextView
-                    android:id="@+id/pr_tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@{title}"
-                    android:textColor="@color/fr_color_black"
-                    android:textSize="20sp" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/pr_rv_local_video"
+        <FrameLayout
+            android:id="@+id/pr_fl_video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/fr_background_Oxffededed"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </android.support.design.widget.CoordinatorLayout>
+            android:background="@color/fr_color_black"
+            android:visibility="gone">
+
+            <com.wkz.videoplayer.player.FRVideoPlayer
+                android:id="@+id/pr_vp_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+    </FrameLayout>
 </layout>
