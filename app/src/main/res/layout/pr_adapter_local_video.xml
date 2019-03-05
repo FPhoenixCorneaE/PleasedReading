@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.wkz.framework.functions.file.model.FRVideoBean" />
+
+        <variable
+            name="videoBean"
+            type="FRVideoBean" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/fr_background_Oxffededed"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="5dp"
+        app:cardPreventCornerOverlap="true">
+
+        <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+            android:id="@+id/pr_iv_video_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:setVideoThumbnail="@{videoBean.thumbnail}" />
+
+        <TextView
+            android:id="@+id/pr_tv_video_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:text="@{videoBean.name}"
+            android:textColor="@color/fr_color_dim_gray"
+            android:textSize="14sp" />
+    </android.support.v7.widget.CardView>
+</layout>

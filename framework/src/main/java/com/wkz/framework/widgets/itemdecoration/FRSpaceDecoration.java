@@ -25,16 +25,19 @@ public class FRSpaceDecoration extends RecyclerView.ItemDecoration {
         this.halfSpace = space / 2;
     }
 
-    public void setPaddingEdgeSide(boolean mPaddingEdgeSide) {
+    public FRSpaceDecoration setPaddingEdgeSide(boolean mPaddingEdgeSide) {
         this.mPaddingEdgeSide = mPaddingEdgeSide;
+        return this;
     }
 
-    public void setPaddingStart(boolean mPaddingStart) {
+    public FRSpaceDecoration setPaddingStart(boolean mPaddingStart) {
         this.mPaddingStart = mPaddingStart;
+        return this;
     }
 
-    public void setPaddingHeaderFooter(boolean mPaddingHeaderFooter) {
+    public FRSpaceDecoration setPaddingHeaderFooter(boolean mPaddingHeaderFooter) {
         this.mPaddingHeaderFooter = mPaddingHeaderFooter;
+        return this;
     }
 
     @Override

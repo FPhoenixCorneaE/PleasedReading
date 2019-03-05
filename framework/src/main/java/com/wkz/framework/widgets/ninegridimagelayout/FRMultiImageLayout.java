@@ -1,6 +1,5 @@
 package com.wkz.framework.widgets.ninegridimagelayout;
 
-import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -11,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.GenericTransitionOptions;
-import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.wkz.framework.R;
 import com.wkz.framework.utils.SizeUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
@@ -311,19 +308,8 @@ public class FRMultiImageLayout extends ViewGroup {
         FRGlideImageView itemView = new FRGlideImageView(getContext());
         itemView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         itemView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        //加载动画
-        ViewPropertyTransition.Animator animationObject = new ViewPropertyTransition.Animator() {
-            @Override
-            public void animate(View view) {
-                PropertyValuesHolder scaleXAnim = PropertyValuesHolder.ofFloat("scaleX", 1.382f, 1f);
-                PropertyValuesHolder scaleYAnim = PropertyValuesHolder.ofFloat("scaleY", 1.382f, 1f);
-
-                android.animation.ObjectAnimator.ofPropertyValuesHolder(view, scaleXAnim, scaleYAnim)
-                        .setDuration(400)
-                        .start();
-            }
-        };
-        itemView.loadImage(url, placeholder, GenericTransitionOptions.with(animationObject));
+        //加载图片
+        itemView.loadImage(url, placeholder, null);
         itemView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

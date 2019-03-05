@@ -357,6 +357,7 @@ public class IntentUtils {
         //安卓版本大于7.0适配-应用之间共享文件
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //此处的authority的值必须与Manifest中provider组件设置的authorities值一致
             String authority = AppUtils.getPackageName() + ".fileprovider";
             uri = FileProvider.getUriForFile(FRApplication.getContext(), authority, apkFile);
         } else {

@@ -13,11 +13,13 @@ import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.FragmentUtils;
+import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
 import com.wkz.pleasedreading.main.toutiao.PRTouTiaoFragment;
+import com.wkz.pleasedreading.myself.localvideo.PRLocalVideoActivity;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 import com.wkz.videoplayer.window.FRFloatWindow;
 
@@ -63,6 +65,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
             {
                 add("Gank");
                 add("头条视频");
+                add("本地视频");
             }
         });
         mDataBinding.setTitle(mMenuList.get(0));
@@ -177,5 +180,13 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
         if (drawerLayout != null) {
             drawerLayout.closeDrawers();
         }
+    }
+
+    @Override
+    public void clickLocalVideo(View view, FRBaseActivity context, DrawerLayout drawerLayout) {
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawers();
+        }
+        IntentUtils.startActivity(mContext, PRLocalVideoActivity.class);
     }
 }

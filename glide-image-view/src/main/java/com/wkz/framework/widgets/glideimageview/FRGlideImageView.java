@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 import com.bumptech.glide.TransitionOptions;
@@ -75,8 +75,13 @@ public class FRGlideImageView extends FRShapeImageView {
         return this;
     }
 
-    public FRGlideImageView loadImage(String url, int placeholderResId, @NonNull TransitionOptions<?, ? super Drawable> transitionOptions) {
+    public FRGlideImageView loadImage(String url, int placeholderResId, @Nullable TransitionOptions<?, ? super Drawable> transitionOptions) {
         getImageLoader().loadImage(url, placeholderResId, transitionOptions);
+        return this;
+    }
+
+    public FRGlideImageView loadImage(Object obj, int placeholderResId, @Nullable TransitionOptions<?, ? super Drawable> transitionOptions) {
+        getImageLoader().loadImage(obj, placeholderResId, transitionOptions);
         return this;
     }
 

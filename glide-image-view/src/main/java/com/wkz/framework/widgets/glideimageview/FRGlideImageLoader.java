@@ -1,15 +1,17 @@
 package com.wkz.framework.widgets.glideimageview;
 
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.TransitionOptions;
@@ -18,6 +20,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.wkz.framework.widgets.glideimageview.progress.FRProgressManager;
 import com.wkz.framework.widgets.glideimageview.progress.OnGlideImageViewListener;
 import com.wkz.framework.widgets.glideimageview.progress.OnProgressListener;
@@ -94,9 +97,28 @@ public class FRGlideImageLoader {
         requestBuilder(url, options).into(getImageView());
     }
 
-    public void load(String url, RequestOptions options, @NonNull TransitionOptions<?, ? super Drawable> transitionOptions) {
+    public void load(String url, RequestOptions options, @Nullable TransitionOptions<?, ? super Drawable> transitionOptions) {
         if (url == null || getContext() == null) return;
-        requestBuilder(url, options).transition(transitionOptions).into(getImageView());
+        load((Object) url, options, transitionOptions);
+    }
+
+    public void load(Object obj, RequestOptions options, @Nullable TransitionOptions<?, ? super Drawable> transitionOptions) {
+        if (transitionOptions == null) {
+            //默认加载动画
+            ViewPropertyTransition.Animator animationObject = new ViewPropertyTransition.Animator() {
+                @Override
+                public void animate(View view) {
+                    PropertyValuesHolder scaleXAnim = PropertyValuesHolder.ofFloat("scaleX", 1.382f, 1f);
+                    PropertyValuesHolder scaleYAnim = PropertyValuesHolder.ofFloat("scaleY", 1.382f, 1f);
+
+                    android.animation.ObjectAnimator.ofPropertyValuesHolder(view, scaleXAnim, scaleYAnim)
+                            .setDuration(400)
+                            .start();
+                }
+            };
+            transitionOptions = GenericTransitionOptions.with(animationObject);
+        }
+        requestBuilder(obj, options).transition(transitionOptions).into(getImageView());
     }
 
     public RequestBuilder<Drawable> requestBuilder(Object obj, RequestOptions options) {
@@ -145,8 +167,12 @@ public class FRGlideImageLoader {
         load(url, requestOptions(placeholderResId));
     }
 
-    public void loadImage(String url, int placeholderResId, @NonNull TransitionOptions<?, ? super Drawable> transitionOptions) {
+    public void loadImage(String url, int placeholderResId, @Nullable TransitionOptions<?, ? super Drawable> transitionOptions) {
         load(url, requestOptions(placeholderResId), transitionOptions);
+    }
+
+    public void loadImage(Object obj, int placeholderResId, @Nullable TransitionOptions<?, ? super Drawable> transitionOptions) {
+        load(obj, requestOptions(placeholderResId), transitionOptions);
     }
 
     public void loadLocalImage(@DrawableRes int resId, int placeholderResId) {
