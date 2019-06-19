@@ -284,6 +284,12 @@ public class FRShapeImageView extends ImageView {
         invalidate();
     }
 
+    // 设置圆角半径数组
+    public void setRadii(float[] radii) {
+        this.mRadii = radii;
+        invalidate();
+    }
+
     // 设置形状类型
     public void setShapeType(@ShapeType int shapeType) {
         this.shapeType = shapeType;

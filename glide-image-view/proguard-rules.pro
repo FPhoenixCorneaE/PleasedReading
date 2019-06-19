@@ -32,4 +32,5 @@
     public <fields>;
     public <methods>;
 }
+-keep @java.lang.annotation.Retention class * {*;}
 

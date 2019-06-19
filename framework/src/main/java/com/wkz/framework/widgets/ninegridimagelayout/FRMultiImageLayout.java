@@ -3,6 +3,7 @@ package com.wkz.framework.widgets.ninegridimagelayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -291,12 +292,26 @@ public class FRMultiImageLayout extends ViewGroup {
                 LayoutParams.MATCH_PARENT));
         textView.setTextSize(24);
         textView.setTextColor(Color.WHITE);
-        textView.setBackgroundColor(Color.parseColor("#33000000"));
+        if (TYPE_BaiDuPostBar == mType) {
+            GradientDrawable gradientDrawable = new GradientDrawable();
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setCornerRadii(new float[]{
+                    0, 0,
+                    SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                    SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                    0, 0,
+            });
+            gradientDrawable.setColor(Color.parseColor("#33000000"));
+            textView.setBackground(gradientDrawable);
+        } else {
+            textView.setBackgroundColor(Color.parseColor("#33000000"));
+        }
         textView.setGravity(Gravity.CENTER);
         if (isDataFromAdapter) {
             textView.setText("+" + (mFRMultiImageAdapter.getCount() - mCount));
-        } else
+        } else {
             textView.setText("+" + (mData.size() - mCount));
+        }
 
         addView(textView, position);
     }
@@ -308,6 +323,48 @@ public class FRMultiImageLayout extends ViewGroup {
         FRGlideImageView itemView = new FRGlideImageView(getContext());
         itemView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         itemView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        if (TYPE_BaiDuPostBar == mType) {
+            if (mData.size() == 1) {
+                itemView.setRadii(new float[]{
+                        SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                        SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                        SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                        SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                });
+            } else if (mData.size() == 2) {
+                if (position == 0) {
+                    itemView.setRadii(new float[]{
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                            0, 0,
+                            0, 0,
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                    });
+                } else {
+                    itemView.setRadii(new float[]{
+                            0, 0,
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                            0, 0,
+                    });
+                }
+            } else if (mData.size() >= 3) {
+                if (position == 0) {
+                    itemView.setRadii(new float[]{
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                            0, 0,
+                            0, 0,
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                    });
+                } else if (position == 2) {
+                    itemView.setRadii(new float[]{
+                            0, 0,
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                            SizeUtils.dp2px(8), SizeUtils.dp2px(8),
+                            0, 0,
+                    });
+                }
+            }
+        }
         //加载图片
         itemView.loadImage(url, placeholder, null);
         itemView.setOnClickListener(new OnClickListener() {
