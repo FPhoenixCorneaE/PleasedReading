@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.wkz.framework.utils.ScreenUtils;
 import com.wkz.framework.widgets.ninegridimagelayout.FRMultiImageLayout;
 import com.wkz.framework.widgets.recycleradapter.FRCommonRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
@@ -68,15 +69,15 @@ public class PRGankChildRecyclerAdapter extends FRCommonRecyclerAdapter<PRGankBe
                                 viewData.setTargetX(location[0])
                                         // 此处注意，获取 Y 轴坐标时，需要根据实际情况来处理《状态栏》的高度，判断是否需要计算进去
                                         .setTargetY(location[1])
-                                        .setTargetWidth(viewHolder.mDataBinding.prMilImages.getChildAt(i).getMeasuredWidth())
-                                        .setTargetHeight(viewHolder.mDataBinding.prMilImages.getChildAt(i).getMeasuredHeight());
+                                        .setTargetWidth(ScreenUtils.getScreenWidth())
+                                        .setTargetHeight(ScreenUtils.getScreenHeight());
                             }
                             mViewList.add(viewData);
                         }
-                        mFRImageViewer.setImageData(data.getImages());
-                        mFRImageViewer.setViewData(mViewList);
-                        mFRImageViewer.setStartPosition(position);
-                        mFRImageViewer.watch();
+                        mFRImageViewer.setImageData(data.getImages())
+                                .setViewData(mViewList)
+                                .setStartPosition(position)
+                                .watch();
                     }
                 });
             } else {
