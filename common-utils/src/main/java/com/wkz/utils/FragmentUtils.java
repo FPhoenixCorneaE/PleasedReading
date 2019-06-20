@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +9,13 @@ import android.support.v4.app.FragmentTransaction;
 /**
  * Fragment操作
  *
- * @author venshine
+ * @author wkz
  */
 public class FragmentUtils {
+
+    private FragmentUtils() {
+        throw new UnsupportedOperationException("U can't initialize me...");
+    }
 
     /**
      * Replace an existing fragment that was added to a container.
@@ -19,7 +23,9 @@ public class FragmentUtils {
     public static void replaceFragment(FragmentActivity activity, int containerViewId,
                                        Fragment newFragment, Bundle bundle,
                                        boolean canBack) {
-        if (newFragment == null) return;
+        if (newFragment == null) {
+            return;
+        }
         FragmentTransaction mFragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         newFragment.setArguments(bundle);
         mFragmentTransaction.replace(containerViewId, newFragment, newFragment.getClass().getName());
@@ -36,7 +42,9 @@ public class FragmentUtils {
     public static void addFragment(FragmentActivity activity, int containerViewId,
                                    Fragment newFragment, Bundle bundle,
                                    boolean canBack) {
-        if (newFragment == null) return;
+        if (newFragment == null) {
+            return;
+        }
         FragmentTransaction mFragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         newFragment.setArguments(bundle);
         if (!newFragment.isAdded()) {
@@ -55,7 +63,9 @@ public class FragmentUtils {
     public static void addChildFragment(Fragment fragment, int containerViewId,
                                         Fragment newFragment, Bundle bundle,
                                         boolean canBack) {
-        if (newFragment == null) return;
+        if (newFragment == null) {
+            return;
+        }
         FragmentTransaction mFragmentTransaction = fragment.getChildFragmentManager().beginTransaction();
         newFragment.setArguments(bundle);
         if (!newFragment.isAdded()) {
@@ -74,7 +84,9 @@ public class FragmentUtils {
     public static void hideAndShowFragment(FragmentActivity activity, int containerViewId,
                                            Fragment previousFragment, Fragment newFragment,
                                            Bundle bundle, boolean canBack) {
-        if (newFragment == null) return;
+        if (newFragment == null) {
+            return;
+        }
         FragmentTransaction mFragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         if (null != previousFragment) {
             mFragmentTransaction.hide(previousFragment);
@@ -102,7 +114,9 @@ public class FragmentUtils {
     public static void hideAndShowChildFragment(Fragment fragment, int containerViewId,
                                                 Fragment previousFragment, Fragment newFragment,
                                                 Bundle bundle, boolean canBack) {
-        if (newFragment == null) return;
+        if (newFragment == null) {
+            return;
+        }
         FragmentTransaction mFragmentTransaction = fragment.getChildFragmentManager().beginTransaction();
         if (null != previousFragment) {
             mFragmentTransaction.hide(previousFragment);

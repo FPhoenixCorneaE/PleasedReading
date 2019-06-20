@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.SizeUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.framework.widgets.recycleradapter.FRCommonRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;

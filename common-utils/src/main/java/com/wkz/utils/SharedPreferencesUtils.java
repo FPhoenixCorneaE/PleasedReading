@@ -1,29 +1,28 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.wkz.framework.FRApplication;
-
 import java.util.List;
 import java.util.Map;
 
 /**
  * SharedPreferences操作
+ * @author wkz
  */
 public class SharedPreferencesUtils {
 
     private SharedPreferencesUtils() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("U can't initialize me...");
     }
 
     /**
      * Get SharedPreferences
      */
     private static SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(FRApplication.getContext());
+        return PreferenceManager.getDefaultSharedPreferences(ContextUtils.getContext());
     }
 
     /**
@@ -34,7 +33,7 @@ public class SharedPreferencesUtils {
         if (TextUtils.isEmpty(name)) {
             sharedPreferences = getSharedPreferences();
         } else {
-            sharedPreferences = FRApplication.getContext().getSharedPreferences(name, Context.MODE_PRIVATE);
+            sharedPreferences = ContextUtils.getContext().getSharedPreferences(name, Context.MODE_PRIVATE);
         }
         return sharedPreferences;
     }

@@ -1,7 +1,7 @@
 package com.wkz.framework.functions.retrofit.interceptor;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.utils.NetworkUtils;
+import com.wkz.utils.NetworkUtils;
 
 import java.io.IOException;
 

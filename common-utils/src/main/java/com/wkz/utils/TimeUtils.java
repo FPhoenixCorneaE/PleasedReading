@@ -1,7 +1,7 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.annotations.FRTimeUnit;
+import com.wkz.unit.TimeUnit;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,9 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * @author wkz
+ */
 public class TimeUtils {
 
     private static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    public TimeUtils() {
+        throw new UnsupportedOperationException("U can't initialize me...");
+    }
 
     /**
      * 获取友好型与当前时间的差
@@ -100,20 +107,20 @@ public class TimeUtils {
     public static String getFriendlyTimeSpanByNow(long millis) {
         long now = System.currentTimeMillis();
         long span = now - millis;
-        if (span < 0)
+        if (span < 0) {
             return String.format(Locale.getDefault(), "%tc", millis);
-        if (span < FRTimeUnit.MINUTE) {
+        } else if (span < TimeUnit.MINUTE) {
             return "刚刚";
-        } else if (span < FRTimeUnit.HOUR) {
-            return String.format(Locale.getDefault(), "%d分钟前", span / FRTimeUnit.MINUTE);
-        } else if (span < FRTimeUnit.DAY) {
-            return String.format(Locale.getDefault(), "%d小时前", span / FRTimeUnit.HOUR);
-        } else if (span < 2 * FRTimeUnit.DAY) {
+        } else if (span < TimeUnit.HOUR) {
+            return String.format(Locale.getDefault(), "%d分钟前", span / TimeUnit.MINUTE);
+        } else if (span < TimeUnit.DAY) {
+            return String.format(Locale.getDefault(), "%d小时前", span / TimeUnit.HOUR);
+        } else if (span < 2 * TimeUnit.DAY) {
             return String.format("昨天%tR", millis);
-        } else if (span < FRTimeUnit.MONTH) {
-            return String.format(Locale.getDefault(), "%d天前", span / FRTimeUnit.DAY);
-        } else if (span < FRTimeUnit.YEAR) {
-            return String.format(Locale.getDefault(), "%d个月前", span / FRTimeUnit.MONTH);
+        } else if (span < TimeUnit.MONTH) {
+            return String.format(Locale.getDefault(), "%d天前", span / TimeUnit.DAY);
+        } else if (span < TimeUnit.YEAR) {
+            return String.format(Locale.getDefault(), "%d个月前", span / TimeUnit.MONTH);
         } else {
             return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(millis);
         }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 
 import com.wkz.framework.services.FRInitializeService;
+import com.wkz.utils.ContextUtils;
 
 public class FRApplication extends Application {
 
@@ -25,6 +26,8 @@ public class FRApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        ContextUtils.init(getContext());
 
         //启动初始化服务，优化启动速度
         startInitializeService();

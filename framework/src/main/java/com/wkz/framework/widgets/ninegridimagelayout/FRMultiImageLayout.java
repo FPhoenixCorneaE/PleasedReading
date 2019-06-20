@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wkz.framework.R;
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.SizeUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 
 import java.util.Arrays;

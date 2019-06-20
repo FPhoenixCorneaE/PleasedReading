@@ -1,0 +1,6 @@
+ext {
+    isLibrary = [
+            bannerLayout: true,
+            commonUtils : true,
+    ]
+}

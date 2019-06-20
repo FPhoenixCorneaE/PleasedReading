@@ -15,8 +15,8 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import com.wkz.framework.R;
-import com.wkz.framework.utils.ResourceUtils;
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.ResourceUtils;
+import com.wkz.utils.SizeUtils;
 
 import java.util.Arrays;
 import java.util.List;

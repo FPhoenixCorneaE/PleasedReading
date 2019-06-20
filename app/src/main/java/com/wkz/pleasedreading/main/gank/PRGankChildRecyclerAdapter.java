@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
-import com.wkz.framework.utils.ScreenUtils;
+import com.wkz.utils.ScreenUtils;
 import com.wkz.framework.widgets.ninegridimagelayout.FRMultiImageLayout;
 import com.wkz.framework.widgets.recycleradapter.FRCommonRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;

@@ -175,13 +175,6 @@ dependencies {
     compileOnly 'com.android.support:recyclerview-v7:' + rootProject.ext.versionSupport
 
     /**
-     * logger
-     */
-    api('com.orhanobut:logger:' + rootProject.ext.versionLogger) {
-        transitive true
-    }
-
-    /**
      * rxlifecycle2
      */
     api("com.trello.rxlifecycle2:rxlifecycle-components:$rootProject.ext.versionRxlifecycle2") {
@@ -303,4 +296,9 @@ dependencies {
      * okserver
      */
     api project(':okserver')
+
+    /**
+     * common-utils
+     */
+    api project(':common-utils')
 }

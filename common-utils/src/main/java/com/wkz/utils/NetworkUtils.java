@@ -1,11 +1,9 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
-
-import com.wkz.framework.FRApplication;
 
 import java.io.IOException;
 import java.net.Inet4Address;
@@ -33,7 +31,7 @@ public class NetworkUtils {
     private static final String WLAN_MASK = "[dhcp.wlan0.mask]";
 
     private NetworkUtils() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("U can't initialize me...");
     }
 
     /**
@@ -41,7 +39,7 @@ public class NetworkUtils {
      * Judge whether current network is available
      */
     public static boolean isNetworkAvailable() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = null;
         if (mConnectivityManager != null) {
             info = mConnectivityManager.getActiveNetworkInfo();
@@ -53,7 +51,7 @@ public class NetworkUtils {
      * 判断WIFI网络是否可用
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
         if (mConnectivityManager != null) {
             networkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -65,7 +63,7 @@ public class NetworkUtils {
      * 判断MOBILE网络是否可用
      */
     public static boolean isMobileConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
         if (mConnectivityManager != null) {
             networkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -77,7 +75,7 @@ public class NetworkUtils {
      * 获取当前网络连接的类型信息
      */
     public static int getConnectedType() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = null;
         if (mConnectivityManager != null) {
             mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
@@ -154,17 +152,22 @@ public class NetworkUtils {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface intf : interfaces) {
                 if (interfaceName != null) {
-                    if (!intf.getName().equalsIgnoreCase(interfaceName))
+                    if (!intf.getName().equalsIgnoreCase(interfaceName)) {
                         continue;
+                    }
                 }
                 byte[] mac;
                 mac = intf.getHardwareAddress();
-                if (mac == null)
+                if (mac == null) {
                     return "";
+                }
                 StringBuilder buf = new StringBuilder();
-                for (byte aMac : mac) buf.append(String.format("%02X:", aMac));
-                if (buf.length() > 0)
+                for (byte aMac : mac) {
+                    buf.append(String.format("%02X:", aMac));
+                }
+                if (buf.length() > 0) {
                     buf.deleteCharAt(buf.length() - 1);
+                }
                 return buf.toString();
             }
         } catch (SocketException e) {

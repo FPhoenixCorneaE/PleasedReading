@@ -1,13 +1,16 @@
-package com.wkz.framework.annotations;
+package com.wkz.unit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @author wkz
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface FRMemoryUnit {
+public @interface MemoryUnit {
 
     /**
      * Byte与Byte的倍数

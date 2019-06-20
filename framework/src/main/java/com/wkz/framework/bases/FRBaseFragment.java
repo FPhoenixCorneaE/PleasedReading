@@ -25,7 +25,7 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wkz.framework.R;
 import com.wkz.framework.annotations.FRNetworkState;
 import com.wkz.framework.functions.network.OnNetworkChangedListener;
-import com.wkz.framework.utils.ToastUtils;
+import com.wkz.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;

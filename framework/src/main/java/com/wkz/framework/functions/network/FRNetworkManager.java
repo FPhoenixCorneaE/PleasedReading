@@ -9,17 +9,22 @@ import android.net.NetworkRequest;
 import android.os.Build;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.FRApplication;
 import com.wkz.framework.R;
-import com.wkz.framework.utils.NetworkUtils;
-import com.wkz.framework.utils.ResourceUtils;
+import com.wkz.utils.ContextUtils;
+import com.wkz.utils.NetworkUtils;
+import com.wkz.utils.ResourceUtils;
 
+/**
+ * @author wkz
+ */
 public class FRNetworkManager {
 
     private static volatile FRNetworkManager instance;
     private OnNetworkCallback mOnNetworkCallback;
     private OnNetworkChangedReceiver mOnNetworkChangedReceiver;
-    //为了避免BroadcastReceiver多次unregisterReceiver 导致 Receiver not registered问题，增加是否已注册广播接收器标识
+    /**
+     * 为了避免BroadcastReceiver多次unregisterReceiver 导致 Receiver not registered问题，增加是否已注册广播接收器标识
+     */
     private boolean mReceiverIsRegistered;
 
     private FRNetworkManager() {
@@ -44,7 +49,7 @@ public class FRNetworkManager {
      */
     public void registerNetwork(Activity activity, OnNetworkChangedListener onNetworkChangedListener) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ConnectivityManager connectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             // 请注意这里会有一个版本适配bug，所以请在这里添加非空判断
             if (connectivityManager != null) {
                 mOnNetworkCallback = new OnNetworkCallback(connectivityManager, onNetworkChangedListener);
@@ -53,7 +58,8 @@ public class FRNetworkManager {
                         .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                         .build();
-                if (!mReceiverIsRegistered) {//在注册广播接受者的时候 判断是否已被注册,避免重复多次注册广播
+                // 在注册广播接受者的时候 判断是否已被注册,避免重复多次注册广播
+                if (!mReceiverIsRegistered) {
                     mReceiverIsRegistered = true;
                     connectivityManager.registerNetworkCallback(request, mOnNetworkCallback);
                 }
@@ -82,11 +88,13 @@ public class FRNetworkManager {
                     }
                 }
                 mOnNetworkChangedReceiver = new OnNetworkChangedReceiver(onNetworkChangedListener);
-                if (!mReceiverIsRegistered) {//在注册广播接受者的时候 判断是否已被注册,避免重复多次注册广播
+                // 在注册广播接受者的时候 判断是否已被注册,避免重复多次注册广播
+                if (!mReceiverIsRegistered) {
                     mReceiverIsRegistered = true;
                     Logger.i(activity.getLocalClassName() + "网络广播接收器已注册");
                     IntentFilter intentFilter = new IntentFilter();
-                    intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);//网络连接过滤器
+                    // 网络连接过滤器
+                    intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
                     activity.registerReceiver(mOnNetworkChangedReceiver, intentFilter);
                 }
             }
@@ -101,7 +109,7 @@ public class FRNetworkManager {
     public void unregisterNetwork(Activity activity) {
         if (activity != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ConnectivityManager connectivityManager = (ConnectivityManager) FRApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (connectivityManager != null && mReceiverIsRegistered) {//判断广播是否注册
                     mReceiverIsRegistered = false;
                     connectivityManager.unregisterNetworkCallback(mOnNetworkCallback);

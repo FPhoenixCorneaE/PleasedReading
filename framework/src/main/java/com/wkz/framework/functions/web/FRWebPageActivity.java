@@ -12,8 +12,8 @@ import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.databinding.FrActivityWebPageBinding;
-import com.wkz.framework.utils.ResourceUtils;
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.ResourceUtils;
+import com.wkz.utils.SizeUtils;
 import com.wkz.framework.widgets.FRProgressBar;
 
 public class FRWebPageActivity extends FRBaseActivity implements FRWebView.OnPageListener {

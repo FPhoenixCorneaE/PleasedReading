@@ -15,7 +15,7 @@ import com.wkz.framework.functions.imageviewer.FRImageViewerActivity;
 import com.wkz.framework.models.FRActivityAnimator;
 import com.wkz.framework.models.FRBundle;
 import com.wkz.framework.utils.IntentUtils;
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.FRSpaceDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;

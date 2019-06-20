@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.os.Build;
 
@@ -7,9 +7,15 @@ import java.security.MessageDigest;
 
 /**
  * MD5加密
+ *
+ * @author wkz
  */
 
 public class MD5Utils {
+
+    private MD5Utils() {
+        throw new UnsupportedOperationException("U can't initialize me...");
+    }
 
     /**
      * 获取MD5串

@@ -1,13 +1,16 @@
-package com.wkz.framework.annotations;
+package com.wkz.unit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @author wkz
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface FRTimeUnit {
+public @interface TimeUnit {
 
     /**
      * 毫秒与毫秒的倍数

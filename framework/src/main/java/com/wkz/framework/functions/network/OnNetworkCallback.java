@@ -11,7 +11,7 @@ import android.support.annotation.RequiresApi;
 
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.R;
-import com.wkz.framework.utils.ResourceUtils;
+import com.wkz.utils.ResourceUtils;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

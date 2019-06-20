@@ -10,7 +10,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.SizeUtils;
 
 /**
  * 自定义的进度条

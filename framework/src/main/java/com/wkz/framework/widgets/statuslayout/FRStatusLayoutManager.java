@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wkz.framework.R;
-import com.wkz.framework.utils.ResourceUtils;
+import com.wkz.utils.ResourceUtils;
 
 /**
  * 状态布局管理器

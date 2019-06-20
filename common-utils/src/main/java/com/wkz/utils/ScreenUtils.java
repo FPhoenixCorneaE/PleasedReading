@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -15,15 +15,16 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.FRApplication;
 
 /**
  * 屏幕相关工具类
+ *
+ * @author wkz
  */
 public final class ScreenUtils {
 
     private ScreenUtils() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("U can't initialize me...");
     }
 
     /**
@@ -32,10 +33,12 @@ public final class ScreenUtils {
      * @return 屏幕宽px
      */
     public static int getScreenWidth() {
-        WindowManager windowManager = (WindowManager) FRApplication.getContext().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
+        WindowManager windowManager = (WindowManager) ContextUtils.getContext().getSystemService(Context.WINDOW_SERVICE);
+        // 创建了一张白纸
+        DisplayMetrics dm = new DisplayMetrics();
         if (windowManager != null) {
-            windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
+            // 给白纸设置宽高
+            windowManager.getDefaultDisplay().getMetrics(dm);
         }
         return dm.widthPixels;
     }
@@ -46,10 +49,12 @@ public final class ScreenUtils {
      * @return 屏幕高px
      */
     public static int getScreenHeight() {
-        WindowManager windowManager = (WindowManager) FRApplication.getContext().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
+        WindowManager windowManager = (WindowManager) ContextUtils.getContext().getSystemService(Context.WINDOW_SERVICE);
+        // 创建了一张白纸
+        DisplayMetrics dm = new DisplayMetrics();
         if (windowManager != null) {
-            windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
+            // 给白纸设置宽高
+            windowManager.getDefaultDisplay().getMetrics(dm);
         }
         return dm.heightPixels;
     }
@@ -60,7 +65,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isLandscape() {
-        return FRApplication.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        return ContextUtils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /**
@@ -83,7 +88,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isPortrait() {
-        return FRApplication.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        return ContextUtils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -139,7 +144,7 @@ public final class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isScreenLock() {
-        KeyguardManager km = (KeyguardManager) FRApplication.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager km = (KeyguardManager) ContextUtils.getContext().getSystemService(Context.KEYGUARD_SERVICE);
         if (km != null) {
             return km.inKeyguardRestrictedInputMode();
         } else {
@@ -154,7 +159,7 @@ public final class ScreenUtils {
      */
     public static int getSleepDuration() {
         try {
-            return Settings.System.getInt(FRApplication.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
+            return Settings.System.getInt(ContextUtils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
             return -123;
@@ -168,21 +173,21 @@ public final class ScreenUtils {
      * @param duration 时长
      */
     public static void setSleepDuration(int duration) {
-        Settings.System.putInt(FRApplication.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
+        Settings.System.putInt(ContextUtils.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, duration);
     }
 
     /**
      * Get screen density, the logical density of the display
      */
-    public static float getScreenDensity(Context context) {
-        return FRApplication.getContext().getResources().getDisplayMetrics().density;
+    public static float getScreenDensity() {
+        return ContextUtils.getContext().getResources().getDisplayMetrics().density;
     }
 
     /**
      * Get screen density dpi, the screen density expressed as dots-per-inch
      */
-    public static int getScreenDensityDPI(Context context) {
-        return FRApplication.getContext().getResources().getDisplayMetrics().densityDpi;
+    public static int getScreenDensityDpi() {
+        return ContextUtils.getContext().getResources().getDisplayMetrics().densityDpi;
     }
 
     /**

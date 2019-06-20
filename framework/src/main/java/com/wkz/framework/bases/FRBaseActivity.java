@@ -32,7 +32,7 @@ import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.helpers.FRBroadcastReceiverHelper;
 import com.wkz.framework.listeners.OnFRHomeKeyListener;
 import com.wkz.framework.models.FRActivityAnimator;
-import com.wkz.framework.utils.ToastUtils;
+import com.wkz.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
@@ -367,6 +367,7 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     /**
      * 按Home按键
      */
+    @Override
     public void onClickHome() {
 
     }
@@ -374,6 +375,7 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     /**
      * 最近任务键也就是菜单键
      */
+    @Override
     public void onClickRecents() {
 
     }
@@ -381,6 +383,7 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     /**
      * 长按Home按键
      */
+    @Override
     public void onLongClickHome() {
 
     }
@@ -388,6 +391,7 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     /**
      * 锁屏
      */
+    @Override
     public void onLockScreen() {
 
     }

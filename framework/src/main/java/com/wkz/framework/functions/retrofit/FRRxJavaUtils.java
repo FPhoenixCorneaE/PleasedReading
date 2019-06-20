@@ -5,7 +5,7 @@ import android.net.ParseException;
 import com.google.gson.JsonParseException;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.wkz.framework.utils.ToastUtils;
+import com.wkz.utils.ToastUtils;
 
 import org.json.JSONException;
 

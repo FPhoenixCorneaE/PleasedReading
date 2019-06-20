@@ -5,7 +5,7 @@ import android.webkit.JavascriptInterface;
 
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.bases.FRBaseActivity;
-import com.wkz.framework.utils.ToastUtils;
+import com.wkz.utils.ToastUtils;
 
 import java.util.ArrayList;
 

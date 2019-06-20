@@ -1,6 +1,6 @@
 package com.wkz.framework.functions.retrofit.interceptor;
 
-import com.wkz.framework.utils.DeviceIdUtils;
+import com.wkz.utils.DeviceIdUtils;
 
 import java.io.IOException;
 

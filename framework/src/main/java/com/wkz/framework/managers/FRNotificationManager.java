@@ -9,7 +9,7 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
 
-import com.wkz.framework.FRApplication;
+import com.wkz.utils.ContextUtils;
 
 public class FRNotificationManager {
 
@@ -28,7 +28,7 @@ public class FRNotificationManager {
 
     private NotificationManager getNotificationManager() {
         if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) FRApplication.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager = (NotificationManager) ContextUtils.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return mNotificationManager;
     }
@@ -37,7 +37,7 @@ public class FRNotificationManager {
         //大于8.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //id随便指定
-            NotificationChannel channel = new NotificationChannel(channelId, FRApplication.getContext().getPackageName(), NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(channelId, ContextUtils.getContext().getPackageName(), NotificationManager.IMPORTANCE_HIGH);
             channel.canBypassDnd();//可否绕过，请勿打扰模式
             channel.enableLights(true);//闪光
             channel.setLockscreenVisibility(NotificationCompat.VISIBILITY_SECRET);//锁屏显示通知
@@ -53,14 +53,14 @@ public class FRNotificationManager {
             //通知管理者创建的渠道
             getNotificationManager().createNotificationChannel(channel);
 
-            return new Notification.Builder(FRApplication.getContext())
+            return new Notification.Builder(ContextUtils.getContext())
                     .setAutoCancel(true)
                     .setChannelId(channelId)
                     .setContentTitle(title)
                     .setContentText(content)
                     .setSmallIcon(icon);
         } else {
-            return new Notification.Builder(FRApplication.getContext())
+            return new Notification.Builder(ContextUtils.getContext())
                     .setAutoCancel(true)
                     .setContentTitle(title)
                     .setContentText(content)

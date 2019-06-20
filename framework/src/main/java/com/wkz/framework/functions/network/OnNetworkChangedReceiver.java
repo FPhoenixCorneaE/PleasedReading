@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.R;
-import com.wkz.framework.utils.ResourceUtils;
+import com.wkz.utils.ResourceUtils;
 
 public class OnNetworkChangedReceiver extends BroadcastReceiver {
 

@@ -16,7 +16,7 @@ import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.IntentUtils;
-import com.wkz.framework.utils.ResourceUtils;
+import com.wkz.utils.ResourceUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivitySplashBinding;

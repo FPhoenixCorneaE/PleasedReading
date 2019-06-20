@@ -3,7 +3,7 @@
 
     <data>
 
-        <import type="com.wkz.framework.utils.TimeUtils" />
+        <import type="com.wkz.utils.TimeUtils" />
 
         <variable
             name="prGankBean"

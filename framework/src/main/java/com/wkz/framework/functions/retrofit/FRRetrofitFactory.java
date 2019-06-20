@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.wkz.framework.annotations.FRMemoryUnit;
+import com.wkz.unit.MemoryUnit;
 import com.wkz.framework.functions.retrofit.interceptor.FRHeaderInterceptor;
 import com.wkz.framework.functions.retrofit.interceptor.FRNetworkInterceptor;
 import com.wkz.framework.functions.retrofit.ssl.FRSslSocketUtils;
@@ -13,7 +13,7 @@ import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultFloatAdapter;
 import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultIntegerAdapter;
 import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultLongAdapter;
 import com.wkz.framework.functions.retrofit.typeadapter.FRDefaultStringAdapter;
-import com.wkz.framework.utils.FileUtils;
+import com.wkz.utils.FileUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,7 +61,7 @@ public abstract class FRRetrofitFactory {
                 .retryOnConnectionFailure(true)
                 //缓存
                 .cache(new Cache(FileUtils.getCacheDirectory("FRCache"),
-                        100 * FRMemoryUnit.MB)
+                        100 * MemoryUnit.MB)
                 )
                 .build();
     }

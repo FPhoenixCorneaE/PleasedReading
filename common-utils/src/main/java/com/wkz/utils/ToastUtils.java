@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wkz.framework.FRApplication;
-
 /**
  * 吐司相关工具类
  */
@@ -22,13 +20,13 @@ public final class ToastUtils {
     private static Toast sToast;
     private static int gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private static int xOffset = 0;
-    private static int yOffset = (int) (64 * FRApplication.getContext().getResources().getDisplayMetrics().density + 0.5);
+    private static int yOffset = (int) (64 * ContextUtils.getContext().getResources().getDisplayMetrics().density + 0.5);
     @SuppressLint("StaticFieldLeak")
     private static View customView;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
 
     private ToastUtils() {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("U can't initialize me...");
     }
 
     /**
@@ -50,7 +48,7 @@ public final class ToastUtils {
      * @param layoutId 视图
      */
     public static void setView(int layoutId) {
-        ToastUtils.customView = LayoutInflater.from(FRApplication.getContext()).inflate(layoutId, null);
+        ToastUtils.customView = LayoutInflater.from(ContextUtils.getContext()).inflate(layoutId, null);
     }
 
     /**
@@ -59,8 +57,12 @@ public final class ToastUtils {
      * @return view 自定义view
      */
     public static View getView() {
-        if (customView != null) return customView;
-        if (sToast != null) return sToast.getView();
+        if (customView != null) {
+            return customView;
+        }
+        if (sToast != null) {
+            return sToast.getView();
+        }
         return null;
     }
 
@@ -272,7 +274,7 @@ public final class ToastUtils {
      * @param duration 显示时长
      */
     private static void show(int resId, int duration) {
-        show(FRApplication.getContext().getResources().getText(resId).toString(), duration);
+        show(ContextUtils.getContext().getResources().getText(resId).toString(), duration);
     }
 
     /**
@@ -283,7 +285,7 @@ public final class ToastUtils {
      * @param args     参数
      */
     private static void show(int resId, int duration, Object... args) {
-        show(String.format(FRApplication.getContext().getResources().getString(resId), args), duration);
+        show(String.format(ContextUtils.getContext().getResources().getString(resId), args), duration);
     }
 
     /**
@@ -306,7 +308,7 @@ public final class ToastUtils {
     private static void show(CharSequence text, int duration) {
         cancel();
         if (customView != null) {
-            sToast = new Toast(FRApplication.getContext());
+            sToast = new Toast(ContextUtils.getContext());
             sToast.setView(customView);
             sToast.setDuration(duration);
         } else {
@@ -328,9 +330,9 @@ public final class ToastUtils {
 
 
     private static Toast getToast(CharSequence text, int duration) {
-        Toast mToast = new Toast(FRApplication.getContext());
+        Toast mToast = new Toast(ContextUtils.getContext());
 
-        LinearLayout view = new LinearLayout(FRApplication.getContext());
+        LinearLayout view = new LinearLayout(ContextUtils.getContext());
 
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -348,7 +350,7 @@ public final class ToastUtils {
                 SizeUtils.dp2px(5f)
         );
 
-        TextView textView = new TextView(FRApplication.getContext());
+        TextView textView = new TextView(ContextUtils.getContext());
         textView.setText(text);
         textView.setTextColor(Color.WHITE);
         textView.setTextSize(13f);

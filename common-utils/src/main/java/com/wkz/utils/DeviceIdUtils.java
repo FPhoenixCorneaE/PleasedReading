@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
@@ -8,17 +8,21 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
-import com.wkz.framework.FRApplication;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 获取唯一设备id工具类，建议使用getPesudoUniqueID（）方法，不需申请任何权限；
- * Created by Administrator on 2018/5/7.
+ * 获取唯一设备id工具类，建议使用getPseudoUniqueID（）方法，不需申请任何权限；
+ *
+ * @author Administrator
+ * @date 2018/5/7
  */
 
 public class DeviceIdUtils {
+
+    private DeviceIdUtils() {
+        throw new UnsupportedOperationException("U can't initialize me...");
+    }
 
     /**
      * The IMEI: 仅仅只对Android手机有效
@@ -29,11 +33,11 @@ public class DeviceIdUtils {
      * @return imei
      */
     @SuppressLint({"HardwareIds", "MissingPermission"})
-    private static String getIMEI() {
-        TelephonyManager TelephonyMgr = (TelephonyManager) FRApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+    private static String getImei() {
+        TelephonyManager telephonyMgr = (TelephonyManager) ContextUtils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         String szImei = "";
-        if (TelephonyMgr != null) {
-            szImei = TelephonyMgr.getDeviceId();
+        if (telephonyMgr != null) {
+            szImei = telephonyMgr.getDeviceId();
         }
         return szImei;
     }
@@ -46,10 +50,11 @@ public class DeviceIdUtils {
      * 本可以忽略。大多数的Build成员都是字符串形式的，我们只取他们的长度信息。我们取到13个数字，并在前面加上“35
      * ”。这样这个ID看起来就和15位IMEI一样了。
      *
-     * @return PesudoUniqueID
+     * @return PseudoUniqueID
      */
-    private static String getPesudoUniqueID() {
-        String m_szDevIDShort = "35" + //we make this look like a valid IMEI
+    private static String getPseudoUniqueID() {
+        //we make this look like a valid IMEI
+        return "35" +
                 Build.BOARD.length() % 10 +
                 Build.BRAND.length() % 10 +
                 Build.CPU_ABI.length() % 10 +
@@ -62,8 +67,7 @@ public class DeviceIdUtils {
                 Build.PRODUCT.length() % 10 +
                 Build.TAGS.length() % 10 +
                 Build.TYPE.length() % 10 +
-                Build.USER.length() % 10; //13 digits
-        return m_szDevIDShort;
+                Build.USER.length() % 10;
     }
 
     /**
@@ -76,7 +80,7 @@ public class DeviceIdUtils {
     @SuppressLint("HardwareIds")
     private static String getAndroidID() {
         return Settings.Secure.getString(
-                FRApplication.getContext().getContentResolver(),
+                ContextUtils.getContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
     }
 
@@ -90,12 +94,12 @@ public class DeviceIdUtils {
      */
     @SuppressLint({"HardwareIds", "MissingPermission"})
     private static String getWLANMACAddress() {
-        WifiManager wm = (WifiManager) FRApplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        String m_szWLANMAC = "";
+        WifiManager wm = (WifiManager) ContextUtils.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        String mSzWLANMAC = "";
         if (wm != null) {
-            m_szWLANMAC = wm.getConnectionInfo().getMacAddress();
+            mSzWLANMAC = wm.getConnectionInfo().getMacAddress();
         }
-        return m_szWLANMAC;
+        return mSzWLANMAC;
     }
 
     /**
@@ -106,8 +110,9 @@ public class DeviceIdUtils {
      */
     @SuppressLint({"HardwareIds", "MissingPermission"})
     private static String getBTMACAddress() {
-        BluetoothAdapter m_BluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); // Local Bluetooth adapter
-        return m_BluetoothAdapter.getAddress();
+        // Local Bluetooth adapter
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        return mBluetoothAdapter.getAddress();
     }
 
     /**
@@ -116,12 +121,10 @@ public class DeviceIdUtils {
      * 获取失败。但你总能获得至少一个能用。所以，最好的方法就是通过拼接，或者拼接后的计算出的MD5值来产生一个结果。
      * 通过算法，可产生32位的16进制数据:9DDDF85AFF0A87974CE4541BD94D5F55
      *
-     * @return
+     * @return Device ID
      */
     public static String getUniqueID() {
-//        String m_szLongID = getIMEI() + getPesudoUniqueID()
-//                + getAndroidID() + getWLANMACAddress() + getBTMACAddress();
-        String m_szLongID = getPesudoUniqueID() + getWLANMACAddress() + getBTMACAddress();
+        String mSzLongID = getPseudoUniqueID() + getWLANMACAddress() + getBTMACAddress();
         // compute md5
         MessageDigest m = null;
         try {
@@ -130,20 +133,21 @@ public class DeviceIdUtils {
             e.printStackTrace();
         }
         assert m != null;
-        m.update(m_szLongID.getBytes(), 0, m_szLongID.length());
+        m.update(mSzLongID.getBytes(), 0, mSzLongID.length());
         // get md5 bytes
-        byte p_md5Data[] = m.digest();
+        byte[] pMd5Data = m.digest();
         // create a hex string
-        StringBuilder m_szUniqueID = new StringBuilder();
-        for (int i = 0; i < p_md5Data.length; i++) {
-            int b = (0xFF & p_md5Data[i]);
+        StringBuilder mSzUniqueID = new StringBuilder();
+        for (int i = 0; i < pMd5Data.length; i++) {
+            int b = (0xFF & pMd5Data[i]);
             // if it is a single digit, make sure it have 0 in front (proper padding)
-            if (b <= 0xF)
-                m_szUniqueID.append("0");
+            if (b <= 0xF) {
+                mSzUniqueID.append("0");
+            }
             // add number to string
-            m_szUniqueID.append(Integer.toHexString(b));
+            mSzUniqueID.append(Integer.toHexString(b));
         }   // hex string to uppercase
-        m_szUniqueID = new StringBuilder(m_szUniqueID.toString().toUpperCase());
-        return m_szUniqueID.toString();
+        mSzUniqueID = new StringBuilder(mSzUniqueID.toString().toUpperCase());
+        return mSzUniqueID.toString();
     }
 }

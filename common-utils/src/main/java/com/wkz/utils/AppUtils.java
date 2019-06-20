@@ -1,4 +1,4 @@
-package com.wkz.framework.utils;
+package com.wkz.utils;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -9,9 +9,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.FRApplication;
 
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
@@ -22,16 +22,22 @@ import javax.security.auth.x500.X500Principal;
 
 /**
  * App 相关信息，包括版本名称、版本号、包名等等
+ *
+ * @author wkz
  */
 public class AppUtils {
 
     private static final X500Principal DEBUG_DN = new X500Principal("CN=Android Debug,O=Android,C=US");
 
+    private AppUtils() {
+        throw new UnsupportedOperationException("U can't initialize me...");
+    }
+
     /**
      * Get version name
      */
     public static String getVersionName() {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         PackageInfo info;
         try {
             info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -46,11 +52,15 @@ public class AppUtils {
      * Get version code
      */
     public static long getVersionCode() {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         PackageInfo info;
         try {
             info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return info.getLongVersionCode();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return info.getLongVersionCode();
+            } else {
+                return info.versionCode;
+            }
         } catch (NameNotFoundException e) {
             Logger.e(e.toString());
         }
@@ -61,7 +71,7 @@ public class AppUtils {
      * Get package name
      */
     public static String getPackageName() {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         return context.getPackageName();
     }
 
@@ -76,7 +86,7 @@ public class AppUtils {
      * Get app icon
      */
     public static Drawable getAppIcon(String packageName) {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
@@ -91,7 +101,7 @@ public class AppUtils {
      * Get app version name
      */
     public static String getVersionName(String packageName) {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);
@@ -106,11 +116,15 @@ public class AppUtils {
      * Get app version code
      */
     public static long getVersionCode(String packageName) {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);
-            return packageInfo.getLongVersionCode();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return packageInfo.getLongVersionCode();
+            } else {
+                return packageInfo.versionCode;
+            }
         } catch (NameNotFoundException e) {
             Logger.e(e.toString());
         }
@@ -121,7 +135,7 @@ public class AppUtils {
      * Get app name
      */
     public static String getAppName(String packageName) {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
@@ -136,7 +150,7 @@ public class AppUtils {
      * Get app name
      */
     public static String getAppName() {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             ApplicationInfo info = pm.getApplicationInfo(getPackageName(), 0);
@@ -151,7 +165,7 @@ public class AppUtils {
      * Get app permission
      */
     public static String[] getAppPermission(String packageName) {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
@@ -166,7 +180,7 @@ public class AppUtils {
      * Get app signature
      */
     public static String getAppSignature(String packageName) {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
@@ -181,7 +195,7 @@ public class AppUtils {
      * Judge whether an app is dubuggable
      */
     public static boolean isDebuggable() {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         boolean debuggable = false;
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
@@ -207,7 +221,7 @@ public class AppUtils {
      * Judge whether an app is in background
      */
     public static boolean isAppInBackground() {
-        Context context = FRApplication.getContext();
+        Context context = ContextUtils.getContext();
         ActivityManager am = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> taskList = null;

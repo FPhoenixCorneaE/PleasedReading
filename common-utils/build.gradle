@@ -1,0 +1,184 @@
+if (rootProject.ext.isLibrary.commonUtils) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        if (!rootProject.ext.isLibrary.commonUtils) {
+            applicationId "com.wkz.utils"
+        }
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 100
+        versionName "1.0.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+
+        if (rootProject.ext.isLibrary.commonUtils) {
+            buildConfigField 'boolean', 'DEBUG_STATUS', 'false'
+        } else {
+            buildConfigField 'boolean', 'DEBUG_STATUS', 'true'
+        }
+    }
+
+    buildTypes {
+        release {
+            //执行proguard混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules-universal.pro'
+            proguardFiles 'proguard-rules-library.pro'
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            //执行proguard混淆
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled false
+            //移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules-universal.pro'
+            proguardFiles 'proguard-rules-library.pro'
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    //默认的一些文件路径的配置
+    sourceSets {
+        main {
+            //清单配置文件
+            if (rootProject.ext.isLibrary.commonUtils) {
+                manifest.srcFile 'src/main/AndroidManifest-release.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+
+            if (rootProject.ext.isLibrary.commonUtils) {
+                java.exclude '**/DemoActivity.java'
+            }
+            //源码目录
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+            //资源文件
+            assets.srcDirs = ['src/main/assets']
+
+            aidl.srcDirs = ['src/main/aidl']
+            //jni文件
+            jni.srcDirs = ['src/main/jni']
+            //jni库
+            jniLibs.srcDirs = ['src/main/jniLibs']
+            //资源目录
+            res.srcDirs = ['src/main/res']
+            //资源目录
+            resources.srcDirs = ['src/main/java', 'src/main/aidl']
+        }
+    }
+
+    //压缩PNG文件
+    //aapt工具可能会影响已经被压缩过的PNG文件
+    //建议把cruncherEnabled设为false，然后通过工具（比如pngcrush, pngquant, zopflipng,tinypng,guetzli）手工压缩PNG图片。
+    aaptOptions {
+        cruncherEnabled = true
+    }
+
+    //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
+    lintOptions {
+        warning 'InvalidPackage'
+        quiet true //是否关闭lint报告的分析进度
+        abortOnError false //错误发生后是否停止gradle构建
+        ignoreWarnings true //是否只报告error
+        checkReleaseBuilds false//方法过时警告的开关
+        disable 'InvalidPackage' //Some libraries have issues with this.
+        disable 'OldTargetApi' //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities' //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder' //For testing purpose. This is safe to remove.
+        disable 'MissingTranslation' // 防止在发布的时候出现因 MissingTranslation 导致 Build Failed!
+    }
+
+    //为了解决部分第三方库重复打包了META-INF的问题,重复什么就排除什么
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+
+    //multiDex的一些相关配置，这样配置可以让你的编译速度更快,缩短构建时间
+    dexOptions {
+        //最大堆内存
+        javaMaxHeapSize "8g"
+        //是否支持大工程模式
+        jumboMode true
+        //预编译
+        preDexLibraries false
+        //
+        dexInProcess true
+        //最大进程数
+        maxProcessCount 8
+        //线程数
+        threadCount 8
+    }
+
+    //在这里你可以进行 Java 的版本配置，以便使用对应版本的一些新特性
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //修改aar名称
+    if (rootProject.ext.isLibrary.commonUtils) {
+        android.libraryVariants.all { variant ->
+            def buildTypeName = variant.buildType.name
+            if ("release".equalsIgnoreCase(buildTypeName)) {
+                variant.outputs.all {
+                    outputFileName = "${project.getName()}-${defaultConfig.versionName}.aar"
+                }
+            }
+        }
+    }
+
+    //让所有的第三方包强制使用指定版本的support包
+    //注意：在写第三方库给别人用的时候，对于support包的依赖方式改成provided（或者compileOnly，gradle3.0），
+    //这样不会把support打包，方便使用的人。
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion rootProject.ext.versionSupport
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+    /**
+     * logger
+     */
+    api('com.orhanobut:logger:' + rootProject.ext.versionLogger) {
+        transitive true
+    }
+}

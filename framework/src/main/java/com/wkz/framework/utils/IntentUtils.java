@@ -18,14 +18,16 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
-import com.wkz.framework.FRApplication;
 import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.models.FRActivityAnimator;
+import com.wkz.utils.AppUtils;
+import com.wkz.utils.ContextUtils;
 
 import java.io.File;
 
 /**
  * Intent操作
+ * @author wkz
  */
 public class IntentUtils {
 
@@ -75,12 +77,16 @@ public class IntentUtils {
      * 显示意图，附带请求码，传参,切换动画
      */
     public static void startActivityForResult(Context context, Class<?> className, int requestCode, Bundle bundle, int enterAnim, int exitAnim) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
 
         if (context instanceof Activity) {
             Intent intent = new Intent();
             intent.setClass(context, className);
-            if (bundle != null) intent.putExtras(bundle);
+            if (bundle != null) {
+                intent.putExtras(bundle);
+            }
 
             if (Integer.MIN_VALUE == requestCode) {
                 context.startActivity(intent);
@@ -95,12 +101,16 @@ public class IntentUtils {
      * 显示意图，附带请求码，传参,切换动画
      */
     public static void startActivityForResult(Context context, Class<?> className, int requestCode, Bundle bundle, String animation) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
 
         if (context instanceof Activity) {
             Intent intent = new Intent();
             intent.setClass(context, className);
-            if (bundle == null) bundle = new Bundle();
+            if (bundle == null) {
+                bundle = new Bundle();
+            }
             bundle.putString(FRConstant.ACTIVITY_ANIMATION, animation);
             intent.putExtras(bundle);
 
@@ -132,10 +142,14 @@ public class IntentUtils {
      * 隐式意图，传参
      */
     public static void startImplicitActivity(Context context, String action, Bundle bundle) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
 
         Intent intent = new Intent(action);
-        if (bundle != null) intent.putExtras(bundle);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
 
         context.startActivity(intent);
     }
@@ -151,10 +165,14 @@ public class IntentUtils {
      * 隐示意图，附带请求码，传参
      */
     public static void startImplicitActivityForResult(Context context, String action, int requestCode, Bundle bundle) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
 
         Intent intent = new Intent(action);
-        if (bundle != null) intent.putExtras(bundle);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
 
         ((Activity) context).startActivityForResult(intent, requestCode);
     }
@@ -163,7 +181,9 @@ public class IntentUtils {
      * 根据包名打开软件
      */
     public static void startApplication(Context context, String appPackageName) {
-        if (null == context || null == appPackageName || appPackageName.isEmpty()) return;
+        if (null == context || null == appPackageName || appPackageName.isEmpty()) {
+            return;
+        }
 
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(appPackageName);
         if (intent != null) {
@@ -190,11 +210,15 @@ public class IntentUtils {
      * @param bundle      捆绑的数据
      */
     public static void startService(Context context, Class<?> serviceName, Bundle bundle) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
 
         Intent intent = new Intent();
         intent.setClass(context, serviceName);
-        if (bundle != null) intent.putExtras(bundle);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
 
         context.startService(intent);
     }
@@ -212,7 +236,9 @@ public class IntentUtils {
      * Open url in a browser
      */
     public static void openBrowser(Context context, String url) {
-        if (context == null || url == null || url.isEmpty()) return;
+        if (context == null || url == null || url.isEmpty()) {
+            return;
+        }
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
@@ -222,7 +248,9 @@ public class IntentUtils {
      * Open map in a map app
      */
     public static void openMap(Context context, String parh) {
-        if (context == null || parh == null || parh.isEmpty()) return;
+        if (context == null || parh == null || parh.isEmpty()) {
+            return;
+        }
         Uri uri = Uri.parse(parh);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
@@ -232,7 +260,9 @@ public class IntentUtils {
      * Open dial
      */
     public static void openDial(Context context) {
-        if (context == null) return;
+        if (context == null) {
+            return;
+        }
         Intent intent = new Intent(Intent.ACTION_CALL_BUTTON);
         context.startActivity(intent);
     }
@@ -253,8 +283,9 @@ public class IntentUtils {
     public static void openCall(Context context, String number) {
         Uri uri = Uri.parse("tel:" + number);
         Intent intent = new Intent(Intent.ACTION_CALL, uri);
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             return;
+        }
 
         context.startActivity(intent);
     }
@@ -290,7 +321,9 @@ public class IntentUtils {
      * @param action The action contains global system-level device preferences.
      */
     public static void openSettings(Context context, String action) {
-        if (null == context) return;
+        if (null == context) {
+            return;
+        }
 
         if (!TextUtils.isEmpty(action)) {
             Intent intent = new Intent(action);
@@ -359,12 +392,12 @@ public class IntentUtils {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             //此处的authority的值必须与Manifest中provider组件设置的authorities值一致
             String authority = AppUtils.getPackageName() + ".fileprovider";
-            uri = FileProvider.getUriForFile(FRApplication.getContext(), authority, apkFile);
+            uri = FileProvider.getUriForFile(ContextUtils.getContext(), authority, apkFile);
         } else {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             uri = Uri.fromFile(apkFile);
         }
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        FRApplication.getContext().startActivity(intent);
+        ContextUtils.getContext().startActivity(intent);
     }
 }

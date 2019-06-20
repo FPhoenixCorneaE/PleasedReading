@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.FRHttpError;
 import com.wkz.framework.functions.retrofit.OnFRHttpCallback;
-import com.wkz.framework.utils.TimeUtils;
+import com.wkz.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

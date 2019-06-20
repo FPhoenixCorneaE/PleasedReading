@@ -10,7 +10,7 @@ import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.constants.FRFilesDirectory;
 import com.wkz.framework.functions.file.model.FRVideoBean;
-import com.wkz.framework.utils.SizeUtils;
+import com.wkz.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.FRSpaceDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
