@@ -11,7 +11,7 @@
             type="FRVideoBean" />
     </data>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/fr_background_Oxffededed"
@@ -39,5 +39,5 @@
             android:text="@{videoBean.name}"
             android:textColor="@color/fr_color_dim_gray"
             android:textSize="14sp" />
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>

@@ -1,6 +1,6 @@
 package com.wkz.framework.bases;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 public interface IFRSelectedFragment {
     void onSelectedFragment(Fragment selectedFragment);

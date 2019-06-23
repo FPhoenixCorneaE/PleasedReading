@@ -1,8 +1,8 @@
 package com.wkz.pleasedreading.myself.localvideo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.View;
 
 import com.wkz.framework.bases.FRBaseActivity;

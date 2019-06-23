@@ -1,6 +1,6 @@
 package com.wkz.pleasedreading.main.toutiao;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Base64;
 
 import com.google.gson.Gson;

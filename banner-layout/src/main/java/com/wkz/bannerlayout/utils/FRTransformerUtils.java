@@ -1,6 +1,6 @@
 package com.wkz.bannerlayout.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.wkz.bannerlayout.animation.FRAccordionTransformer;
 import com.wkz.bannerlayout.animation.FRBackgroundToForegroundTransformer;

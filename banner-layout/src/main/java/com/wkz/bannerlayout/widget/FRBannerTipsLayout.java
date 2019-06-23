@@ -2,9 +2,9 @@ package com.wkz.bannerlayout.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.view.MarginLayoutParamsCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.core.view.MarginLayoutParamsCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;

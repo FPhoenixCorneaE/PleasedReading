@@ -1,6 +1,6 @@
 package com.wkz.okgo.interceptor;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import com.wkz.okgo.utils.OkIOUtils;
 import com.wkz.okgo.utils.OkLogger;

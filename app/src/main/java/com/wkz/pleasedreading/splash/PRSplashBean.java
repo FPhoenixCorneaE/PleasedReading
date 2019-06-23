@@ -1,8 +1,8 @@
 package com.wkz.pleasedreading.splash;
 
-import android.databinding.Bindable;
-import android.databinding.Observable;
-import android.databinding.PropertyChangeRegistry;
+import androidx.databinding.Bindable;
+import androidx.databinding.Observable;
+import androidx.databinding.PropertyChangeRegistry;
 import android.os.Parcel;
 import android.os.Parcelable;
 

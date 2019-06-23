@@ -3,7 +3,7 @@ package com.wkz.framework.utils;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;

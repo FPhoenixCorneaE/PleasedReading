@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.BatteryManager;
 import android.os.CountDownTimer;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;

@@ -2,7 +2,7 @@ package com.wkz.bannerlayout.utils;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.wkz.bannerlayout.listener.FRViewPagerCurrent;
 

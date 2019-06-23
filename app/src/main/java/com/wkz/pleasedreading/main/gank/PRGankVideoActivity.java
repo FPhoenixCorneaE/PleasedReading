@@ -1,7 +1,7 @@
 package com.wkz.pleasedreading.main.gank;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 

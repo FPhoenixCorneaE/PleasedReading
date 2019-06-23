@@ -2,7 +2,7 @@ package com.wkz.framework.models;
 
 
 import android.app.Activity;
-import android.support.annotation.StringDef;
+import androidx.annotation.StringDef;
 
 import com.wkz.framework.R;
 

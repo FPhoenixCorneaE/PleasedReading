@@ -2,9 +2,9 @@ package com.wkz.pleasedreading.splash;
 
 import android.Manifest;
 import android.animation.Animator;
-import android.databinding.BindingAdapter;
+import androidx.databinding.BindingAdapter;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.jakewharton.rxbinding2.view.RxView;

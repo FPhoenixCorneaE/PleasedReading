@@ -1,6 +1,6 @@
 package com.wkz.bannerlayout.animation;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 public abstract class FRBannerTransformer implements ViewPager.PageTransformer {
 }

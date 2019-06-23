@@ -19,6 +19,12 @@ ext {
     versionCode = 100
     versionName = "1.0.0"
 
+    versionAndroidXAppcompat = "1.0.0"
+    versionAndroidXAnnotation = "1.0.0"
+    versionAndroidXCardview = "1.0.0"
+    versionAndroidXMaterial = "1.0.0"
+    versionAndroidXMultidex = "2.0.1"
+    versionAndroidXRecyclerview = "1.0.0"
     versionFresco = "1.11.0"
     versionGlide = '4.8.0'
     versionGson = '2.8.0'

@@ -1,6 +1,6 @@
 package com.wkz.framework.listeners;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;

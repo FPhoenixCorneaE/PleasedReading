@@ -1,6 +1,6 @@
 package com.wkz.framework.widgets.glideimageview.progress;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.GlideException;
 

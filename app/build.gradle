@@ -261,9 +261,9 @@ dependencies {
     /**
      * support
      */
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
-    implementation "com.android.support:support-annotations:$rootProject.ext.versionSupport"
-    implementation "com.android.support:design:$rootProject.ext.versionSupport"
-    implementation "com.android.support:recyclerview-v7:$rootProject.ext.versionSupport"
-    implementation "com.android.support:cardview-v7:$rootProject.ext.versionSupport"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
+    implementation "androidx.annotation:annotation:$rootProject.ext.versionAndroidXAnnotation"
+    implementation "androidx.cardview:cardview:$rootProject.ext.versionAndroidXCardview"
+    implementation "com.google.android.material:material:$rootProject.ext.versionAndroidXMaterial"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.versionAndroidXRecyclerview"
 }

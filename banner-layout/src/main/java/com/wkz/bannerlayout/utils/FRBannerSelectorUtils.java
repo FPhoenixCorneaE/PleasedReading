@@ -3,7 +3,7 @@ package com.wkz.bannerlayout.utils;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class FRBannerSelectorUtils {
 

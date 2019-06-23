@@ -1,6 +1,6 @@
 package com.wkz.bannerlayout.annotation;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.widget.RelativeLayout;
 
 import java.lang.annotation.Retention;

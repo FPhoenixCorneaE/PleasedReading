@@ -1,7 +1,7 @@
 package com.wkz.framework.bases;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 

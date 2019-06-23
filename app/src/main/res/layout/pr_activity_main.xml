@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         android:background="@color/pr_background">
 
-        <android.support.v4.widget.DrawerLayout
+        <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/pr_dl_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -58,6 +58,6 @@
                 bind:menuList="@{menuList}"
                 bind:nickname="@{nickname}"
                 bind:onMainClickListener="@{onMainClickListener}" />
-        </android.support.v4.widget.DrawerLayout>
+        </androidx.drawerlayout.widget.DrawerLayout>
     </FrameLayout>
 </layout>

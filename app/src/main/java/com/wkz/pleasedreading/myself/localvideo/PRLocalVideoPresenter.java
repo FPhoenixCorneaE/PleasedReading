@@ -1,7 +1,7 @@
 package com.wkz.pleasedreading.myself.localvideo;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.functions.file.model.FRVideoBean;

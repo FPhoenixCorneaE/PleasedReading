@@ -1,6 +1,6 @@
 package com.wkz.pleasedreading.myself.localvideo;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.wkz.framework.functions.file.model.FRVideoBean;

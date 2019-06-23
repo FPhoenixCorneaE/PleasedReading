@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.WindowManager;
 
 

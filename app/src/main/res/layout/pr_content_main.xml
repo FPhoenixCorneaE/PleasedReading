@@ -47,7 +47,7 @@
                 app:fr_siv_pressed_alpha="0"
                 app:fr_siv_pressed_color="@color/fr_color_transparent" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pr_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

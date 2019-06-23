@@ -1,9 +1,9 @@
 package com.wkz.pleasedreading.main.toutiao;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
-import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

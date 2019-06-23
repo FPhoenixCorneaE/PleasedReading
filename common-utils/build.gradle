@@ -174,7 +174,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
     /**
      * logger
      */

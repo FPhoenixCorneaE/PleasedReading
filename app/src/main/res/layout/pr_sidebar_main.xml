@@ -9,7 +9,7 @@
 
         <variable
             name="drawerLayout"
-            type="android.support.v4.widget.DrawerLayout" />
+            type="androidx.drawerlayout.widget.DrawerLayout" />
 
         <variable
             name="avatarUrl"
@@ -69,7 +69,7 @@
                     app:fr_siv_pressed_color="@color/fr_color_transparent"
                     app:fr_siv_shape_type="circle" />
 
-                <android.support.v7.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/pr_tv_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,12 +91,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="185dp">
 
-                <android.support.v4.widget.NestedScrollView
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none">
 
-                    <android.support.v7.widget.LinearLayoutCompat
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -107,7 +107,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <android.support.v7.widget.AppCompatTextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
@@ -125,7 +125,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <android.support.v7.widget.AppCompatTextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
@@ -143,7 +143,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <android.support.v7.widget.AppCompatTextView
+                            <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
@@ -156,8 +156,8 @@
                                 android:textColor="@color/fr_color_black"
                                 android:textSize="18sp" />
                         </com.wkz.framework.widgets.ripple.FRMaterialRippleLayout>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                </android.support.v4.widget.NestedScrollView>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.core.widget.NestedScrollView>
             </com.wkz.framework.widgets.overscroll.FROverScrollFrameLayout>
         </FrameLayout>
     </FrameLayout>

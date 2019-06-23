@@ -2,10 +2,10 @@ package com.wkz.videoplayer.window;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

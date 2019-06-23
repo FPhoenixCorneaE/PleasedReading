@@ -1,6 +1,6 @@
 package com.wkz.pleasedreading.main.gank;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.functions.retrofit.FRHttpError;

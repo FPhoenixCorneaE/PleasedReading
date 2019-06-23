@@ -152,6 +152,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly "com.android.support:support-annotations:$rootProject.ext.versionSupport"
+    compileOnly "androidx.annotation:annotation:$rootProject.ext.versionAndroidXAnnotation"
     implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
 }

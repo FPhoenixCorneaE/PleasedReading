@@ -43,7 +43,7 @@
                 app:fr_siv_pressed_color="@color/fr_color_transparent"
                 app:fr_siv_shape_type="circle" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pr_tv_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:textColor="@color/fr_color_black"
                 android:textSize="14sp" />
 
-            <android.support.v7.widget.LinearLayoutCompat
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/pr_iv_avatar"
@@ -68,7 +68,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/pr_tv_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:layout_marginStart="15dp"
                     android:background="@color/fr_color_dark_gray" />
 
-                <android.support.v7.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/pr_tv_publishTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,9 +90,9 @@
                     android:text="@{TimeUtils.getFriendlyTimeSpanByNow(prGankBean.publishedAt)}"
                     android:textColor="@color/fr_color_dim_gray"
                     android:textSize="13sp" />
-            </android.support.v7.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <android.support.v7.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pr_tv_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

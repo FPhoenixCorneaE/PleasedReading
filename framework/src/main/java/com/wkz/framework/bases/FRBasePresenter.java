@@ -1,6 +1,6 @@
 package com.wkz.framework.bases;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class FRBasePresenter<V extends IFRBaseView, M extends IFRBaseModel> {
 

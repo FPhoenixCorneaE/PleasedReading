@@ -3,8 +3,8 @@ package com.wkz.framework.widgets.glideimageview;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 import com.bumptech.glide.TransitionOptions;

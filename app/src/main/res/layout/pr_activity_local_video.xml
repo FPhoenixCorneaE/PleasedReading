@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -29,7 +29,7 @@
                     android:background="@color/pr_statusBar"
                     app:layout_scrollFlags="scroll" />
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/pr_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -50,16 +50,16 @@
                         android:text="@{title}"
                         android:textColor="@color/fr_color_black"
                         android:textSize="20sp" />
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.AppBarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pr_rv_local_video"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/fr_background_Oxffededed"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <FrameLayout
             android:id="@+id/pr_fl_video"

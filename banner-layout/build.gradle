@@ -152,7 +152,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly "com.android.support:appcompat-v7:$rootProject.ext.versionSupport"
+    compileOnly "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
     /**
      * glide
      */
