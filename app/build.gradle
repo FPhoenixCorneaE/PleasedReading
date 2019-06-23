@@ -266,4 +266,5 @@ dependencies {
     implementation "androidx.cardview:cardview:$rootProject.ext.versionAndroidXCardview"
     implementation "com.google.android.material:material:$rootProject.ext.versionAndroidXMaterial"
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.versionAndroidXRecyclerview"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.versionAndroidXConstraintlayout"
 }

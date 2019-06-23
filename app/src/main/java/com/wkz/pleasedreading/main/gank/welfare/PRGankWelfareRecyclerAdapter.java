@@ -1,4 +1,4 @@
-package com.wkz.pleasedreading.main.gank;
+package com.wkz.pleasedreading.main.gank.welfare;
 
 import android.content.Context;
 import androidx.databinding.BindingAdapter;

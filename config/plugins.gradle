@@ -1,6 +1,8 @@
 ext {
+    // module作为library还是作为application标识
     isLibrary = [
-            bannerLayout: true,
-            commonUtils : true,
+            bannerLayout        : true,
+            commonUtils         : true,
+            parallaxRecyclerView: true,
     ]
 }

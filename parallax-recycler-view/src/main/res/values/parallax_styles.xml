@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="ParallaxAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/parallaxColorPrimary</item>
+        <item name="colorPrimaryDark">@color/parallaxColorPrimaryDark</item>
+        <item name="colorAccent">@color/parallaxColorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+</resources>

@@ -4,25 +4,28 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.bases.FRBaseFragment;
-import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.bases.FRBasePresenter;
+import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.models.FRBundle;
 import com.wkz.framework.widgets.tab.FRColorTrackTabLayout;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constants.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankBinding;
+import com.wkz.pleasedreading.main.gank.welfare.PRGankWelfareFragment;
+import com.wkz.pleasedreading.main.gank.welfare.PRGankWelfareParallaxFragment;
 import com.wkz.viewer.IImageLoader;
 import com.wkz.viewer.widget.FRImageViewer;
 import com.wkz.viewer.widget.FRScaleImageView;
@@ -86,7 +89,7 @@ public class PRGankFragment extends FRBaseFragment<PRGankContract.IGankPresenter
                                 add(create("前端", PRGankChildFragment.class));
                                 add(create("App", PRGankChildFragment.class));
                                 add(create("休息视频", PRGankChildFragment.class));
-                                add(create("福利", PRGankWelfareFragment.class));
+                                add(create("福利", PRGankWelfareParallaxFragment.class));
                                 add(create("拓展资源", PRGankChildFragment.class));
                             }
                         })

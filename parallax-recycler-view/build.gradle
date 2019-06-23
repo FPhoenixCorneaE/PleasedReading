@@ -1,6 +1,4 @@
-def isLibrary = true
-
-if (isLibrary) {
+if (rootProject.ext.isLibrary.parallaxRecyclerView) {
     apply plugin: 'com.android.library'
 } else {
     apply plugin: 'com.android.application'
@@ -9,16 +7,18 @@ if (isLibrary) {
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-    resourcePrefix "fr_"
+
+    //所有资源必须以此 prefix 开头，否则会报错
+    resourcePrefix "parallax_"
 
     defaultConfig {
-        if (!isLibrary) {
-            applicationId "com.wkz.glideimageview"
+        if (!rootProject.ext.isLibrary.parallaxRecyclerView) {
+            applicationId "com.wkz.parallaxrecycler"
         }
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 100
+        versionName "1.0.0"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -26,7 +26,7 @@ android {
             }
         }
 
-        if (isLibrary) {
+        if (rootProject.ext.isLibrary.parallaxRecyclerView) {
             buildConfigField 'boolean', 'DEBUG_STATUS', 'false'
         } else {
             buildConfigField 'boolean', 'DEBUG_STATUS', 'true'
@@ -64,7 +64,7 @@ android {
     sourceSets {
         main {
             //清单配置文件
-            if (isLibrary) {
+            if (rootProject.ext.isLibrary.parallaxRecyclerView) {
                 manifest.srcFile 'src/main/AndroidManifest-release.xml'
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -80,9 +80,18 @@ android {
             //jni库
             jniLibs.srcDirs = ['src/main/jniLibs']
             //资源目录
-            res.srcDirs = ['src/main/res']
+            if (rootProject.ext.isLibrary.parallaxRecyclerView) {
+                res.srcDirs = ['src/main/res-release']
+            } else {
+                res.srcDirs = ['src/main/res']
+            }
             //资源目录
             resources.srcDirs = ['src/main/java', 'src/main/aidl']
+
+            if (rootProject.ext.isLibrary.parallaxRecyclerView) {
+                java.exclude '**/ParallaxRecyclerViewDemoActivity.java'
+                java.exclude '**/ParallaxRecyclerAdapter.java'
+            }
         }
     }
 
@@ -145,11 +154,13 @@ android {
     }
 
     //修改aar名称
-    android.libraryVariants.all { variant ->
-        def buildTypeName = variant.buildType.name
-        if ("release".equalsIgnoreCase(buildTypeName)) {
-            variant.outputs.all {
-                outputFileName = "${project.getName()}-${defaultConfig.versionName}.aar"
+    if (rootProject.ext.isLibrary.parallaxRecyclerView) {
+        android.libraryVariants.all { variant ->
+            def buildTypeName = variant.buildType.name
+            if ("release".equalsIgnoreCase(buildTypeName)) {
+                variant.outputs.all {
+                    outputFileName = "${project.getName()}-${defaultConfig.versionName}.aar"
+                }
             }
         }
     }
@@ -169,21 +180,34 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-v4:' + rootProject.ext.versionSupport
-    /**
-     * glide
-     */
-    implementation("com.github.bumptech.glide:glide:$rootProject.ext.versionGlide") {
-        exclude group: "com.android.support"
+    if (rootProject.ext.isLibrary.parallaxRecyclerView) {
+        compileOnly "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
+    } else {
+        implementation "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
     }
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
-    implementation("com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide") {
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.versionAndroidXRecyclerview"
+
+    // 作为library库时以下依赖不必理会
+    if (rootProject.ext.isLibrary.parallaxRecyclerView) {
+        compileOnly "androidx.constraintlayout:constraintlayout:$rootProject.ext.versionAndroidXConstraintlayout"
+        compileOnly "androidx.cardview:cardview:$rootProject.ext.versionAndroidXCardview"
+        /**
+         * glide
+         */
+        compileOnly "com.github.bumptech.glide:glide:$rootProject.ext.versionGlide"
+        annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
+        compileOnly "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide"
+    } else {
+        implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.versionAndroidXConstraintlayout"
+        implementation "androidx.cardview:cardview:$rootProject.ext.versionAndroidXCardview"
+        /**
+         * glide
+         */
+        implementation "com.github.bumptech.glide:glide:$rootProject.ext.versionGlide"
+        annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
+        implementation "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide"
     }
-    /**
-     * okhttp3
-     */
-    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.versionOkhttp3"
 }
