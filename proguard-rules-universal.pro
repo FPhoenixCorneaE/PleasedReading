@@ -197,6 +197,15 @@
     public static int w(...);
 }
 
+# 当工程从support库迁移至androidx后，若使用了混淆，则必须在混淆文件中添加以下配置，否则使用了androidx的地方都将有可能出问题
+-keep class com.google.android.material.** {*;}
+-keep class androidx.** {*;}
+-keep public class * extends androidx.**
+-keep interface androidx.** {*;}
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx.**
+
 
 
 

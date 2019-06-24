@@ -3,18 +3,19 @@ package com.wkz.framework.bases;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
 
 import com.gyf.barlibrary.BarHide;
 import com.gyf.barlibrary.ImmersionBar;
@@ -32,12 +33,16 @@ import com.wkz.framework.functions.network.OnNetworkChangedListener;
 import com.wkz.framework.helpers.FRBroadcastReceiverHelper;
 import com.wkz.framework.listeners.OnFRHomeKeyListener;
 import com.wkz.framework.models.FRActivityAnimator;
-import com.wkz.utils.ToastUtils;
 import com.wkz.framework.widgets.ripple.FRMaterialRippleLayout;
 import com.wkz.framework.widgets.statuslayout.FRStatusLayoutManager;
 import com.wkz.framework.widgets.statuslayout.OnStatusLayoutClickListener;
+import com.wkz.utils.ToastUtils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.disposables.Disposable;
 
 public abstract class FRBaseActivity<P extends IFRBasePresenter>
         extends RxAppCompatActivity
@@ -46,9 +51,10 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     private static final String NAME_ACTIVITY = FRBaseActivity.class.getName();
     protected FRBaseActivity mContext;
     protected ViewDataBinding mViewDataBinding;
+    protected P mPresenter;
     private FRStatusLayoutManager mFRStatusLayoutManager;
     private View mContentView;
-    protected P mPresenter;
+    private List<Disposable> mDisposables;
     private Fragment mCurrentFragment;
     private InputMethodManager mInputMethodManager;
     /**
@@ -192,6 +198,7 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
             // 必须调用该方法，防止内存泄漏
             ImmersionBar.with(mContext).destroy();
         }
+        dispose();
     }
 
     @Override
@@ -227,6 +234,32 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
         hideSoftKeyBoard();
         //执行退出动画
         doExitAnimation();
+    }
+
+    /**
+     * 添加Disposable
+     *
+     * @param disposable RxJava subscribe结果
+     */
+    protected void addDisposable(Disposable disposable) {
+        if (this.mDisposables == null) {
+            this.mDisposables = new ArrayList<>();
+        }
+        this.mDisposables.add(disposable);
+    }
+
+    /**
+     * 销毁Disposable
+     */
+    private void dispose() {
+        if (this.mDisposables != null) {
+            for (Disposable disposable :
+                    mDisposables) {
+                if (disposable != null && !disposable.isDisposed()) {
+                    disposable.dispose();
+                }
+            }
+        }
     }
 
     /**

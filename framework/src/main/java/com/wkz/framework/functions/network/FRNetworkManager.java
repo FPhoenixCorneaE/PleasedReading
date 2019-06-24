@@ -110,12 +110,14 @@ public class FRNetworkManager {
         if (activity != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager != null && mReceiverIsRegistered) {//判断广播是否注册
+                if (connectivityManager != null && mReceiverIsRegistered) {
+                    //判断广播是否注册
                     mReceiverIsRegistered = false;
                     connectivityManager.unregisterNetworkCallback(mOnNetworkCallback);
                 }
             } else {
-                if (mOnNetworkChangedReceiver != null && mReceiverIsRegistered) {//判断广播是否注册
+                if (mOnNetworkChangedReceiver != null && mReceiverIsRegistered) {
+                    //判断广播是否注册
                     try {
                         mReceiverIsRegistered = false;
                         Logger.i(activity.getLocalClassName() + "网络广播接收器已反注册");

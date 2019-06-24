@@ -2,12 +2,14 @@ package com.wkz.pleasedreading.splash;
 
 import android.Manifest;
 import android.animation.Animator;
-import androidx.databinding.BindingAdapter;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
+import androidx.databinding.BindingAdapter;
 
 import com.jakewharton.rxbinding2.view.RxView;
+import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wkz.bannerlayout.annotation.FRProgressShapeMode;
 import com.wkz.bannerlayout.widget.FRProgressDrawable;
@@ -16,11 +18,11 @@ import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
 import com.wkz.framework.utils.IntentUtils;
-import com.wkz.utils.ResourceUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.databinding.PrActivitySplashBinding;
 import com.wkz.pleasedreading.main.PRMainActivity;
+import com.wkz.utils.ResourceUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -86,33 +88,26 @@ public class PRSplashActivity extends FRBaseActivity<PRSplashContract.ISplashPre
                         })
                         .build()
         );
-        mProgressDrawable.start();
 
         //申请权限
-        new RxPermissions(mContext)
-                .requestEach(Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(permission -> { // will emit 2 Permission objects
-                    if (TextUtils.equals(Manifest.permission.READ_PHONE_STATE, permission.name)) {
-                        if (permission.granted) {
-                            // `permission.name` is granted !
-                        } else if (permission.shouldShowRequestPermissionRationale) {
-                            // Denied permission without ask never again
-                        } else {
-                            // Denied permission with ask never again
-                            // Need to go to the settings
-                        }
-                    } else if (TextUtils.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE, permission.name)) {
-                        if (permission.granted) {
-                            // `permission.name` is granted !
-                        } else if (permission.shouldShowRequestPermissionRationale) {
-                            // Denied permission without ask never again
-                        } else {
-                            // Denied permission with ask never again
-                            // Need to go to the settings
-                        }
+        Disposable disposable = new RxPermissions(mContext)
+                .request(
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .subscribe(granted -> {
+                    if (granted) {
+                        //申请的权限全部允许
+                        Logger.d("申请的权限全部允许!");
+                        mDataBinding.prRlSkip.setVisibility(View.VISIBLE);
+                        mProgressDrawable.start();
+                    } else {
+                        //只要有一个权限被拒绝，就会执行
+                        Logger.d("未授权权限，部分功能不能使用!");
+                        // TODO 弹窗去设置权限
                     }
                 });
+        addDisposable(disposable);
     }
 
     @Override
