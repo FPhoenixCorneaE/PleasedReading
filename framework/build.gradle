@@ -311,4 +311,9 @@ dependencies {
      * common-utils
      */
     api project(':common-utils')
+
+    /**
+     * skeleton 骨架图
+     */
+    api project(':skeleton')
 }

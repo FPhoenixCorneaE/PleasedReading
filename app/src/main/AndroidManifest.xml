@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wkz.pleasedreading">
 
+    <!--当调用远程接口进行网络通信时，报如下错误：
+    java.net.UnknownServiceException: CLEARTEXT communication to gank.io not permitted by network security policy
+    可以通过设置android:usesCleartextTraffic="true"使用明文的通信方式作为一种临时的通信策略，但不建议使用-->
     <application
         android:name=".PRApplication"
         android:allowBackup="true"
@@ -10,7 +13,8 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/pr_ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/FRTheme.Base">
+        android:theme="@style/FRTheme.Base"
+        android:usesCleartextTraffic="true">
         <!--闪屏页-->
         <activity
             android:name=".splash.PRSplashActivity"

@@ -1,6 +1,7 @@
 package com.wkz.pleasedreading.main.gank;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +14,6 @@ import com.wkz.framework.constants.FRConstant;
 import com.wkz.framework.functions.web.FRWebPageActivity;
 import com.wkz.framework.models.FRBundle;
 import com.wkz.framework.utils.IntentUtils;
-import com.wkz.utils.ResourceUtils;
-import com.wkz.utils.SizeUtils;
 import com.wkz.framework.widgets.itemdecoration.FRDividerDecoration;
 import com.wkz.framework.widgets.recycleradapter.FRBaseRecyclerAdapter;
 import com.wkz.framework.widgets.recycleradapter.FRRecyclerViewHolder;
@@ -22,6 +21,10 @@ import com.wkz.pleasedreading.R;
 import com.wkz.pleasedreading.constants.PRConstant;
 import com.wkz.pleasedreading.databinding.PrFragmentGankChildBinding;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
+import com.wkz.skeleton.ISkeletonScreen;
+import com.wkz.skeleton.Skeleton;
+import com.wkz.utils.ResourceUtils;
+import com.wkz.utils.SizeUtils;
 import com.wkz.viewer.widget.FRImageViewer;
 
 import java.util.List;
@@ -32,6 +35,7 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     private PRGankChildRecyclerAdapter mPRGankChildRecyclerAdapter;
     private String mTitle;
     private FRImageViewer mFrImageViewer;
+    private ISkeletonScreen iSkeletonScreen;
 
     public void setImageViewer(FRImageViewer mFrImageViewer) {
         this.mFrImageViewer = mFrImageViewer;
@@ -75,6 +79,16 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
                                 .setOnLoadMoreListener(this))
                         .setFRImageViewer(mFrImageViewer)
         );
+        // 显示骨架图
+        iSkeletonScreen = Skeleton.bind(mDataBinding.prRvGankChild)
+                .adapter(mPRGankChildRecyclerAdapter)
+                .shimmer(true)
+                .angle(20)
+                .frozen(false)
+                .duration(1200)
+                .count(10)
+                .load(R.layout.pr_skeleton_gank_child_recycler)
+                .show();
     }
 
     @Override
@@ -95,6 +109,7 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     @Override
     public void onSuccess(@Nullable Object data) {
         super.onSuccess(data);
+        iSkeletonScreen.hide();
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
             mPRGankChildRecyclerAdapter.setNewData((List<PRGankBean.ResultsBean>) data);
@@ -106,6 +121,7 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     @Override
     public void onFailure(int code, String msg) {
         super.onFailure(code, msg);
+        iSkeletonScreen.hide();
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
         }

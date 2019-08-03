@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wkz.framework.widgets.FRCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="15dp"
+    app:fr_cv_cardBackgroundColor="@color/fr_background_Oxffffffff"
+    app:fr_cv_cornerRadius="5dp"
+    app:fr_cv_elevation="5dp"
+    app:fr_cv_elevationAffectShadowColor="true"
+    app:fr_cv_elevationAffectShadowSize="false"
+    app:fr_cv_shadowColor="@color/fr_color_dim_gray"
+    app:fr_cv_shadowFluidShape="linear"
+    app:fr_cv_shadowStartAlpha="30">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp">
+
+        <com.wkz.framework.widgets.glideimageview.FRGlideImageView
+            android:id="@+id/pr_iv_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/pr_shape_placeholder_avatar_circle"
+            app:fr_siv_pressed_alpha="0"
+            app:fr_siv_pressed_color="@color/fr_color_transparent"
+            app:fr_siv_shape_type="circle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pr_tv_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/pr_iv_avatar"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@+id/pr_iv_avatar"
+            android:background="@color/light_transparent"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/fr_color_black"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pr_iv_avatar"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@+id/pr_iv_avatar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pr_tv_source"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@color/light_transparent"
+                android:textColor="@color/fr_color_dim_gray"
+                android:textSize="13sp" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="15dp"
+                android:background="@color/fr_color_dark_gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pr_tv_publishTime"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="@color/light_transparent"
+                android:textColor="@color/fr_color_dim_gray"
+                android:textSize="13sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pr_tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pr_iv_avatar"
+            android:layout_marginTop="15dp"
+            android:background="@color/light_transparent"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="4"
+            android:textColor="@color/fr_color_black"
+            android:textSize="15sp" />
+
+        <com.wkz.framework.widgets.ninegridimagelayout.FRMultiImageLayout
+            android:id="@+id/pr_mil_images"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/pr_tv_desc"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_transparent"
+            app:fr_mil_divideSpace="6dp"
+            app:fr_mil_placeholder="@drawable/pr_shape_placeholder_grey"
+            app:fr_mil_type="BaiDuPostBar" />
+    </RelativeLayout>
+</com.wkz.framework.widgets.FRCardView>
