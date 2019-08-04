@@ -44,6 +44,7 @@ ext {
     versionRxpermission = '0.10.2'
     versionRetrofit2 = '2.3.0'
     versionSmartRefresh = '1.1.0-alpha-16'
+    versionShimmerLayout = '2.1.0'
     versionSupport = '28.0.0'
     versionUniversalImageLoader = '1.9.5'
 }

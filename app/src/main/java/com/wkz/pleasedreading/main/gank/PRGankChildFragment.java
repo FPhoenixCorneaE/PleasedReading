@@ -83,6 +83,7 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
         iSkeletonScreen = Skeleton.bind(mDataBinding.prRvGankChild)
                 .adapter(mPRGankChildRecyclerAdapter)
                 .shimmer(true)
+                .color(R.color.light_transparent)
                 .angle(20)
                 .frozen(false)
                 .duration(1200)
@@ -109,7 +110,7 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     @Override
     public void onSuccess(@Nullable Object data) {
         super.onSuccess(data);
-        iSkeletonScreen.hide();
+//        iSkeletonScreen.hide();
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
             mPRGankChildRecyclerAdapter.setNewData((List<PRGankBean.ResultsBean>) data);

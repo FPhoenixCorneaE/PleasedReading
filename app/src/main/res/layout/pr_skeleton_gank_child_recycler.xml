@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="15dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginEnd="15dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     app:fr_cv_cardBackgroundColor="@color/fr_background_Oxffffffff"
     app:fr_cv_cornerRadius="5dp"
     app:fr_cv_elevation="5dp"
     app:fr_cv_elevationAffectShadowColor="true"
-    app:fr_cv_elevationAffectShadowSize="false"
+    app:fr_cv_elevationAffectShadowSize="true"
     app:fr_cv_shadowColor="@color/fr_color_dim_gray"
     app:fr_cv_shadowFluidShape="linear"
     app:fr_cv_shadowStartAlpha="30">
@@ -34,7 +33,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/pr_tv_author"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/pr_iv_avatar"
             android:layout_marginStart="15dp"
@@ -69,7 +68,7 @@
                 android:layout_width="0.5dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="15dp"
-                android:background="@color/fr_color_dark_gray" />
+                android:background="@color/light_transparent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pr_tv_publishTime"

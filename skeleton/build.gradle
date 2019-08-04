@@ -152,5 +152,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compileOnly "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.versionAndroidXRecyclerview"
-    implementation 'io.supercharge:shimmerlayout:2.1.0'
+    implementation "io.supercharge:shimmerlayout:$rootProject.ext.versionShimmerLayout"
 }
