@@ -13,3 +13,5 @@
 /config/ignorance.jks
 /framework/framework.iml
 /glide-image-view/build
+/skeleton/src/androidTest
+/skeleton/src/test
