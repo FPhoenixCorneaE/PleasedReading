@@ -1,13 +1,16 @@
-package com.wkz.demo;
+package com.wkz.parallax_recycler_demo;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.wkz.common_utils.R;
 
 public class CommonUtilsDemoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.common_utils_activity_demo);
     }
 }

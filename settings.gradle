@@ -9,3 +9,7 @@ include ':okserver'
 include ':parallax-recycler-view'
 include ':skeleton'
 include ':video-player'
+
+// 独立运行
+include ':standalone:standalone-common-utils'
+include ':standalone:standalone-parallax-recycler-view'

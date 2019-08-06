@@ -15,3 +15,7 @@
 /glide-image-view/build
 /skeleton/src/androidTest
 /skeleton/src/test
+/standalone/standalone-common-utils/src/test
+/standalone/standalone-common-utils/src/androidTest
+/common-utils/src/test
+/common-utils/src/androidTest

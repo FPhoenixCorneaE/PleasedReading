@@ -1,4 +1,4 @@
-package com.wkz.demo;
+package com.wkz.parallax_recycler_demo;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.wkz.parallaxrecycler.ParallaxRecyclerView;
-import com.wkz.parallaxrecycler.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,10 +1,9 @@
-package com.wkz.demo;
+package com.wkz.parallax_recycler_demo;
 
 import android.content.Context;
 
 import com.bumptech.glide.Glide;
 import com.wkz.parallaxrecycler.AbstractParallaxRecyclerAdapter;
-import com.wkz.parallaxrecycler.R;
 
 import java.util.List;
 

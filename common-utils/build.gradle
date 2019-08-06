@@ -1,17 +1,10 @@
-if (rootProject.ext.isLibrary.commonUtils) {
-    apply plugin: 'com.android.library'
-} else {
-    apply plugin: 'com.android.application'
-}
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        if (!rootProject.ext.isLibrary.commonUtils) {
-            applicationId "com.wkz.utils"
-        }
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 100
@@ -23,11 +16,7 @@ android {
             }
         }
 
-        if (rootProject.ext.isLibrary.commonUtils) {
-            buildConfigField 'boolean', 'DEBUG_STATUS', 'false'
-        } else {
-            buildConfigField 'boolean', 'DEBUG_STATUS', 'true'
-        }
+        buildConfigField 'boolean', 'DEBUG_STATUS', 'false'
     }
 
     buildTypes {
@@ -61,15 +50,8 @@ android {
     sourceSets {
         main {
             //清单配置文件
-            if (rootProject.ext.isLibrary.commonUtils) {
-                manifest.srcFile 'src/main/AndroidManifest-release.xml'
-            } else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-            }
+            manifest.srcFile 'src/main/AndroidManifest.xml'
 
-            if (rootProject.ext.isLibrary.commonUtils) {
-                java.exclude '**/CommonUtilsDemoActivity.java'
-            }
             //源码目录
             java.srcDirs = ['src/main/java', 'src/main/aidl']
             //资源文件
@@ -146,13 +128,11 @@ android {
     }
 
     //修改aar名称
-    if (rootProject.ext.isLibrary.commonUtils) {
-        android.libraryVariants.all { variant ->
-            def buildTypeName = variant.buildType.name
-            if ("release".equalsIgnoreCase(buildTypeName)) {
-                variant.outputs.all {
-                    outputFileName = "${project.getName()}-${defaultConfig.versionName}.aar"
-                }
+    android.libraryVariants.all { variant ->
+        def buildTypeName = variant.buildType.name
+        if ("release".equalsIgnoreCase(buildTypeName)) {
+            variant.outputs.all {
+                outputFileName = "${project.getName()}-${defaultConfig.versionName}.aar"
             }
         }
     }

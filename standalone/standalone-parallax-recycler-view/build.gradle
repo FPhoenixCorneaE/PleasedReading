@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -8,6 +8,7 @@ android {
     resourcePrefix "parallax_"
 
     defaultConfig {
+        applicationId "com.wkz.parallax_recycler_demo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 100
@@ -19,7 +20,7 @@ android {
             }
         }
 
-        buildConfigField 'boolean', 'DEBUG_STATUS', 'false'
+        buildConfigField 'boolean', 'DEBUG_STATUS', 'true'
     }
 
     buildTypes {
@@ -131,16 +132,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    //修改aar名称
-    android.libraryVariants.all { variant ->
-        def buildTypeName = variant.buildType.name
-        if ("release".equalsIgnoreCase(buildTypeName)) {
-            variant.outputs.all {
-                outputFileName = "${project.getName()}-${defaultConfig.versionName}.aar"
-            }
-        }
-    }
-
     //让所有的第三方包强制使用指定版本的support包
     //注意：在写第三方库给别人用的时候，对于support包的依赖方式改成provided（或者compileOnly，gradle3.0），
     //这样不会把support打包，方便使用的人。
@@ -159,6 +150,16 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.versionAndroidXRecyclerview"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.versionAndroidXConstraintlayout"
+    implementation "androidx.cardview:cardview:$rootProject.ext.versionAndroidXCardview"
+    /**
+     * glide
+     */
+    implementation "com.github.bumptech.glide:glide:$rootProject.ext.versionGlide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.versionGlide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.versionGlide"
+
+    implementation project(':parallax-recycler-view')
 }
