@@ -13,6 +13,7 @@ public class SkeletonRecyclerViewScreen implements ISkeletonScreen {
     private final RecyclerView.Adapter mActualAdapter;
     private final SkeletonAdapter mSkeletonAdapter;
     private final boolean mRecyclerViewFrozen;
+    private boolean mIsShowing;
 
     private SkeletonRecyclerViewScreen(Builder builder) {
         mRecyclerView = builder.mRecyclerView;
@@ -29,7 +30,13 @@ public class SkeletonRecyclerViewScreen implements ISkeletonScreen {
     }
 
     @Override
+    public boolean isShowing() {
+        return mIsShowing;
+    }
+
+    @Override
     public void show() {
+        mIsShowing = true;
         mRecyclerView.setAdapter(mSkeletonAdapter);
         if (!mRecyclerView.isComputingLayout() && mRecyclerViewFrozen) {
             mRecyclerView.setLayoutFrozen(true);
@@ -38,6 +45,7 @@ public class SkeletonRecyclerViewScreen implements ISkeletonScreen {
 
     @Override
     public void hide() {
+        mIsShowing = false;
         mRecyclerView.setAdapter(mActualAdapter);
     }
 

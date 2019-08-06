@@ -110,7 +110,9 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     @Override
     public void onSuccess(@Nullable Object data) {
         super.onSuccess(data);
-        iSkeletonScreen.hide();
+        if (iSkeletonScreen.isShowing()) {
+            iSkeletonScreen.hide();
+        }
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
             mPRGankChildRecyclerAdapter.setNewData((List<PRGankBean.ResultsBean>) data);
@@ -122,7 +124,9 @@ public class PRGankChildFragment extends PRGankFragment implements IGankView, FR
     @Override
     public void onFailure(int code, String msg) {
         super.onFailure(code, msg);
-        iSkeletonScreen.hide();
+        if (iSkeletonScreen.isShowing()) {
+            iSkeletonScreen.hide();
+        }
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
         }

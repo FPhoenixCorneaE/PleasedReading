@@ -1,14 +1,15 @@
 package com.wkz.skeleton;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.IntRange;
-import androidx.annotation.LayoutRes;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.LayoutRes;
+import androidx.core.content.ContextCompat;
 
 import io.supercharge.shimmerlayout.ShimmerLayout;
 
@@ -21,6 +22,7 @@ public class SkeletonViewScreen implements ISkeletonScreen {
     private final boolean mShimmer;
     private final int mShimmerDuration;
     private final int mShimmerAngle;
+    private boolean mIsShowing;
 
     private SkeletonViewScreen(Builder builder) {
         mActualView = builder.mView;
@@ -72,7 +74,13 @@ public class SkeletonViewScreen implements ISkeletonScreen {
     }
 
     @Override
+    public boolean isShowing() {
+        return mIsShowing;
+    }
+
+    @Override
     public void show() {
+        mIsShowing = true;
         View skeletonLoadingView = generateSkeletonLoadingView();
         if (skeletonLoadingView != null) {
             mViewReplacer.replace(skeletonLoadingView);
@@ -81,6 +89,7 @@ public class SkeletonViewScreen implements ISkeletonScreen {
 
     @Override
     public void hide() {
+        mIsShowing = false;
         if (mViewReplacer.getTargetView() instanceof ShimmerLayout) {
             ((ShimmerLayout) mViewReplacer.getTargetView()).stopShimmerAnimation();
         }

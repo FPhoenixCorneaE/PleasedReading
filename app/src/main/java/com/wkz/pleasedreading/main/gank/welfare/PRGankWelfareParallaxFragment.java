@@ -23,6 +23,8 @@ import com.wkz.pleasedreading.databinding.PrFragmentGankWelfareBinding;
 import com.wkz.pleasedreading.main.gank.PRGankBean;
 import com.wkz.pleasedreading.main.gank.PRGankContract.IGankView;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
+import com.wkz.skeleton.Skeleton;
+import com.wkz.skeleton.SkeletonRecyclerViewScreen;
 import com.wkz.viewer.FRViewData;
 import com.wkz.viewer.widget.FRImageViewer;
 
@@ -40,6 +42,7 @@ public class PRGankWelfareParallaxFragment extends PRGankFragment implements IGa
     private String mTitle;
     private ArrayList<FRViewData> mViewList = new ArrayList<>();
     private FRImageViewer mFrImageViewer;
+    private SkeletonRecyclerViewScreen iSkeletonScreen;
 
     public void setImageViewer(FRImageViewer mFrImageViewer) {
         this.mFrImageViewer = mFrImageViewer;
@@ -76,6 +79,17 @@ public class PRGankWelfareParallaxFragment extends PRGankFragment implements IGa
         mDataBinding.prRvGankChild.setAdapter(mPRGankWelfareRecyclerAdapter =
                 new PRGankWelfareParallaxRecyclerAdapter(mContext, null)
         );
+        // 显示骨架图
+        iSkeletonScreen = Skeleton.bind(mDataBinding.prRvGankChild)
+                .adapter(mPRGankWelfareRecyclerAdapter)
+                .shimmer(true)
+                .color(R.color.light_transparent)
+                .angle(20)
+                .frozen(false)
+                .duration(1200)
+                .count(10)
+                .load(R.layout.pr_skeleton_gank_welfare_parallax_recycler)
+                .show();
     }
 
     @Override
@@ -97,6 +111,9 @@ public class PRGankWelfareParallaxFragment extends PRGankFragment implements IGa
     @Override
     public void onSuccess(@Nullable Object data) {
         super.onSuccess(data);
+        if (iSkeletonScreen.isShowing()) {
+            iSkeletonScreen.hide();
+        }
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
             mPRGankWelfareRecyclerAdapter.getDatas().clear();
@@ -120,6 +137,9 @@ public class PRGankWelfareParallaxFragment extends PRGankFragment implements IGa
     @Override
     public void onFailure(int code, String msg) {
         super.onFailure(code, msg);
+        if (iSkeletonScreen.isShowing()) {
+            iSkeletonScreen.hide();
+        }
         if (RefreshState.Refreshing == mDataBinding.prSrlRefresh.getState()) {
             mDataBinding.prSrlRefresh.finishRefresh();
         }
