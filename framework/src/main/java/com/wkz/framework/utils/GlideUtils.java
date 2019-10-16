@@ -3,14 +3,17 @@ package com.wkz.framework.utils;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.widget.ImageView;
 
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
@@ -66,7 +69,13 @@ public class GlideUtils {
     }
 
     public static void setupRoundedImage(@NonNull ImageView imageView, Object picUrl, int cornerRadius, Drawable placeholder) {
-        setupRoundedImageRequestOptions(imageView, picUrl, RequestOptions.bitmapTransform(new RoundedCorners(cornerRadius)).centerCrop().placeholder(placeholder).error(placeholder));
+        setupRoundedImageRequestOptions(
+                imageView,
+                picUrl,
+                new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(cornerRadius))
+                        .placeholder(placeholder)
+                        .error(placeholder)
+        );
     }
 
     public static void setupRoundedImageRequestOptions(@NonNull ImageView imageView, Object picUrl, RequestOptions options) {
@@ -86,7 +95,13 @@ public class GlideUtils {
     }
 
     public static void setupCircleImage(@NonNull ImageView imageView, Object picUrl, Drawable placeholder) {
-        setupCircleImageRequestOptions(imageView, picUrl, RequestOptions.circleCropTransform().centerCrop().placeholder(placeholder).error(placeholder));
+        setupCircleImageRequestOptions(
+                imageView,
+                picUrl,
+                new RequestOptions().transforms(new CenterCrop(), new CircleCrop())
+                        .placeholder(placeholder)
+                        .error(placeholder)
+        );
     }
 
     public static void setupCircleImageRequestOptions(@NonNull ImageView imageView, Object picUrl, RequestOptions options) {
