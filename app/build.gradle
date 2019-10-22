@@ -92,11 +92,11 @@ android {
             //显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             //是否进行混淆
-            minifyEnabled true
+            minifyEnabled false
             //是否支持zip
             zipAlignEnabled true
             //移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             //是否支持调试
             debuggable true
             //关闭jni调试

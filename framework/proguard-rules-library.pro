@@ -164,3 +164,9 @@
 -keep class com.gyf.barlibrary.**{*;}
 -dontwarn com.gyf.barlibrary.**
 #----------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------
+#com.tbruyelle.rxpermissions
+-dontwarn com.tbruyelle.rxpermissions.**
+-keep class com.tbruyelle.rxpermissions.** {*;}
+#----------------------------------------------------------------------------
