@@ -41,17 +41,17 @@ public class NetworkUtils {
      * Judge whether current network is connected
      */
     public static boolean isConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities networkCapabilities = null;
-            if (mConnectivityManager != null) {
-                networkCapabilities = mConnectivityManager.getNetworkCapabilities(mConnectivityManager.getActiveNetwork());
+            if (connectivityManager != null) {
+                networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
             }
             return networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
         } else {
             NetworkInfo info = null;
-            if (mConnectivityManager != null) {
-                info = mConnectivityManager.getActiveNetworkInfo();
+            if (connectivityManager != null) {
+                info = connectivityManager.getActiveNetworkInfo();
             }
             return info != null && info.isConnected();
         }
@@ -61,17 +61,17 @@ public class NetworkUtils {
      * 判断WIFI网络是否可用
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities networkCapabilities = null;
-            if (mConnectivityManager != null) {
-                networkCapabilities = mConnectivityManager.getNetworkCapabilities(mConnectivityManager.getActiveNetwork());
+            if (connectivityManager != null) {
+                networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
             }
             return networkCapabilities != null && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
         } else {
             NetworkInfo networkInfo = null;
-            if (mConnectivityManager != null) {
-                networkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (connectivityManager != null) {
+                networkInfo = connectivityManager.getActiveNetworkInfo();
             }
             return networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI && networkInfo.isConnected();
         }
@@ -81,17 +81,17 @@ public class NetworkUtils {
      * 判断MOBILE网络是否可用
      */
     public static boolean isMobileConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities networkCapabilities = null;
-            if (mConnectivityManager != null) {
-                networkCapabilities = mConnectivityManager.getNetworkCapabilities(mConnectivityManager.getActiveNetwork());
+            if (connectivityManager != null) {
+                networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
             }
             return networkCapabilities != null && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
         } else {
             NetworkInfo networkInfo = null;
-            if (mConnectivityManager != null) {
-                networkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (connectivityManager != null) {
+                networkInfo = connectivityManager.getActiveNetworkInfo();
             }
             return networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_MOBILE && networkInfo.isConnected();
         }
@@ -101,12 +101,12 @@ public class NetworkUtils {
      * 获取当前网络连接的类型信息
      */
     public static int getConnectedType() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mNetworkInfo = null;
-        if (mConnectivityManager != null) {
-            mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        ConnectivityManager connectivityManager = (ConnectivityManager) ContextUtils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = null;
+        if (connectivityManager != null) {
+            networkInfo = connectivityManager.getActiveNetworkInfo();
         }
-        return mNetworkInfo != null && mNetworkInfo.isConnected() ? mNetworkInfo.getType() : -1;
+        return networkInfo != null && networkInfo.isConnected() ? networkInfo.getType() : -1;
     }
 
     /**
