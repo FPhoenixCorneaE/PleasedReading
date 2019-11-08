@@ -367,6 +367,7 @@ public abstract class FRBaseActivity<P extends IFRBasePresenter>
     public void onWifiActive(String message) {
         Logger.i(message);
         mNetworkState = FRNetworkState.WifiActive;
+        ToastUtils.showShortSafe(message);
         if (mCurrentFragment instanceof OnNetworkChangedListener) {
             ((OnNetworkChangedListener) mCurrentFragment).onWifiActive(message);
         }

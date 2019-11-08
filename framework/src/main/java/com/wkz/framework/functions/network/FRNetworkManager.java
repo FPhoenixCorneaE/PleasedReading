@@ -66,7 +66,7 @@ public class FRNetworkManager {
             }
         } else {
             if (activity != null) {
-                if (NetworkUtils.isNetworkAvailable()) {
+                if (NetworkUtils.isConnected()) {
                     if (NetworkUtils.isWifiConnected()) {
                         if (onNetworkChangedListener != null) {
                             onNetworkChangedListener.onWifiActive(

@@ -7,12 +7,16 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+
 import androidx.annotation.RequiresApi;
 
 import com.orhanobut.logger.Logger;
 import com.wkz.framework.R;
 import com.wkz.utils.ResourceUtils;
 
+/**
+ * 网络连接回调
+ */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
@@ -31,27 +35,50 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onAvailable(Network network) {
         super.onAvailable(network);
-        Logger.i("Network", "onAvailable");
+        Logger.i("NetworkCallback-->>onAvailable");
         if (mConnectivityManager != null) {
-            NetworkInfo networkInfo = mConnectivityManager.getNetworkInfo(network);
-            if (networkInfo != null && networkInfo.isAvailable()) {
-                switch (networkInfo.getType()) {
-                    case ConnectivityManager.TYPE_WIFI:
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                NetworkCapabilities networkCapabilities = mConnectivityManager.getNetworkCapabilities(mConnectivityManager.getActiveNetwork());
+                if (networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+                    if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        // WIFI网络
                         if (mOnNetworkChangedListener != null) {
                             mOnNetworkChangedListener.onWifiActive(
                                     ResourceUtils.getString(R.string.fr_status_net_wifi_active)
                             );
                         }
-                        break;
-                    case ConnectivityManager.TYPE_MOBILE:
+                    } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        // 移动网络
                         if (mOnNetworkChangedListener != null) {
                             mOnNetworkChangedListener.onMobileActive(
                                     ResourceUtils.getString(R.string.fr_status_net_mobile_active)
                             );
                         }
-                        break;
-                    default:
-                        break;
+                    }
+                }
+            } else {
+                NetworkInfo networkInfo = mConnectivityManager.getNetworkInfo(network);
+                if (networkInfo != null && networkInfo.isAvailable()) {
+                    switch (networkInfo.getType()) {
+                        case ConnectivityManager.TYPE_WIFI:
+                            // WIFI网络
+                            if (mOnNetworkChangedListener != null) {
+                                mOnNetworkChangedListener.onWifiActive(
+                                        ResourceUtils.getString(R.string.fr_status_net_wifi_active)
+                                );
+                            }
+                            break;
+                        case ConnectivityManager.TYPE_MOBILE:
+                            // 移动网络
+                            if (mOnNetworkChangedListener != null) {
+                                mOnNetworkChangedListener.onMobileActive(
+                                        ResourceUtils.getString(R.string.fr_status_net_mobile_active)
+                                );
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -63,8 +90,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(Network network) {
         super.onLost(network);
-        Logger.i("Network", "onLost");
-
+        Logger.i("NetworkCallback-->>onLost");
         if (mOnNetworkChangedListener != null) {
             mOnNetworkChangedListener.onUnavailable(
                     ResourceUtils.getString(R.string.fr_status_net_unavailable)
@@ -78,7 +104,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
         super.onLinkPropertiesChanged(network, linkProperties);
-        Logger.i("Network", "onLinkPropertiesChanged");
+        Logger.i("NetworkCallback-->>onLinkPropertiesChanged");
     }
 
     /**
@@ -87,7 +113,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
         super.onCapabilitiesChanged(network, networkCapabilities);
-        Logger.i("Network", "onCapabilitiesChanged");
+        Logger.i("NetworkCallback-->>onCapabilitiesChanged");
     }
 
     /**
@@ -96,7 +122,7 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLosing(Network network, int maxMsToLive) {
         super.onLosing(network, maxMsToLive);
-        Logger.i("Network", "onLosing");
+        Logger.i("NetworkCallback-->>onLosing");
     }
 
     /**
@@ -105,6 +131,6 @@ public class OnNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onUnavailable() {
         super.onUnavailable();
-        Logger.i("Network", "onUnavailable");
+        Logger.i("NetworkCallback-->>onUnavailable");
     }
 }

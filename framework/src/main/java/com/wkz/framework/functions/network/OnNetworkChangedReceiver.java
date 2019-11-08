@@ -11,6 +11,9 @@ import com.orhanobut.logger.Logger;
 import com.wkz.framework.R;
 import com.wkz.utils.ResourceUtils;
 
+/**
+ * 网络变化广播接收器
+ */
 public class OnNetworkChangedReceiver extends BroadcastReceiver {
 
     private OnNetworkChangedListener mOnNetworkChangedListener;
@@ -21,7 +24,9 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!TextUtils.equals(intent.getAction(), ConnectivityManager.CONNECTIVITY_ACTION)) return;
+        if (!TextUtils.equals(intent.getAction(), ConnectivityManager.CONNECTIVITY_ACTION)) {
+            return;
+        }
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
@@ -29,7 +34,7 @@ public class OnNetworkChangedReceiver extends BroadcastReceiver {
             networkInfo = connectivityManager.getActiveNetworkInfo();
         }
 
-        if (networkInfo != null && networkInfo.isAvailable()) {
+        if (networkInfo != null && networkInfo.isConnected()) {
             Logger.i("Network", "onAvailable");
             switch (networkInfo.getType()) {
                 case ConnectivityManager.TYPE_WIFI:
