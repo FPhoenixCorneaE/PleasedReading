@@ -1,18 +1,21 @@
 package com.wkz.pleasedreading.main;
 
-import androidx.databinding.BindingAdapter;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.drawerlayout.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.databinding.BindingAdapter;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.qihoo360.replugin.RePlugin;
 import com.wkz.framework.bases.FRBaseActivity;
 import com.wkz.framework.bases.FRBasePresenter;
 import com.wkz.framework.bases.IFRBaseModel;
 import com.wkz.framework.factorys.FRModelFactory;
-import com.wkz.utils.FragmentUtils;
 import com.wkz.framework.utils.IntentUtils;
 import com.wkz.framework.widgets.glideimageview.FRGlideImageView;
 import com.wkz.pleasedreading.R;
@@ -20,6 +23,8 @@ import com.wkz.pleasedreading.databinding.PrActivityMainBinding;
 import com.wkz.pleasedreading.main.gank.PRGankFragment;
 import com.wkz.pleasedreading.main.toutiao.PRTouTiaoFragment;
 import com.wkz.pleasedreading.myself.localvideo.PRLocalVideoActivity;
+import com.wkz.utils.FragmentUtils;
+import com.wkz.utils.ToastUtils;
 import com.wkz.videoplayer.manager.FRVideoPlayerManager;
 import com.wkz.videoplayer.window.FRFloatWindow;
 
@@ -66,6 +71,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
                 add("Gank");
                 add("头条视频");
                 add("本地视频");
+                add("学无止境");
             }
         });
         mDataBinding.setTitle(mMenuList.get(0));
@@ -89,7 +95,9 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
 
     @Override
     public void onBackPressed() {
-        if (FRVideoPlayerManager.instance().onBackPressed()) return;
+        if (FRVideoPlayerManager.instance().onBackPressed()) {
+            return;
+        }
         super.onBackPressed();
     }
 
@@ -155,7 +163,7 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
 
     @Override
     public void openDrawer(View view) {
-        mDataBinding.prDlDrawer.openDrawer(Gravity.START);
+        mDataBinding.prDlDrawer.openDrawer(GravityCompat.START);
     }
 
     @Override
@@ -188,5 +196,28 @@ public class PRMainActivity extends FRBaseActivity<PRMainContract.IMainPresenter
             drawerLayout.closeDrawers();
         }
         IntentUtils.startActivity(mContext, PRLocalVideoActivity.class);
+    }
+
+    @Override
+    public void clickIgnorance(View view, FRBaseActivity context, DrawerLayout drawerLayout) {
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawers();
+        }
+
+        // 这是RePlugin的推荐玩法：反射调用Ignorance，这样"天然的"做好了"版本控制"
+        // 避免出现我们当年2013年的各种问题
+        ClassLoader cl = RePlugin.fetchClassLoader("Ignorance");
+        if (cl == null) {
+            ToastUtils.showShort("Not install Ignorance");
+            return;
+        }
+
+        // 刻意以“包名”来打开
+//        RePlugin.startActivity(mContext, RePlugin.createIntent("com.livelearn.ignorance", "com.livelearn.ignorance.ui.activity.MainActivity"));
+
+        // 刻意以“Alias（别名）”来打开
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("Ignorance", "com.livelearn.ignorance.ui.activity.MainActivity"));
+        RePlugin.startActivity(mContext, intent);
     }
 }

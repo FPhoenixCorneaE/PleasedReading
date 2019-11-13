@@ -41,4 +41,13 @@ public interface OnMainClickListener {
      */
     void clickLocalVideo(View view, FRBaseActivity context, DrawerLayout drawerLayout);
 
+    /**
+     * 可以不必带着View参数
+     *
+     * @param view
+     * @param context
+     * @param drawerLayout
+     */
+    void clickIgnorance(View view, FRBaseActivity context, DrawerLayout drawerLayout);
+
 }

@@ -156,6 +156,24 @@
                                 android:textColor="@color/fr_color_black"
                                 android:textSize="18sp" />
                         </com.wkz.framework.widgets.ripple.FRMaterialRippleLayout>
+
+                        <com.wkz.framework.widgets.ripple.FRMaterialRippleLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:onClickListener="@{(view)->onMainClickListener.clickIgnorance(view,context,drawerLayout)}"
+                                android:paddingStart="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="20dp"
+                                android:paddingBottom="10dp"
+                                android:text="@{menuList[3]}"
+                                android:textColor="@color/fr_color_black"
+                                android:textSize="18sp" />
+                        </com.wkz.framework.widgets.ripple.FRMaterialRippleLayout>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.core.widget.NestedScrollView>
             </com.wkz.framework.widgets.overscroll.FROverScrollFrameLayout>

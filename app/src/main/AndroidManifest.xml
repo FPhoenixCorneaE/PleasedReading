@@ -6,7 +6,7 @@
     java.net.UnknownServiceException: CLEARTEXT communication to gank.io not permitted by network security policy
     可以通过设置android:usesCleartextTraffic="true"使用明文的通信方式作为一种临时的通信策略，但不建议使用-->
     <application
-        android:name=".PRApplication"
+        android:name=".application.PRApplication"
         android:allowBackup="true"
         android:icon="@mipmap/pr_ic_launcher"
         android:label="@string/pr_app_name"

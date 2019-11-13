@@ -267,4 +267,52 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.ext.versionAndroidXMaterial"
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.versionAndroidXRecyclerview"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.ext.versionAndroidXConstraintlayout"
+
+    /**
+     * 奇虎360插件化方案RePlugin宿主lib
+     */
+//    implementation "com.qihoo360.replugin:replugin-host-lib:$replugin_version"
+    /**
+     * 奇虎360插件化方案RePlugin插件lib
+     */
+    implementation "com.qihoo360.replugin:replugin-plugin-lib:$replugin_version"
 }
+
+//==================================================================================================
+// apply plugin: 'replugin-host-gradle'放在 android{} 块之后，防止出现无法读取applicationId，导致生成的坑位出现异常
+//apply plugin: 'replugin-host-gradle'
+///**
+// * 配置项均为可选配置，默认无需添加
+// * 更多可选配置项参见replugin-host-gradle的RepluginConfig类
+// * 可更改配置项参见 自动生成RePluginHostConfig.java
+// */
+//repluginHostConfig {
+//    /**
+//     * 是否使用 AppCompat 库
+//     * 不需要个性化配置时，无需添加
+//     */
+//    useAppCompat = true
+//
+//    // 可以在这里自定义常驻进程的名字
+//    // persistentName = ":XXXXService"
+//
+//    // 个性化配置坑位数量
+//    /**
+//     * 背景不透明的坑的数量
+//     */
+//    countNotTranslucentStandard = 100
+//    countNotTranslucentSingleTop = 20
+//    countNotTranslucentSingleTask = 10
+//    countNotTranslucentSingleInstance = 2
+//}
+//==================================================================================================
+
+//==================================================================================================
+// 这个plugin需要放在android配置之后，因为需要读取android中的配置项
+apply plugin: 'replugin-plugin-gradle'
+repluginPluginConfig {
+    pluginName = "PleasedReading"
+    hostApplicationId = "com.wkz.kotlinmvvm"
+    hostAppLauncherActivity = "com.wkz.kotlinmvvm.test.TestActivity"
+}
+//==================================================================================================

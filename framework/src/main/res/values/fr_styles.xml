@@ -50,26 +50,26 @@
 
     <!--顶部弹出动画-->
     <style name="FRAnimation.TopPopup" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/fr_top_in</item>
-        <item name="@android:windowExitAnimation">@anim/fr_top_out</item>
+        <item name="android:windowEnterAnimation">@anim/fr_top_in</item>
+        <item name="android:windowExitAnimation">@anim/fr_top_out</item>
     </style>
 
     <!--底部弹出动画-->
     <style name="FRAnimation.BottomPopup" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/fr_bottom_in</item>
-        <item name="@android:windowExitAnimation">@anim/fr_bottom_out</item>
+        <item name="android:windowEnterAnimation">@anim/fr_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/fr_bottom_out</item>
     </style>
 
     <!--左边弹出动画-->
     <style name="FRAnimation.LeftPopup" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/fr_left_in</item>
-        <item name="@android:windowExitAnimation">@anim/fr_left_out</item>
+        <item name="android:windowEnterAnimation">@anim/fr_left_in</item>
+        <item name="android:windowExitAnimation">@anim/fr_left_out</item>
     </style>
 
     <!--右边弹出动画-->
     <style name="FRAnimation.RightPopup" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/fr_right_in</item>
-        <item name="@android:windowExitAnimation">@anim/fr_right_out</item>
+        <item name="android:windowEnterAnimation">@anim/fr_right_in</item>
+        <item name="android:windowExitAnimation">@anim/fr_right_out</item>
     </style>
 
     <!--透明主题，淡入淡出缩放动画-->
