@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         // 奇虎360插件化方案RePlugin宿主Gradle
 //        classpath "com.qihoo360.replugin:replugin-host-gradle:$replugin_version"
         // 奇虎360插件化方案RePlugin插件Gradle

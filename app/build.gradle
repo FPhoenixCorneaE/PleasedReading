@@ -138,7 +138,7 @@ android {
         //按屏幕密度配置单独的APK
         density {
             // Enables building multiple APKs.
-            enable true
+            enable false
             reset()
             include "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
             // Specifies a list of compatible screen size settings. This property
@@ -151,7 +151,7 @@ android {
         //按ABI配置单独的APK
         abi {
             // Enables building multiple APKs.
-            enable true
+            enable false
             // By default all ABIs are included, so use reset() and include to specify that we only
             // want APKs for x86, armeabi-v7a, and mips.
             reset()
