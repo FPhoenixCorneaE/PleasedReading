@@ -243,18 +243,11 @@ android {
     aaptOptions {
         cruncherEnabled = true
     }
-
-    //依赖aar包
-    repositories {
-        flatDir {
-            dirs 'aar'
-        }
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation fileTree(dir: 'aar', include: ['*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
 
     implementation project(':framework')
 

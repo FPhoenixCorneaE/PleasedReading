@@ -15,6 +15,7 @@ import com.bumptech.glide.module.AppGlideModule;
 @GlideModule
 public class FRGlideModule extends AppGlideModule {
 
+    @Override
     public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
         builder.setMemoryCache(
                 new LruResourceCache(

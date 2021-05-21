@@ -159,13 +159,6 @@ android {
             }
         }
     }
-
-    //依赖aar包
-    repositories {
-        flatDir {
-            dirs 'aar'
-        }
-    }
 }
 
 //implementation只允许在依赖aar文件的module下调用该aar文件
@@ -179,6 +172,12 @@ dependencies {
      * support
      */
     implementation "androidx.multidex:multidex:$rootProject.ext.versionAndroidXMultidex"
+    api project(path: ':glide-image-view')
+    api project(path: ':image-viewer')
+    api project(path: ':video-player')
+    api project(path: ':cool-dialog')
+    api project(path: ':parallax-recycler-view')
+    api project(path: ':banner-layout')
     compileOnly "androidx.appcompat:appcompat:$rootProject.ext.versionAndroidXAppcompat"
     compileOnly "androidx.annotation:annotation:$rootProject.ext.versionAndroidXAnnotation"
     compileOnly "com.google.android.material:material:$rootProject.ext.versionAndroidXMaterial"
@@ -289,11 +288,6 @@ dependencies {
     api('com.scwang.smartrefresh:SmartRefreshHeader:' + rootProject.ext.versionSmartRefresh) {
         transitive true
     }
-
-    /**
-     * ijkplayer
-     */
-    implementation 'tv.danmaku.ijk.media:ijkplayer-java:' + rootProject.ext.versionIjkplayer
 
     /**
      * photoview

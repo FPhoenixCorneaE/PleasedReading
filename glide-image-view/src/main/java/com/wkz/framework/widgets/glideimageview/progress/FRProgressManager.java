@@ -47,7 +47,9 @@ public class FRProgressManager {
     private static final OnProgressListener LISTENER = new OnProgressListener() {
         @Override
         public void onProgress(String imageUrl, long bytesRead, long totalBytes, boolean isDone, GlideException exception) {
-            if (listeners == null || listeners.size() == 0) return;
+            if (listeners == null || listeners.size() == 0) {
+                return;
+            }
 
             for (int i = 0; i < listeners.size(); i++) {
                 WeakReference<OnProgressListener> listener = listeners.get(i);
@@ -62,7 +64,9 @@ public class FRProgressManager {
     };
 
     public static void addProgressListener(OnProgressListener progressListener) {
-        if (progressListener == null) return;
+        if (progressListener == null) {
+            return;
+        }
 
         if (findProgressListener(progressListener) == null) {
             listeners.add(new WeakReference<>(progressListener));
@@ -70,7 +74,9 @@ public class FRProgressManager {
     }
 
     public static void removeProgressListener(OnProgressListener progressListener) {
-        if (progressListener == null) return;
+        if (progressListener == null) {
+            return;
+        }
 
         WeakReference<OnProgressListener> listener = findProgressListener(progressListener);
         if (listener != null) {
@@ -79,8 +85,12 @@ public class FRProgressManager {
     }
 
     private static WeakReference<OnProgressListener> findProgressListener(OnProgressListener listener) {
-        if (listener == null) return null;
-        if (listeners == null || listeners.size() == 0) return null;
+        if (listener == null) {
+            return null;
+        }
+        if (listeners == null || listeners.size() == 0) {
+            return null;
+        }
 
         for (int i = 0; i < listeners.size(); i++) {
             WeakReference<OnProgressListener> progressListener = listeners.get(i);

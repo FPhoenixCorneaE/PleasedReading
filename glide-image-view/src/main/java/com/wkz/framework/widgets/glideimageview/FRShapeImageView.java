@@ -84,7 +84,9 @@ public class FRShapeImageView extends ImageView {
             radiusBottomLeft = array.getDimensionPixelOffset(R.styleable.FRShapeImageView_fr_siv_radius_bottom_left, DEFAULT_RECTANGLE_RADIUS);
             radiusBottomRight = array.getDimensionPixelOffset(R.styleable.FRShapeImageView_fr_siv_radius_bottom_right, DEFAULT_RECTANGLE_RADIUS);
             pressedAlpha = array.getFloat(R.styleable.FRShapeImageView_fr_siv_pressed_alpha, pressedAlpha);
-            if (pressedAlpha > 1) pressedAlpha = 1;
+            if (pressedAlpha > 1) {
+                pressedAlpha = 1;
+            }
             pressedColor = array.getColor(R.styleable.FRShapeImageView_fr_siv_pressed_color, pressedColor);
             shapeType = array.getInteger(R.styleable.FRShapeImageView_fr_siv_shape_type, shapeType);
             array.recycle();
